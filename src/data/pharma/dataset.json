@@ -1,0 +1,1656 @@
+{
+ "generated": "2026-10-20",
+ "units": "millions of reporting currency unless stated",
+ "companies": {
+  "novartis": {
+   "name": "Novartis",
+   "entity": "Novartis AG",
+   "cik": "0001114448",
+   "currency": "USD",
+   "standard": "IFRS",
+   "form": "20-F",
+   "fiscalYearEnd": "31 Dec",
+   "notes": [
+    "2023 includes a $5,860m gain on the Sandoz distribution inside total net income; this dataset uses continuing operations so years are comparable.",
+    "2023 operating cash flow is shown for continuing operations ($14,220m); the total including discontinued operations is $14,458m.",
+    "Revenue is defined as net sales plus other revenues, matching the way AstraZeneca reports total revenue."
+   ],
+   "years": {
+    "2023": {
+     "revenue": {
+      "value": 46660,
+      "unit": "USD",
+      "tag": "RevenueFromSaleOfGoods + OtherRevenue",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false,
+      "components": [
+       {
+        "tag": "RevenueFromSaleOfGoods",
+        "value": 45440
+       },
+       {
+        "tag": "OtherRevenue",
+        "value": 1220
+       }
+      ]
+     },
+     "operating_profit": {
+      "value": 9769,
+      "unit": "USD",
+      "tag": "ProfitLossFromOperatingActivities",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "pretax_profit": {
+      "value": 9123,
+      "unit": "USD",
+      "tag": "ProfitLossBeforeTax",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "income_tax": {
+      "value": 551,
+      "unit": "USD",
+      "tag": "IncomeTaxExpenseContinuingOperations",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "profit_continuing": {
+      "value": 8572,
+      "unit": "USD",
+      "tag": "ProfitLossFromContinuingOperations",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "nci_profit": {
+      "value": 4,
+      "unit": "USD",
+      "tag": "ProfitLossAttributableToNoncontrollingInterests",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "rnd": {
+      "value": 11371,
+      "unit": "USD",
+      "tag": "ResearchAndDevelopmentExpense",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "cfo": {
+      "value": 14220,
+      "unit": "USD",
+      "tag": "CashFlowsFromUsedInOperatingActivitiesContinuingOperations",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_ppe": {
+      "value": 1060,
+      "unit": "USD",
+      "tag": "PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_intangibles": {
+      "value": 1693,
+      "unit": "USD",
+      "tag": "PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "cash": {
+      "value": 13393,
+      "unit": "USD",
+      "tag": "CashAndCashEquivalents",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "liquid_investments": {
+      "value": 1035,
+      "unit": "USD",
+      "tag": "OtherCurrentFinancialAssets",
+      "accn": "0001370368-25-000004",
+      "filed": "2025-01-31",
+      "form": "20-F",
+      "restated": false
+     },
+     "debt_financial": {
+      "value": 24611,
+      "unit": "USD",
+      "tag": "OtherNoncurrentFinancialLiabilities + OtherCurrentFinancialLiabilities",
+      "accn": "0001370368-25-000004",
+      "filed": "2025-01-31",
+      "form": "20-F",
+      "restated": false,
+      "components": [
+       {
+        "tag": "OtherNoncurrentFinancialLiabilities",
+        "value": 18436
+       },
+       {
+        "tag": "OtherCurrentFinancialLiabilities",
+        "value": 6175
+       }
+      ]
+     },
+     "lease_liabilities": {
+      "value": 1828,
+      "unit": "USD",
+      "tag": "LeaseLiabilities",
+      "accn": "0001370368-25-000004",
+      "filed": "2025-01-31",
+      "form": "20-F",
+      "restated": false
+     },
+     "nci_book": {
+      "value": 83,
+      "unit": "USD",
+      "tag": "NoncontrollingInterests",
+      "accn": "0001370368-25-000004",
+      "filed": "2025-01-31",
+      "form": "20-F",
+      "restated": false
+     },
+     "equity_total": {
+      "value": 46750,
+      "unit": "USD",
+      "tag": "Equity",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "shares_outstanding_m": {
+      "value": 2044.033986,
+      "unit": "shares",
+      "tag": "dei:EntityCommonStockSharesOutstanding",
+      "accn": "0001370368-24-000004",
+      "filed": "2024-01-31",
+      "form": "20-F",
+      "restated": false
+     }
+    },
+    "2024": {
+     "revenue": {
+      "value": 51722,
+      "unit": "USD",
+      "tag": "RevenueFromSaleOfGoods + OtherRevenue",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false,
+      "components": [
+       {
+        "tag": "RevenueFromSaleOfGoods",
+        "value": 50317
+       },
+       {
+        "tag": "OtherRevenue",
+        "value": 1405
+       }
+      ]
+     },
+     "operating_profit": {
+      "value": 14544,
+      "unit": "USD",
+      "tag": "ProfitLossFromOperatingActivities",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "pretax_profit": {
+      "value": 13640,
+      "unit": "USD",
+      "tag": "ProfitLossBeforeTax",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "income_tax": {
+      "value": 1701,
+      "unit": "USD",
+      "tag": "IncomeTaxExpenseContinuingOperations",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "profit_continuing": {
+      "value": 11939,
+      "unit": "USD",
+      "tag": "ProfitLossFromContinuingOperations",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "nci_profit": {
+      "value": -2,
+      "unit": "USD",
+      "tag": "ProfitLossAttributableToNoncontrollingInterests",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "rnd": {
+      "value": 10022,
+      "unit": "USD",
+      "tag": "ResearchAndDevelopmentExpense",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "cfo": {
+      "value": 17619,
+      "unit": "USD",
+      "tag": "CashFlowsFromUsedInOperatingActivitiesContinuingOperations",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_ppe": {
+      "value": 1366,
+      "unit": "USD",
+      "tag": "PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_intangibles": {
+      "value": 2448,
+      "unit": "USD",
+      "tag": "PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "cash": {
+      "value": 11459,
+      "unit": "USD",
+      "tag": "CashAndCashEquivalents",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "liquid_investments": {
+      "value": 1998,
+      "unit": "USD",
+      "tag": "OtherCurrentFinancialAssets",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "debt_financial": {
+      "value": 29598,
+      "unit": "USD",
+      "tag": "OtherNoncurrentFinancialLiabilities + OtherCurrentFinancialLiabilities",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false,
+      "components": [
+       {
+        "tag": "OtherNoncurrentFinancialLiabilities",
+        "value": 21366
+       },
+       {
+        "tag": "OtherCurrentFinancialLiabilities",
+        "value": 8232
+       }
+      ]
+     },
+     "lease_liabilities": {
+      "value": 1803,
+      "unit": "USD",
+      "tag": "LeaseLiabilities",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "nci_book": {
+      "value": 80,
+      "unit": "USD",
+      "tag": "NoncontrollingInterests",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "equity_total": {
+      "value": 44126,
+      "unit": "USD",
+      "tag": "Equity",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "shares_outstanding_m": {
+      "value": 1975.089248,
+      "unit": "shares",
+      "tag": "dei:EntityCommonStockSharesOutstanding",
+      "accn": "0001370368-25-000004",
+      "filed": "2025-01-31",
+      "form": "20-F",
+      "restated": false
+     }
+    },
+    "2025": {
+     "revenue": {
+      "value": 56674,
+      "unit": "USD",
+      "tag": "RevenueFromSaleOfGoods + OtherRevenue",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false,
+      "components": [
+       {
+        "tag": "RevenueFromSaleOfGoods",
+        "value": 54532
+       },
+       {
+        "tag": "OtherRevenue",
+        "value": 2142
+       }
+      ]
+     },
+     "operating_profit": {
+      "value": 17644,
+      "unit": "USD",
+      "tag": "ProfitLossFromOperatingActivities",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "pretax_profit": {
+      "value": 16352,
+      "unit": "USD",
+      "tag": "ProfitLossBeforeTax",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "income_tax": {
+      "value": 2385,
+      "unit": "USD",
+      "tag": "IncomeTaxExpenseContinuingOperations",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "profit_continuing": {
+      "value": 13967,
+      "unit": "USD",
+      "tag": "ProfitLossFromContinuingOperations",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "nci_profit": {
+      "value": -17,
+      "unit": "USD",
+      "tag": "ProfitLossAttributableToNoncontrollingInterests",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "rnd": {
+      "value": 11200,
+      "unit": "USD",
+      "tag": "ResearchAndDevelopmentExpense",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "cfo": {
+      "value": 19144,
+      "unit": "USD",
+      "tag": "CashFlowsFromUsedInOperatingActivitiesContinuingOperations",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_ppe": {
+      "value": 1548,
+      "unit": "USD",
+      "tag": "PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_intangibles": {
+      "value": 2352,
+      "unit": "USD",
+      "tag": "PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "cash": {
+      "value": 11435,
+      "unit": "USD",
+      "tag": "CashAndCashEquivalents",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "liquid_investments": {
+      "value": 155,
+      "unit": "USD",
+      "tag": "OtherCurrentFinancialAssets",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "debt_financial": {
+      "value": 33537,
+      "unit": "USD",
+      "tag": "OtherNoncurrentFinancialLiabilities + OtherCurrentFinancialLiabilities",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false,
+      "components": [
+       {
+        "tag": "OtherNoncurrentFinancialLiabilities",
+        "value": 27935
+       },
+       {
+        "tag": "OtherCurrentFinancialLiabilities",
+        "value": 5602
+       }
+      ]
+     },
+     "lease_liabilities": {
+      "value": 1920,
+      "unit": "USD",
+      "tag": "LeaseLiabilities",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "nci_book": {
+      "value": 419,
+      "unit": "USD",
+      "tag": "NoncontrollingInterests",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "equity_total": {
+      "value": 46549,
+      "unit": "USD",
+      "tag": "Equity",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     },
+     "shares_outstanding_m": {
+      "value": 1908.151679,
+      "unit": "shares",
+      "tag": "dei:EntityCommonStockSharesOutstanding",
+      "accn": "0001114448-26-000004",
+      "filed": "2026-02-04",
+      "form": "20-F",
+      "restated": false
+     }
+    }
+   }
+  },
+  "astrazeneca": {
+   "name": "AstraZeneca",
+   "entity": "ASTRAZENECA PLC",
+   "cik": "0000901832",
+   "currency": "USD",
+   "standard": "IFRS",
+   "form": "20-F",
+   "fiscalYearEnd": "31 Dec",
+   "notes": [
+    "Revenue is Total Revenue as presented (product sales, alliance revenue and collaboration revenue).",
+    "Borrowings as tagged include lease liabilities; financial debt is derived as borrowings minus lease liabilities and was checked to the balance sheet.",
+    "Share count is derived from share capital ($388m) divided by the $0.25 nominal value; it is not a tagged cover-page figure."
+   ],
+   "years": {
+    "2023": {
+     "revenue": {
+      "value": 45811,
+      "unit": "USD",
+      "tag": "Revenue",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "operating_profit": {
+      "value": 8193,
+      "unit": "USD",
+      "tag": "ProfitLossFromOperatingActivities",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "pretax_profit": {
+      "value": 6899,
+      "unit": "USD",
+      "tag": "ProfitLossBeforeTax",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "income_tax": {
+      "value": 938,
+      "unit": "USD",
+      "tag": "IncomeTaxExpenseContinuingOperations",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "profit_continuing": {
+      "value": 5961,
+      "unit": "USD",
+      "tag": "ProfitLoss",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "nci_profit": {
+      "value": 6,
+      "unit": "USD",
+      "tag": "ProfitLossAttributableToNoncontrollingInterests",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "rnd": {
+      "value": 10935,
+      "unit": "USD",
+      "tag": "ResearchAndDevelopmentExpense",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "cfo": {
+      "value": 10345,
+      "unit": "USD",
+      "tag": "CashFlowsFromUsedInOperatingActivities",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_ppe": {
+      "value": 1361,
+      "unit": "USD",
+      "tag": "PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_intangibles": {
+      "value": 2417,
+      "unit": "USD",
+      "tag": "PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "cash": {
+      "value": 5840,
+      "unit": "USD",
+      "tag": "CashAndCashEquivalents",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "lease_liabilities": {
+      "value": 1128,
+      "unit": "USD",
+      "tag": "LeaseLiabilities",
+      "accn": "0001104659-25-014750",
+      "filed": "2025-02-18",
+      "form": "20-F",
+      "restated": false
+     },
+     "borrowings_incl_leases": {
+      "value": 28622,
+      "unit": "USD",
+      "tag": "Borrowings",
+      "accn": "0001104659-25-014750",
+      "filed": "2025-02-18",
+      "form": "20-F",
+      "restated": false
+     },
+     "nci_book": {
+      "value": 23,
+      "unit": "USD",
+      "tag": "NoncontrollingInterests",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "equity_total": {
+      "value": 39166,
+      "unit": "USD",
+      "tag": "Equity",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "depreciation_ppe": {
+      "value": 733,
+      "unit": "USD",
+      "tag": "DepreciationPropertyPlantAndEquipment",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "depreciation_rou": {
+      "value": 275,
+      "unit": "USD",
+      "tag": "DepreciationRightofuseAssets",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "amortisation_intangibles": {
+      "value": 3926,
+      "unit": "USD",
+      "tag": "AmortisationIntangibleAssetsOtherThanGoodwill",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "pension_liability": {
+      "value": 1520,
+      "unit": "USD",
+      "tag": "NoncurrentRecognisedLiabilitiesDefinedBenefitPlan",
+      "accn": "0001104659-25-014750",
+      "filed": "2025-02-18",
+      "form": "20-F",
+      "restated": false
+     },
+     "equity_method_investments": {
+      "value": 147,
+      "unit": "USD",
+      "tag": "InvestmentAccountedForUsingEquityMethod",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "debt_financial": {
+      "value": 27494,
+      "unit": "USD",
+      "tag": "derived",
+      "derived": true
+     },
+     "shares_outstanding_m": {
+      "value": 1552,
+      "unit": "shares (m)",
+      "tag": "IssuedCapital / 0.25 nominal",
+      "accn": "0001104659-25-014750",
+      "filed": "2025-02-18",
+      "form": "20-F",
+      "derived": true
+     }
+    },
+    "2024": {
+     "revenue": {
+      "value": 54073,
+      "unit": "USD",
+      "tag": "Revenue",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "operating_profit": {
+      "value": 10003,
+      "unit": "USD",
+      "tag": "ProfitLossFromOperatingActivities",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "pretax_profit": {
+      "value": 8691,
+      "unit": "USD",
+      "tag": "ProfitLossBeforeTax",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "income_tax": {
+      "value": 1650,
+      "unit": "USD",
+      "tag": "IncomeTaxExpenseContinuingOperations",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "profit_continuing": {
+      "value": 7041,
+      "unit": "USD",
+      "tag": "ProfitLoss",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "nci_profit": {
+      "value": 6,
+      "unit": "USD",
+      "tag": "ProfitLossAttributableToNoncontrollingInterests",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "rnd": {
+      "value": 13583,
+      "unit": "USD",
+      "tag": "ResearchAndDevelopmentExpense",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "cfo": {
+      "value": 11861,
+      "unit": "USD",
+      "tag": "CashFlowsFromUsedInOperatingActivities",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_ppe": {
+      "value": 1924,
+      "unit": "USD",
+      "tag": "PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_intangibles": {
+      "value": 2662,
+      "unit": "USD",
+      "tag": "PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "cash": {
+      "value": 5488,
+      "unit": "USD",
+      "tag": "CashAndCashEquivalents",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "lease_liabilities": {
+      "value": 1452,
+      "unit": "USD",
+      "tag": "LeaseLiabilities",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "borrowings_incl_leases": {
+      "value": 30295,
+      "unit": "USD",
+      "tag": "Borrowings",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "nci_book": {
+      "value": 85,
+      "unit": "USD",
+      "tag": "NoncontrollingInterests",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "equity_total": {
+      "value": 40871,
+      "unit": "USD",
+      "tag": "Equity",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "depreciation_ppe": {
+      "value": 799,
+      "unit": "USD",
+      "tag": "DepreciationPropertyPlantAndEquipment",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "depreciation_rou": {
+      "value": 343,
+      "unit": "USD",
+      "tag": "DepreciationRightofuseAssets",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "amortisation_intangibles": {
+      "value": 3923,
+      "unit": "USD",
+      "tag": "AmortisationIntangibleAssetsOtherThanGoodwill",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "pension_liability": {
+      "value": 1330,
+      "unit": "USD",
+      "tag": "NoncurrentRecognisedLiabilitiesDefinedBenefitPlan",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "equity_method_investments": {
+      "value": 268,
+      "unit": "USD",
+      "tag": "InvestmentAccountedForUsingEquityMethod",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "debt_financial": {
+      "value": 28843,
+      "unit": "USD",
+      "tag": "derived",
+      "derived": true
+     },
+     "shares_outstanding_m": {
+      "value": 1552,
+      "unit": "shares (m)",
+      "tag": "IssuedCapital / 0.25 nominal",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "derived": true
+     }
+    },
+    "2025": {
+     "revenue": {
+      "value": 58739,
+      "unit": "USD",
+      "tag": "Revenue",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "operating_profit": {
+      "value": 13743,
+      "unit": "USD",
+      "tag": "ProfitLossFromOperatingActivities",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "pretax_profit": {
+      "value": 12402,
+      "unit": "USD",
+      "tag": "ProfitLossBeforeTax",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "income_tax": {
+      "value": 2169,
+      "unit": "USD",
+      "tag": "IncomeTaxExpenseContinuingOperations",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "profit_continuing": {
+      "value": 10233,
+      "unit": "USD",
+      "tag": "ProfitLoss",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "nci_profit": {
+      "value": 8,
+      "unit": "USD",
+      "tag": "ProfitLossAttributableToNoncontrollingInterests",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "rnd": {
+      "value": 14232,
+      "unit": "USD",
+      "tag": "ResearchAndDevelopmentExpense",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "cfo": {
+      "value": 14575,
+      "unit": "USD",
+      "tag": "CashFlowsFromUsedInOperatingActivities",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_ppe": {
+      "value": 2810,
+      "unit": "USD",
+      "tag": "PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_intangibles": {
+      "value": 3095,
+      "unit": "USD",
+      "tag": "PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "cash": {
+      "value": 5711,
+      "unit": "USD",
+      "tag": "CashAndCashEquivalents",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "lease_liabilities": {
+      "value": 1803,
+      "unit": "USD",
+      "tag": "LeaseLiabilities",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "borrowings_incl_leases": {
+      "value": 29622,
+      "unit": "USD",
+      "tag": "Borrowings",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "nci_book": {
+      "value": 52,
+      "unit": "USD",
+      "tag": "NoncontrollingInterests",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "equity_total": {
+      "value": 48719,
+      "unit": "USD",
+      "tag": "Equity",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "depreciation_ppe": {
+      "value": 879,
+      "unit": "USD",
+      "tag": "DepreciationPropertyPlantAndEquipment",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "depreciation_rou": {
+      "value": 404,
+      "unit": "USD",
+      "tag": "DepreciationRightofuseAssets",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "amortisation_intangibles": {
+      "value": 4207,
+      "unit": "USD",
+      "tag": "AmortisationIntangibleAssetsOtherThanGoodwill",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "pension_liability": {
+      "value": 1105,
+      "unit": "USD",
+      "tag": "NoncurrentRecognisedLiabilitiesDefinedBenefitPlan",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "equity_method_investments": {
+      "value": 302,
+      "unit": "USD",
+      "tag": "InvestmentAccountedForUsingEquityMethod",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "restated": false
+     },
+     "debt_financial": {
+      "value": 27819,
+      "unit": "USD",
+      "tag": "derived",
+      "derived": true
+     },
+     "shares_outstanding_m": {
+      "value": 1550.907927,
+      "unit": "shares (m)",
+      "tag": "20-F cover page: ordinary shares outstanding",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "source": "https://www.sec.gov/Archives/edgar/data/901832/000110465926019130/R1.htm"
+     },
+     "shares_derived_check_m": {
+      "value": 1552,
+      "unit": "shares (m)",
+      "tag": "IssuedCapital / 0.25 nominal",
+      "accn": "0001104659-26-019130",
+      "filed": "2026-02-24",
+      "form": "20-F",
+      "derived": true
+     }
+    }
+   }
+  },
+  "gsk": {
+   "name": "GSK",
+   "entity": "GSK plc",
+   "cik": "0001131399",
+   "currency": "GBP",
+   "standard": "IFRS",
+   "form": "20-F",
+   "fiscalYearEnd": "31 Dec",
+   "notes": [
+    "GSK presents no separate lease line on the balance sheet; borrowings are assumed to include lease liabilities. This was not separately confirmed in the notes (lease liabilities were £830m at 2025 year-end).",
+    "Non-controlling interests earn a large share of profit (£573m in 2025) while their book value is negative (£-421m), so book NCI understates their claim on value.",
+    "Reported in pounds sterling; translated to US dollars with ECB reference rates for cross-company comparison."
+   ],
+   "years": {
+    "2023": {
+     "revenue": {
+      "value": 30328,
+      "unit": "GBP",
+      "tag": "Revenue",
+      "accn": "0001131399-25-000007",
+      "filed": "2025-03-03",
+      "form": "20-F",
+      "restated": false
+     },
+     "operating_profit": {
+      "value": 6745,
+      "unit": "GBP",
+      "tag": "ProfitLossFromOperatingActivities",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "pretax_profit": {
+      "value": 6064,
+      "unit": "GBP",
+      "tag": "ProfitLossBeforeTax",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "income_tax": {
+      "value": 756,
+      "unit": "GBP",
+      "tag": "IncomeTaxExpenseContinuingOperations",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "profit_continuing": {
+      "value": 5308,
+      "unit": "GBP",
+      "tag": "ProfitLoss",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "nci_profit": {
+      "value": 380,
+      "unit": "GBP",
+      "tag": "ProfitLossAttributableToNoncontrollingInterests",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "rnd": {
+      "value": 6223,
+      "unit": "GBP",
+      "tag": "ResearchAndDevelopmentExpense",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "cfo": {
+      "value": 6768,
+      "unit": "GBP",
+      "tag": "CashFlowsFromUsedInOperatingActivities",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_ppe": {
+      "value": 1314,
+      "unit": "GBP",
+      "tag": "PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_intangibles": {
+      "value": 1030,
+      "unit": "GBP",
+      "tag": "PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "cash": {
+      "value": 2936,
+      "unit": "GBP",
+      "tag": "CashAndCashEquivalents",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "debt_financial": {
+      "value": 18018,
+      "unit": "GBP",
+      "tag": "ShorttermBorrowings + LongtermBorrowings",
+      "accn": "0001131399-25-000007",
+      "filed": "2025-03-03",
+      "form": "20-F",
+      "restated": false,
+      "components": [
+       {
+        "tag": "ShorttermBorrowings",
+        "value": 2813
+       },
+       {
+        "tag": "LongtermBorrowings",
+        "value": 15205
+       }
+      ]
+     },
+     "nci_book": {
+      "value": -552,
+      "unit": "GBP",
+      "tag": "NoncontrollingInterests",
+      "accn": "0001131399-25-000007",
+      "filed": "2025-03-03",
+      "form": "20-F",
+      "restated": false
+     },
+     "equity_total": {
+      "value": 12795,
+      "unit": "GBP",
+      "tag": "Equity",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "shares_outstanding_m": {
+      "value": 4312.145983,
+      "unit": "shares",
+      "tag": "dei:EntityCommonStockSharesOutstanding",
+      "accn": "0001131399-24-000007",
+      "filed": "2024-03-05",
+      "form": "20-F",
+      "restated": false
+     }
+    },
+    "2024": {
+     "revenue": {
+      "value": 31376,
+      "unit": "GBP",
+      "tag": "Revenue",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "operating_profit": {
+      "value": 4021,
+      "unit": "GBP",
+      "tag": "ProfitLossFromOperatingActivities",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "pretax_profit": {
+      "value": 3477,
+      "unit": "GBP",
+      "tag": "ProfitLossBeforeTax",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "income_tax": {
+      "value": 526,
+      "unit": "GBP",
+      "tag": "IncomeTaxExpenseContinuingOperations",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "profit_continuing": {
+      "value": 2951,
+      "unit": "GBP",
+      "tag": "ProfitLoss",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "nci_profit": {
+      "value": 376,
+      "unit": "GBP",
+      "tag": "ProfitLossAttributableToNoncontrollingInterests",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "rnd": {
+      "value": 6401,
+      "unit": "GBP",
+      "tag": "ResearchAndDevelopmentExpense",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "cfo": {
+      "value": 6554,
+      "unit": "GBP",
+      "tag": "CashFlowsFromUsedInOperatingActivities",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_ppe": {
+      "value": 1399,
+      "unit": "GBP",
+      "tag": "PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_intangibles": {
+      "value": 1583,
+      "unit": "GBP",
+      "tag": "PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "cash": {
+      "value": 3870,
+      "unit": "GBP",
+      "tag": "CashAndCashEquivalents",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "debt_financial": {
+      "value": 16986,
+      "unit": "GBP",
+      "tag": "ShorttermBorrowings + LongtermBorrowings",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false,
+      "components": [
+       {
+        "tag": "ShorttermBorrowings",
+        "value": 2349
+       },
+       {
+        "tag": "LongtermBorrowings",
+        "value": 14637
+       }
+      ]
+     },
+     "nci_book": {
+      "value": -585,
+      "unit": "GBP",
+      "tag": "NoncontrollingInterests",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "equity_total": {
+      "value": 13086,
+      "unit": "GBP",
+      "tag": "Equity",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "shares_outstanding_m": {
+      "value": 4314.303734,
+      "unit": "shares",
+      "tag": "dei:EntityCommonStockSharesOutstanding",
+      "accn": "0001131399-25-000007",
+      "filed": "2025-03-03",
+      "form": "20-F",
+      "restated": false
+     }
+    },
+    "2025": {
+     "revenue": {
+      "value": 32667,
+      "unit": "GBP",
+      "tag": "Revenue",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "operating_profit": {
+      "value": 7932,
+      "unit": "GBP",
+      "tag": "ProfitLossFromOperatingActivities",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "pretax_profit": {
+      "value": 7401,
+      "unit": "GBP",
+      "tag": "ProfitLossBeforeTax",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "income_tax": {
+      "value": 1112,
+      "unit": "GBP",
+      "tag": "IncomeTaxExpenseContinuingOperations",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "profit_continuing": {
+      "value": 6289,
+      "unit": "GBP",
+      "tag": "ProfitLoss",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "nci_profit": {
+      "value": 573,
+      "unit": "GBP",
+      "tag": "ProfitLossAttributableToNoncontrollingInterests",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "rnd": {
+      "value": 7525,
+      "unit": "GBP",
+      "tag": "ResearchAndDevelopmentExpense",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "cfo": {
+      "value": 7741,
+      "unit": "GBP",
+      "tag": "CashFlowsFromUsedInOperatingActivities",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_ppe": {
+      "value": 1348,
+      "unit": "GBP",
+      "tag": "PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "capex_intangibles": {
+      "value": 1637,
+      "unit": "GBP",
+      "tag": "PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "cash": {
+      "value": 3397,
+      "unit": "GBP",
+      "tag": "CashAndCashEquivalents",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "debt_financial": {
+      "value": 17720,
+      "unit": "GBP",
+      "tag": "ShorttermBorrowings + LongtermBorrowings",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false,
+      "components": [
+       {
+        "tag": "ShorttermBorrowings",
+        "value": 3012
+       },
+       {
+        "tag": "LongtermBorrowings",
+        "value": 14708
+       }
+      ]
+     },
+     "nci_book": {
+      "value": -421,
+      "unit": "GBP",
+      "tag": "NoncontrollingInterests",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "equity_total": {
+      "value": 15956,
+      "unit": "GBP",
+      "tag": "Equity",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     },
+     "shares_outstanding_m": {
+      "value": 4315.445026,
+      "unit": "shares",
+      "tag": "dei:EntityCommonStockSharesOutstanding",
+      "accn": "0001131399-26-000004",
+      "filed": "2026-03-06",
+      "form": "20-F",
+      "restated": false
+     }
+    }
+   }
+  }
+ },
+ "fx": {
+  "source": "European Central Bank euro foreign exchange reference rates (data-api.ecb.europa.eu, dataset EXR)",
+  "retrieved": "2026-10-20",
+  "usdPerEurAvg": {
+   "2023": 1.081268627451,
+   "2024": 1.08238046875,
+   "2025": 1.1299831372549
+  },
+  "usdPerEurEnd": {
+   "2023": 1.105,
+   "2024": 1.0389,
+   "2025": 1.175
+  },
+  "gbpPerEurAvg": {
+   "2023": 0.8697865098039,
+   "2024": 0.8466166015625,
+   "2025": 0.8567923137255
+  },
+  "gbpPerEurEnd": {
+   "2023": 0.86905,
+   "2024": 0.82918,
+   "2025": 0.8726
+  },
+  "usdPerGbpAvg": {
+   "2023": 1.2431425588501943,
+   "2024": 1.2784777274062176,
+   "2025": 1.3188530279193484
+  },
+  "usdPerGbpEnd": {
+   "2023": 1.2715033657442034,
+   "2024": 1.2529245760872185,
+   "2025": 1.3465505386202155
+  },
+  "method": "USD per GBP = (USD per EUR) / (GBP per EUR). Income-statement and cash-flow items use the annual average; balance-sheet items use the year-end rate."
+ },
+ "issues": []
+}

@@ -3,3 +3,6 @@ dist/
 .astro/
 # Local agent instructions point at private notes outside this repo; keep them local.
 CLAUDE.md
+
+# Raw SEC downloads are re-created by tools/pharma/fetch-sec.mjs
+data/pharma/raw/

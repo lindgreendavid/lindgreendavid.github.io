@@ -1,0 +1,31 @@
+{
+ "note": "Generated from src/lib/pharma/model.ts. The workbook's Checks sheet compares its own formulas with these values.",
+ "scenario": "Base",
+ "inputs": {
+  "taxRate": 0.18,
+  "daPct": 0.09,
+  "capexPct": 0.1,
+  "nwcPct": 0.01,
+  "targetMargin": 0.25,
+  "wacc": 0.075,
+  "terminalGrowth": 0.02,
+  "growth": [
+   0.07,
+   0.06,
+   0.05,
+   0.04,
+   0.035
+  ]
+ },
+ "enterpriseValue": 230118.33657630708,
+ "equityValue": 205352.33657630708,
+ "valuePerShare": 132.4078193175081,
+ "terminalShareOfEv": 0.7819785549656291,
+ "fcff": [
+  10966.35189,
+  11799.506790800002,
+  12573.414607110006,
+  13267.640967235204,
+  13929.993319083664
+ ]
+}
