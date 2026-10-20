@@ -1,0 +1,71 @@
+---
+import "@fontsource-variable/geist";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f6f7f4" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      // Set the theme before first paint: saved choice, else the system setting. Shortcut: without JS the page stays light.
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem("theme"); } catch (e) {}
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
+      const root = document.documentElement;
+      const sync = () => toggle?.setAttribute("aria-label", root.dataset.theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
+      sync();
+      toggle?.addEventListener("click", () => {
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        try { localStorage.setItem("theme", next); } catch {}
+        sync();
+      });
+    </script>
+    <script>
+      // Entrances: each marked block rises and fades in once, staggered. Content stays visible if this never runs.
+      const els = Array.from(document.querySelectorAll<HTMLElement>("[data-rv]"));
+      if ("IntersectionObserver" in window && els.length) {
+        els.forEach((el) => {
+          if (el.hasAttribute("data-stagger")) Array.from(el.children).forEach((c, i) => (c as HTMLElement).style.setProperty("--d", String(i)));
+        });
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add("in");
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: "0px 0px -12% 0px", threshold: 0.08 }
+        );
+        els.forEach((el) => io.observe(el));
+        document.documentElement.classList.add("reveal-ready");
+      }
+    </script>
+  </body>
+</html>

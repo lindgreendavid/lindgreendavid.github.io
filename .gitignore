@@ -1,0 +1,5 @@
+node_modules/
+dist/
+.astro/
+# Local agent instructions point at private notes outside this repo; keep them local.
+CLAUDE.md
