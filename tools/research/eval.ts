@@ -1,7 +1,7 @@
 // Runs the evaluation set through the real pipeline and writes src/data/research/eval-results.json.
 // Run: node tools/research/eval.ts [questions-file results-file]   (Node >= 22.18 strips the types)
 // Default: the development set. The held-out set is run with: node tools/research/eval.ts eval-heldout-questions.json eval-heldout-results.json
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync } from "node:fs";
 import { ask, MIN_COVERAGE, MIN_SCORE } from "../../src/lib/research/ask.ts";
 import { buildIndex } from "../../src/lib/research/search.ts";
 import type { Passage } from "../../src/lib/research/search.ts";
@@ -9,7 +9,7 @@ import type { Dataset } from "../../src/lib/pharma/model.ts";
 
 const keys = ["novartis", "astrazeneca", "gsk"];
 const passages: Passage[] = keys.flatMap((c) =>
-  (JSON.parse(readFileSync(`src/data/research/passages-${c}.json`, "utf8")) as [number, string, string, string][]).map(([id, section, anchor, text]) => ({ id, company: c, section, anchor, text })),
+  (JSON.parse(readFileSync(`public/research/passages-${c}.json`, "utf8")) as [number, string, string, string][]).map(([id, section, anchor, text]) => ({ id, company: c, section, anchor, text })),
 );
 const ix = buildIndex(passages);
 const ds = JSON.parse(readFileSync("src/data/pharma/dataset.json", "utf8")) as Dataset;
@@ -62,6 +62,9 @@ const summary = {
 };
 const out = { ran: new Date().toISOString().slice(0, 10), thresholds: { MIN_COVERAGE, MIN_SCORE }, passages: passages.length, summary, failures: rows.filter((r) => !r.pass), rows };
 const prev = existsSync(RFILE) ? JSON.parse(readFileSync(RFILE, "utf8")) : {};
-writeFileSync(RFILE, JSON.stringify({ ...out, firstRun: prev.firstRun ?? { ran: out.ran, summary, failures: out.failures.map((f) => `${f.id}: ${f.outcome}`) }, changesAfterFirstRun: prev.changesAfterFirstRun ?? [] }, null, 1));
+writeFileSync(RFILE, JSON.stringify({ ...out, firstRun: prev.firstRun ?? { ran: out.ran, summary, failures: out.failures.map((f) => `${f.id}: ${f.outcome}`) }, changesAfterFirstRun: prev.changesAfterFirstRun ?? [], notes: prev.notes ?? [] }, null, 1));
+// The page offers the question and result files as downloads.
+mkdirSync("public/downloads/research-assistant", { recursive: true });
+for (const f of [QFILE, RFILE]) copyFileSync(f, `public/downloads/research-assistant/${f.split("/").pop()}`);
 console.log(JSON.stringify(summary, null, 1));
 for (const f of out.failures) console.log(`FAIL ${f.id} [${f.type}] ${f.outcome} | ${f.q} | ${f.detail}`);

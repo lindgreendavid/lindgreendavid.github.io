@@ -1,0 +1,162 @@
+---
+import Base from "../../layouts/Base.astro";
+import ProjectHeader from "../../components/ProjectHeader.astro";
+import "../../styles/projects.css";
+import ds from "../../data/pharma/dataset.json";
+import filings from "../../data/research/filings.json";
+import dev from "../../data/research/eval-results.json";
+import held from "../../data/research/eval-heldout-results.json";
+
+const chips = ["In which jurisdiction is AstraZeneca incorporated?", "Which company had the highest operating margin in 2025?", "What was GSK's net debt including leases at the end of 2025?", "What were Kisqali sales in 2025?", "Should I buy GSK shares?"];
+const rows: [string, string, string, string][] = [
+  ["Lookup: answer is in the text", `${dev.summary.lookup.n}`, `${dev.firstRun.summary.lookup.hitAt1} · ${dev.summary.lookup.hitAt1} · ${dev.summary.lookup.hitAt5}`, `${held.summary.lookup.hitAt1} · ${held.summary.lookup.hitAt5} (n=${held.summary.lookup.n})`],
+  ["Calculation and comparison", `${dev.summary.calculation.n + dev.summary.comparison.n}`, `${dev.firstRun.summary.calculation.exact}, ${dev.firstRun.summary.comparison.correct} · ${dev.summary.calculation.exact}, ${dev.summary.comparison.correct}`, `${held.summary.calculation.exact} + ${held.summary.comparison.correct} (n=${held.summary.calculation.n + held.summary.comparison.n})`],
+  ["Unanswerable: should refuse", `${dev.summary.unanswerable.n}`, `${dev.firstRun.summary.unanswerable.correctlyRefused} · ${dev.summary.unanswerable.correctlyRefused}`, `${held.summary.unanswerable.correctlyRefused} (n=${held.summary.unanswerable.n})`],
+  ["All questions", `${dev.summary.questions}`, `${dev.firstRun.summary.overallPass} · ${dev.summary.overallPass}`, `${held.summary.overallPass}`],
+];
+const fmt = (n: number) => n.toLocaleString("en-US");
+---
+<Base title="Annual-Report Research Assistant | David Lindgreen" description="Ask questions across the FY2025 Form 20-F reports of Novartis, AstraZeneca and GSK. Answers are source passages with links, deterministic calculations or an explicit refusal. First release, evaluated on 67 hand-written questions.">
+  <ProjectHeader current="projects" />
+  <main id="main">
+    <section class="wrap proj-hero">
+      <h1>Annual-Report Research Assistant</h1>
+      <p class="proj-lede">Ask a question about the FY2025 annual reports of Novartis, AstraZeneca and GSK. You get the source passage with a link into the filing, a calculation shown step by step, or a clear refusal. It does not write answers.</p>
+      <p class="status">First release · in development · evaluated, not independently reviewed</p>
+      <div class="brief">
+        <div><h2>Who it is for</h2><p>An analyst who needs to find what a filing says, quickly, and to check it against the original.</p></div>
+        <div><h2>The problem</h2><p>Annual reports run to hundreds of pages. Search finds words, not the right passage, and chat tools can answer fluently without a source.</p></div>
+        <div><h2>What it supports</h2><p>Locating evidence and checking figures, with every answer traceable. It is not a buy or sell signal.</p></div>
+      </div>
+      <nav class="jump" aria-label="On this page"><a href="#ask">Ask</a><a href="#how">How it works</a><a href="#evaluation">Evaluation</a><a href="#documents">Documents</a><a href="#limits">Limits</a></nav>
+    </section>
+
+    <section class="wrap" aria-label="Disclosures">
+      <p class="callout"><strong>Public documents only.</strong> The corpus is three Forms 20-F from the SEC. No Sanofi or other employer material is used. This was built with AI assistance and the author is responsible for checking it. It is an educational tool, not investment advice. There is no language model in this version: it is a keyword search plus a calculator.</p>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="ask" aria-labelledby="ask-h">
+        <div class="section-head"><h2 id="ask-h">Ask the reports</h2><p>Try a lookup, a calculation, a comparison, or something the reports cannot answer.</p></div>
+        <div class="pane">
+          <form id="ask-form" class="ask-form" action="#" aria-label="Ask a question">
+            <label for="ask-q">Your question</label>
+            <div class="ask-row">
+              <input id="ask-q" name="q" type="text" autocomplete="off" maxlength="300" placeholder="e.g. In which jurisdiction is AstraZeneca incorporated?" required />
+              <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+          </form>
+          <p class="chips-label">Examples</p>
+          <div class="chips">{chips.map((c) => <button type="button" class="chip" data-q={c}>{c}</button>)}</div>
+          <p id="ask-status" class="muted" role="status"></p>
+          <div id="ask-out" aria-live="polite"></div>
+          <noscript><p class="callout">This page needs JavaScript to search. The evaluation results below do not.</p></noscript>
+        </div>
+      </section>
+    </div>
+
+    <section class="wrap section" id="how" aria-labelledby="how-h">
+      <div class="section-head"><h2 id="how-h">How it works</h2><p>Three separate stages. Each can be tested on its own, and none of them generates text.</p></div>
+      <div class="cols-3">
+        <div class="pane prose"><h3 style="margin-top:0">1. Scope guard</h3><p>Refuses what annual reports cannot support: investment advice, live prices, forecasts and companies that are not in the corpus. A refusal says why.</p></div>
+        <div class="pane prose"><h3 style="margin-top:0">2. Calculation</h3><p>Numerical questions (margins, cash flow, net debt, tax rate, growth, comparisons) are answered by code from the reconciled dataset of the <a href="/projects/pharma-valuation/">valuation project</a>, with the formula shown. Questions about a product or region are not guessed at; they go to search.</p></div>
+        <div class="pane prose"><h3 style="margin-top:0">3. Retrieval</h3><p>Everything else is a keyword search (BM25) over {fmt(Object.values(filings).reduce((a, f) => a + f.passages, 0))} passages cut from the filings. The top passages are shown as quoted, with a link to that place in the filing. If the best passage lacks the question's key terms, it refuses and shows the nearest passages so you can judge.</p></div>
+      </div>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="evaluation" aria-labelledby="eval-h">
+        <div class="section-head"><h2 id="eval-h">Evaluation</h2><p>{dev.summary.questions + held.summary.questions} hand-written questions in two sets. Failures are listed, not hidden.</p></div>
+        <div class="pane">
+          <div class="tbl-wrap" role="region" aria-label="Evaluation results, scrolls horizontally on small screens" tabindex="0">
+            <table class="tbl">
+              <caption class="sr">Evaluation results by question type</caption>
+              <thead><tr><th scope="col">Question type</th><th scope="col">Dev questions</th><th scope="col">Development set: first run · after fixes{" "}(lookup: top-1 · top-5)</th><th scope="col">Held-out set (run once on the frozen system)</th></tr></thead>
+              <tbody>{rows.map((r) => <tr><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>)}</tbody>
+            </table>
+          </div>
+          <div class="prose">
+            <h3>How to read this</h3>
+            <ul>
+              <li><strong>Development set:</strong> used while building, so the "after fixes" column is optimistic. The first-run column is the honest baseline before any change.</li>
+              <li><strong>Held-out set:</strong> written after the system was frozen and run once. Its lookup questions were written from randomly sampled passages, so their wording is close to the filing text; real questions will probably do worse.</li>
+              <li>Lookup passes only if the passage containing the gold evidence is the top result ("top-1") or among the top five ("top-5"). Calculations pass only on an exact match with a value computed separately from the filing figures. Unanswerable questions pass only if the tool refuses.</li>
+              <li>The questions and gold answers were written and checked with AI assistance. The author's own check against the filings is pending.</li>
+            </ul>
+            <h3>Known failures</h3>
+            <ul>
+              {dev.failures.map((f) => <li><strong>{f.id}</strong> ({f.outcome}): {f.q}</li>)}
+              {held.failures.map((f) => <li><strong>{f.id}</strong> ({f.outcome}): {f.q}</li>)}
+            </ul>
+            <p class="muted">Most lookup misses are keyword search limits: the passage uses different words from the question. Two unanswerable questions ("capital of Switzerland", "good company to work for") are refused by no rule because their words do appear in the reports.</p>
+            <h3>What changed after the first run</h3>
+            <ul>{dev.changesAfterFirstRun.map((c) => <li>{c}</li>)}</ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="wrap section" id="documents" aria-labelledby="docs-h">
+      <div class="section-head"><h2 id="docs-h">Documents and handling</h2><p>Retrieved {ds.generated}. Passages are cut from the filing HTML; page numbers are not used because the SEC HTML has no reliable ones. Links jump to the nearest element in the filing.</p></div>
+      <div class="pane">
+        <div class="tbl-wrap" role="region" aria-label="Documents searched" tabindex="0">
+          <table class="tbl">
+            <caption class="sr">Documents searched</caption>
+            <thead><tr><th scope="col">Company</th><th scope="col">Form 20-F filed</th><th scope="col">Passages</th><th scope="col">Characters</th><th scope="col">Source</th></tr></thead>
+            <tbody>{Object.entries(filings).map(([k, f]) => <tr><th scope="row">{f.name}</th><td>{f.filed}</td><td>{fmt(f.passages)}</td><td>{fmt(f.chars)}</td><td><a href={f.url} rel="noopener noreferrer">{f.accession}</a></td></tr>)}</tbody>
+          </table>
+        </div>
+        <div class="prose">
+          <h3>Documents are untrusted input</h3>
+          <p>Filing text can contain anything. It is displayed only as plain text, never as HTML or as instructions, and no language model reads it in this version. If a language model is added later, retrieved text will be treated as data, not as commands.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="limits" aria-labelledby="lim-h">
+        <div class="section-head"><h2 id="lim-h">Limits and next steps</h2></div>
+        <div class="cols-2">
+          <div class="pane prose">
+            <h3 style="margin-top:0">Limits</h3>
+            <ul>
+              <li>Keyword search: it misses paraphrases and can rank a related passage above the right one.</li>
+              <li>Only FY2025 Forms 20-F of three companies. Earlier years appear only where the 2025 report repeats them, and the calculator uses the reconciled FY2023 to FY2025 dataset.</li>
+              <li>Tables are flattened to text rows; complex tables can lose structure.</li>
+              <li>Passage boundaries come from font and bold cues in the HTML, so some section labels are imperfect.</li>
+              <li>Small evaluation sets; not independently reviewed.</li>
+            </ul>
+          </div>
+          <div class="pane prose">
+            <h3 style="margin-top:0">Next steps</h3>
+            <ul>
+              <li>Add semantic retrieval and compare it with this baseline on the same questions.</li>
+              <li>Only then consider a language model, with citations required and the same refusal tests.</li>
+              <li>Have another person write and answer a new question set.</li>
+              <li>Extend to the FY2024 filings.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="wrap section" id="downloads" aria-labelledby="dl-h">
+      <div class="section-head"><h2 id="dl-h">Downloads</h2></div>
+      <ul class="downloads">
+        <li><a href="/downloads/research-assistant/eval-questions.json" download>Development questions with gold answers (json)</a></li>
+        <li><a href="/downloads/research-assistant/eval-results.json" download>Development results (json)</a></li>
+        <li><a href="/downloads/research-assistant/eval-heldout-questions.json" download>Held-out questions with gold answers (json)</a></li>
+        <li><a href="/downloads/research-assistant/eval-heldout-results.json" download>Held-out results (json)</a></li>
+      </ul>
+    </section>
+
+    <footer class="wrap proj-foot"><p><a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p></footer>
+  </main>
+
+  <script>
+    import ds from "../../data/pharma/dataset.json";
+    import filings from "../../data/research/filings.json";
+    import { initResearch } from "../../lib/research/ui.ts";
+    initResearch(ds as never, filings as never);
+  </script>
+</Base>

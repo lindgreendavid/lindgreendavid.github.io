@@ -2,7 +2,7 @@
 import { readFileSync } from "node:fs";
 import { buildIndex, search, tokenize, idf } from "../../src/lib/research/search.ts";
 const keys = ["novartis", "astrazeneca", "gsk"];
-const passages = keys.flatMap((c) => (JSON.parse(readFileSync(`src/data/research/passages-${c}.json`, "utf8")) as [number, string, string, string][]).map(([id, section, anchor, text]) => ({ id, company: c, section, anchor, text })));
+const passages = keys.flatMap((c) => (JSON.parse(readFileSync(`public/research/passages-${c}.json`, "utf8")) as [number, string, string, string][]).map(([id, section, anchor, text]) => ({ id, company: c, section, anchor, text })));
 const ix = buildIndex(passages);
 const [q, company] = process.argv.slice(2);
 console.log([...new Set(tokenize(q))].map((t) => `${t}:${idf(ix, t).toFixed(1)}(df ${ix.df.get(t) ?? 0})`).join("  "));

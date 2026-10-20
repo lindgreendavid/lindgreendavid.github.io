@@ -2,7 +2,7 @@
 
 Each passage keeps: company, section path (nearest headings), the nearest element id in the filing (so a link can jump to
 that spot with `#id`), and text. Page numbers are not used: the SEC HTML has no reliable printed page numbers.
-Run: python -I tools/research/extract-passages.py
+Run: python -I tools/research/extract-passages.py   (writes public/research/passages-*.json and src/data/research/filings.json)
 """
 import json
 import re
@@ -14,6 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 RAW = ROOT / "data-raw"
 OUT = ROOT / "src" / "data" / "research"
+PUB = ROOT / "public" / "research"  # passages are fetched by the browser on first question
 
 FILINGS = {
     "novartis": {"name": "Novartis", "file": "novartis-20f-2025.htm", "cik": 1114448, "accn": "0001114448-26-000004", "doc": "nvs-20251231.htm", "filed": "2026-02-04"},
@@ -203,12 +204,13 @@ def passages_for(key, meta):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
+    PUB.mkdir(parents=True, exist_ok=True)
     meta_out = {}
     for key, meta in FILINGS.items():
         ps, body_size, nblocks = passages_for(key, meta)
         url = f"https://www.sec.gov/Archives/edgar/data/{meta['cik']}/{meta['accn'].replace('-', '')}/{meta['doc']}"
         rows = [[i, p["section"], p["anchor"] or "", p["text"]] for i, p in enumerate(ps)]
-        (OUT / f"passages-{key}.json").write_text(json.dumps(rows, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+        (PUB / f"passages-{key}.json").write_text(json.dumps(rows, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
         meta_out[key] = {"name": meta["name"], "accession": meta["accn"], "filed": meta["filed"], "url": url, "passages": len(ps), "chars": sum(len(p["text"]) for p in ps), "bodyFontPt": body_size}
         print(key, "blocks", nblocks, "passages", len(ps), "chars", meta_out[key]["chars"], "body pt", body_size, file=sys.stderr)
     (OUT / "filings.json").write_text(json.dumps(meta_out, indent=1), encoding="utf-8")

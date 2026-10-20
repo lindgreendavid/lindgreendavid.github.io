@@ -1,0 +1,95 @@
+// Run: node --test tests/research/research.test.ts
+import test from "node:test";
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { buildIndex, search, tokenize } from "../../src/lib/research/search.ts";
+import type { Passage } from "../../src/lib/research/search.ts";
+import { calculate, companiesIn } from "../../src/lib/research/calc.ts";
+import { ask, guard } from "../../src/lib/research/ask.ts";
+import type { Dataset } from "../../src/lib/pharma/model.ts";
+
+const ds = JSON.parse(readFileSync("src/data/pharma/dataset.json", "utf8")) as Dataset;
+const mk = (id: number, company: string, section: string, text: string): Passage => ({ id, company, section, anchor: "", text });
+const tiny = buildIndex([
+  mk(0, "novartis", "Employees", "Novartis had 75 267 full-time equivalent employees at year end."),
+  mk(1, "novartis", "Dividends", "The dividend per share was CHF 3.70 for the year."),
+  mk(2, "gsk", "Auditor", "Deloitte LLP is the external auditor of the company."),
+  mk(3, "gsk", "Risk", "Supply chain disruption could affect product availability and costs."),
+]);
+
+test("tokenize: lowercases, drops stop words, joins thousands separators, stems plurals and tenses", () => {
+  assert.deepEqual(tokenize("What were the 1,234 Employees?"), ["1234", "employ"]);
+  assert.equal(tokenize("declared")[0], tokenize("declare")[0]);
+  assert.equal(tokenize("incorporated")[0], tokenize("incorporation")[0]);
+});
+
+test("search ranks the passage that contains the query terms first", () => {
+  const hits = search(tiny, "dividend per share", { k: 3 });
+  assert.equal(hits[0].passage.id, 1);
+  assert.ok(hits[0].coverage > 0.99);
+});
+
+test("search honours the company filter", () => {
+  const hits = search(tiny, "auditor", { company: "novartis" });
+  assert.equal(hits.length, 0);
+});
+
+test("coverage counts terms that appear nowhere in the corpus", () => {
+  const hits = search(tiny, "dividend zebra", { k: 1 });
+  assert.ok(hits[0].coverage < 0.6);
+});
+
+test("companiesIn recognises names and aliases", () => {
+  assert.deepEqual(companiesIn("How did AZ and GlaxoSmithKline compare?").sort(), ["astrazeneca", "gsk"]);
+});
+
+test("calculate: single company metric matches hand arithmetic", () => {
+  assert.match(calculate("What was Novartis's operating margin in 2025?", ds)!.text, /31\.1%/); // 17,644 / 56,674
+  assert.match(calculate("What was Novartis's free cash flow in 2025?", ds)!.text, /17,596/); // 19,144 - 1,548
+});
+
+test("calculate: growth is in reporting currency, not translated", () => {
+  assert.match(calculate("What was GSK's revenue growth in 2025?", ds)!.text, /4\.1%/); // 32,667 / 31,376 - 1 in GBP
+});
+
+test("calculate: comparison names the winner", () => {
+  assert.match(calculate("Which company had the lowest net debt including leases in 2025?", ds)!.text, /^GSK has the lowest/);
+});
+
+test("calculate: leaves questions about a product or segment to retrieval", () => {
+  assert.equal(calculate("What were net sales in the Novartis oncology therapeutic area in 2025?", ds), null);
+  assert.equal(calculate("What were Kisqali sales in 2025?", ds), null);
+});
+
+test("guard: advice, live data, forecasts and uncovered companies are refused with a reason", () => {
+  assert.equal(guard("Should I buy GSK shares?")?.reason, "advice");
+  assert.equal(guard("What is AstraZeneca's share price today?")?.reason, "live-data");
+  assert.equal(guard("What will Novartis's operating margin be in 2028?")?.reason, "forecast");
+  assert.equal(guard("What was Sanofi's revenue in 2025?")?.reason, "not-covered");
+  assert.equal(guard("What was Novartis's revenue?"), null);
+});
+
+test("ask: refuses when the question's key terms are not in the best passage", () => {
+  const a = ask("temperature in Basel on a Tuesday", tiny, ds);
+  assert.equal(a.kind, "refusal");
+});
+
+test("ask: a documents-only question returns the filing's own passages, never generated text", () => {
+  const real = buildIndex(["novartis", "astrazeneca", "gsk"].flatMap((c) => (JSON.parse(readFileSync(`public/research/passages-${c}.json`, "utf8")) as [number, string, string, string][]).map(([id, section, anchor, text]) => ({ id, company: c, section, anchor, text }))));
+  const a = ask("In which jurisdiction is AstraZeneca incorporated?", real, ds);
+  assert.equal(a.kind, "passages");
+  if (a.kind === "passages") assert.ok(a.hits.every((h) => h.passage.company === "astrazeneca"));
+});
+
+test("evaluation sets: sizes, unique ids and gold evidence present in the extracted filings", () => {
+  const dev = JSON.parse(readFileSync("src/data/research/eval-questions.json", "utf8")).questions as { id: string; type: string; company: string; evidence?: string }[];
+  const held = JSON.parse(readFileSync("src/data/research/eval-heldout-questions.json", "utf8")).questions as typeof dev;
+  assert.ok(dev.length >= 30, "at least 30 questions in the development set");
+  const ids = [...dev, ...held].map((q) => q.id);
+  assert.equal(new Set(ids).size, ids.length);
+  const norm = (s: string) => s.toLowerCase().replace(/[’‘]/g, "'").replace(/\s+/g, " ").trim();
+  const text: Record<string, string> = {};
+  for (const c of ["novartis", "astrazeneca", "gsk"]) text[c] = norm((JSON.parse(readFileSync(`public/research/passages-${c}.json`, "utf8")) as [number, string, string, string][]).map((r) => r[3]).join(" "));
+  for (const q of [...dev, ...held].filter((x) => x.type === "lookup")) assert.ok(text[q.company].includes(norm(q.evidence!)), `${q.id}: evidence not found`);
+  for (const t of ["lookup", "calculation", "unanswerable"]) assert.ok(dev.some((q) => q.type === t), `development set has ${t} questions`);
+});
