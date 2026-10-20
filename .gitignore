@@ -6,3 +6,4 @@ CLAUDE.md
 
 # Raw SEC downloads are re-created by tools/pharma/fetch-sec.mjs
 data/pharma/raw/
+data-raw/

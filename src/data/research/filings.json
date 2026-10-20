@@ -1,0 +1,29 @@
+{
+ "novartis": {
+  "name": "Novartis",
+  "accession": "0001114448-26-000004",
+  "filed": "2026-02-04",
+  "url": "https://www.sec.gov/Archives/edgar/data/1114448/000111444826000004/nvs-20251231.htm",
+  "passages": 1158,
+  "chars": 842677,
+  "bodyFontPt": 10.0
+ },
+ "astrazeneca": {
+  "name": "AstraZeneca",
+  "accession": "0001104659-26-019130",
+  "filed": "2026-02-24",
+  "url": "https://www.sec.gov/Archives/edgar/data/901832/000110465926019130/azn-20251231x20f.htm",
+  "passages": 624,
+  "chars": 561370,
+  "bodyFontPt": 8.0
+ },
+ "gsk": {
+  "name": "GSK",
+  "accession": "0001131399-26-000004",
+  "filed": "2026-03-06",
+  "url": "https://www.sec.gov/Archives/edgar/data/1131399/000113139926000004/gsk-20251231.htm",
+  "passages": 1432,
+  "chars": 1129235,
+  "bodyFontPt": 8.5
+ }
+}
