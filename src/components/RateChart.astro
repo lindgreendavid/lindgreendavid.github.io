@@ -37,6 +37,7 @@ const last = ok ? pts[pts.length - 1] : null;
         <button type="button" data-n="22" aria-pressed="false">1M</button>
         <button type="button" data-n="66" aria-pressed="false">3M</button>
         <button type="button" data-n="260" aria-pressed="true">1Y</button>
+        <button type="button" data-surface aria-pressed="false" title="Realised volatility by lookback window and date, in 3D" aria-label="3D volatility surface">3D</button>
       </span>
     </figcaption>
     <p class="rate-read" aria-live="polite">
@@ -59,6 +60,17 @@ const last = ok ? pts[pts.length - 1] : null;
       </g>
       <circle data-end cx={L.last.x} cy={L.last.y} r="4.5" class="rate-dot" />
     </svg>
+    <canvas
+      class="rate-surf"
+      data-surf
+      tabindex="0"
+      role="img"
+      aria-label="3D surface of EUR/USD realised volatility by lookback window and date. Use the arrow keys to rotate and Home to reset."
+    ></canvas>
+    <p class="rate-hint">
+      <span>Drag or use the arrow keys to rotate.</span>
+      <button type="button" data-reset3d>Reset view</button>
+    </p>
     <p class="rate-foot">
       <span data-from>{fmtDate(first[0])}</span>
       <span>Source: European Central Bank, fetched when the site is built</span>
@@ -68,9 +80,19 @@ const last = ok ? pts[pts.length - 1] : null;
 
 <script>
   import { layout, fmtDate, pct, W, H, PAD, type Pt } from "../lib/chart";
+  import { volSurface, WINDOWS } from "../lib/vol";
 
   const root = document.querySelector<HTMLElement>("[data-rate]");
   if (root) {
+    root.dataset.mode = "line";
+    const surfBtn = root.querySelector<HTMLButtonElement>("[data-surface]")!;
+    const canvas = root.querySelector<HTMLCanvasElement>("[data-surf]")!;
+    const sub = root.querySelector(".rate-sub")!;
+    const subLine = sub.textContent;
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let surface: ReturnType<typeof import("../lib/surface3d").createSurface> = null;
+    let vol: ReturnType<typeof volSurface> | null = null;
+    if (!canvas.getContext || !canvas.getContext("2d")) surfBtn.hidden = true;
     const all: Pt[] = JSON.parse(root.dataset.pts!);
     const $ = <T extends Element>(s: string) => root.querySelector<T>(s)!;
     const svg = $<SVGSVGElement>("svg");
@@ -98,7 +120,44 @@ const last = ok ? pts[pts.length - 1] : null;
       change.textContent = `${pct(a[1], b[1])} over the period`;
     };
 
+    const enterSurface = async () => {
+      root.dataset.mode = "surface";
+      buttons.forEach((b) => b.setAttribute("aria-pressed", "false"));
+      surfBtn.setAttribute("aria-pressed", "true");
+      sub.textContent = "Realised volatility surface";
+      vol ??= volSurface(all);
+      const row = vol.z[WINDOWS.indexOf(20)];
+      const [now, lo, hi] = [row[row.length - 1], Math.min(...row), Math.max(...row)];
+      val.textContent = `${now.toFixed(1)}%`;
+      date.textContent = `20-day window, ${fmtDate(vol.dates[vol.dates.length - 1])}`;
+      change.textContent = `range ${lo.toFixed(1)} to ${hi.toFixed(1)}%`;
+      const hint = root.querySelector(".rate-hint span");
+      if (hint) hint.textContent = `Height is annualised volatility, ${vol.min.toFixed(0)}% to ${vol.max.toFixed(0)}%. Drag or use the arrow keys to rotate.`;
+      canvas.setAttribute(
+        "aria-label",
+        `3D surface of EUR/USD annualised realised volatility by lookback window (5 to 60 days) and date. Latest 20-day value ${now.toFixed(1)} percent, range ${lo.toFixed(1)} to ${hi.toFixed(1)} percent. Use the arrow keys to rotate and Home to reset.`
+      );
+      if (!surface) {
+        const { createSurface } = await import("../lib/surface3d");
+        surface = createSurface(
+          canvas,
+          {
+            z: vol.z,
+            min: vol.min,
+            max: vol.max,
+            xLabels: [fmtDate(vol.dates[0]), fmtDate(vol.dates[vol.dates.length - 1])],
+            yLabels: ["5 d", "60 d"],
+          },
+          reduced
+        );
+      }
+      surface?.show();
+    };
+
     const show = (n: number) => {
+      root.dataset.mode = "line";
+      surfBtn.setAttribute("aria-pressed", "false");
+      sub.textContent = subLine;
       pts = all.slice(-n);
       L = layout(pts);
       line.setAttribute("d", L.line);
@@ -141,5 +200,7 @@ const last = ok ? pts[pts.length - 1] : null;
     svg.addEventListener("pointermove", move);
     svg.addEventListener("pointerleave", reset);
     buttons.forEach((b) => b.addEventListener("click", () => show(Number(b.dataset.n))));
+    surfBtn.addEventListener("click", enterSurface);
+    root.querySelector("[data-reset3d]")?.addEventListener("click", () => surface?.reset());
   }
 </script>

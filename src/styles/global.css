@@ -420,6 +420,48 @@ button {
   stroke: var(--accent);
   stroke-width: 2.5;
 }
+.rate-surf {
+  display: block;
+  width: 100%;
+  aspect-ratio: 640 / 300;
+  margin-top: 0.5rem;
+  border-radius: 12px;
+  cursor: grab;
+  touch-action: pan-y;
+}
+.rate-surf:active {
+  cursor: grabbing;
+}
+.rate-hint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 1rem;
+  margin-top: 0.25rem;
+  color: var(--ink-3);
+  font-size: 0.85rem;
+}
+.rate-hint button {
+  min-height: 44px;
+  padding: 0 0.5rem;
+  background: transparent;
+  border: 0;
+  color: var(--accent);
+  font-weight: 500;
+  cursor: pointer;
+}
+.rate-foot span:last-child {
+  margin-left: auto;
+}
+.rate[data-mode="surface"] svg,
+.rate[data-mode="surface"] [data-from] {
+  display: none;
+}
+.rate:not([data-mode="surface"]) .rate-surf,
+.rate:not([data-mode="surface"]) .rate-hint {
+  display: none;
+}
 .rate-foot {
   display: flex;
   flex-wrap: wrap;
@@ -896,10 +938,76 @@ h2.big,
   color: var(--wordmark);
   user-select: none;
 }
-.foot-line {
+.foot-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem 2rem;
   margin-top: 1.25rem;
+}
+.foot-line {
   color: var(--on-ink-2);
   font-size: 0.95rem;
+}
+.legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.5rem;
+  color: var(--on-ink-2);
+  font-size: 0.95rem;
+}
+.legal-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
+/* ---- legal pages ---- */
+.legal {
+  padding-block: clamp(40px, 7vw, 88px) clamp(48px, 7vw, 96px);
+}
+.legal h1 {
+  font-size: clamp(2.25rem, 5.4vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+.legal h2 {
+  margin-top: 2.5rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.legal p {
+  max-width: 68ch;
+  margin-top: 0.75rem;
+  color: var(--ink-2);
+}
+.legal .legal-lead {
+  margin-top: 1.25rem;
+  color: var(--ink);
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+.legal a {
+  color: var(--accent);
+  text-underline-offset: 0.25em;
+}
+.legal .legal-date {
+  margin-top: 3rem;
+  color: var(--ink-3);
+  font-size: 0.95rem;
+}
+.legal-foot {
+  padding-bottom: 2.5rem;
+}
+.legal-foot .legal-links {
+  color: var(--ink-3);
 }
 
 /* ---- entrances: rise 24px and fade, once, staggered 70ms; content stays visible without JS ---- */
