@@ -1,0 +1,49 @@
+---
+import Legal from "../layouts/Legal.astro";
+import { legal, person } from "../data/site";
+---
+<Legal title="Impressum" description="Impressum und Anbieterkennzeichnung von David Lindgreen.">
+  <h1>Impressum</h1>
+
+  <h2>Angaben gemäß § 5 DDG</h2>
+  <p>
+    {legal.name}<br />
+    {legal.street}<br />
+    {legal.city}<br />
+    Deutschland
+  </p>
+
+  <h2>Kontakt</h2>
+  <p>E-Mail: <a href={`mailto:${person.email}`}>{person.email}</a></p>
+
+  <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+  <p>{legal.name}, Anschrift wie oben.</p>
+
+  <h2>Zweck dieser Website</h2>
+  <p>
+    Diese Website dient der persönlichen und beruflichen Vorstellung von {legal.name}. Sie enthält keine Werbung und bietet keine
+    entgeltlichen Leistungen an.
+  </p>
+
+  <h2>Haftung für Inhalte</h2>
+  <p>
+    Die Inhalte dieser Website wurden mit Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität kann jedoch keine
+    Gewähr übernommen werden. Hinweise auf Fehler sind jederzeit willkommen. Die Analysen und Auswertungen auf dieser Website und auf
+    Lab Notes sind keine Anlageberatung und keine Empfehlung zum Kauf oder Verkauf von Finanzinstrumenten.
+  </p>
+
+  <h2>Haftung für Links</h2>
+  <p>
+    Diese Website verlinkt auf externe Seiten Dritter (zum Beispiel LinkedIn, GitHub und Lab Notes). Auf deren Inhalte hat {legal.name}
+    keinen Einfluss. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter verantwortlich. Zum Zeitpunkt der Verlinkung
+    waren keine Rechtsverstöße erkennbar. Bei Bekanntwerden von Rechtsverletzungen werden entsprechende Links umgehend entfernt.
+  </p>
+
+  <h2>Urheberrecht und Datenquellen</h2>
+  <p>
+    Die von {legal.name} erstellten Inhalte unterliegen dem deutschen Urheberrecht. Die dargestellten Wechselkursdaten (EUR/USD) stammen
+    von der Europäischen Zentralbank (EZB) und werden mit Quellenangabe wiedergegeben.
+  </p>
+
+  <p class="legal-date">Stand: {legal.updated}</p>
+</Legal>

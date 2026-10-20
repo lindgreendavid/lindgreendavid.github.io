@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import RateChart from "../components/RateChart.astro";
+import LegalLinks from "../components/LegalLinks.astro";
 import { person, notes, roles, next } from "../data/site";
 
 const [lead, second, third] = notes;
@@ -234,7 +235,10 @@ const education = roles.filter((r) => !work.includes(r) && r.role !== "Teaching 
       </section>
       <footer class="wrap foot">
         <p class="wordmark" aria-hidden="true">David Lindgreen</p>
-        <p class="foot-line">{person.location}</p>
+        <div class="foot-row">
+          <p class="foot-line">{person.location}</p>
+          <LegalLinks />
+        </div>
       </footer>
     </div>
   </main>

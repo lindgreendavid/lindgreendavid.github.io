@@ -1,0 +1,29 @@
+---
+import Base from "./Base.astro";
+import LegalLinks from "../components/LegalLinks.astro";
+import { legal } from "../data/site";
+
+if (!legal.street || !legal.city) {
+  throw new Error("Fill in legal.street and legal.city in src/data/site.ts before building the legal pages.");
+}
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+<Base title={`${title} | David Lindgreen`} description={description} lang="de">
+  <header class="bar">
+    <a class="mark" href="/">David Lindgreen</a>
+    <nav class="nav" aria-label="Navigation">
+      <a href="/">Zur Startseite</a>
+    </nav>
+  </header>
+  <main class="wrap legal">
+    <slot />
+  </main>
+  <footer class="wrap legal-foot">
+    <LegalLinks />
+  </footer>
+</Base>

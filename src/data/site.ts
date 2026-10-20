@@ -17,8 +17,8 @@ export const person = {
 // The legal pages refuse to build until street and city are filled in.
 export const legal = {
   name: "David Lindgreen",
-  street: "",
-  city: "",
+  street: "Mainzer Landstraße 114a",
+  city: "60327 Frankfurt am Main, Deutschland",
   updated: "20. Oktober 2026",
 };
 

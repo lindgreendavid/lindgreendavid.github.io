@@ -1,0 +1,39 @@
+---
+import Legal from "../layouts/Legal.astro";
+import { legal } from "../data/site";
+---
+<Legal title="Cookies und lokale Speicherung" description="Informationen zu Cookies und lokaler Speicherung auf der Website von David Lindgreen.">
+  <h1>Cookies und lokale Speicherung</h1>
+  <p class="legal-lead">
+    Diese Website setzt keine Cookies. Sie verwendet kein Tracking, keine Analyse, keine Werbung und keine Einbindungen von Drittanbietern.
+    Deshalb gibt es hier keinen Cookie-Banner: Es gibt nichts, wofür eine Einwilligung eingeholt werden müsste.
+  </p>
+
+  <h2>Was gespeichert wird</h2>
+  <p>
+    Nur wenn Sie den Schalter für den hellen oder dunklen Darstellungsmodus benutzen, speichert Ihr Browser einen Eintrag mit dem
+    Namen „theme“ (Wert „light“ oder „dark“) im lokalen Speicher (localStorage). Er enthält keine personenbezogenen Daten, wird nie an
+    einen Server gesendet und dient nur dazu, Ihre Auswahl beim nächsten Besuch beizubehalten.
+  </p>
+
+  <h2>Rechtsgrundlage</h2>
+  <p>
+    § 25 Abs. 2 Nr. 2 TDDDG: Die Speicherung ist erforderlich, um die von Ihnen ausdrücklich gewünschte Funktion (Umschalten der
+    Darstellung) bereitzustellen. Eine Einwilligung ist hierfür nicht nötig.
+  </p>
+
+  <h2>So löschen Sie den Eintrag</h2>
+  <p>
+    Öffnen Sie die Einstellungen Ihres Browsers und löschen Sie die Website-Daten für diese Domain, oder löschen Sie den Eintrag
+    „theme“ in den Entwicklerwerkzeugen unter „Anwendung“ beziehungsweise „Speicher“. Danach richtet sich die Darstellung wieder nach
+    der Einstellung Ihres Geräts (hell oder dunkel).
+  </p>
+
+  <h2>Hosting und Cookies</h2>
+  <p>
+    Nach meinem Kenntnisstand setzen weder GitHub Pages noch die Namensauflösung der Domain beim Aufruf dieser Seite Cookies. Mehr zur
+    Verarbeitung von Verbindungsdaten steht in der <a href="/datenschutz/">Datenschutzerklärung</a>.
+  </p>
+
+  <p class="legal-date">Stand: {legal.updated}</p>
+</Legal>

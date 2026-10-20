@@ -1,0 +1,108 @@
+---
+import Legal from "../layouts/Legal.astro";
+import { legal, person } from "../data/site";
+---
+<Legal title="Datenschutzerklärung" description="Datenschutzerklärung nach DSGVO für die Website von David Lindgreen.">
+  <h1>Datenschutzerklärung</h1>
+  <p class="legal-lead">
+    Kurz gesagt: Diese Website verwendet keine Cookies, keine Analyse- oder Tracking-Werkzeuge, keine Newsletter und keine
+    Formulare. Es werden keine Schriftarten oder Skripte von Dritten nachgeladen. Unvermeidlich ist nur die technische Verarbeitung beim
+    Aufruf der Seite durch den Hosting-Anbieter und die Namensauflösung der Domain (siehe unten).
+  </p>
+
+  <h2>1. Verantwortlicher</h2>
+  <p>
+    Verantwortlich im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:<br />
+    {legal.name}, {legal.street}, {legal.city}, Deutschland<br />
+    E-Mail: <a href={`mailto:${person.email}`}>{person.email}</a>
+  </p>
+
+  <h2>2. Hosting (GitHub Pages)</h2>
+  <p>
+    Diese Website wird als statische Seite über GitHub Pages ausgeliefert. Anbieter ist GitHub, Inc., USA, ein Unternehmen der
+    Microsoft-Gruppe. Beim Aufruf der Seite verarbeitet GitHub technisch notwendige Verbindungsdaten, insbesondere die IP-Adresse, Datum
+    und Uhrzeit des Abrufs, die abgerufene Seite, die Browser-Kennung und die Referrer-URL. Nach Angaben von GitHub werden IP-Adressen von
+    Besuchern von GitHub-Pages-Seiten zu Sicherheitszwecken protokolliert, unabhängig davon, ob ein GitHub-Konto vorhanden ist.
+  </p>
+  <p>
+    Zweck ist die Auslieferung der Website und die Sicherheit des Dienstes. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
+    Interesse an einer sicheren und effizienten Bereitstellung dieser Website). Eine Übermittlung in die USA kann nicht ausgeschlossen
+    werden; nach Angaben von GitHub erfolgt sie auf Grundlage von Standardvertragsklauseln der EU-Kommission beziehungsweise des EU-US
+    Data Privacy Framework. Weitere Informationen:
+    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub-Datenschutzerklärung</a>.
+  </p>
+
+  <h2>3. Domain und DNS (Cloudflare)</h2>
+  <p>
+    Die Domain lindgreendavid.com ist bei Cloudflare, Inc., USA, registriert und wird über deren DNS-Server aufgelöst. Dabei wird die
+    IP-Adresse des anfragenden Rechners bzw. des genutzten DNS-Resolvers verarbeitet. Die Website selbst wird nicht über das
+    Cloudflare-Netzwerk ausgeliefert (die DNS-Einträge verweisen direkt auf GitHub Pages). Rechtsgrundlage ist Art. 6 Abs. 1 lit. f
+    DSGVO. Weitere Informationen:
+    <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">Cloudflare-Datenschutzerklärung</a>.
+  </p>
+
+  <h2>4. Kontaktaufnahme per E-Mail</h2>
+  <p>
+    Wenn Sie mir eine E-Mail schreiben, verarbeite ich Ihre E-Mail-Adresse, den Inhalt Ihrer Nachricht und die Zeitangaben, um Ihre Anfrage
+    zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anbahnung eines Vertrags oder Bewerbungs- und
+    Kooperationsgespräche) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Beantwortung von Anfragen). Die Daten werden
+    gelöscht, sobald Ihre Anfrage erledigt ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Mein E-Mail-Postfach wird
+    bei Google (Gmail) betrieben; dabei kann eine Verarbeitung durch Google stattfinden.
+  </p>
+
+  <h2>5. Lokale Speicherung im Browser (Darstellungsmodus)</h2>
+  <p>
+    Wenn Sie über den Schalter in der Kopfzeile zwischen hellem und dunklem Darstellungsmodus wechseln, wird Ihre Auswahl im lokalen
+    Speicher Ihres Browsers (localStorage, Schlüssel „theme“) abgelegt, damit sie beim nächsten Besuch erhalten bleibt. Diese Information
+    verlässt Ihr Gerät nicht, wird nicht an mich oder Dritte übertragen und dient ausschließlich der von Ihnen gewünschten
+    Darstellung. Rechtsgrundlage ist § 25 Abs. 2 Nr. 2 TDDDG (ausdrücklich gewünschte Funktion) in Verbindung mit Art. 6 Abs. 1 lit. f
+    DSGVO. Sie können den Eintrag jederzeit in den Einstellungen Ihres Browsers löschen. Weitere Angaben finden Sie auf der Seite
+    <a href="/cookies/">Cookies</a>.
+  </p>
+
+  <h2>6. Eingebundene Daten und Schriftarten</h2>
+  <p>
+    Das Diagramm auf der Startseite zeigt EUR/USD-Referenzkurse der Europäischen Zentralbank. Diese Daten werden beim Erstellen der Website
+    von der Datenschnittstelle der EZB abgerufen und als Teil der Seite ausgeliefert. Beim Besuch der Seite findet keine Verbindung Ihres
+    Browsers zur EZB statt. Die verwendete Schriftart (Geist) wird von der eigenen Domain geladen; es besteht keine Verbindung zu Google
+    Fonts oder anderen Schriftdiensten.
+  </p>
+
+  <h2>7. Externe Links</h2>
+  <p>
+    Diese Website enthält Links zu LinkedIn, GitHub und zu Lab Notes. Beim bloßen Aufruf dieser Seite werden keine Daten an diese Dienste
+    übertragen. Erst wenn Sie einen Link anklicken, gelten die Datenschutzbestimmungen des jeweiligen Anbieters. Lab Notes wird über
+    Cloudflare (Workers) bereitgestellt.
+  </p>
+
+  <h2>8. Speicherdauer</h2>
+  <p>
+    Ich selbst speichere über den Besuch dieser Website keine personenbezogenen Daten. Die Speicherdauer der Server-Protokolle bei den
+    Anbietern (GitHub, Cloudflare) richtet sich nach deren Vorgaben. E-Mails werden gelöscht, sobald der Zweck entfallen ist.
+  </p>
+
+  <h2>9. Ihre Rechte</h2>
+  <p>
+    Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18),
+    Datenübertragbarkeit (Art. 20) und Widerspruch gegen die Verarbeitung (Art. 21). Soweit eine Verarbeitung auf einer Einwilligung
+    beruht, können Sie diese jederzeit mit Wirkung für die Zukunft widerrufen. Zur Ausübung Ihrer Rechte genügt eine E-Mail an
+    <a href={`mailto:${person.email}`}>{person.email}</a>.
+  </p>
+
+  <h2>10. Beschwerderecht</h2>
+  <p>
+    Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO). Zuständig für den Wohnsitz des
+    Verantwortlichen in Hessen ist: Der Hessische Beauftragte für Datenschutz und Informationsfreiheit, Gustav-Stresemann-Ring 1, 65189
+    Wiesbaden, <a href="https://datenschutz.hessen.de" rel="noopener">datenschutz.hessen.de</a>.
+  </p>
+
+  <h2>11. Keine automatisierte Entscheidungsfindung</h2>
+  <p>Es findet keine automatisierte Entscheidungsfindung einschließlich Profiling nach Art. 22 DSGVO statt.</p>
+
+  <h2>12. Änderungen</h2>
+  <p>
+    Ich passe diese Erklärung an, wenn sich die Website oder die Rechtslage ändert. Es gilt die jeweils hier veröffentlichte Fassung.
+  </p>
+
+  <p class="legal-date">Stand: {legal.updated}</p>
+</Legal>
