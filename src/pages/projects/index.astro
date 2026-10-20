@@ -1,0 +1,51 @@
+---
+import Base from "../../layouts/Base.astro";
+import ProjectHeader from "../../components/ProjectHeader.astro";
+import "../../styles/projects.css";
+import { person } from "../../data/site";
+---
+<Base title="Projects | David Lindgreen" description="Three connected projects on public financial data: a pharma valuation explorer, an annual-report research assistant and an M&A screening workbench. Honest status for each.">
+  <ProjectHeader current="projects" />
+  <main id="main">
+    <section class="wrap proj-hero">
+      <h1>Projects</h1>
+      <p class="proj-lede">Three connected tools built on public financial data. Each has an identifiable user, a decision it supports, traceable inputs and a result that can be evaluated. Their status is stated plainly.</p>
+    </section>
+
+    <section class="wrap" aria-label="Projects">
+      <div class="proj-list">
+        <article class="proj-item">
+          <div>
+            <p class="status">First release · in development</p>
+            <h3 style="margin-top:1rem">Pharma Valuation Explorer</h3>
+          </div>
+          <div>
+            <p>A like-for-like comparison of Novartis, AstraZeneca and GSK from SEC filings, a DCF of AstraZeneca with sensitivity analysis, and a downloadable model with sources. 137 figures reconciled to filing pages; 168 automated checks pass; not yet independently reviewed.</p>
+            <p class="links"><a href="/projects/pharma-valuation/">Open the explorer</a><a href="/projects/pharma-valuation/#evidence">See the evidence</a></p>
+          </div>
+        </article>
+        <article class="proj-item">
+          <div>
+            <p class="status">Planned · not started</p>
+            <h3 style="margin-top:1rem">Annual-Report Research Assistant</h3>
+          </div>
+          <div>
+            <p>Search across the same public reports with page citations, source passages beside answers, deterministic calculations for numerical questions and useful refusals when the documents cannot support an answer. It will be judged on an evaluation set of at least 30 manually checked questions. Starts after the valuation project's data is validated.</p>
+          </div>
+        </article>
+        <article class="proj-item">
+          <div>
+            <p class="status">Planned · not started</p>
+            <h3 style="margin-top:1rem">Strategic M&amp;A Screening Workbench</h3>
+          </div>
+          <div>
+            <p>An explainable preliminary shortlist for a clearly labelled hypothetical buyer brief, with adjustable criterion weights, missing-data flags, ranking sensitivity and a screening memo. It supports initial screening only; it will not claim deal feasibility. Follows the research assistant.</p>
+          </div>
+        </article>
+      </div>
+      <p class="callout" style="margin-top:1.5rem">Smaller experiments, implementation lessons and evaluation findings live in <a href={person.labNotes} rel="noopener">Lab Notes</a>. Future ideas such as an acquisition economics simulator or a credit-risk monitor are kept on a backlog and are not built as thin extras.</p>
+    </section>
+
+    <footer class="wrap proj-foot"><p><a href="/">Home</a> · David Lindgreen · Frankfurt, Germany</p></footer>
+  </main>
+</Base>

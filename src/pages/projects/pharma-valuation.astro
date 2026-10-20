@@ -1,0 +1,400 @@
+---
+import Base from "../../layouts/Base.astro";
+import ProjectHeader from "../../components/ProjectHeader.astro";
+import "../../styles/projects.css";
+import ds from "../../data/pharma/dataset.json";
+import validation from "../../data/pharma/validation.json";
+import { comparable, dcfInputsFor, line, SCENARIOS, YEARS } from "../../lib/pharma/model.ts";
+import type { Dataset } from "../../lib/pharma/model.ts";
+import { groupedBars, lines } from "../../lib/pharma/charts.ts";
+import { fmtBn, fmtM, fmtPct, fmtX, renderDcf } from "../../lib/pharma/ui.ts";
+
+const data = ds as unknown as Dataset;
+const ids = ["novartis", "astrazeneca", "gsk"] as const;
+const names: Record<string, string> = Object.fromEntries(ids.map((c) => [c, ds.companies[c].name]));
+const cur = (c: string) => ds.companies[c].currency;
+const comp = (c: string, y: 2023 | 2024 | 2025, mode: "usd" | "local" = "usd") => comparable(data, c, y, mode);
+
+// Snapshot rows: [label, usd formatter, local formatter]
+const snapRows: [string, (c: string, mode: "usd" | "local") => string][] = [
+  ["Revenue", (c, m) => fmtM(comp(c, 2025, m).revenue)],
+  ["Revenue growth vs FY2024", (c, m) => fmtPct(comp(c, 2025, m).revenueGrowth!)],
+  ["Operating margin", (c) => fmtPct(comp(c, 2025).operatingMargin)],
+  ["Profit margin (continuing operations)", (c) => fmtPct(comp(c, 2025).profitMargin)],
+  ["R&D as % of revenue", (c) => fmtPct(comp(c, 2025).rndIntensity)],
+  ["Operating cash flow", (c, m) => fmtM(comp(c, 2025, m).cfo)],
+  ["Free cash flow (operating cash flow less PP&E)", (c, m) => fmtM(comp(c, 2025, m).fcfPpe)],
+  ["Free cash flow after intangible purchases", (c, m) => fmtM(comp(c, 2025, m).fcfAfterIntangibles)],
+  ["Cash conversion (operating cash flow / profit)", (c) => fmtX(comp(c, 2025).cashConversion)],
+  ["Net debt including leases", (c, m) => fmtM(comp(c, 2025, m).netDebt)],
+  ["Effective tax rate", (c) => fmtPct(comp(c, 2025).effectiveTaxRate)],
+];
+
+const yearLabels = YEARS.map((y) => `FY${y}`);
+const rev = groupedBars({
+  categories: ids.map((c) => names[c]),
+  series: YEARS.map((y) => ({ name: `FY${y}`, values: ids.map((c) => comp(c, y).revenue / 1000) })),
+  format: (n) => `${n.toFixed(1)}`,
+  label: "Revenue in billions of US dollars, FY2023 to FY2025, by company",
+});
+const margin = lines({
+  periods: yearLabels,
+  series: ids.map((c) => ({ name: names[c], values: YEARS.map((y) => comp(c, y).operatingMargin * 100) })),
+  format: (n) => `${n.toFixed(1)}%`,
+  label: "Operating margin in percent, FY2023 to FY2025, by company",
+});
+const rnd = lines({
+  periods: yearLabels,
+  series: ids.map((c) => ({ name: names[c], values: YEARS.map((y) => comp(c, y).rndIntensity * 100) })),
+  format: (n) => `${n.toFixed(1)}%`,
+  label: "Research and development expense as a percent of revenue, FY2023 to FY2025, by company",
+});
+const fcf = groupedBars({
+  categories: ids.map((c) => names[c]),
+  series: YEARS.map((y) => ({ name: `FY${y}`, values: ids.map((c) => comp(c, y).fcfAfterIntangibles / 1000) })),
+  format: (n) => `${n.toFixed(1)}`,
+  label: "Free cash flow after intangible purchases in billions of US dollars, FY2023 to FY2025, by company",
+});
+
+// Historical anchors for the AstraZeneca assumptions.
+const az = (y: 2023 | 2024 | 2025) => {
+  const c = comp("astrazeneca", y);
+  const da = (line(data, "astrazeneca", y, "depreciation_ppe") ?? 0) + (line(data, "astrazeneca", y, "depreciation_rou") ?? 0) + (line(data, "astrazeneca", y, "amortisation_intangibles") ?? 0);
+  return { c, da, capexPct: (c.capex + c.intangiblePurchases) / c.revenue };
+};
+
+const base = dcfInputsFor(data, SCENARIOS.base);
+const initial = renderDcf(base);
+const metricLabel: Record<string, string> = {
+  revenue: "Revenue", operating_profit: "Operating profit", pretax_profit: "Profit before tax", income_tax: "Income tax", profit_continuing: "Profit for the year (continuing operations)", nci_profit: "Profit attributable to non-controlling interests",
+  rnd: "Research and development expense", cfo: "Operating cash flow", capex_ppe: "Purchases of property, plant and equipment", capex_intangibles: "Purchases of intangible assets", cash: "Cash and cash equivalents",
+  liquid_investments: "Marketable securities and time deposits", debt_financial: "Financial debt", lease_liabilities: "Lease liabilities", borrowings_incl_leases: "Borrowings including leases", nci_book: "Non-controlling interests (book)",
+  equity_total: "Total equity", depreciation_ppe: "Depreciation of PP&E", depreciation_rou: "Depreciation of right-of-use assets", amortisation_intangibles: "Amortisation of intangibles", pension_liability: "Retirement benefit obligations",
+  equity_method_investments: "Equity-accounted investments", shares_outstanding_m: "Shares outstanding (millions)", shares_derived_check_m: "Shares cross-check (issued capital / nominal)",
+};
+const accnLink = (c: string, accn: string) => `https://www.sec.gov/Archives/edgar/data/${parseInt(ds.companies[c].cik, 10)}/${accn.split(",")[0].trim().replaceAll("-", "")}/`;
+const v = validation;
+---
+<Base title="Pharma Valuation Explorer | David Lindgreen" description="A transparent comparison of Novartis, AstraZeneca and GSK from public filings, with a DCF of AstraZeneca, sensitivity analysis and a downloadable model. First release, in development.">
+  <ProjectHeader current="projects" />
+  <main id="main">
+    <section class="wrap proj-hero">
+      <h1>Pharma Valuation Explorer</h1>
+      <p class="proj-lede">Compare Novartis, AstraZeneca and GSK on one consistent basis, then explore a transparent DCF of AstraZeneca. Every figure links back to a public filing.</p>
+      <p class="status">First release · in development · not yet independently reviewed</p>
+      <div class="brief">
+        <div>
+          <h2>Who it is for</h2>
+          <p>An analyst comparing large pharmaceutical companies who needs to see the evidence and the assumptions, not just a number.</p>
+        </div>
+        <div>
+          <h2>The problem</h2>
+          <p>Figures are scattered across filings, and comparisons break when currencies, fiscal periods, one-off items and definitions differ.</p>
+        </div>
+        <div>
+          <h2>What it supports</h2>
+          <p>Judging which company is more cash-generative on a like-for-like basis, and which assumptions a DCF value depends on. It is not a buy or sell signal.</p>
+        </div>
+      </div>
+      <nav class="jump" aria-label="On this page">
+        <a href="#compare">Compare</a><a href="#valuation">Valuation</a><a href="#evidence">Evidence</a><a href="#method">Method</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a>
+      </nav>
+    </section>
+
+    <section class="wrap" aria-label="Disclosures">
+      <p class="callout">
+        <strong>Public data only.</strong> Figures come from the SEC's XBRL data for each company's Form 20-F and from ECB reference rates. The author works at Sanofi; Sanofi is deliberately not analysed here and no employer data is used.
+        This was built with AI assistance and the author is responsible for checking it. It is an educational model, not investment advice.
+      </p>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="compare" aria-labelledby="compare-h">
+        <div class="section-head">
+          <h2 id="compare-h">Three companies on one basis</h2>
+          <p>All three report under IFRS in Form 20-F with a December year-end and have complete data for FY2023 to FY2025. Sanofi, Novartis, AstraZeneca, GSK and Novo Nordisk were screened; Sanofi is excluded as the author's employer, and Novo Nordisk reports in Danish kroner and was not examined further.</p>
+        </div>
+
+        <div class="pane">
+          <div class="stack">
+            <div>
+              <h3 class="sub-h">FY2025 snapshot</h3>
+              <p class="sub-note">US dollars, millions, with GSK translated at the ECB average rate for flows and the year-end rate for balances. Switch to show GSK in pounds sterling, its reporting currency.</p>
+              <label class="switch"><input type="checkbox" id="cur-toggle" /> <span>Show reporting currency (GSK in GBP)</span></label>
+            </div>
+            <div class="tbl-wrap" role="region" aria-label="FY2025 comparison table, scrolls horizontally on small screens" tabindex="0">
+              <table class="tbl">
+                <caption class="sr">FY2025 comparison of Novartis, AstraZeneca and GSK</caption>
+                <thead><tr><th scope="col">Measure</th>{ids.map((c) => <th scope="col">{names[c]}</th>)}</tr></thead>
+                <tbody>
+                  {snapRows.map(([label, f]) => (
+                    <tr>
+                      <th scope="row">{label}</th>
+                      {ids.map((c) => (
+                        <td data-usd={f(c, "usd")} data-local={f(c, "local")}>{f(c, "usd")}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="muted">Free cash flow is operating cash flow minus capital spending; the stricter line also deducts purchases of intangible assets, which in pharma include acquired licences and rights. Net debt includes lease liabilities for every company. Source details are in <a href="#evidence">Evidence</a>.</p>
+          </div>
+        </div>
+
+        <div class="cols-2" style="margin-top: 1.25rem">
+          <figure class="pane chart">
+            <figcaption>Revenue<span>US dollars, billions</span></figcaption>
+            <Fragment set:html={rev} />
+            <p class="legend"><span class="y0">FY2023</span><span class="y1">FY2024</span><span>FY2025</span></p>
+            <details class="data"><summary>Show the data</summary>
+              <div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col"></th>{YEARS.map((y) => <th scope="col">FY{y}</th>)}</tr></thead><tbody>{ids.map((c) => <tr><th scope="row">{names[c]}</th>{YEARS.map((y) => <td>{fmtM(comp(c, y).revenue)}</td>)}</tr>)}</tbody></table></div>
+            </details>
+          </figure>
+          <figure class="pane chart">
+            <figcaption>Operating margin<span>Operating profit as a share of revenue</span></figcaption>
+            <Fragment set:html={margin} />
+            <details class="data"><summary>Show the data</summary>
+              <div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col"></th>{YEARS.map((y) => <th scope="col">FY{y}</th>)}</tr></thead><tbody>{ids.map((c) => <tr><th scope="row">{names[c]}</th>{YEARS.map((y) => <td>{fmtPct(comp(c, y).operatingMargin)}</td>)}</tr>)}</tbody></table></div>
+            </details>
+          </figure>
+        </div>
+        <div class="cols-2" style="margin-top: 1.25rem">
+        <figure class="pane chart">
+          <figcaption>Cash generation<span>Operating cash flow less purchases of PP&amp;E and intangible assets, US dollars, billions</span></figcaption>
+          <Fragment set:html={fcf} />
+          <p class="legend"><span class="y0">FY2023</span><span class="y1">FY2024</span><span>FY2025</span></p>
+          <details class="data"><summary>Show the data</summary>
+            <div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col"></th>{YEARS.map((y) => <th scope="col">FY{y}</th>)}</tr></thead><tbody>{ids.map((c) => <tr><th scope="row">{names[c]}</th>{YEARS.map((y) => <td>{fmtM(comp(c, y).fcfAfterIntangibles)}</td>)}</tr>)}</tbody></table></div>
+          </details>
+        </figure>
+          <figure class="pane chart">
+            <figcaption>Research intensity<span>R&amp;D expense as a share of revenue</span></figcaption>
+            <Fragment set:html={rnd} />
+            <details class="data"><summary>Show the data</summary>
+              <div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col"></th>{YEARS.map((y) => <th scope="col">FY{y}</th>)}</tr></thead><tbody>{ids.map((c) => <tr><th scope="row">{names[c]}</th>{YEARS.map((y) => <td>{fmtPct(comp(c, y).rndIntensity)}</td>)}</tr>)}</tbody></table></div>
+            </details>
+          </figure>
+        </div>
+
+        <div class="pane" style="margin-top: 1.25rem">
+          <h3 class="sub-h">What makes these figures comparable</h3>
+          <ul class="prose" style="margin: 0">
+            {ids.flatMap((c) => ds.companies[c].notes.map((n) => <li><strong>{names[c]}:</strong> {n}</li>))}
+          </ul>
+        </div>
+
+        <div class="pane" style="margin-top: 1.25rem">
+          <h3 class="sub-h">Valuation multiples from your own market data</h3>
+          <p class="sub-note">Enter each company's market capitalisation in US dollars (billions) from your own source, with its date. No share-price data is included: none could be obtained from a source whose terms allow redistribution.</p>
+          <form id="mult-form" class="fields" onsubmit="return false">
+            {ids.map((c) => (
+              <div class="field"><label for={`cap-${c}`}>{names[c]} market cap, USD bn</label><input id={`cap-${c}`} name={`cap-${c}`} type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 250" /></div>
+            ))}
+            <div class="field"><label for="cap-date">Date of your figures</label><input id="cap-date" name="cap-date" type="text" placeholder="e.g. 2026-10-20" /></div>
+          </form>
+          <div id="mult-out" class="tbl-wrap" style="margin-top: 1rem" aria-live="polite"><p class="muted">Enter at least one market capitalisation above to see multiples.</p></div>
+          <p class="muted" style="margin-top: 0.75rem">Enterprise value = market cap + debt including leases − cash − liquid investments + non-controlling interests at book value, using the FY2025 balance sheet. Your market data may be dated after 31 December 2025, which mismatches the balance sheet. * FCF yield = free cash flow after intangible purchases ÷ market cap. † GSK's non-controlling interests earn about 9% of profit (£573m in 2025) yet are carried at a negative book value (£−421m), so its enterprise value and multiples understate that claim.</p>
+        </div>
+      </section>
+    </div>
+
+    <section class="wrap section" id="valuation" aria-labelledby="val-h">
+      <div class="section-head">
+        <h2 id="val-h">A DCF of AstraZeneca</h2>
+        <p>AstraZeneca is used for the DCF because it reports in US dollars and tags the depreciation, pension and associate lines the bridge needs. The base year is FY2025 and the valuation date is the 31 December 2025 balance sheet. The assumptions are illustrative and anchored to the history below; they are not forecasts or company guidance.</p>
+      </div>
+
+      <div class="pane">
+        <h3 class="sub-h">Historical anchors</h3>
+        <div class="tbl-wrap" role="region" aria-label="AstraZeneca historical ratios" tabindex="0">
+          <table class="tbl">
+            <thead><tr><th scope="col">AstraZeneca</th>{YEARS.map((y) => <th scope="col">FY{y}</th>)}</tr></thead>
+            <tbody>
+              <tr><th scope="row">Revenue growth</th>{YEARS.map((y) => <td>{y === 2023 ? "n/a" : fmtPct(az(y).c.revenueGrowth!)}</td>)}</tr>
+              <tr><th scope="row">Operating margin</th>{YEARS.map((y) => <td>{fmtPct(az(y).c.operatingMargin)}</td>)}</tr>
+              <tr><th scope="row">Effective tax rate</th>{YEARS.map((y) => <td>{fmtPct(az(y).c.effectiveTaxRate)}</td>)}</tr>
+              <tr><th scope="row">D&amp;A (excl. impairment) as % of revenue</th>{YEARS.map((y) => <td>{fmtPct(az(y).da / az(y).c.revenue)}</td>)}</tr>
+              <tr><th scope="row">Capex incl. intangibles as % of revenue</th>{YEARS.map((y) => <td>{fmtPct(az(y).capexPct)}</td>)}</tr>
+              <tr><th scope="row">Operating cash flow / profit</th>{YEARS.map((y) => <td>{fmtX(az(y).c.cashConversion)}</td>)}</tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="muted" style="margin-top: 0.75rem">The jump in operating margin between FY2024 and FY2025 may include one-off items; this tool does not separate them.</p>
+      </div>
+
+      <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
+        <form id="dcf-form" class="pane stack" onsubmit="return false" aria-label="DCF assumptions">
+          <div>
+            <h3 class="sub-h">Assumptions</h3>
+            <p class="sub-note">Enter percentages. Changing any value switches the scenario to Custom.</p>
+          </div>
+          <div class="field">
+            <label for="scenario">Scenario</label>
+            <select id="scenario" name="scenario">
+              <option value="low">Low</option>
+              <option value="base" selected>Base</option>
+              <option value="high">High</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+          <fieldset style="border:0;margin:0;padding:0">
+            <legend class="sub-note" style="margin-bottom:0.5rem">Revenue growth, FY2026 to FY2030 (%)</legend>
+            <div class="fields">
+              {[1, 2, 3, 4, 5].map((n) => (
+                <div class="field"><label for={`g${n}`}>FY{2025 + n}</label><input id={`g${n}`} name={`g${n}`} type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.growth[n - 1] * 100).toFixed(1)} /></div>
+              ))}
+            </div>
+          </fieldset>
+          <div class="fields">
+            <div class="field"><label for="target">Operating margin in FY2030 (%)</label><input id="target" name="target" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.targetMargin * 100).toFixed(1)} /></div>
+            <div class="field"><label for="tax">Tax rate on operating profit (%)</label><input id="tax" name="tax" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.taxRate * 100).toFixed(1)} /></div>
+            <div class="field"><label for="da">D&amp;A, % of revenue</label><input id="da" name="da" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.daPct * 100).toFixed(1)} /></div>
+            <div class="field"><label for="capex">Capex incl. intangibles, % of revenue</label><input id="capex" name="capex" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.capexPct * 100).toFixed(1)} /></div>
+            <div class="field"><label for="nwc">Working-capital investment, % of revenue</label><input id="nwc" name="nwc" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.nwcPct * 100).toFixed(1)} /></div>
+            <div class="field"><label for="wacc">WACC (%)</label><input id="wacc" name="wacc" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.wacc * 100).toFixed(1)} /><span class="hint">Discount rate, entered directly</span></div>
+            <div class="field"><label for="tg">Terminal growth (%)</label><input id="tg" name="tg" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.terminalGrowth * 100).toFixed(1)} /></div>
+          </div>
+          <button type="button" id="dcf-reset" class="btn-quiet">Reset to Base</button>
+        </form>
+        <div class="pane stack" aria-live="polite">
+          <h3 class="sub-h">Result</h3>
+          <p id="dcf-error" class="error" role="alert" hidden></p>
+          <div id="dcf-summary"><Fragment set:html={initial.summary} /></div>
+          <p class="muted">Per-share value is per ordinary share. Share counts and ADS ratios differ by listing, so compare it with the price of one ordinary share only after checking how your source quotes it.</p>
+        </div>
+      </div>
+
+      <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
+        <div class="pane"><div id="dcf-bridge" class="tbl-wrap"><Fragment set:html={initial.bridge} /></div>
+          <p class="muted" style="margin-top: 0.75rem"><strong>This bridge is partial.</strong> It omits contingent consideration, litigation and other provisions, deferred tax, other investments (such as equity holdings at fair value) and dividends declared. Pension deficit is shown before tax; non-controlling interests and associates are at book value.</p>
+        </div>
+        <div class="pane"><div id="dcf-years" class="tbl-wrap" role="region" aria-label="Forecast cash flows, scrolls horizontally on small screens" tabindex="0"><Fragment set:html={initial.years} /></div></div>
+      </div>
+
+      <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
+        <div class="pane"><div id="sens1" class="tbl-wrap"><Fragment set:html={initial.sens1} /></div></div>
+        <div class="pane"><div id="sens2" class="tbl-wrap"><Fragment set:html={initial.sens2} /></div></div>
+      </div>
+      <p class="muted" style="margin-top: 0.75rem">In the base case the terminal value is {fmtPct(initial.r.terminalShareOfEv, 0)} of enterprise value, so the result is mostly a statement about long-run assumptions. The outlined cell marks the current assumptions.</p>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="evidence" aria-labelledby="ev-h">
+        <div class="section-head">
+          <h2 id="ev-h">Evidence and validation</h2>
+          <p>What was checked, what was not, and where each number comes from.</p>
+        </div>
+        <div class="pane">
+          <div class="checks">
+            <div><h3>{v.totals.passed} / {v.totals.checks}</h3><p>automated checks pass: reconciliation, accounting identities, units, exchange rates and completeness.</p></div>
+            <div><h3>{v.totals.reconciledFigures}</h3><p>figures compared with the SEC's rendered statement pages; {v.totals.reconciliationMismatches} mismatches.</p></div>
+            <div><h3>15</h3><p>unit tests of the valuation maths, and an independent Excel recalculation that matches the web model to the cent.</p></div>
+          </div>
+          <div class="prose">
+            <h3>What this does and does not show</h3>
+            <ul>
+              <li>The reconciliation compares the dataset with figures read from each filing's rendered statements. It is a consistency check, not an audit.</li>
+              <li>Not reconciled: {v.notReconciled.join(" ")}</li>
+              <li>No restatements of FY2023 to FY2025 values were found across the 20-F filings used. Novartis's FY2023 figures are shown for continuing operations as presented in the later filings.</li>
+              <li>Data dates: SEC data retrieved {ds.generated}; ECB rates retrieved {ds.fx.retrieved}; latest filings are the FY2025 Forms 20-F filed in February and March 2026.</li>
+              <li>One check is reported rather than judged: AstraZeneca's FY2024 D&amp;A excluding impairment is about 24% below the cash-flow line "depreciation, amortisation and impairment", which implies about $1.6bn of impairment. It should be confirmed in the filing notes.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pane sources" style="margin-top: 1.25rem">
+          <h3 class="sub-h">Where each number comes from</h3>
+          <p class="sub-note">FY2025 values with the XBRL tag, filing date and a link to the filing index. Earlier years follow the same rules; the full list is in the downloadable dataset.</p>
+          {ids.map((c) => {
+            const y = ds.companies[c].years["2025"] as Record<string, any>;
+            return (
+              <details class="sources">
+                <summary>{names[c]} ({cur(c)}, millions)</summary>
+                <ul class="source-list">
+                  {Object.entries(y).map(([m, cell]) => (
+                    <li>
+                      <strong>{metricLabel[m] ?? m}:</strong> {m === "shares_outstanding_m" || m === "shares_derived_check_m" ? cell.value.toFixed(1) : fmtM(cell.value)} ·
+                      <code>{cell.tag}</code>{cell.accn ? <> · <a href={cell.source ?? accnLink(c, String(cell.accn))} rel="noopener">filed {cell.filed}</a></> : null}{cell.derived ? " · derived" : ""}
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            );
+          })}
+        </div>
+      </section>
+    </div>
+
+    <section class="wrap section" id="method" aria-labelledby="method-h">
+      <div class="section-head"><h2 id="method-h">Method and definitions</h2></div>
+      <div class="prose">
+        <h3>Periods and currencies</h3>
+        <p>All three companies have a 31 December year-end, so fiscal and calendar years coincide. Novartis and AstraZeneca report in US dollars and GSK in pounds sterling. GSK is translated with ECB reference rates (USD per GBP = USD per EUR ÷ GBP per EUR): annual average for income-statement and cash-flow items, year-end for balances.</p>
+        <h3>Reported, not adjusted</h3>
+        <p>Every figure is the IFRS figure as reported. No company-defined "core", "adjusted" or "underlying" measure is used, because those definitions differ between companies. Where a filing separates discontinued operations (Novartis, 2023), the continuing-operations figure is used.</p>
+        <h3>Definitions</h3>
+        <ul>
+          <li><strong>Revenue:</strong> AstraZeneca total revenue; GSK turnover; Novartis net sales plus other revenues.</li>
+          <li><strong>Net debt:</strong> financial debt plus lease liabilities, less cash and cash equivalents (and, for Novartis, marketable securities and time deposits). Novartis reports its own net debt excluding leases; the difference equals its lease liabilities exactly.</li>
+          <li><strong>Free cash flow:</strong> operating cash flow less purchases of PP&amp;E; the stricter version also deducts purchases of intangible assets.</li>
+        </ul>
+        <h3>DCF</h3>
+        <p>Free cash flow to the firm = operating profit × (1 − tax rate) + D&amp;A − capex − working-capital investment, for five years. Operating margin moves linearly from the FY2025 actual to the chosen FY2030 value. Cash flows are discounted at year-end; the terminal value uses constant growth: FCFF₅ × (1 + g) ÷ (WACC − g). Enterprise value is converted to equity value with the bridge above and divided by ordinary shares outstanding (1,550.9 million per the FY2025 cover page).</p>
+      </div>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="limits" aria-labelledby="lim-h">
+        <div class="section-head"><h2 id="lim-h">Limits and next steps</h2></div>
+        <div class="cols-2">
+          <div class="pane prose">
+            <h3 style="margin-top:0">Limits</h3>
+            <ul>
+              <li>Three companies and three years: this shows a method, not a market view.</li>
+              <li>The DCF depends on assumptions that are illustrative. Terminal value is most of the result.</li>
+              <li>The enterprise-to-equity bridge is partial (see above). Pharma litigation and contingent consideration can be material.</li>
+              <li>No pipeline probability or patent-expiry modelling; a single revenue path per scenario.</li>
+              <li>GSK: lease treatment inside borrowings is assumed, and non-controlling interests are understated at book value.</li>
+              <li>No share-price data is bundled, so multiples need your own inputs.</li>
+              <li>Not independently reviewed. Do not use it for investment decisions.</li>
+            </ul>
+          </div>
+          <div class="pane prose">
+            <h3 style="margin-top:0">Next steps</h3>
+            <ul>
+              <li>Add a market-data source whose terms allow redistribution, and verify ADS ratios.</li>
+              <li>Confirm GSK's lease presentation and value its non-controlling interests at market-based value.</li>
+              <li>Build a peer-based WACC with explicit beta and capital-structure inputs.</li>
+              <li>Add a pipeline-risk scenario and a patent-expiry view.</li>
+              <li>Add trailing-twelve-month figures and a fourth company.</li>
+              <li>Have a finance professional review the assumptions and bridge.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="wrap section" id="downloads" aria-labelledby="dl-h">
+      <div class="section-head"><h2 id="dl-h">Downloads and code</h2><p>The workbook has live formulas for the comparison and the DCF, with a Checks sheet. Inputs are in blue.</p></div>
+      <ul class="downloads">
+        <li><a href="/downloads/pharma-valuation/pharma-valuation-model.xlsx" download>Excel model (xlsx)</a></li>
+        <li><a href="/downloads/pharma-valuation/pharma-dataset.csv" download>Dataset with sources (csv)</a></li>
+        <li><a href="/downloads/pharma-valuation/pharma-dataset.json" download>Dataset with sources (json)</a></li>
+        <li><a href="/downloads/pharma-valuation/validation.json" download>Validation results (json)</a></li>
+        <li><a href="/downloads/pharma-valuation/reconciliation.json" download>Reconciliation to filing pages (json)</a></li>
+        <li><a href="https://github.com/lindgreendavid/lindgreendavid.github.io" rel="noopener">Repository (data tools, model and tests are published with this site)</a></li>
+      </ul>
+    </section>
+
+    <footer class="wrap proj-foot">
+      <p><a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p>
+    </footer>
+  </main>
+
+  <script>
+    import ds from "../../data/pharma/dataset.json";
+    import { initPharma } from "../../lib/pharma/ui.ts";
+    const names = Object.fromEntries(Object.entries(ds.companies).map(([k, v]) => [k, (v as { name: string }).name]));
+    initPharma(ds as never, names);
+  </script>
+</Base>

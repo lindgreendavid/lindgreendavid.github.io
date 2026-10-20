@@ -263,5 +263,6 @@ for c in wk[1]:
     c.fill = HEAD
 
 wb.save(OUT / "pharma-valuation-model.xlsx")
-(OUT / "pharma-dataset.json").write_text((ROOT / "src/data/pharma/dataset.json").read_text(encoding="utf-8"), encoding="utf-8")
+for name, target in (("dataset.json", "pharma-dataset.json"), ("validation.json", "validation.json"), ("reconciliation.json", "reconciliation.json")):
+    (OUT / target).write_text((ROOT / "src/data/pharma" / name).read_text(encoding="utf-8"), encoding="utf-8")
 print("workbook, csv and json written to", OUT)

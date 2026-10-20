@@ -1,0 +1,41 @@
+{
+ "generated": "2026-10-20",
+ "totals": {
+  "checks": 168,
+  "passed": 168,
+  "failed": 0,
+  "reconciledFigures": 137,
+  "reconciliationMismatches": 0
+ },
+ "byGroup": {
+  "reconciliation": {
+   "passed": 137,
+   "total": 137
+  },
+  "identity": {
+   "passed": 18,
+   "total": 18
+  },
+  "units": {
+   "passed": 9,
+   "total": 9
+  },
+  "fx": {
+   "passed": 3,
+   "total": 3
+  },
+  "completeness": {
+   "passed": 1,
+   "total": 1
+  }
+ },
+ "failures": [],
+ "restatements": [],
+ "notReconciled": [
+  "GSK debt at 31 Dec 2023 (the 2023 balance sheet was not read; the value comes from XBRL only).",
+  "Share counts for 2023 and 2024 (only the FY2025 cover pages were read).",
+  "Whether GSK's borrowings include lease liabilities (assumed from the balance-sheet presentation; not confirmed in the notes).",
+  "The ADS-to-share ratio for AstraZeneca and GSK (not stated on the cover pages); the tool therefore takes market capitalisation as the user's input."
+ ],
+ "scope": "Covers 3 companies x 3 fiscal years. Reconciliation compares the dataset with figures read from the SEC's rendered statements; it is a consistency check, not an audit."
+}
