@@ -34,10 +34,10 @@ const last = ok ? pts[pts.length - 1] : null;
       <span class="rate-title">EUR/USD</span>
       <span class="rate-sub">ECB reference rate</span>
       <span class="rate-range" role="group" aria-label="Time range">
+        <button type="button" data-surface aria-pressed="false" title="Realised volatility by lookback window and date, in 3D" aria-label="3D volatility surface">3D</button>
         <button type="button" data-n="22" aria-pressed="false">1M</button>
         <button type="button" data-n="66" aria-pressed="false">3M</button>
         <button type="button" data-n="260" aria-pressed="true">1Y</button>
-        <button type="button" data-surface aria-pressed="false" title="Realised volatility by lookback window and date, in 3D" aria-label="3D volatility surface">3D</button>
       </span>
     </figcaption>
     <p class="rate-read" aria-live="polite">
@@ -147,6 +147,7 @@ const last = ok ? pts[pts.length - 1] : null;
             max: vol.max,
             xLabels: [fmtDate(vol.dates[0]), fmtDate(vol.dates[vol.dates.length - 1])],
             yLabels: ["5 d", "60 d"],
+            unit: "%",
           },
           reduced
         );
@@ -202,5 +203,24 @@ const last = ok ? pts[pts.length - 1] : null;
     buttons.forEach((b) => b.addEventListener("click", () => show(Number(b.dataset.n))));
     surfBtn.addEventListener("click", enterSurface);
     root.querySelector("[data-reset3d]")?.addEventListener("click", () => surface?.reset());
+
+    // The 3D surface is the default view; the line chart stays one tap away (and is the no-JavaScript view).
+    if (!surfBtn.hidden) enterSurface();
+
+    // Scroll-driven turn: the surface rotates a little as the page scrolls past it. Off for reduced motion.
+    if (!reduced) {
+      let ticking = false;
+      const onScroll = () => {
+        if (ticking || root.dataset.mode !== "surface") return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          ticking = false;
+          const r = canvas.getBoundingClientRect();
+          const p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight + r.height)));
+          surface?.turn((p - 0.35) * 0.7);
+        });
+      };
+      addEventListener("scroll", onScroll, { passive: true });
+    }
   }
 </script>

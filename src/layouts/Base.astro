@@ -47,6 +47,22 @@ const { title, description, lang = "en" } = Astro.props;
       });
     </script>
     <script>
+      // Panels tilt a few degrees toward the pointer. Only on devices that can hover, and never with reduced motion.
+      if (matchMedia("(hover: hover) and (pointer: fine)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.querySelectorAll<HTMLElement>(".panel").forEach((el) => {
+          el.addEventListener("pointermove", (e) => {
+            const r = el.getBoundingClientRect();
+            el.style.setProperty("--ry", `${((e.clientX - r.left) / r.width - 0.5) * 6}deg`);
+            el.style.setProperty("--rx", `${(0.5 - (e.clientY - r.top) / r.height) * 6}deg`);
+          });
+          el.addEventListener("pointerleave", () => {
+            el.style.removeProperty("--rx");
+            el.style.removeProperty("--ry");
+          });
+        });
+      }
+    </script>
+    <script>
       // Entrances: each marked block rises and fades in once, staggered. Content stays visible if this never runs.
       const els = Array.from(document.querySelectorAll<HTMLElement>("[data-rv]"));
       if ("IntersectionObserver" in window && els.length) {

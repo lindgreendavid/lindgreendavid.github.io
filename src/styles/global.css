@@ -423,7 +423,7 @@ button {
 .rate-surf {
   display: block;
   width: 100%;
-  aspect-ratio: 640 / 300;
+  aspect-ratio: 640 / 380;
   margin-top: 0.5rem;
   border-radius: 12px;
   cursor: grab;
@@ -528,6 +528,7 @@ h2.big,
 .panel {
   padding: clamp(1.75rem, 3.4vw, 2.75rem);
   border-radius: var(--radius);
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition: transform 220ms var(--out);
 }
 .panel h3 {
@@ -1014,13 +1015,30 @@ h2.big,
 .reveal-ready [data-rv]:not([data-stagger]),
 .reveal-ready [data-stagger] > * {
   opacity: 0;
-  transform: translateY(24px);
 }
+/* Entrance runs as an animation that only applies before it starts (fill: backwards), so hover transforms still work afterwards. */
 .reveal-ready [data-rv].in:not([data-stagger]),
 .reveal-ready [data-stagger].in > * {
   opacity: 1;
-  transform: none;
-  transition: opacity 600ms var(--out) calc(var(--d, 0) * 70ms), transform 700ms var(--out) calc(var(--d, 0) * 70ms);
+  animation: reveal 700ms var(--out) calc(var(--d, 0) * 70ms) backwards;
+}
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+/* The work panels arrive with a little depth: tipped back, then settling flat. */
+.reveal-ready .work[data-stagger].in > * {
+  transform-origin: 50% 0;
+  animation-name: reveal-3d;
+  animation-duration: 900ms;
+}
+@keyframes reveal-3d {
+  from {
+    opacity: 0;
+    transform: perspective(1400px) rotateX(10deg) translateY(28px);
+  }
 }
 
 /* ---- hover feedback only on devices that can hover ---- */
@@ -1045,8 +1063,9 @@ h2.big,
     text-decoration: underline;
     text-underline-offset: 0.25em;
   }
+  /* Hover: lift and a slight tilt that follows the pointer (set from a few lines of script in Base.astro). */
   .panel:hover {
-    transform: translateY(-3px);
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-3px);
   }
   .more summary:hover {
     background: var(--tone);
@@ -1085,18 +1104,16 @@ h2.big,
   .rate-line {
     animation: none;
   }
-  .reveal-ready [data-rv]:not([data-stagger]),
-  .reveal-ready [data-stagger] > * {
-    transform: none;
-  }
   .reveal-ready [data-rv].in:not([data-stagger]),
-  .reveal-ready [data-stagger].in > * {
-    transition: opacity 250ms ease calc(var(--d, 0) * 40ms);
+  .reveal-ready [data-stagger].in > *,
+  .reveal-ready .work[data-stagger].in > * {
+    animation: fade 250ms ease calc(var(--d, 0) * 40ms) backwards;
   }
   .more[open] .more-list,
   .more[open] .more-foot {
     animation: none;
   }
+  .panel,
   .panel:hover {
     transform: none;
   }
