@@ -1,8 +1,8 @@
 // All facts on this page come from David's LinkedIn export, his GitHub profile and Lab Notes.
 // Nothing here is invented: edit this file to change what the site says.
 
-// One place for the Lab Notes address. Switch to "https://notes.lindgreendavid.com" only after that subdomain is live.
-const NOTES = "https://blog-interactive.lindgreendavid.workers.dev";
+// One place for the Lab Notes address (Cloudflare Worker, custom domain live since 2026-10-20).
+const NOTES = "https://notes.lindgreendavid.com";
 
 export const person = {
   name: "David Lindgreen",
@@ -11,6 +11,15 @@ export const person = {
   github: "https://github.com/lindgreendavid",
   labNotes: NOTES + "/",
   location: "Frankfurt, Germany",
+};
+
+// Impressum data (§ 5 DDG needs a postal address where you can be reached; a P.O. box is not enough).
+// The legal pages refuse to build until street and city are filled in.
+export const legal = {
+  name: "David Lindgreen",
+  street: "",
+  city: "",
+  updated: "20. Oktober 2026",
 };
 
 const LN = NOTES + "/posts/";
