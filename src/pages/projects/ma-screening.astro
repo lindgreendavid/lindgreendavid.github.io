@@ -1,0 +1,192 @@
+---
+import Base from "../../layouts/Base.astro";
+import ProjectHeader from "../../components/ProjectHeader.astro";
+import "../../styles/projects.css";
+import ds from "../../data/ma/dataset.json";
+import validation from "../../data/ma/validation.json";
+import { CRITERIA, CRITERION_INFO, DEFAULT_FILTERS, DEFAULT_WEIGHTS } from "../../lib/ma/screen.ts";
+import type { Dataset } from "../../lib/ma/screen.ts";
+import { defaultOutput } from "../../lib/ma/ui.ts";
+
+const data = ds as unknown as Dataset;
+const n = Object.keys(data.companies).length;
+const initial = defaultOutput(data, n);
+const v = validation;
+---
+<Base title="M&A Screening Workbench | David Lindgreen" description="A preliminary screening of US-listed pharma and biotech companies against a hypothetical buyer brief, with adjustable weights, data-gap flags, ranking sensitivity and a screening memo. Screening only; first release.">
+  <ProjectHeader current="projects" />
+  <main id="main">
+    <section class="wrap proj-hero">
+      <h1>Strategic M&amp;A Screening Workbench</h1>
+      <p class="proj-lede">Build a first shortlist of acquisition candidates for a hypothetical buyer, see which choices drive the ranking, and read what the screen does not know. It narrows a list. It does not value a company or say a deal can happen.</p>
+      <p class="status">First release · in development · hypothetical brief · not independently reviewed</p>
+      <div class="brief">
+        <div><h2>Who it is for</h2><p>An analyst or corporate-development associate who needs a defensible first cut of a universe before deeper work.</p></div>
+        <div><h2>The problem</h2><p>A long list is easy to rank by gut feel. A screen should state its criteria, show its gaps and show how fragile the order is.</p></div>
+        <div><h2>What it supports</h2><p>Deciding which handful of companies deserve a proper look. It is not a valuation, a fairness view or a recommendation.</p></div>
+      </div>
+      <nav class="jump" aria-label="On this page"><a href="#brief">Brief</a><a href="#screen">Screen</a><a href="#memo">Memo</a><a href="#evidence">Evidence</a><a href="#method">Method</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a></nav>
+    </section>
+
+    <section class="wrap" aria-label="Disclosures">
+      <p class="callout"><strong>The buyer is hypothetical.</strong> "BuyerCo" below is invented for this exercise; it is not a real client, mandate or employer. Data is public (SEC XBRL for Forms 10-K). The author works at Sanofi; no Sanofi or other employer information is used. Built with AI assistance; the author is responsible for checking it. Educational only, not investment advice.</p>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="brief" aria-labelledby="brief-h">
+        <div class="section-head"><h2 id="brief-h">The hypothetical brief</h2><p>BuyerCo, a fictional European specialty-pharma platform with a US commercial presence, wants a profitable, growing, US-listed commercial-stage company in the revenue range of $150m to $3bn that it could realistically absorb. Illustrative criteria, not a view of what any real buyer wants.</p></div>
+        <div class="pane">
+          <div class="tbl-wrap" role="region" aria-label="Criteria, scrolls horizontally on small screens" tabindex="0">
+            <table class="tbl">
+              <caption class="sr">Scored criteria and how each is scored</caption>
+              <thead><tr><th scope="col">Criterion</th><th scope="col">Measure</th><th scope="col">Score from 0 to 100</th><th scope="col">Default weight</th></tr></thead>
+              <tbody>{CRITERIA.map((c) => <tr><th scope="row">{CRITERION_INFO[c].label}</th><td>{CRITERION_INFO[c].measure}</td><td>{CRITERION_INFO[c].anchors}</td><td class="num">{DEFAULT_WEIGHTS[c]}</td></tr>)}</tbody>
+            </table>
+          </div>
+          <p class="muted" style="margin-top:0.75rem">Hard filters come first: revenue range ({DEFAULT_FILTERS.minRevenue} to {DEFAULT_FILTERS.maxRevenue} $m), positive operating income, and complete core data. Scores use fixed anchors from the brief, not the other companies, so a company's score does not move when the universe changes.</p>
+        </div>
+      </section>
+    </div>
+
+    <section class="wrap section" id="screen" aria-labelledby="screen-h">
+      <div class="section-head"><h2 id="screen-h">Screen {n} companies</h2><p>Change the weights and filters; the ranking, the data flags and the memo update. Weights are relative and are rescaled to total 100.</p></div>
+      <div class="cols-2" style="align-items: start">
+        <form id="screen-form" class="pane stack" onsubmit="return false" aria-label="Screening controls">
+          <h3 class="sub-h">Weights</h3>
+          <div class="weights">
+            {CRITERIA.map((c) => (
+              <div class="wrow">
+                <label for={`w-${c}`}>{CRITERION_INFO[c].label}</label>
+                <input id={`w-${c}`} name={`w-${c}`} type="range" min="0" max="50" step="5" value={DEFAULT_WEIGHTS[c]} />
+                <output id={`wv-${c}`} for={`w-${c}`}>{DEFAULT_WEIGHTS[c]}</output>
+              </div>
+            ))}
+          </div>
+          <h3 class="sub-h">Filters</h3>
+          <div class="fields">
+            <div class="field"><label for="min-rev">Minimum revenue, $m</label><input id="min-rev" name="min-rev" type="number" inputmode="decimal" min="0" step="any" value={DEFAULT_FILTERS.minRevenue} /></div>
+            <div class="field"><label for="max-rev">Maximum revenue, $m</label><input id="max-rev" name="max-rev" type="number" inputmode="decimal" min="0" step="any" value={DEFAULT_FILTERS.maxRevenue} /></div>
+          </div>
+          <label class="switch"><input type="checkbox" id="req-profit" name="req-profit" checked={DEFAULT_FILTERS.requireProfitable} /> <span>Require positive FY2025 operating income</span></label>
+          <div class="field">
+            <label for="policy">When a criterion has no data</label>
+            <select id="policy" name="policy"><option value="renormalize">Drop it and rescale the other weights (flagged)</option><option value="zero">Score it 0 (pessimistic)</option></select>
+          </div>
+          <div><button type="button" id="screen-reset" class="btn-quiet">Reset to the brief</button></div>
+          <p id="screen-error" class="error callout" role="alert" hidden></p>
+        </form>
+        <div class="pane prose" style="align-self: stretch">
+          <h3 style="margin-top:0">How to read the result</h3>
+          <ul>
+            <li><strong>Score</strong> is a weighted average of the criterion scores (0 to 100).</li>
+            <li><strong>Rank range</strong> and <strong>in top 5</strong> come from 1,000 random re-weightings in which each weight is multiplied by a random factor of roughly 0.6 to 1.65. A narrow range and a high share mean the position does not depend on the exact weights.</li>
+            <li><strong>Data flags</strong> say what is missing or needs a human look. Flags are not penalties.</li>
+            <li>Companies are never ranked on numbers that were not found: missing data is flagged, then handled by the policy you choose.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pane" style="margin-top: 1.25rem">
+        <p id="screen-summary" class="sub-note" role="status">{initial.summary}</p>
+        <div id="screen-out" class="tbl-wrap" role="region" aria-label="Ranked shortlist, scrolls horizontally on small screens" tabindex="0" aria-live="polite"><Fragment set:html={initial.table} /></div>
+        <p class="muted" style="margin-top:0.75rem">* From 1,000 perturbed weightings (seeded, reproducible). Legend for the bar: segments are criteria in the order scale, growth, profitability, cash, balance sheet, R&amp;D.</p>
+        <p class="legend legend-seg"><span class="s0">Scale</span><span class="s1">Growth</span><span class="s2">Profitability</span><span class="s3">Cash</span><span class="s4">Balance sheet</span><span class="s5">R&amp;D</span></p>
+        <details class="data"><summary>Excluded by the filters</summary><div id="excluded-out"><Fragment set:html={initial.excluded} /></div></details>
+      </div>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="memo" aria-labelledby="memo-h">
+        <div class="section-head"><h2 id="memo-h">Screening memo</h2><p>Generated from the numbers above with fixed sentence templates, so every statement can be traced. It always lists what was not assessed.</p></div>
+        <div class="pane">
+          <div id="memo-text" class="memo"><Fragment set:html={initial.memo.map((l) => `<p>${l.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</p>`).join("")} /></div>
+          <p><button type="button" id="memo-copy" class="btn-quiet">Copy memo</button></p>
+        </div>
+      </section>
+    </div>
+
+    <section class="wrap section" id="evidence" aria-labelledby="ev-h">
+      <div class="section-head"><h2 id="ev-h">Evidence and validation</h2><p>Retrieved {ds.generated} from the SEC's XBRL company-facts feed.</p></div>
+      <div class="pane">
+        <div class="checks">
+          <div><h3>{v.totals.passed} / {v.totals.checks}</h3><p>automated checks pass: fiscal-year dates, one filing per company for the core figures, sign and size sanity.</p></div>
+          <div><h3>{v.totals.filingTextPassed} / {v.totals.filingTextChecks}</h3><p>FY2025 figures found, as printed, in the company's Form 10-K text. This catches mis-scaled or wrong-period values.</p></div>
+          <div><h3>13</h3><p>unit tests of the scoring, filtering, missing-data and sensitivity logic, including hand-computed cases.</p></div>
+        </div>
+        <div class="prose">
+          <h3>What this does and does not show</h3>
+          <ul>
+            <li>The text check shows a figure is printed in the filing. It does not prove the right line was chosen; the tag used for every figure is in the download.</li>
+            <li>Not checked against the filing text: {v.uncheckedAgainstFilingText.join(", ") || "none"} (10-K not downloaded). Sums of several tags (for example debt) are listed rather than searched.</li>
+            <li>Debt: only standard debt tags are read. Where the 10-K text mentions royalty-financing obligations (found for BioCryst, PTC Therapeutics and others), leverage is marked unavailable instead of showing a misleadingly low figure. Companies with no debt tag may simply have no borrowings; that is flagged, not assumed.</li>
+            <li>Figures are as reported under US GAAP and include one-off items such as licence or milestone revenue. Margins of 40% or more and growth of 40% or more are flagged for that reason.</li>
+            <li>Fiscal years: Exelixis uses a 52/53-week year; FY2025 ends 2 January 2026.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="method" aria-labelledby="method-h">
+        <div class="section-head"><h2 id="method-h">Method</h2></div>
+        <div class="prose">
+          <h3>Universe</h3>
+          <p>{n} US-listed pharmaceutical and biotechnology companies filing Form 10-K, picked by the author from memory as a convenience sample. It is not a systematic screen of the market, so a good-looking result here says nothing about companies that are not in the list. Two tickers considered (CPRX, DVAX) had no matching SEC record on the retrieval date and were dropped.</p>
+          <h3>Metrics</h3>
+          <ul>
+            <li>Revenue growth: compound annual growth from FY2022 to FY2025 revenue.</li>
+            <li>Operating margin: operating income / revenue. Cash generation: operating cash flow / revenue.</li>
+            <li>Leverage: (debt - cash - short-term investments) / (operating income + depreciation and amortisation). Net cash scores 100; negative EBITDA with net debt scores 0.</li>
+            <li>R&amp;D reinvestment: R&amp;D expense / revenue, scored highest between 10% and 30% because the hypothetical buyer wants an innovative base without a pre-revenue profile.</li>
+          </ul>
+          <h3>Scoring and ranking</h3>
+          <p>Each metric maps to 0 to 100 through the piecewise-linear anchors in the brief table. The composite is the weighted average; weights are relative. Ties share a rank. Sensitivity uses 1,000 seeded random re-weightings, plus the alternative policy for missing data.</p>
+        </div>
+      </section>
+    </div>
+
+    <section class="wrap section" id="limits" aria-labelledby="lim-h">
+      <div class="section-head"><h2 id="lim-h">Limits and next steps</h2></div>
+      <div class="cols-2">
+        <div class="pane prose">
+          <h3 style="margin-top:0">Limits</h3>
+          <ul>
+            <li>Screening only. No valuation, premium, synergies, financing, accretion or dilution, LBO or antitrust analysis, and no view on whether anyone would sell.</li>
+            <li>No market data is bundled, so size is measured by revenue, not by market value or enterprise value.</li>
+            <li>No product concentration, patent expiry, pipeline, litigation or ownership information.</li>
+            <li>The brief and the scoring anchors are the author's illustrative choices. Different anchors would give a different order.</li>
+            <li>Small convenience sample; small evaluation of the data; not independently reviewed.</li>
+          </ul>
+        </div>
+        <div class="pane prose">
+          <h3 style="margin-top:0">Next steps</h3>
+          <ul>
+            <li>Add market capitalisation from a source whose terms allow it, and a valuation-fit criterion.</li>
+            <li>Read the debt and royalty-financing notes for the flagged companies and replace the flags with figures.</li>
+            <li>Add product concentration and patent-expiry data from the filings.</li>
+            <li>Test the ranking against a second, independently written brief.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="downloads" aria-labelledby="dl-h">
+        <div class="section-head"><h2 id="dl-h">Downloads</h2><p>Every figure with its XBRL tag, filing accession and date.</p></div>
+        <ul class="downloads">
+          <li><a href="/downloads/ma-screening/ma-dataset.csv" download>Dataset with sources (csv)</a></li>
+          <li><a href="/downloads/ma-screening/ma-dataset.json" download>Dataset with sources (json)</a></li>
+          <li><a href="/downloads/ma-screening/ma-validation.json" download>Validation results (json)</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <footer class="wrap proj-foot"><p><a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p></footer>
+  </main>
+
+  <script>
+    import ds from "../../data/ma/dataset.json";
+    import { initScreen } from "../../lib/ma/ui.ts";
+    initScreen(ds as never, Object.keys(ds.companies).length);
+  </script>
+</Base>

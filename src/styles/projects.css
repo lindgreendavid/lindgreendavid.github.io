@@ -693,3 +693,117 @@ details.sources + details.sources {
   color: var(--ink-3);
   font-size: 0.85rem;
 }
+
+/* M&A screening */
+.weights {
+  display: grid;
+  gap: 0.35rem;
+}
+.wrow {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) 2fr 2.5rem;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 44px;
+}
+.wrow label {
+  color: var(--ink-2);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.wrow input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+.wrow output {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.field select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.5rem 0.85rem;
+  background: var(--tone);
+  border: 0;
+  border-radius: 12px;
+  color: var(--ink);
+  font: inherit;
+}
+.rank .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.rank .strong {
+  font-weight: 700;
+}
+.rank .tick {
+  color: var(--ink-3);
+  font-size: 0.85em;
+  font-weight: 400;
+}
+.rank th[scope="row"],
+.rank thead th:nth-child(2) {
+  min-width: 12rem;
+  max-width: 16rem;
+  text-align: left;
+  white-space: normal;
+}
+.sbar {
+  display: flex;
+  width: 9rem;
+  height: 0.8rem;
+  overflow: hidden;
+  background: var(--tone);
+  border-radius: 999px;
+}
+.sseg {
+  display: block;
+  height: 100%;
+}
+.s0 { background: var(--accent); }
+.s1 { background: color-mix(in srgb, var(--accent) 70%, var(--ink)); }
+.s2 { background: color-mix(in srgb, var(--accent) 45%, var(--panel)); }
+.s3 { background: var(--ink-2); }
+.s4 { background: var(--ink-3); }
+.s5 { background: color-mix(in srgb, var(--ink) 30%, var(--panel)); }
+.legend-seg span::before {
+  background: currentColor;
+}
+.legend-seg .s0, .legend-seg .s1, .legend-seg .s2, .legend-seg .s3, .legend-seg .s4, .legend-seg .s5 {
+  background: none;
+}
+.legend-seg .s0::before { background: var(--accent); }
+.legend-seg .s1::before { background: color-mix(in srgb, var(--accent) 70%, var(--ink)); }
+.legend-seg .s2::before { background: color-mix(in srgb, var(--accent) 45%, var(--panel)); }
+.legend-seg .s3::before { background: var(--ink-2); }
+.legend-seg .s4::before { background: var(--ink-3); }
+.legend-seg .s5::before { background: color-mix(in srgb, var(--ink) 30%, var(--panel)); }
+.flags summary {
+  cursor: pointer;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.flags ul {
+  min-width: 18rem;
+  margin: 0.35rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--ink-2);
+  font-size: 0.85rem;
+  list-style: disc;
+}
+.excl {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--ink-2);
+  list-style: disc;
+}
+.memo p {
+  margin: 0 0 0.75rem;
+  color: var(--ink-2);
+  max-width: 78ch;
+}
+.memo p:first-child {
+  color: var(--ink);
+  font-weight: 600;
+}

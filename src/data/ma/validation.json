@@ -1,0 +1,2071 @@
+{
+ "generated": "2026-10-21",
+ "totals": {
+  "checks": 341,
+  "passed": 341,
+  "failed": 0,
+  "filingTextChecks": 174,
+  "filingTextPassed": 174
+ },
+ "uncheckedAgainstFilingText": [
+  "BMRN"
+ ],
+ "summedValuesNotSearched": [
+  "COLL debt: ConvertibleLongTermNotesPayable + LongTermLoansPayable + LoansPayableCurrent",
+  "ANIP debt: LongTermDebtNoncurrent + LongTermDebtCurrent",
+  "LNTH debt: LongTermDebtAndCapitalLeaseObligations + LongTermDebtAndCapitalLeaseObligationsCurrent"
+ ],
+ "failures": [],
+ "results": [
+  {
+   "company": "JAZZ",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "4267.586m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "-430.240m via OperatingIncomeLoss"
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "-356.148m via NetIncomeLoss"
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "1355.773m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "1391.899m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "782.736m via ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost"
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2025 debt appears in the 10-K text",
+   "ok": true,
+   "detail": "5358.257m via LongTermDebt"
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "JAZZ",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001232524-26-000013"
+  },
+  {
+   "company": "JAZZ",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "JAZZ",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "JAZZ",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "718.952m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "-62.283m via OperatingIncomeLoss"
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "-38.550m via NetIncomeLoss"
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "47.331m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "128.448m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "106.235m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "SUPN",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001356576-26-000011"
+  },
+  {
+   "company": "SUPN",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "SUPN",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "SUPN",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "CORT",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "761.407m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "CORT",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "44.797m via OperatingIncomeLoss"
+  },
+  {
+   "company": "CORT",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "99.652m via NetIncomeLoss"
+  },
+  {
+   "company": "CORT",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "141.996m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "CORT",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "120.495m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "CORT",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "254.908m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "CORT",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "CORT",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001628280-26-011091"
+  },
+  {
+   "company": "CORT",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "CORT",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "CORT",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "CORT",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "1396.611m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "469.006m via OperatingIncomeLoss"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "316.889m via NetIncomeLoss"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "651.558m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "133.820m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "81.490m via ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 debt appears in the 10-K text",
+   "ok": true,
+   "detail": "2142.630m via LongTermDebt"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "HALO",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001159036-26-000024"
+  },
+  {
+   "company": "HALO",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HALO",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HALO",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HALO",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "IRWD",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "296.151m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "IRWD",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "98.502m via OperatingIncomeLoss"
+  },
+  {
+   "company": "IRWD",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "24.017m via NetIncomeLoss"
+  },
+  {
+   "company": "IRWD",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "127.044m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "IRWD",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "215.456m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "IRWD",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "95.136m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "IRWD",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "IRWD",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001104659-26-020489"
+  },
+  {
+   "company": "IRWD",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "IRWD",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "IRWD",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "IRWD",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "719.887m via Revenues"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "140.403m via OperatingIncomeLoss"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "98.094m via NetIncomeLoss"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "156.115m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "170.177m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "85.844m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 debt appears in the 10-K text",
+   "ok": true,
+   "detail": "619.705m via LongTermDebtNoncurrent"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "AMPH",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001297184-26-000009"
+  },
+  {
+   "company": "AMPH",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMPH",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMPH",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "726.411m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "19.191m via OperatingIncomeLoss"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "7.034m via NetIncomeLoss"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "151.994m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "158.545m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "117.312m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 debt appears in the 10-K text",
+   "ok": true,
+   "detail": "372.189m via LongTermDebt"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "PCRX",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001628280-26-012297"
+  },
+  {
+   "company": "PCRX",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PCRX",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PCRX",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "COLL",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "780.567m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "COLL",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "179.636m via OperatingIncomeLoss"
+  },
+  {
+   "company": "COLL",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "62.870m via NetIncomeLoss"
+  },
+  {
+   "company": "COLL",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "329.323m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "COLL",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "231.252m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "COLL",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "COLL",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001628280-26-011992"
+  },
+  {
+   "company": "COLL",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "COLL",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "COLL",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "COLL",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "883.366m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "111.093m via OperatingIncomeLoss"
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "78.337m via NetIncomeLoss"
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "185.225m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "285.585m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "51.664m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "ANIP",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001023024-26-000014"
+  },
+  {
+   "company": "ANIP",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ANIP",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ANIP",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "868.453m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "208.469m via OperatingIncomeLoss"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "158.687m via NetIncomeLoss"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "348.199m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "752.502m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "189.594m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 debt appears in the 10-K text",
+   "ok": true,
+   "detail": "163.663m via LongTermDebt"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "HRMY",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001104659-26-018859"
+  },
+  {
+   "company": "HRMY",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HRMY",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HRMY",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "411.328m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "163.745m via OperatingIncomeLoss"
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "271.165m via ProfitLoss"
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "196.930m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "550.941m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "30.604m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 debt appears in the 10-K text",
+   "ok": true,
+   "detail": "257.731m via DebtLongtermAndShorttermCombinedAmount"
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "INVA",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001193125-26-071776"
+  },
+  {
+   "company": "INVA",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "INVA",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "INVA",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "INVA",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "216.105m via Revenues"
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "-151.168m via OperatingIncomeLoss"
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "-220.474m via NetIncomeLoss"
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "-109.442m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "84.851m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "109.271m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "VNDA",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001628280-26-007460"
+  },
+  {
+   "company": "VNDA",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "VNDA",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "VNDA",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "LGND",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "268.087m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "LGND",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "41.002m via OperatingIncomeLoss"
+  },
+  {
+   "company": "LGND",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "124.453m via NetIncomeLoss"
+  },
+  {
+   "company": "LGND",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "49.359m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "LGND",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "174.927m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "LGND",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "81.182m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "LGND",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "LGND",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0000886163-26-000006"
+  },
+  {
+   "company": "LGND",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LGND",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LGND",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LGND",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "3018.760m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "394.096m via OperatingIncomeLoss"
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "72.057m via NetIncomeLoss"
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "339.992m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "282.029m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "186.175m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2025 debt appears in the 10-K text",
+   "ok": true,
+   "detail": "2571.876m via LongTermDebt"
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "AMRX",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001723128-26-000011"
+  },
+  {
+   "company": "AMRX",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMRX",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMRX",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "1071.505m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "104.811m via OperatingIncomeLoss"
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "391.000m via NetIncomeLoss"
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "109.836m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "177.695m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "328.802m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "ACAD",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001193125-26-072519"
+  },
+  {
+   "company": "ACAD",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ACAD",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ACAD",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "EXEL",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "2320.126m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "EXEL",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "872.191m via OperatingIncomeLoss"
+  },
+  {
+   "company": "EXEL",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "782.570m via NetIncomeLoss"
+  },
+  {
+   "company": "EXEL",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "884.267m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "EXEL",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "482.488m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "EXEL",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "825.001m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "EXEL",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2026-01-02, 2026-01-02, 2026-01-02"
+  },
+  {
+   "company": "EXEL",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0000939767-26-000021"
+  },
+  {
+   "company": "EXEL",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "EXEL",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "EXEL",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "EXEL",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-30"
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "2860.500m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "619.100m via OperatingIncomeLoss"
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "478.600m via NetIncomeLoss"
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "782.700m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "713.000m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "1015.700m via ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost"
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "NBIX",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0000914475-26-000007"
+  },
+  {
+   "company": "NBIX",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "NBIX",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "NBIX",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "1541.609m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "310.832m via OperatingIncomeLoss"
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "233.559m via NetIncomeLoss"
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "390.141m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "359.121m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "177.308m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "LNTH",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001193125-26-073498"
+  },
+  {
+   "company": "LNTH",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LNTH",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LNTH",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "510.173m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "191.443m via OperatingIncomeLoss"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "146.930m via NetIncomeLoss"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "50.396m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "87.630m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "4.762m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 debt appears in the 10-K text",
+   "ok": true,
+   "detail": "72.143m via LongTermDebt"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "ADMA",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001140361-26-006815"
+  },
+  {
+   "company": "ADMA",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ADMA",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ADMA",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "KNSA",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "677.564m via Revenues"
+  },
+  {
+   "company": "KNSA",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "77.221m via OperatingIncomeLoss"
+  },
+  {
+   "company": "KNSA",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "59.005m via NetIncomeLoss"
+  },
+  {
+   "company": "KNSA",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "137.985m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "KNSA",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "165.596m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "KNSA",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "96.853m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "KNSA",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "KNSA",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001104659-26-019168"
+  },
+  {
+   "company": "KNSA",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "KNSA",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "KNSA",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "KNSA",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "1730.655m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "866.935m via OperatingIncomeLoss"
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "682.644m via NetIncomeLoss"
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "711.196m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "984.648m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "455.249m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 debt appears in the 10-K text",
+   "ok": true,
+   "detail": "286.631m via LongTermDebtCurrent"
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "PTCT",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001104659-26-017575"
+  },
+  {
+   "company": "PTCT",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PTCT",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PTCT",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "616.287m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "123.324m via OperatingIncomeLoss"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "447.179m via NetIncomeLoss"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "-24.772m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "79.148m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "160.215m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 debt appears in the 10-K text",
+   "ok": true,
+   "detail": "245.645m via LongTermDebtNoncurrent"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "TGTX",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001437749-26-006133"
+  },
+  {
+   "company": "TGTX",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "TGTX",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "TGTX",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "294.282m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "125.466m via OperatingIncomeLoss"
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "367.024m via NetIncomeLoss"
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "75.655m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "40.580m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "33.295m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 debt appears in the 10-K text",
+   "ok": true,
+   "detail": "52.500m via LongTermDebt"
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "RIGL",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001034842-26-000015"
+  },
+  {
+   "company": "RIGL",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "RIGL",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "RIGL",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "407.320m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "-40.977m via OperatingIncomeLoss"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "-61.599m via NetIncomeLoss"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "-42.483m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "67.999m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "71.527m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 debt appears in the 10-K text",
+   "ok": true,
+   "detail": "202.834m via LongTermDebt"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "ARDX",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001437402-26-000013"
+  },
+  {
+   "company": "ARDX",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ARDX",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ARDX",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "874.837m via RevenueFromContractWithCustomerIncludingAssessedTax"
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "340.989m via OperatingIncomeLoss"
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "263.861m via NetIncomeLoss"
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "347.369m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "89.736m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "166.126m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "BCRX",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001628280-26-012240"
+  },
+  {
+   "company": "BCRX",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BCRX",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BCRX",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "OGN",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "6216.000m via Revenues"
+  },
+  {
+   "company": "OGN",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "187.000m via NetIncomeLoss"
+  },
+  {
+   "company": "OGN",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "700.000m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "OGN",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "574.000m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "OGN",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "366.000m via ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost"
+  },
+  {
+   "company": "OGN",
+   "check": "FY2025 debt appears in the 10-K text",
+   "ok": true,
+   "detail": "8644.000m via LongTermDebt"
+  },
+  {
+   "company": "OGN",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "OGN",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001628280-26-011125"
+  },
+  {
+   "company": "OGN",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "OGN",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "OGN",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 revenue appears in the 10-K text",
+   "ok": true,
+   "detail": "4253.100m via RevenueFromContractWithCustomerExcludingAssessedTax"
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 operating_income appears in the 10-K text",
+   "ok": true,
+   "detail": "-1122.200m via OperatingIncomeLoss"
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 net_income appears in the 10-K text",
+   "ok": true,
+   "detail": "-1425.400m via NetIncomeLoss"
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 cfo appears in the 10-K text",
+   "ok": true,
+   "detail": "238.500m via NetCashProvidedByUsedInOperatingActivities"
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 cash appears in the 10-K text",
+   "ok": true,
+   "detail": "531.600m via CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents"
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 rnd appears in the 10-K text",
+   "ok": true,
+   "detail": "95.400m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 debt appears in the 10-K text",
+   "ok": true,
+   "detail": "3640.200m via DebtLongtermAndShorttermCombinedAmount"
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "PRGO",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001585364-26-000009"
+  },
+  {
+   "company": "PRGO",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PRGO",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PRGO",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  },
+  {
+   "company": "BMRN",
+   "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
+   "ok": true,
+   "detail": "2025-12-31, 2025-12-31, 2025-12-31"
+  },
+  {
+   "company": "BMRN",
+   "check": "Core FY2025 values come from one filing",
+   "ok": true,
+   "detail": "0001048477-26-000004"
+  },
+  {
+   "company": "BMRN",
+   "check": "Revenue is positive and below $50bn",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BMRN",
+   "check": "Operating margin is between -500% and 100%",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BMRN",
+   "check": "Cash is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BMRN",
+   "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
+   "ok": true,
+   "detail": "2022-12-31"
+  }
+ ],
+ "notes": [
+  "The filing-text check shows each figure is printed in the 10-K; it does not prove the correct line was chosen. Zero balances are printed as dashes and are not searched.",
+  "Debt-like obligations outside the standard debt tags (royalty financing) are detected from the 10-K text and make leverage unavailable for those companies."
+ ]
+}
