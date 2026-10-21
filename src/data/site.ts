@@ -43,19 +43,30 @@ export const notes: Note[] = [
     field: "Data engineering",
     evidence: "Live ECB feed",
     headline: "A data pipeline can keep running while its meaning changes. This observatory records the difference.",
-    summary: "Tracks how a pipeline's meaning shifts over time, using a live ECB data feed checked against a frozen consumer contract.",
+    summary: "Tracks how a pipeline's meaning shifts over time, using a live ECB data feed checked against a frozen consumer contract. A post-release audit shows the review signal fires far more often than a normal model predicts.",
     note: LN + "data-contract-observatory-revision-evidence",
     repo: GH + "data-contract-observatory",
-    live: "https://lindgreendavid.github.io/data-contract-observatory/",
+    live: "https://lindgreendavid.com/data-contract-observatory/",
   },
   {
     name: "Fairshift Lab",
     field: "Responsible AI",
     evidence: "Fairness stress test",
     headline: "A model that looks fair can quietly stop being fair. Here's how to catch it.",
-    summary: "Stress-tests a fairness measurement against label noise, measurement error and small samples.",
+    summary: "Stress-tests a fairness measurement against label noise, measurement error and small samples. Person-level uncertainty shows reported gap reductions on the Adult data are not distinguishable from test-set noise.",
     note: LN + "fairshift-lab-robustness",
     repo: GH + "fairshift-lab",
+    live: "https://fairshift-lab-interactive.lindgreendavid.workers.dev",
+  },
+  {
+    name: "Backtests lie",
+    field: "Quantitative finance",
+    evidence: "Simulation plus real ECB series",
+    headline: "Test enough trading rules on pure noise and the best one looks brilliant.",
+    summary: "The best of 4,916 rules shows a Sharpe ratio near 1.2 in-sample and about zero on new data; a yearly walk-forward on EUR/USD looks the same as a random null. Educational, not a trading edge.",
+    note: LN + "backtests-lie-selection-bias",
+    repo: GH + "backtests-lie",
+    live: "https://lindgreendavid.com/backtests-lie/",
   },
   {
     name: "Climate Twin Frankfurt",
@@ -75,7 +86,7 @@ export const notes: Note[] = [
     summary: "Tests four neural-collapse diagnostics across 30 network runs.",
     note: LN + "neural-geometry-lab-collapse",
     repo: GH + "neural-geometry-lab",
-    live: "https://lindgreendavid.github.io/neural-geometry-lab/",
+    live: "https://lindgreendavid.com/neural-geometry-lab/",
   },
   {
     name: "Reaction Integrity Lab",
@@ -94,7 +105,7 @@ export const notes: Note[] = [
     summary: "Compares three root-finding methods and what their stopping rules actually guarantee.",
     note: LN + "mathlab-wasm-root-finding",
     repo: GH + "mathlab-wasm",
-    live: "https://lindgreendavid.github.io/mathlab-wasm/",
+    live: "https://lindgreendavid.com/mathlab-wasm/",
   },
   {
     name: "FRB Atlas",
@@ -217,25 +228,25 @@ export const roles: Role[] = [
 
 export type Next = { name: string; field: string; status: string; points: string };
 
-// Honest status: nothing below has started yet.
+// Honest status words: Planned, In progress, First release. Nothing here is "reviewed" or "completed" unless the roadmap says so.
 export const next: Next[] = [
   {
     name: "Finance foundations",
     field: "Accounting, markets",
-    status: "Planned",
-    points: "Accounting fundamentals, financial markets and valuation basics, using free material first. Bloomberg Market Concepts and two investment-banking simulations follow.",
+    status: "In progress",
+    points: "University of Illinois, Financial Analysis of Organizations, is under way; Wharton's corporate finance and Yale's financial markets are planned after it. One investment-banking job simulation (Bank of America, on Forage) is done.",
   },
   {
-    name: "European pharma valuation",
-    field: "Comps and DCF",
-    status: "Planned",
-    points: "Sanofi against its peers: trading comparables, a discounted cash flow, and a statistical look at what drives valuation multiples. Not started.",
+    name: "Projects on public filings",
+    field: "Valuation, search, M&A screening",
+    status: "First releases",
+    points: "A pharma valuation explorer, an annual-report research assistant and an M&A screening workbench are published on this site as first releases. They are still in development and not yet independently reviewed.",
   },
   {
-    name: "Analyst copilot",
-    field: "RAG over reports",
+    name: "Next short simulation",
+    field: "Generative AI",
     status: "Planned",
-    points: "Question answering over annual reports and earnings material, with an evaluation set that measures answer accuracy. Not started.",
+    points: "A BCG GenAI job simulation on Forage, if the task page is accessible. Not started.",
   },
 ];
 
