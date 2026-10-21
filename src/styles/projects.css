@@ -807,3 +807,24 @@ details.sources + details.sources {
   color: var(--ink);
   font-weight: 600;
 }
+.s6 { background: color-mix(in srgb, var(--accent) 85%, var(--panel)); }
+.s7 { background: color-mix(in srgb, var(--ink-2) 60%, var(--panel)); }
+.legend-seg .s6::before { background: color-mix(in srgb, var(--accent) 85%, var(--panel)); }
+.legend-seg .s7::before { background: color-mix(in srgb, var(--ink-2) 60%, var(--panel)); }
+.legend-seg .s6, .legend-seg .s7 { background: none; }
+.field textarea {
+  width: 100%;
+  min-height: 7rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--tone);
+  border: 0;
+  border-radius: 12px;
+  color: var(--ink);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  resize: vertical;
+}
+.field textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

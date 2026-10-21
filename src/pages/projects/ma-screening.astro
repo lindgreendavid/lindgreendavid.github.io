@@ -4,6 +4,7 @@ import ProjectHeader from "../../components/ProjectHeader.astro";
 import "../../styles/projects.css";
 import ds from "../../data/ma/dataset.json";
 import validation from "../../data/ma/validation.json";
+import bsValidation from "../../data/ma/balance-sheet-validation.json";
 import { CRITERIA, CRITERION_INFO, DEFAULT_FILTERS, DEFAULT_WEIGHTS } from "../../lib/ma/screen.ts";
 import type { Dataset } from "../../lib/ma/screen.ts";
 import { defaultOutput } from "../../lib/ma/ui.ts";
@@ -18,12 +19,12 @@ const v = validation;
   <main id="main">
     <section class="wrap proj-hero">
       <h1>Strategic M&amp;A Screening Workbench</h1>
-      <p class="proj-lede">Build a first shortlist of acquisition candidates for a hypothetical buyer, see which choices drive the ranking, and read what the screen does not know. It narrows a list. It does not value a company or say a deal can happen.</p>
+      <p class="proj-lede">Build a first shortlist of acquisition candidates for a hypothetical buyer, see which choices drive the ranking, and read what the screen does not know. It narrows a list. It does not say what a company is worth or that a deal can happen.</p>
       <p class="status">First release · in development · hypothetical brief · not independently reviewed</p>
       <div class="brief">
         <div><h2>Who it is for</h2><p>An analyst or corporate-development associate who needs a defensible first cut of a universe before deeper work.</p></div>
         <div><h2>The problem</h2><p>A long list is easy to rank by gut feel. A screen should state its criteria, show its gaps and show how fragile the order is.</p></div>
-        <div><h2>What it supports</h2><p>Deciding which handful of companies deserve a proper look. It is not a valuation, a fairness view or a recommendation.</p></div>
+        <div><h2>What it supports</h2><p>Deciding which handful of companies deserve a proper look. It is not a valuation model, a fairness view or a recommendation.</p></div>
       </div>
       <nav class="jump" aria-label="On this page"><a href="#brief">Brief</a><a href="#screen">Screen</a><a href="#memo">Memo</a><a href="#evidence">Evidence</a><a href="#method">Method</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a></nav>
     </section>
@@ -68,10 +69,16 @@ const v = validation;
             <div class="field"><label for="max-rev">Maximum revenue, $m</label><input id="max-rev" name="max-rev" type="number" inputmode="decimal" min="0" step="any" value={DEFAULT_FILTERS.maxRevenue} /></div>
           </div>
           <label class="switch"><input type="checkbox" id="req-profit" name="req-profit" checked={DEFAULT_FILTERS.requireProfitable} /> <span>Require positive FY2025 operating income</span></label>
+          <label class="switch"><input type="checkbox" id="incl-royalty" name="incl-royalty" checked /> <span>Count royalty-financing obligations as debt</span></label>
           <div class="field">
             <label for="policy">When a criterion has no data</label>
             <select id="policy" name="policy"><option value="renormalize">Drop it and rescale the other weights (flagged)</option><option value="zero">Score it 0 (pessimistic)</option></select>
           </div>
+          <h3 class="sub-h">Your share prices (optional)</h3>
+          <p class="sub-note">No prices are bundled: no licensed source was available. Paste prices from your own source, one line per company, as <code>TICKER price</code> (US dollars). Market capitalisation is your price times the share count on each company's 10-K cover page. Entering prices switches on the two market criteria. Nothing you paste leaves this page.</p>
+          <div class="field"><label for="prices">Prices, one per line</label><textarea id="prices" name="prices" rows="5" spellcheck="false" placeholder="BCRX 7.25&#10;HALO 62.10"></textarea></div>
+          <div class="field"><label for="price-date">Date of your prices</label><input id="price-date" name="price-date" type="text" placeholder="e.g. 2026-10-21" /></div>
+          <p id="price-msg" class="muted" role="status"></p>
           <div><button type="button" id="screen-reset" class="btn-quiet">Reset to the brief</button></div>
           <p id="screen-error" class="error callout" role="alert" hidden></p>
         </form>
@@ -82,6 +89,8 @@ const v = validation;
             <li><strong>Rank range</strong> and <strong>in top 5</strong> come from 1,000 random re-weightings in which each weight is multiplied by a random factor of roughly 0.6 to 1.65. A narrow range and a high share mean the position does not depend on the exact weights.</li>
             <li><strong>Data flags</strong> say what is missing or needs a human look. Flags are not penalties.</li>
             <li>Companies are never ranked on numbers that were not found: missing data is flagged, then handled by the policy you choose.</li>
+            <li><strong>Net debt</strong> includes royalty-financing obligations (sold future royalties) by default, because they are debt-like. Switch that off to see the effect: PTC Therapeutics carries $2.3bn of them.</li>
+            <li><strong>Valuation and deal size</strong> appear only if you enter prices. They are your prices, not data this site vouches for.</li>
           </ul>
         </div>
       </div>
@@ -89,8 +98,8 @@ const v = validation;
       <div class="pane" style="margin-top: 1.25rem">
         <p id="screen-summary" class="sub-note" role="status">{initial.summary}</p>
         <div id="screen-out" class="tbl-wrap" role="region" aria-label="Ranked shortlist, scrolls horizontally on small screens" tabindex="0" aria-live="polite"><Fragment set:html={initial.table} /></div>
-        <p class="muted" style="margin-top:0.75rem">* From 1,000 perturbed weightings (seeded, reproducible). Legend for the bar: segments are criteria in the order scale, growth, profitability, cash, balance sheet, R&amp;D.</p>
-        <p class="legend legend-seg"><span class="s0">Scale</span><span class="s1">Growth</span><span class="s2">Profitability</span><span class="s3">Cash</span><span class="s4">Balance sheet</span><span class="s5">R&amp;D</span></p>
+        <p class="muted" style="margin-top:0.75rem">* From 1,000 perturbed weightings (seeded, reproducible). Legend for the bar: segments are criteria in the order scale, growth, profitability, cash, balance sheet, R&amp;D, valuation, deal size (the last two only when you enter prices).</p>
+        <p class="legend legend-seg"><span class="s0">Scale</span><span class="s1">Growth</span><span class="s2">Profitability</span><span class="s3">Cash</span><span class="s4">Balance sheet</span><span class="s5">R&amp;D</span><span class="s6">Valuation</span><span class="s7">Deal size</span></p>
         <details class="data"><summary>Excluded by the filters</summary><div id="excluded-out"><Fragment set:html={initial.excluded} /></div></details>
       </div>
     </section>
@@ -106,19 +115,21 @@ const v = validation;
     </div>
 
     <section class="wrap section" id="evidence" aria-labelledby="ev-h">
-      <div class="section-head"><h2 id="ev-h">Evidence and validation</h2><p>Retrieved {ds.generated} from the SEC's XBRL company-facts feed.</p></div>
+      <div class="section-head"><h2 id="ev-h">Evidence and validation</h2><p>Retrieved {ds.generated} (debt amounts read 2026-10-21) from the SEC's XBRL company-facts feed.</p></div>
       <div class="pane">
         <div class="checks">
           <div><h3>{v.totals.passed} / {v.totals.checks}</h3><p>automated checks pass: fiscal-year dates, one filing per company for the core figures, sign and size sanity.</p></div>
           <div><h3>{v.totals.filingTextPassed} / {v.totals.filingTextChecks}</h3><p>FY2025 figures found, as printed, in the company's Form 10-K text. This catches mis-scaled or wrong-period values.</p></div>
-          <div><h3>13</h3><p>unit tests of the scoring, filtering, missing-data and sensitivity logic, including hand-computed cases.</p></div>
+          <div><h3>{bsValidation.passed} / {bsValidation.total}</h3><p>checks on debt read from the balance sheets: each amount is found in the 10-K text, and companies recorded as having no borrowings show no debt line.</p></div>
         </div>
         <div class="prose">
           <h3>What this does and does not show</h3>
           <ul>
+            <li>21 unit tests cover the scoring, filters, royalty-debt and market-cap maths, missing-data handling and sensitivity logic, including hand-computed cases.</li>
             <li>The text check shows a figure is printed in the filing. It does not prove the right line was chosen; the tag used for every figure is in the download.</li>
             <li>Not checked against the filing text: {v.uncheckedAgainstFilingText.join(", ") || "none"} (10-K not downloaded). Sums of several tags (for example debt) are listed rather than searched.</li>
-            <li>Debt: only standard debt tags are read. Where the 10-K text mentions royalty-financing obligations (found for BioCryst, PTC Therapeutics and others), leverage is marked unavailable instead of showing a misleadingly low figure. Companies with no debt tag may simply have no borrowings; that is flagged, not assumed.</li>
+            <li>Debt: standard tags missed borrowings or debt-like items at several companies. For nine companies the amounts were read from the 10-K balance sheet and are re-checked by script: Ironwood's revolver and convertible notes ($585m), Ligand's convertible notes ($446m), PTC Therapeutics' convertible notes ($287m) and $2.3bn of sold royalties, BioCryst's $466m of royalty financing, Ardelyx's $26m deferred royalty obligation, and no borrowings at Supernus, Corcept, Vanda, Acadia, Exelixis, Neurocrine and Kiniksa. Operating and finance leases are not counted as debt.</li>
+            <li>Share counts come from each 10-K cover page (SEC XBRL cover data; Ani Pharmaceuticals and Kiniksa read from the cover text). They exclude options, restricted units and convertible notes, so market capitalisation from them is approximate.</li>
             <li>Figures are as reported under US GAAP and include one-off items such as licence or milestone revenue. Margins of 40% or more and growth of 40% or more are flagged for that reason.</li>
             <li>Fiscal years: Exelixis uses a 52/53-week year; FY2025 ends 2 January 2026.</li>
           </ul>
@@ -136,7 +147,8 @@ const v = validation;
           <ul>
             <li>Revenue growth: compound annual growth from FY2022 to FY2025 revenue.</li>
             <li>Operating margin: operating income / revenue. Cash generation: operating cash flow / revenue.</li>
-            <li>Leverage: (debt - cash - short-term investments) / (operating income + depreciation and amortisation). Net cash scores 100; negative EBITDA with net debt scores 0.</li>
+            <li>Leverage: (debt + royalty-financing obligations - cash - short-term investments) / (operating income + depreciation and amortisation). Net cash scores 100; negative EBITDA with net debt scores 0.</li>
+            <li>Valuation (optional): enterprise value = your price x cover-page shares + net debt, divided by EBITDA; 100 at 8x or less, 0 at 25x or more. Deal size: enterprise value, 100 between $1bn and $6bn. Both are the hypothetical buyer's illustrative preferences.</li>
             <li>R&amp;D reinvestment: R&amp;D expense / revenue, scored highest between 10% and 30% because the hypothetical buyer wants an innovative base without a pre-revenue profile.</li>
           </ul>
           <h3>Scoring and ranking</h3>
@@ -151,8 +163,9 @@ const v = validation;
         <div class="pane prose">
           <h3 style="margin-top:0">Limits</h3>
           <ul>
-            <li>Screening only. No valuation, premium, synergies, financing, accretion or dilution, LBO or antitrust analysis, and no view on whether anyone would sell.</li>
-            <li>No market data is bundled, so size is measured by revenue, not by market value or enterprise value.</li>
+            <li>Screening only. No valuation model, premium, synergies, financing, accretion or dilution, LBO or antitrust analysis, and no view on whether anyone would sell.</li>
+            <li>No market data is bundled. By default size is measured by revenue; valuation and deal size exist only if you paste prices, and then they are exactly as good as your prices (and approximate share counts).</li>
+            <li>Royalty-financing obligations are counted as debt by default. They are repaid from royalty income and are often non-recourse, so this is conservative for BioCryst and PTC Therapeutics; the switch shows both views.</li>
             <li>No product concentration, patent expiry, pipeline, litigation or ownership information.</li>
             <li>The brief and the scoring anchors are the author's illustrative choices. Different anchors would give a different order.</li>
             <li>Small convenience sample; small evaluation of the data; not independently reviewed.</li>
@@ -161,8 +174,8 @@ const v = validation;
         <div class="pane prose">
           <h3 style="margin-top:0">Next steps</h3>
           <ul>
-            <li>Add market capitalisation from a source whose terms allow it, and a valuation-fit criterion.</li>
-            <li>Read the debt and royalty-financing notes for the flagged companies and replace the flags with figures.</li>
+            <li>Add a licensed or redistributable price source so valuation does not depend on pasted prices.</li>
+            <li>Use diluted share counts (options, restricted units, convertible notes) for market capitalisation.</li>
             <li>Add product concentration and patent-expiry data from the filings.</li>
             <li>Test the ranking against a second, independently written brief.</li>
           </ul>

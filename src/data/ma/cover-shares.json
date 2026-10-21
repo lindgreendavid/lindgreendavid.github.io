@@ -1,0 +1,7 @@
+{
+  "note": "Cover-page share counts for companies whose XBRL cover data (dei:EntityCommonStockSharesOutstanding) is missing from the SEC feed. Read from the FY2025 Form 10-K cover page text on 2026-10-21 and re-checked by tools/ma/validate-dataset.mjs. Millions of shares.",
+  "companies": {
+    "ANIP": { "value": 22.414104, "end": "2026-02-20", "text": "22,414,104 shares of common stock", "note": "Common stock only; 10,864 Class C special stock shares are not included" },
+    "KNSA": { "value": 76.535377, "end": "2026-02-20", "text": "76,535,377 ordinary shares outstanding in aggregate", "note": "Class A, B and C ordinary shares in aggregate" }
+  }
+}

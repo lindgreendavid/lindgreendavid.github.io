@@ -1,13 +1,14 @@
 // Screening model for the Strategic M&A Screening Workbench. Pure functions: no DOM, no I/O, so everything is testable in Node.
 // It ranks companies against a HYPOTHETICAL buyer brief using public fundamentals. It is a screening aid only:
-// no valuation, no synergies, no financing, no accretion or LBO maths, and no view on whether a deal is feasible.
+// no synergies, no financing, no accretion or LBO maths, and no view on whether a deal is feasible. Market prices are never bundled:
+// the optional valuation criteria use prices the USER enters (price x cover-page share count), in the browser only.
 
 export type Cell = { value: number; tag: string; accn: string; filed: string; end: string; note?: string } | null;
 export type YearData = Record<"revenue" | "operating_income" | "net_income" | "rnd" | "cfo" | "da" | "cash" | "debt" | "st_investments" | "assets", Cell>;
-export type Company = { ticker: string; name: string; sic: string; sicDescription: string; fiscalYearEnd: string; debtLike?: string; docChecked?: boolean; years: Record<string, YearData> };
+export type Company = { ticker: string; name: string; sic: string; sicDescription: string; fiscalYearEnd: string; shares?: { value: number; end: string; accn: string; filed: string; classes: number; note?: string }; debtLikeItems?: { label: string; value: number }[]; docChecked?: boolean; years: Record<string, YearData> };
 export type Dataset = { generated: string; companies: Record<string, Company> };
 
-export const CRITERIA = ["scale", "growth", "margin", "cash", "leverage", "rnd"] as const;
+export const CRITERIA = ["scale", "growth", "margin", "cash", "leverage", "rnd", "value", "capacity"] as const;
 export type Criterion = (typeof CRITERIA)[number];
 export type Weights = Record<Criterion, number>;
 
@@ -18,14 +19,22 @@ export const CRITERION_INFO: Record<Criterion, { label: string; measure: string;
   cash: { label: "Cash generation", measure: "FY2025 operating cash flow / revenue", anchors: "0 at 0% or below, 100 at 35% or more" },
   leverage: { label: "Balance sheet", measure: "FY2025 net debt / EBITDA", anchors: "100 at net cash, 0 at 4.0x or more" },
   rnd: { label: "R&D reinvestment", measure: "FY2025 R&D / revenue", anchors: "0 at 0%, 100 from 10% to 30%, back to 0 at 60%" },
+  value: { label: "Valuation (needs your prices)", measure: "Enterprise value / FY2025 EBITDA", anchors: "100 at 8x or less, 0 at 25x or more; 0 if EBITDA is not positive" },
+  capacity: { label: "Deal size (needs your prices)", measure: "Enterprise value in dollars", anchors: "0 at $300m, 100 from $1,000m to $6,000m, back to 0 at $12,000m" },
 };
 
-export const DEFAULT_WEIGHTS: Weights = { scale: 15, growth: 25, margin: 25, cash: 15, leverage: 10, rnd: 10 };
+/** The two market criteria start at 0 because no prices are bundled; they switch on when the user enters prices. */
+export const DEFAULT_WEIGHTS: Weights = { scale: 15, growth: 25, margin: 25, cash: 15, leverage: 10, rnd: 10, value: 0, capacity: 0 };
+export const MARKET_WEIGHTS_ON: Pick<Weights, "value" | "capacity"> = { value: 10, capacity: 10 };
 
 export type Filters = { minRevenue: number; maxRevenue: number; requireProfitable: boolean };
 export const DEFAULT_FILTERS: Filters = { minRevenue: 150, maxRevenue: 3000, requireProfitable: true };
 
 export type Policy = "renormalize" | "zero";
+
+/** Royalty-financing obligations (sold future royalties) are debt-like; counting them is the default and can be switched off. `prices` are user-entered, US dollars per share. */
+export type Options = { includeRoyalty: boolean; prices?: Record<string, number> };
+export const DEFAULT_OPTIONS: Options = { includeRoyalty: true };
 
 export type Metrics = {
   revenue: number | null;
@@ -38,11 +47,17 @@ export type Metrics = {
   leverage: number | "net cash" | "n/m" | null;
   operatingIncome: number | null;
   revenue2022: number | null;
+  debtLike: number;
+  price: number | null;
+  marketCap: number | null;
+  ev: number | null;
+  evToEbitda: number | "n/m" | null;
+  evToRevenue: number | null;
 };
 
 const v = (c: Cell | undefined) => (c ? c.value : null);
 
-export function metricsFor(c: Company): { m: Metrics; flags: string[]; missing: Criterion[] } {
+export function metricsFor(c: Company, opts: Options = DEFAULT_OPTIONS): { m: Metrics; flags: string[]; missing: Criterion[] } {
   const y25 = c.years["2025"];
   const y22 = c.years["2022"];
   const flags: string[] = [];
@@ -64,6 +79,7 @@ export function metricsFor(c: Company): { m: Metrics; flags: string[]; missing: 
   if (cfo === null) flags.push("FY2025 operating cash flow not found");
   if (rnd === null) flags.push("R&D expense not found in the XBRL data (the company may report none, or tag it differently)");
   if (debt === null) flags.push("No debt balance found in the XBRL data: the company may have no borrowings, but that is not confirmed here");
+  if (debt !== null && y25.debt?.note?.startsWith("read from the 10-K")) flags.push("Debt read from the 10-K balance sheet text (the standard XBRL tags did not carry it)");
   if (da === null) flags.push("Depreciation and amortisation not found: EBITDA is unavailable unless the company is in net cash");
   if (cash === null) flags.push("Cash balance not found");
   if (inv === null) flags.push("No short-term investments found: net debt deducts cash only, so liquidity may be understated");
@@ -72,18 +88,25 @@ export function metricsFor(c: Company): { m: Metrics; flags: string[]; missing: 
     for (const cell of Object.values(c.years[String(y)] ?? {})) if (cell?.note) { flags.push(`Different tag used in some year (${cell.note})`); break; }
   }
 
-  if (c.debtLike) flags.push(`${c.debtLike}; leverage is treated as unavailable for this company`);
+  const debtLike = (c.debtLikeItems ?? []).reduce((acc, i) => acc + i.value, 0);
+  if (debtLike > 0) flags.push(`Royalty-financing obligations of $${debtLike.toFixed(0)}m (sold future royalties) are ${opts.includeRoyalty ? "counted as debt" : "NOT counted as debt"} in net debt; they are repaid from royalty income and are often non-recourse`);
   if (c.docChecked === false) flags.push("The 10-K text was not checked for debt-like obligations");
   if (rev && op !== null && op / rev >= 0.4) flags.push("Operating margin of 40% or more: check the filing for one-off items such as licence or milestone revenue");
   if (revenueCagr !== null && revenueCagr >= 0.4) flags.push("Revenue CAGR of 40% or more: check for one-off revenue and acquisitions");
+  if (!c.shares) flags.push("No cover-page share count found: market capitalisation cannot be computed");
+  if (c.shares && c.shares.classes > 1) flags.push("Several share classes were summed from the cover page");
 
-  const netDebt = debt !== null && cash !== null ? debt - cash - (inv ?? 0) : null;
+  const netDebt = debt !== null && cash !== null ? debt + (opts.includeRoyalty ? debtLike : 0) - cash - (inv ?? 0) : null;
   const ebitda = op !== null && da !== null ? op + da : null;
   let leverage: Metrics["leverage"] = null;
-  if (netDebt !== null && !c.debtLike) {
+  if (netDebt !== null) {
     if (netDebt <= 0) leverage = "net cash";
     else if (ebitda !== null) leverage = ebitda > 0 ? netDebt / ebitda : "n/m";
   }
+  const price = opts.prices?.[c.ticker] ?? null;
+  const marketCap = price !== null && c.shares ? price * c.shares.value : null;
+  const ev = marketCap !== null && netDebt !== null ? marketCap + netDebt : null;
+  if (ev !== null && ev <= 0) flags.push("Net cash exceeds the market value entered: check the price");
   const m: Metrics = {
     revenue: rev,
     revenueCagr,
@@ -95,6 +118,12 @@ export function metricsFor(c: Company): { m: Metrics; flags: string[]; missing: 
     leverage,
     operatingIncome: op,
     revenue2022: rev22,
+    debtLike,
+    price,
+    marketCap,
+    ev,
+    evToEbitda: ev === null ? null : ebitda === null ? null : ebitda > 0 ? ev / ebitda : "n/m",
+    evToRevenue: ev !== null && rev ? ev / rev : null,
   };
   const missing: Criterion[] = [];
   if (m.revenue === null) missing.push("scale");
@@ -103,6 +132,11 @@ export function metricsFor(c: Company): { m: Metrics; flags: string[]; missing: 
   if (m.cfoMargin === null) missing.push("cash");
   if (m.leverage === null) missing.push("leverage");
   if (m.rndIntensity === null) missing.push("rnd");
+  // The market criteria are only "missing" when the user has entered prices at all.
+  if (opts.prices) {
+    if (m.evToEbitda === null) missing.push("value");
+    if (m.ev === null) missing.push("capacity");
+  }
   return { m, flags: [...new Set(flags)], missing };
 }
 
@@ -128,6 +162,8 @@ export function criterionScores(m: Metrics): Record<Criterion, number | null> {
     cash: m.cfoMargin === null ? null : interp(m.cfoMargin, [[0, 0], [0.35, 100]]),
     leverage: m.leverage === null ? null : m.leverage === "net cash" ? 100 : m.leverage === "n/m" ? 0 : interp(m.leverage, [[0, 100], [4, 0]]),
     rnd: m.rndIntensity === null ? null : interp(m.rndIntensity, [[0, 0], [0.1, 100], [0.3, 100], [0.6, 0]]),
+    value: m.evToEbitda === null ? null : m.evToEbitda === "n/m" ? 0 : interp(m.evToEbitda, [[8, 100], [25, 0]]),
+    capacity: m.ev === null ? null : interp(m.ev, [[300, 0], [1000, 100], [6000, 100], [12000, 0]]),
   };
 }
 
@@ -140,9 +176,9 @@ export type Row = {
   scores: Record<Criterion, number | null>;
 };
 
-export function buildRows(ds: Dataset): Row[] {
+export function buildRows(ds: Dataset, opts: Options = DEFAULT_OPTIONS): Row[] {
   return Object.values(ds.companies).map((c) => {
-    const { m, flags, missing } = metricsFor(c);
+    const { m, flags, missing } = metricsFor(c, opts);
     return { ticker: c.ticker, name: c.name, metrics: m, flags, missing, scores: criterionScores(m) };
   });
 }
@@ -262,11 +298,36 @@ export type Outcome = {
   excluded: Excluded[];
   ranked: { ticker: string; rank: number; s: Scored }[];
   sens: Sensitivity;
+  options: Options;
+  /** Set when the user entered prices: how many companies have one and the date the user gave. */
+  market?: { count: number; date: string };
 };
 
-export function run(ds: Dataset, weights: Weights = DEFAULT_WEIGHTS, filters: Filters = DEFAULT_FILTERS, opts: { draws?: number; seed?: number } = {}): Outcome {
-  const { passed, excluded } = applyFilters(buildRows(ds), filters);
-  return { filters, weights, passed: passed.length, excluded, ranked: rank(score(passed, weights)), sens: sensitivity(passed, weights, opts) };
+export function run(ds: Dataset, weights: Weights = DEFAULT_WEIGHTS, filters: Filters = DEFAULT_FILTERS, sim: { draws?: number; seed?: number } = {}, options: Options = DEFAULT_OPTIONS, marketDate = ""): Outcome {
+  const { passed, excluded } = applyFilters(buildRows(ds, options), filters);
+  const count = options.prices ? Object.keys(options.prices).length : 0;
+  return { filters, weights, passed: passed.length, excluded, ranked: rank(score(passed, weights)), sens: sensitivity(passed, weights, sim), options, ...(count ? { market: { count, date: marketDate } } : {}) };
+}
+
+/**
+ * Parses pasted "TICKER price" lines (separators: space, tab, comma, colon or semicolon; a leading $ is ignored; '#' starts a comment).
+ * Only tickers in `known` are accepted; everything else is reported so nothing is silently dropped.
+ */
+export function parsePrices(text: string, known: string[]): { prices: Record<string, number>; errors: string[] } {
+  const prices: Record<string, number> = {};
+  const errors: string[] = [];
+  const ok = new Set(known.map((k) => k.toUpperCase()));
+  text.split(/\r?\n/).forEach((raw, i) => {
+    const line = raw.replace(/#.*/, "").replace(/(\d),(?=\d{3}(?!\d))/g, "$1").trim();
+    if (!line) return;
+    const parts = line.split(/[\s,;:]+/).filter(Boolean);
+    const ticker = parts[0]?.toUpperCase();
+    const price = Number((parts[1] ?? "").replace(/^\$/, "").replace(/,(\d{3})/g, "$1"));
+    if (parts.length < 2 || !Number.isFinite(price) || price <= 0) errors.push(`Line ${i + 1} ("${raw.trim().slice(0, 40)}"): expected a ticker and a positive price`);
+    else if (!ok.has(ticker)) errors.push(`Line ${i + 1}: ${ticker} is not one of the ${known.length} companies`);
+    else prices[ticker] = price;
+  });
+  return { prices, errors };
 }
 
 const pct = (x: number | null, d = 0) => (x === null ? "n/a" : `${(x * 100).toFixed(d)}%`);
@@ -282,20 +343,24 @@ export function memo(o: Outcome, ds: Dataset, universeSize: number): string[] {
     return lines;
   }
   const w = o.weights;
-  lines.push(`Weights: ${CRITERIA.map((c) => `${CRITERION_INFO[c].label} ${w[c]}`).join(", ")}.`);
+  const active = CRITERIA.filter((c) => w[c] > 0);
+  const usesMarket = (w.value > 0 || w.capacity > 0) && !!o.market;
+  lines.push(`Weights: ${active.map((c) => `${CRITERION_INFO[c].label} ${w[c]}`).join(", ")}.`);
+  lines.push(`Net debt ${o.options.includeRoyalty ? "counts" : "does not count"} royalty-financing obligations (sold future royalties) as debt.`);
+  if (usesMarket) lines.push(`Valuation and deal-size criteria use share prices entered by the user for ${o.market!.count} companies${o.market!.date ? ` (dated ${o.market!.date})` : " (no date given)"}, multiplied by the share count on each 10-K cover page. No prices are bundled with this tool, and companies without a price are flagged and handled by the missing-data policy.`);
   lines.push("Top candidates for further work:");
   top.forEach((t) => {
     const sc = t.s.row.scores;
-    const strong = CRITERIA.filter((c) => sc[c] !== null && (sc[c] as number) >= 90).map((c) => CRITERION_INFO[c].label);
-    const weak = CRITERIA.filter((c) => sc[c] !== null && (sc[c] as number) < 50).map((c) => CRITERION_INFO[c].label);
+    const strong = active.filter((c) => sc[c] !== null && (sc[c] as number) >= 90).map((c) => CRITERION_INFO[c].label);
+    const weak = active.filter((c) => sc[c] !== null && (sc[c] as number) < 50).map((c) => CRITERION_INFO[c].label);
     const sn = o.sens.perTicker[t.ticker];
     const m = t.s.row.metrics;
-    lines.push(`${t.rank}. ${t.s.row.name} (${t.ticker}): score ${t.s.score.toFixed(0)}/100; revenue $${(m.revenue ?? 0).toFixed(0)}m, operating margin ${pct(m.opMargin)}, revenue CAGR ${pct(m.revenueCagr)}. Strong (90+): ${strong.join(", ") || "none"}. Weak (below 50): ${weak.join(", ") || "none"}. Top five in ${(sn.top5Share * 100).toFixed(0)}% of ${o.sens.draws} perturbed weightings (rank ${sn.p5} to ${sn.p95}).${t.s.row.flags.length ? ` Data flags: ${t.s.row.flags.length}.` : ""}`);
+    lines.push(`${t.rank}. ${t.s.row.name} (${t.ticker}): score ${t.s.score.toFixed(0)}/100; revenue $${(m.revenue ?? 0).toFixed(0)}m, operating margin ${pct(m.opMargin)}, revenue CAGR ${pct(m.revenueCagr)}${usesMarket && m.ev !== null ? `, enterprise value $${m.ev.toFixed(0)}m${typeof m.evToEbitda === "number" ? ` (${m.evToEbitda.toFixed(1)}x EBITDA)` : ""}` : ""}. Strong (90+): ${strong.join(", ") || "none"}. Weak (below 50): ${weak.join(", ") || "none"}. Top five in ${(sn.top5Share * 100).toFixed(0)}% of ${o.sens.draws} perturbed weightings (rank ${sn.p5} to ${sn.p95}).${t.s.row.flags.length ? ` Data flags: ${t.s.row.flags.length}.` : ""}`);
   });
   const stable = o.ranked.filter((r) => o.sens.perTicker[r.ticker].top5Share >= 0.8).map((r) => r.ticker);
   lines.push(`Ranking stability: ${stable.length ? `${stable.join(", ")} stay in the top five in at least 80% of perturbed weightings.` : "no company stays in the top five in 80% of perturbed weightings, so the shortlist depends on the weights."}`);
   const flagged = top.filter((t) => t.s.row.flags.length).map((t) => t.ticker);
   if (flagged.length) lines.push(`Data gaps to resolve before any use: ${flagged.join(", ")} (see the flags in the table).`);
-  lines.push("Not assessed: valuation or market capitalisation, ownership and control, product concentration and patent expiry, pipeline quality, litigation, financing, synergies, antitrust, and whether any company is for sale. The ranking says which companies fit a fundamentals-based brief, not that a deal is feasible or advisable.");
+  lines.push(`Not assessed: ${usesMarket ? "control premium and deal terms, " : "valuation or market capitalisation, "}ownership and control, product concentration and patent expiry, pipeline quality, litigation, financing, synergies, antitrust, and whether any company is for sale. The ranking says which companies fit a fundamentals-based brief, not that a deal is feasible or advisable.`);
   return lines;
 }

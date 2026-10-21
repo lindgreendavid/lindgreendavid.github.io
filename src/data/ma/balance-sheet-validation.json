@@ -1,0 +1,241 @@
+{
+ "generated": "2026-10-21",
+ "total": 39,
+ "passed": 39,
+ "results": [
+  {
+   "ticker": "SUPN",
+   "check": "balance-sheet liabilities were located",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "SUPN",
+   "check": "no debt-like words in the liabilities section",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "CORT",
+   "check": "balance-sheet liabilities were located",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "CORT",
+   "check": "no debt-like words in the liabilities section",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "VNDA",
+   "check": "balance-sheet liabilities were located",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "VNDA",
+   "check": "no debt-like words in the liabilities section",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "ACAD",
+   "check": "balance-sheet liabilities were located",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "ACAD",
+   "check": "no debt-like words in the liabilities section",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "EXEL",
+   "check": "balance-sheet liabilities were located",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "EXEL",
+   "check": "no debt-like words in the liabilities section",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "NBIX",
+   "check": "balance-sheet liabilities were located",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "NBIX",
+   "check": "no debt-like words in the liabilities section",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "KNSA",
+   "check": "balance-sheet liabilities were located",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "KNSA",
+   "check": "no debt-like words in the liabilities section",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "IRWD",
+   "check": "10-K text contains \"Current portion of convertible senior notes 199,680\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "IRWD",
+   "check": "amount for \"Current portion of convertible senior notes\" matches the printed 199,680 (thousands)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "IRWD",
+   "check": "10-K text contains \"Revolving credit facility 385,000\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "IRWD",
+   "check": "amount for \"Revolving credit facility\" matches the printed 385,000 (thousands)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "IRWD",
+   "check": "recorded debt equals the sum of the listed lines",
+   "ok": true,
+   "detail": "584.680 vs 584.68"
+  },
+  {
+   "ticker": "LGND",
+   "check": "10-K text contains \"2030 Convertible Senior Notes, net 446,192\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "LGND",
+   "check": "amount for \"2030 Convertible Senior Notes, net\" matches the printed 446,192 (thousands)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "LGND",
+   "check": "recorded debt equals the sum of the listed lines",
+   "ok": true,
+   "detail": "446.192 vs 446.192"
+  },
+  {
+   "ticker": "PTCT",
+   "check": "10-K text contains \"Current portion of long-term debt 286,631\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "PTCT",
+   "check": "amount for \"Current portion of long-term debt\" matches the printed 286,631 (thousands)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "PTCT",
+   "check": "10-K text contains \"Liability for sale of future royalties- current 283,000\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "PTCT",
+   "check": "amount for \"Liability for sale of future royalties, current\" matches the printed 283,000 (thousands)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "PTCT",
+   "check": "10-K text contains \"Liability for sale of future royalties- noncurrent 2,025,366\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "PTCT",
+   "check": "amount for \"Liability for sale of future royalties, noncurrent\" matches the printed 2,025,366 (thousands)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "PTCT",
+   "check": "recorded debt equals the sum of the listed lines",
+   "ok": true,
+   "detail": "286.631 vs 286.631"
+  },
+  {
+   "ticker": "BCRX",
+   "check": "10-K text contains \"Royalty financing obligations 38,455\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "BCRX",
+   "check": "amount for \"Royalty financing obligations, current\" matches the printed 38,455 (thousands)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "BCRX",
+   "check": "10-K text contains \"Royalty financing obligations 427,233\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "BCRX",
+   "check": "amount for \"Royalty financing obligations, noncurrent\" matches the printed 427,233 (thousands)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "BCRX",
+   "check": "balance-sheet liabilities were located",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "ARDX",
+   "check": "10-K text contains \"Long-term debt 202,834\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "ARDX",
+   "check": "amount for \"Long-term debt\" matches the printed 202,834 (thousands)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "ARDX",
+   "check": "10-K text contains \"Deferred royalty obligation related to the sale of future royalties 25,876\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "ARDX",
+   "check": "amount for \"Deferred royalty obligation related to the sale of future royalties\" matches the printed 25,876 (thousands)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "ARDX",
+   "check": "recorded debt equals the sum of the listed lines",
+   "ok": true,
+   "detail": "202.834 vs 202.834"
+  }
+ ]
+}

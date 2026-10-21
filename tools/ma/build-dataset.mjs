@@ -66,6 +66,8 @@ function valueOf(facts, alt, flow, year) {
   };
 }
 
+const curated = JSON.parse(fs.readFileSync("src/data/ma/balance-sheet-debt.json", "utf8"));
+const coverShares = JSON.parse(fs.readFileSync("src/data/ma/cover-shares.json", "utf8"));
 const out = { generated: new Date().toISOString().slice(0, 10), units: "US dollars, millions", years: YEARS, companies: {}, issues: [] };
 
 for (const [ticker, cik] of UNIVERSE) {
@@ -95,14 +97,28 @@ for (const [ticker, cik] of UNIVERSE) {
       c.years[y][metric] = v ? { value: v.val / 1e6, tag: v.tag, accn: v.accn, filed: v.filed, end: v.end, ...(note ? { note } : {}) } : null;
     }
   }
-  // Debt-like obligations that standard debt tags miss. Custom taxonomy tags are not in the company-facts feed, so the 10-K text is checked
-  // for royalty-financing language; when found, the screen treats leverage as unavailable rather than showing a misleading figure.
+  // Shares outstanding from the 10-K cover page (dei:EntityCommonStockSharesOutstanding), the latest filing's latest date.
+  const sh = (facts.facts.dei?.EntityCommonStockSharesOutstanding?.units?.shares ?? []).filter((x) => x.form === "10-K" && x.end >= "2025-12-01");
+  if (sh.length) {
+    const filed = sh.map((x) => x.filed).sort().pop();
+    const rows = sh.filter((x) => x.filed === filed);
+    const end = rows.map((x) => x.end).sort().pop();
+    const last = rows.filter((x) => x.end === end);
+    c.shares = { value: last.reduce((s, x) => s + x.val, 0) / 1e6, end, filed, accn: last[0].accn, classes: last.length };
+  }
+  if (!c.shares && coverShares.companies[ticker]) {
+    const o = coverShares.companies[ticker];
+    c.shares = { value: o.value, end: o.end, filed: c.years[2025].revenue?.filed ?? "", accn: c.years[2025].revenue?.accn ?? "", classes: 1, note: o.note };
+  }
+  // Debt read from the 10-K balance sheet text where the standard tags miss it (see balance-sheet-debt.json and verify-balance-sheet.mjs).
+  const bs = curated.companies[ticker];
+  if (bs) {
+    const y25 = c.years[2025];
+    y25.debt = { value: bs.debt, tag: `balance sheet: ${bs.basis}`, accn: y25.revenue?.accn ?? "", filed: y25.revenue?.filed ?? "", end: y25.revenue?.end ?? "", note: "read from the 10-K balance sheet text" };
+    if (bs.debtLike.length) c.debtLikeItems = bs.debtLike.map((l) => ({ label: l.label, value: l.value }));
+  }
   const doc = `data-raw/ma/${ticker}-10k.htm`;
-  if (fs.existsSync(doc)) {
-    const text = fs.readFileSync(doc, "utf8").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
-    if (/royalty financing obligation|liabilit(y|ies) related to (the )?sale of future royalt|sale of future royalt(y|ies)/i.test(text)) c.debtLike = "The 10-K mentions royalty-financing or sale-of-future-royalties obligations that are not in the debt figure";
-    c.docChecked = true;
-  } else c.docChecked = false;
+  c.docChecked = fs.existsSync(doc);
   out.companies[ticker] = c;
 }
 

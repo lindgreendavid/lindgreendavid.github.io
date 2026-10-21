@@ -1,0 +1,51 @@
+{
+  "note": "Debt and debt-like obligations read from each company's FY2025 Form 10-K consolidated balance sheet text, because the standard XBRL debt tags missed them or the company has none. Amounts in US dollars, millions, as carried on the balance sheet. Read 2026-10-21; each line is re-checked against the 10-K text by tools/ma/verify-balance-sheet.mjs. Operating and finance lease liabilities are not counted as debt for any company.",
+  "companies": {
+    "SUPN": { "debt": 0, "basis": "no borrowings on the balance sheet", "debtLike": [] },
+    "CORT": { "debt": 0, "basis": "no borrowings on the balance sheet", "debtLike": [] },
+    "VNDA": { "debt": 0, "basis": "no borrowings on the balance sheet (finance lease only)", "debtLike": [] },
+    "ACAD": { "debt": 0, "basis": "no borrowings on the balance sheet", "debtLike": [] },
+    "EXEL": { "debt": 0, "basis": "no borrowings on the balance sheet", "debtLike": [] },
+    "NBIX": { "debt": 0, "basis": "no borrowings on the balance sheet", "debtLike": [] },
+    "KNSA": { "debt": 0, "basis": "no borrowings on the balance sheet", "debtLike": [] },
+    "IRWD": {
+      "debt": 584.68,
+      "basis": "current portion of convertible senior notes plus revolving credit facility",
+      "lines": [
+        { "label": "Current portion of convertible senior notes", "text": "Current portion of convertible senior notes 199,680", "value": 199.68 },
+        { "label": "Revolving credit facility", "text": "Revolving credit facility 385,000", "value": 385 }
+      ],
+      "debtLike": []
+    },
+    "LGND": {
+      "debt": 446.192,
+      "basis": "2030 convertible senior notes, net",
+      "lines": [{ "label": "2030 Convertible Senior Notes, net", "text": "2030 Convertible Senior Notes, net 446,192", "value": 446.192 }],
+      "debtLike": []
+    },
+    "PTCT": {
+      "debt": 286.631,
+      "basis": "current portion of long-term debt (convertible notes due September 2026)",
+      "lines": [{ "label": "Current portion of long-term debt", "text": "Current portion of long-term debt 286,631", "value": 286.631 }],
+      "debtLike": [
+        { "label": "Liability for sale of future royalties, current", "text": "Liability for sale of future royalties- current 283,000", "value": 283 },
+        { "label": "Liability for sale of future royalties, noncurrent", "text": "Liability for sale of future royalties- noncurrent 2,025,366", "value": 2025.366 }
+      ]
+    },
+    "BCRX": {
+      "debt": 0,
+      "basis": "secured term loan is nil at 31 December 2025 (314.9 at 31 December 2024)",
+      "lines": [],
+      "debtLike": [
+        { "label": "Royalty financing obligations, current", "text": "Royalty financing obligations 38,455", "value": 38.455 },
+        { "label": "Royalty financing obligations, noncurrent", "text": "Royalty financing obligations 427,233", "value": 427.233 }
+      ]
+    },
+    "ARDX": {
+      "debt": 202.834,
+      "basis": "long-term debt",
+      "lines": [{ "label": "Long-term debt", "text": "Long-term debt 202,834", "value": 202.834 }],
+      "debtLike": [{ "label": "Deferred royalty obligation related to the sale of future royalties", "text": "Deferred royalty obligation related to the sale of future royalties 25,876", "value": 25.876 }]
+    }
+  }
+}

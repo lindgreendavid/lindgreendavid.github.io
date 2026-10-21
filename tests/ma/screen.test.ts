@@ -130,3 +130,81 @@ test("real dataset: nobody is ranked who fails a filter, and the memo states wha
   assert.match(text, /Not assessed: valuation/);
   assert.match(text, /preliminary screening only/);
 });
+
+// ---- market capitalisation and royalty-financing debt ----
+import { DEFAULT_OPTIONS, MARKET_WEIGHTS_ON, parsePrices } from "../../src/lib/ma/screen.ts";
+
+function withMarket(c: Company, extra: Partial<Company>): Company {
+  return { ...c, ...extra };
+}
+
+test("royalty-financing obligations count as debt by default and can be switched off", () => {
+  const base = co("R", { rev25: 500, rev22: 400, op: 100, cfo: 90, rnd: 50, da: 20, cash: 100, debt: 0 });
+  const c = withMarket(base, { debtLikeItems: [{ label: "Royalty financing", value: 300 }] });
+  const on = metricsFor(c, { includeRoyalty: true }).m;
+  const off = metricsFor(c, { includeRoyalty: false }).m;
+  assert.equal(on.netDebt, 200); // 0 + 300 - 100
+  assert.equal(off.netDebt, -100);
+  assert.equal(on.leverage, 200 / 120); // EBITDA = 100 + 20
+  assert.equal(off.leverage, "net cash");
+  assert.ok(metricsFor(c, { includeRoyalty: true }).flags.some((f) => f.includes("counted as debt")));
+  assert.ok(metricsFor(c, { includeRoyalty: false }).flags.some((f) => f.includes("NOT counted as debt")));
+});
+
+test("market cap = price x cover-page shares; EV adds net debt; multiples follow", () => {
+  const base = co("M", { rev25: 500, rev22: 400, op: 100, cfo: 90, rnd: 50, da: 20, cash: 100, debt: 300 });
+  const c = withMarket(base, { shares: { value: 50, end: "2026-02-01", accn: "a", filed: "2026-02-10", classes: 1 } });
+  const m = metricsFor(c, { includeRoyalty: true, prices: { M: 20 } }).m;
+  assert.equal(m.marketCap, 1000);
+  assert.equal(m.ev, 1200); // 1000 + (300 - 100)
+  assert.equal(m.evToEbitda, 10); // 1200 / 120
+  assert.equal(m.evToRevenue, 2.4);
+});
+
+test("market criteria: value scores 100 at 8x or less and 0 at 25x; deal size follows the band; negative EBITDA scores 0", () => {
+  const mk = (price: number, op = 100) => {
+    const c = withMarket(co("M", { rev25: 500, rev22: 400, op, cfo: 90, rnd: 50, da: 20, cash: 100, debt: 300 }), { shares: { value: 50, end: "x", accn: "a", filed: "x", classes: 1 } });
+    return criterionScores(metricsFor(c, { includeRoyalty: true, prices: { M: price } }).m);
+  };
+  assert.equal(mk(15.2).value, 100); // EV 960 = 8.0x EBITDA 120
+  assert.ok(Math.abs((mk(15.2).capacity as number) - (100 * (960 - 300)) / 700) < 1e-9); // 94.29
+  assert.ok(Math.abs((mk(52).value as number) - (100 * (25 - 2800 / 120)) / 17) < 1e-9); // EV 2,800 = 23.3x
+  assert.equal(mk(20, -50).value, 0); // EBITDA = -50 + 20 < 0
+});
+
+test("without prices the market criteria are off, not missing; with prices a company lacking one is missing", () => {
+  const c = co("N", { rev25: 500, rev22: 400, op: 100, cfo: 90, rnd: 50, da: 20, cash: 100, debt: 10 });
+  assert.ok(!metricsFor(c, DEFAULT_OPTIONS).missing.includes("value"));
+  assert.ok(metricsFor(c, { includeRoyalty: true, prices: { OTHER: 5 } }).missing.includes("value"));
+});
+
+test("parsePrices accepts common separators and reports what it cannot use", () => {
+  const { prices, errors } = parsePrices("BCRX 7.25\nptct, $54.10\nHALO: 1,000\n# comment\nXXXX 3\nIRWD abc\nLGND", ["BCRX", "PTCT", "HALO", "IRWD", "LGND"]);
+  assert.deepEqual(prices, { BCRX: 7.25, PTCT: 54.1, HALO: 1000 });
+  assert.equal(errors.length, 3);
+  assert.ok(errors.some((e) => e.includes("XXXX is not one of")));
+});
+
+test("market weights switch the memo to say prices came from the user", () => {
+  const real = JSON.parse(readFileSync("src/data/ma/dataset.json", "utf8")) as Dataset;
+  const w = { ...DEFAULT_WEIGHTS, ...MARKET_WEIGHTS_ON };
+  const prices = Object.fromEntries(Object.values(real.companies).map((c) => [c.ticker, 10]));
+  const o = run(real, w, DEFAULT_FILTERS, { draws: 100 }, { includeRoyalty: true, prices }, "2026-10-21");
+  const text = memo(o, real, 28).join("\n");
+  assert.match(text, /share prices entered by the user for 28 companies \(dated 2026-10-21\)/);
+  assert.match(text, /Not assessed: control premium/);
+  const plain = memo(run(real, DEFAULT_WEIGHTS, DEFAULT_FILTERS, { draws: 100 }), real, 28).join("\n");
+  assert.match(plain, /Not assessed: valuation or market capitalisation/);
+});
+
+test("curated balance-sheet debt: totals equal the sum of the listed lines", () => {
+  const cur = JSON.parse(readFileSync("src/data/ma/balance-sheet-debt.json", "utf8")).companies as Record<string, { debt: number; lines?: { value: number }[] }>;
+  for (const [t, c] of Object.entries(cur)) if (c.lines?.length) assert.ok(Math.abs(c.lines.reduce((s, l) => s + l.value, 0) - c.debt) < 0.0015, t);
+});
+
+test("real dataset: PTCT net debt counts $2.3bn of sold royalties and every company has a share count", () => {
+  const real = JSON.parse(readFileSync("src/data/ma/dataset.json", "utf8")) as Dataset;
+  const ptct = metricsFor(real.companies.PTCT).m;
+  assert.ok(Math.abs(ptct.debtLike - 2308.366) < 1e-6);
+  assert.ok(Object.values(real.companies).every((c) => c.shares && c.shares.value > 1));
+});

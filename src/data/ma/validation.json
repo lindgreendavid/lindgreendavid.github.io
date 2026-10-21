@@ -1,19 +1,23 @@
 {
  "generated": "2026-10-21",
  "totals": {
-  "checks": 341,
-  "passed": 341,
+  "checks": 366,
+  "passed": 366,
   "failed": 0,
-  "filingTextChecks": 174,
-  "filingTextPassed": 174
+  "filingTextChecks": 199,
+  "filingTextPassed": 199
  },
  "uncheckedAgainstFilingText": [
   "BMRN"
  ],
  "summedValuesNotSearched": [
+  "IRWD debt: read from the balance sheet, checked in balance-sheet-validation.json",
   "COLL debt: ConvertibleLongTermNotesPayable + LongTermLoansPayable + LoansPayableCurrent",
   "ANIP debt: LongTermDebtNoncurrent + LongTermDebtCurrent",
-  "LNTH debt: LongTermDebtAndCapitalLeaseObligations + LongTermDebtAndCapitalLeaseObligationsCurrent"
+  "LGND debt: read from the balance sheet, checked in balance-sheet-validation.json",
+  "LNTH debt: LongTermDebtAndCapitalLeaseObligations + LongTermDebtAndCapitalLeaseObligationsCurrent",
+  "PTCT debt: read from the balance sheet, checked in balance-sheet-validation.json",
+  "ARDX debt: read from the balance sheet, checked in balance-sheet-validation.json"
  ],
  "failures": [],
  "results": [
@@ -58,6 +62,12 @@
    "check": "FY2025 debt appears in the 10-K text",
    "ok": true,
    "detail": "5358.257m via LongTermDebt"
+  },
+  {
+   "company": "JAZZ",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "61,560,350"
   },
   {
    "company": "JAZZ",
@@ -133,6 +143,12 @@
   },
   {
    "company": "SUPN",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "57,581,712"
+  },
+  {
+   "company": "SUPN",
    "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
    "ok": true,
    "detail": "2025-12-31, 2025-12-31, 2025-12-31"
@@ -202,6 +218,12 @@
    "check": "FY2025 rnd appears in the 10-K text",
    "ok": true,
    "detail": "254.908m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "CORT",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "106,374,020"
   },
   {
    "company": "CORT",
@@ -283,6 +305,12 @@
   },
   {
    "company": "HALO",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "118,017,000"
+  },
+  {
+   "company": "HALO",
    "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
    "ok": true,
    "detail": "2025-12-31, 2025-12-31, 2025-12-31"
@@ -352,6 +380,12 @@
    "check": "FY2025 rnd appears in the 10-K text",
    "ok": true,
    "detail": "95.136m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "IRWD",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "163,058,316"
   },
   {
    "company": "IRWD",
@@ -433,6 +467,12 @@
   },
   {
    "company": "AMPH",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "45,370,171"
+  },
+  {
+   "company": "AMPH",
    "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
    "ok": true,
    "detail": "2025-12-31, 2025-12-31, 2025-12-31"
@@ -511,6 +551,12 @@
   },
   {
    "company": "PCRX",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "40,489,894"
+  },
+  {
+   "company": "PCRX",
    "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
    "ok": true,
    "detail": "2025-12-31, 2025-12-31, 2025-12-31"
@@ -574,6 +620,12 @@
    "check": "FY2025 cash appears in the 10-K text",
    "ok": true,
    "detail": "231.252m via CashAndCashEquivalentsAtCarryingValue"
+  },
+  {
+   "company": "COLL",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "31,753,211"
   },
   {
    "company": "COLL",
@@ -646,6 +698,12 @@
    "check": "FY2025 rnd appears in the 10-K text",
    "ok": true,
    "detail": "51.664m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "ANIP",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "22,414,104"
   },
   {
    "company": "ANIP",
@@ -727,6 +785,12 @@
   },
   {
    "company": "HRMY",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "57,840,614"
+  },
+  {
+   "company": "HRMY",
    "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
    "ok": true,
    "detail": "2025-12-31, 2025-12-31, 2025-12-31"
@@ -805,6 +869,12 @@
   },
   {
    "company": "INVA",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "74,073,646"
+  },
+  {
+   "company": "INVA",
    "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
    "ok": true,
    "detail": "2025-12-31, 2025-12-31, 2025-12-31"
@@ -877,6 +947,12 @@
   },
   {
    "company": "VNDA",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "59,108,030"
+  },
+  {
+   "company": "VNDA",
    "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
    "ok": true,
    "detail": "2025-12-31, 2025-12-31, 2025-12-31"
@@ -946,6 +1022,12 @@
    "check": "FY2025 rnd appears in the 10-K text",
    "ok": true,
    "detail": "81.182m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "LGND",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "19,941,141"
   },
   {
    "company": "LGND",
@@ -1027,6 +1109,12 @@
   },
   {
    "company": "AMRX",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "314,629,101"
+  },
+  {
+   "company": "AMRX",
    "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
    "ok": true,
    "detail": "2025-12-31, 2025-12-31, 2025-12-31"
@@ -1096,6 +1184,12 @@
    "check": "FY2025 rnd appears in the 10-K text",
    "ok": true,
    "detail": "328.802m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "ACAD",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "170,494,613"
   },
   {
    "company": "ACAD",
@@ -1171,6 +1265,12 @@
   },
   {
    "company": "EXEL",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "259,708,689"
+  },
+  {
+   "company": "EXEL",
    "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
    "ok": true,
    "detail": "2026-01-02, 2026-01-02, 2026-01-02"
@@ -1243,6 +1343,12 @@
   },
   {
    "company": "NBIX",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "100,363,463"
+  },
+  {
+   "company": "NBIX",
    "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
    "ok": true,
    "detail": "2025-12-31, 2025-12-31, 2025-12-31"
@@ -1312,6 +1418,12 @@
    "check": "FY2025 rnd appears in the 10-K text",
    "ok": true,
    "detail": "177.308m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "LNTH",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "64,605,894"
   },
   {
    "company": "LNTH",
@@ -1393,6 +1505,12 @@
   },
   {
    "company": "ADMA",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "238,159,176"
+  },
+  {
+   "company": "ADMA",
    "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
    "ok": true,
    "detail": "2025-12-31, 2025-12-31, 2025-12-31"
@@ -1462,6 +1580,12 @@
    "check": "FY2025 rnd appears in the 10-K text",
    "ok": true,
    "detail": "96.853m via ResearchAndDevelopmentExpense"
+  },
+  {
+   "company": "KNSA",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "76,535,377"
   },
   {
    "company": "KNSA",
@@ -1537,9 +1661,9 @@
   },
   {
    "company": "PTCT",
-   "check": "FY2025 debt appears in the 10-K text",
+   "check": "Cover-page share count appears in the 10-K text",
    "ok": true,
-   "detail": "286.631m via LongTermDebtCurrent"
+   "detail": "82,774,730"
   },
   {
    "company": "PTCT",
@@ -1621,6 +1745,12 @@
   },
   {
    "company": "TGTX",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "159,688,256"
+  },
+  {
+   "company": "TGTX",
    "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
    "ok": true,
    "detail": "2025-12-31, 2025-12-31, 2025-12-31"
@@ -1699,6 +1829,12 @@
   },
   {
    "company": "RIGL",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "18,473,130"
+  },
+  {
+   "company": "RIGL",
    "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
    "ok": true,
    "detail": "2025-12-31, 2025-12-31, 2025-12-31"
@@ -1771,9 +1907,9 @@
   },
   {
    "company": "ARDX",
-   "check": "FY2025 debt appears in the 10-K text",
+   "check": "Cover-page share count appears in the 10-K text",
    "ok": true,
-   "detail": "202.834m via LongTermDebt"
+   "detail": "245,247,427"
   },
   {
    "company": "ARDX",
@@ -1849,6 +1985,12 @@
   },
   {
    "company": "BCRX",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "250,800,620"
+  },
+  {
+   "company": "BCRX",
    "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
    "ok": true,
    "detail": "2025-12-31, 2025-12-31, 2025-12-31"
@@ -1921,6 +2063,12 @@
   },
   {
    "company": "OGN",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "260,315,650"
+  },
+  {
+   "company": "OGN",
    "check": "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026",
    "ok": true,
    "detail": "2025-12-31, 2025-12-31"
@@ -1990,6 +2138,12 @@
    "check": "FY2025 debt appears in the 10-K text",
    "ok": true,
    "detail": "3640.200m via DebtLongtermAndShorttermCombinedAmount"
+  },
+  {
+   "company": "PRGO",
+   "check": "Cover-page share count appears in the 10-K text",
+   "ok": true,
+   "detail": "137,649,352"
   },
   {
    "company": "PRGO",

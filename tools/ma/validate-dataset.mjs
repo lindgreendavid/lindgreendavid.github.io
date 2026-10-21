@@ -38,6 +38,10 @@ for (const [t, c] of Object.entries(ds.companies)) {
       // Zero (no balance) is printed as a dash, so it cannot be searched for.
       if (Math.abs(cell.value) < 0.0005) continue;
       // A sum of several tags is a total the filing may not print; it is listed, not searched.
+      if (cell.tag.startsWith("balance sheet:")) {
+        sums.push(`${t} ${m}: read from the balance sheet, checked in balance-sheet-validation.json`);
+        continue;
+      }
       if (cell.tag.includes(" + ")) {
         sums.push(`${t} ${m}: ${cell.tag}`);
         continue;
@@ -45,6 +49,14 @@ for (const [t, c] of Object.entries(ds.companies)) {
       add(t, `FY2025 ${m} appears in the 10-K text`, found(text, printed(cell.value)), `${cell.value.toFixed(3)}m via ${cell.tag}`);
     }
   }
+  // Cover-page share count: the exact number must be printed in the 10-K (skipped when several classes were summed).
+  if (text && c.shares && c.shares.classes === 1) {
+    const printedShares = Math.round(c.shares.value * 1e6).toLocaleString("en-US");
+    // Some covers print the count in thousands (Halozyme: "118,017").
+    const inThousands = Math.round(c.shares.value * 1e3).toLocaleString("en-US");
+    add(t, "Cover-page share count appears in the 10-K text", text.includes(printedShares) || text.includes(`(in thousands) of the registrant’s common stock, par value $0.001 per share, was ${inThousands}`) || (c.shares.value * 1e6) % 1000 === 0 && text.includes(` ${inThousands} as of`), printedShares);
+  }
+  if (!c.shares) add(t, "Has a cover-page share count", false);
   const ends = Object.entries(y).filter(([, v]) => v && ["revenue", "operating_income", "cfo"].includes(Object.keys(y).find((k) => y[k] === v))).map(([, v]) => v.end);
   add(t, "FY2025 period ends between 1 Dec 2025 and 5 Jan 2026", ends.every((e) => e >= "2025-12-01" && e <= "2026-01-05"), ends.join(", "));
   const accns = new Set([y.revenue, y.operating_income, y.cfo].filter(Boolean).map((v) => v.accn));

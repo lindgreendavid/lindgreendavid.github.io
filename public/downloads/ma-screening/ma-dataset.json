@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-20",
+ "generated": "2026-10-21",
  "units": "US dollars, millions",
  "years": [
   2022,
@@ -284,6 +284,13 @@
      }
     }
    },
+   "shares": {
+    "value": 61.56035,
+    "end": "2026-02-17",
+    "filed": "2026-02-24",
+    "accn": "0001232524-26-000013",
+    "classes": 1
+   },
    "docChecked": true
   },
   "SUPN": {
@@ -552,7 +559,14 @@
       "filed": "2026-03-02",
       "end": "2025-12-31"
      },
-     "debt": null,
+     "debt": {
+      "value": 0,
+      "tag": "balance sheet: no borrowings on the balance sheet",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2025-12-31",
+      "note": "read from the 10-K balance sheet text"
+     },
      "st_investments": {
       "value": 180.222,
       "tag": "DebtSecuritiesAvailableForSaleExcludingAccruedInterestCurrent",
@@ -569,7 +583,13 @@
      }
     }
    },
-   "debtLike": "The 10-K mentions royalty-financing or sale-of-future-royalties obligations that are not in the debt figure",
+   "shares": {
+    "value": 57.581712,
+    "end": "2026-02-24",
+    "filed": "2026-03-02",
+    "accn": "0001356576-26-000011",
+    "classes": 1
+   },
    "docChecked": true
   },
   "CORT": {
@@ -831,7 +851,14 @@
       "filed": "2026-02-24",
       "end": "2025-12-31"
      },
-     "debt": null,
+     "debt": {
+      "value": 0,
+      "tag": "balance sheet: no borrowings on the balance sheet",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2025-12-31",
+      "note": "read from the 10-K balance sheet text"
+     },
      "st_investments": {
       "value": 251.657,
       "tag": "MarketableSecuritiesCurrent",
@@ -847,6 +874,13 @@
       "end": "2025-12-31"
      }
     }
+   },
+   "shares": {
+    "value": 106.37402,
+    "end": "2026-02-17",
+    "filed": "2026-02-24",
+    "accn": "0001628280-26-011091",
+    "classes": 1
    },
    "docChecked": true
   },
@@ -1151,6 +1185,13 @@
      }
     }
    },
+   "shares": {
+    "value": 118.017,
+    "end": "2026-02-10",
+    "filed": "2026-02-17",
+    "accn": "0001159036-26-000024",
+    "classes": 1
+   },
    "docChecked": true
   },
   "IRWD": {
@@ -1400,7 +1441,14 @@
       "filed": "2026-02-26",
       "end": "2025-12-31"
      },
-     "debt": null,
+     "debt": {
+      "value": 584.68,
+      "tag": "balance sheet: current portion of convertible senior notes plus revolving credit facility",
+      "accn": "0001104659-26-020489",
+      "filed": "2026-02-26",
+      "end": "2025-12-31",
+      "note": "read from the 10-K balance sheet text"
+     },
      "st_investments": null,
      "assets": {
       "value": 396.901,
@@ -1410,6 +1458,13 @@
       "end": "2025-12-31"
      }
     }
+   },
+   "shares": {
+    "value": 163.058316,
+    "end": "2026-01-31",
+    "filed": "2026-02-26",
+    "accn": "0001104659-26-020489",
+    "classes": 1
    },
    "docChecked": true
   },
@@ -1713,6 +1768,13 @@
      }
     }
    },
+   "shares": {
+    "value": 45.370171,
+    "end": "2026-02-20",
+    "filed": "2026-02-26",
+    "accn": "0001297184-26-000009",
+    "classes": 1
+   },
    "docChecked": true
   },
   "PCRX": {
@@ -2015,6 +2077,13 @@
      }
     }
    },
+   "shares": {
+    "value": 40.489894,
+    "end": "2026-02-23",
+    "filed": "2026-02-26",
+    "accn": "0001628280-26-012297",
+    "classes": 1
+   },
    "docChecked": true
   },
   "COLL": {
@@ -2299,6 +2368,13 @@
      }
     }
    },
+   "shares": {
+    "value": 31.753211,
+    "end": "2026-01-31",
+    "filed": "2026-02-26",
+    "accn": "0001628280-26-011992",
+    "classes": 1
+   },
    "docChecked": true
   },
   "ANIP": {
@@ -2576,6 +2652,14 @@
       "end": "2025-12-31"
      }
     }
+   },
+   "shares": {
+    "value": 22.414104,
+    "end": "2026-02-20",
+    "filed": "2026-02-27",
+    "accn": "0001023024-26-000014",
+    "classes": 1,
+    "note": "Common stock only; 10,864 Class C special stock shares are not included"
    },
    "docChecked": true
   },
@@ -2873,6 +2957,13 @@
      }
     }
    },
+   "shares": {
+    "value": 57.840614,
+    "end": "2026-02-20",
+    "filed": "2026-02-24",
+    "accn": "0001104659-26-018859",
+    "classes": 1
+   },
    "docChecked": true
   },
   "INVA": {
@@ -3120,6 +3211,13 @@
       "end": "2025-12-31"
      }
     }
+   },
+   "shares": {
+    "value": 74.073646,
+    "end": "2026-02-13",
+    "filed": "2026-02-25",
+    "accn": "0001193125-26-071776",
+    "classes": 1
    },
    "docChecked": true
   },
@@ -3382,7 +3480,14 @@
       "filed": "2026-02-12",
       "end": "2025-12-31"
      },
-     "debt": null,
+     "debt": {
+      "value": 0,
+      "tag": "balance sheet: no borrowings on the balance sheet (finance lease only)",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2025-12-31",
+      "note": "read from the 10-K balance sheet text"
+     },
      "st_investments": {
       "value": 178.996,
       "tag": "DebtSecuritiesAvailableForSaleExcludingAccruedInterestCurrent",
@@ -3398,6 +3503,13 @@
       "end": "2025-12-31"
      }
     }
+   },
+   "shares": {
+    "value": 59.10803,
+    "end": "2026-02-05",
+    "filed": "2026-02-12",
+    "accn": "0001628280-26-007460",
+    "classes": 1
    },
    "docChecked": true
   },
@@ -3664,7 +3776,14 @@
       "filed": "2026-02-27",
       "end": "2025-12-31"
      },
-     "debt": null,
+     "debt": {
+      "value": 446.192,
+      "tag": "balance sheet: 2030 convertible senior notes, net",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2025-12-31",
+      "note": "read from the 10-K balance sheet text"
+     },
      "st_investments": {
       "value": 558.594,
       "tag": "ShortTermInvestments",
@@ -3680,6 +3799,13 @@
       "end": "2025-12-31"
      }
     }
+   },
+   "shares": {
+    "value": 19.941141,
+    "end": "2026-02-24",
+    "filed": "2026-02-27",
+    "accn": "0000886163-26-000006",
+    "classes": 1
    },
    "docChecked": true
   },
@@ -3959,6 +4085,13 @@
      }
     }
    },
+   "shares": {
+    "value": 314.629101,
+    "end": "2026-02-13",
+    "filed": "2026-02-27",
+    "accn": "0001723128-26-000011",
+    "classes": 1
+   },
    "docChecked": true
   },
   "ACAD": {
@@ -4220,7 +4353,14 @@
       "filed": "2026-02-26",
       "end": "2025-12-31"
      },
-     "debt": null,
+     "debt": {
+      "value": 0,
+      "tag": "balance sheet: no borrowings on the balance sheet",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2025-12-31",
+      "note": "read from the 10-K balance sheet text"
+     },
      "st_investments": {
       "value": 641.991,
       "tag": "AvailableForSaleSecuritiesDebtSecuritiesCurrent",
@@ -4236,6 +4376,13 @@
       "end": "2025-12-31"
      }
     }
+   },
+   "shares": {
+    "value": 170.494613,
+    "end": "2026-02-18",
+    "filed": "2026-02-26",
+    "accn": "0001193125-26-072519",
+    "classes": 1
    },
    "docChecked": true
   },
@@ -4499,7 +4646,14 @@
       "filed": "2026-02-10",
       "end": "2026-01-02"
      },
-     "debt": null,
+     "debt": {
+      "value": 0,
+      "tag": "balance sheet: no borrowings on the balance sheet",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2026-01-02",
+      "note": "read from the 10-K balance sheet text"
+     },
      "st_investments": {
       "value": 576.603,
       "tag": "MarketableSecuritiesCurrent",
@@ -4515,6 +4669,13 @@
       "end": "2026-01-02"
      }
     }
+   },
+   "shares": {
+    "value": 259.708689,
+    "end": "2026-02-02",
+    "filed": "2026-02-10",
+    "accn": "0000939767-26-000021",
+    "classes": 1
    },
    "docChecked": true
   },
@@ -4777,7 +4938,14 @@
       "filed": "2026-02-11",
       "end": "2025-12-31"
      },
-     "debt": null,
+     "debt": {
+      "value": 0,
+      "tag": "balance sheet: no borrowings on the balance sheet",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2025-12-31",
+      "note": "read from the 10-K balance sheet text"
+     },
      "st_investments": {
       "value": 767.4,
       "tag": "AvailableForSaleSecuritiesDebtSecuritiesCurrent",
@@ -4793,6 +4961,13 @@
       "end": "2025-12-31"
      }
     }
+   },
+   "shares": {
+    "value": 100.363463,
+    "end": "2026-02-04",
+    "filed": "2026-02-11",
+    "accn": "0000914475-26-000007",
+    "classes": 1
    },
    "docChecked": true
   },
@@ -5072,6 +5247,13 @@
      }
     }
    },
+   "shares": {
+    "value": 64.605894,
+    "end": "2026-02-23",
+    "filed": "2026-02-26",
+    "accn": "0001193125-26-073498",
+    "classes": 1
+   },
    "docChecked": true
   },
   "ADMA": {
@@ -5338,6 +5520,13 @@
      }
     }
    },
+   "shares": {
+    "value": 238.159176,
+    "end": "2026-02-20",
+    "filed": "2026-02-25",
+    "accn": "0001140361-26-006815",
+    "classes": 1
+   },
    "docChecked": true
   },
   "KNSA": {
@@ -5599,7 +5788,14 @@
       "filed": "2026-02-24",
       "end": "2025-12-31"
      },
-     "debt": null,
+     "debt": {
+      "value": 0,
+      "tag": "balance sheet: no borrowings on the balance sheet",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2025-12-31",
+      "note": "read from the 10-K balance sheet text"
+     },
      "st_investments": {
       "value": 248.478,
       "tag": "ShortTermInvestments",
@@ -5615,6 +5811,14 @@
       "end": "2025-12-31"
      }
     }
+   },
+   "shares": {
+    "value": 76.535377,
+    "end": "2026-02-20",
+    "filed": "2026-02-24",
+    "accn": "0001104659-26-019168",
+    "classes": 1,
+    "note": "Class A, B and C ordinary shares in aggregate"
    },
    "docChecked": true
   },
@@ -5897,11 +6101,11 @@
      },
      "debt": {
       "value": 286.631,
-      "tag": "LongTermDebtCurrent",
+      "tag": "balance sheet: current portion of long-term debt (convertible notes due September 2026)",
       "accn": "0001104659-26-017575",
       "filed": "2026-02-19",
       "end": "2025-12-31",
-      "note": "different tag used for FY2025"
+      "note": "read from the 10-K balance sheet text"
      },
      "st_investments": {
       "value": 960.723,
@@ -5919,7 +6123,23 @@
      }
     }
    },
-   "debtLike": "The 10-K mentions royalty-financing or sale-of-future-royalties obligations that are not in the debt figure",
+   "shares": {
+    "value": 82.77473,
+    "end": "2026-02-18",
+    "filed": "2026-02-19",
+    "accn": "0001104659-26-017575",
+    "classes": 1
+   },
+   "debtLikeItems": [
+    {
+     "label": "Liability for sale of future royalties, current",
+     "value": 283
+    },
+    {
+     "label": "Liability for sale of future royalties, noncurrent",
+     "value": 2025.366
+    }
+   ],
    "docChecked": true
   },
   "TGTX": {
@@ -6221,6 +6441,13 @@
       "end": "2025-12-31"
      }
     }
+   },
+   "shares": {
+    "value": 159.688256,
+    "end": "2026-02-25",
+    "filed": "2026-02-27",
+    "accn": "0001437749-26-006133",
+    "classes": 1
    },
    "docChecked": true
   },
@@ -6525,6 +6752,13 @@
      }
     }
    },
+   "shares": {
+    "value": 18.47313,
+    "end": "2026-02-25",
+    "filed": "2026-03-03",
+    "accn": "0001034842-26-000015",
+    "classes": 1
+   },
    "docChecked": true
   },
   "ARDX": {
@@ -6806,10 +7040,11 @@
      },
      "debt": {
       "value": 202.834,
-      "tag": "LongTermDebt",
+      "tag": "balance sheet: long-term debt",
       "accn": "0001437402-26-000013",
       "filed": "2026-02-19",
-      "end": "2025-12-31"
+      "end": "2025-12-31",
+      "note": "read from the 10-K balance sheet text"
      },
      "st_investments": {
       "value": 196.69,
@@ -6827,7 +7062,19 @@
      }
     }
    },
-   "debtLike": "The 10-K mentions royalty-financing or sale-of-future-royalties obligations that are not in the debt figure",
+   "shares": {
+    "value": 245.247427,
+    "end": "2026-02-12",
+    "filed": "2026-02-19",
+    "accn": "0001437402-26-000013",
+    "classes": 1
+   },
+   "debtLikeItems": [
+    {
+     "label": "Deferred royalty obligation related to the sale of future royalties",
+     "value": 25.876
+    }
+   ],
    "docChecked": true
   },
   "BCRX": {
@@ -7109,10 +7356,11 @@
      },
      "debt": {
       "value": 0,
-      "tag": "LongTermDebtNoncurrent",
+      "tag": "balance sheet: secured term loan is nil at 31 December 2025 (314.9 at 31 December 2024)",
       "accn": "0001628280-26-012240",
       "filed": "2026-02-26",
-      "end": "2025-12-31"
+      "end": "2025-12-31",
+      "note": "read from the 10-K balance sheet text"
      },
      "st_investments": {
       "value": 185.011,
@@ -7131,7 +7379,23 @@
      }
     }
    },
-   "debtLike": "The 10-K mentions royalty-financing or sale-of-future-royalties obligations that are not in the debt figure",
+   "shares": {
+    "value": 250.80062,
+    "end": "2026-02-20",
+    "filed": "2026-02-26",
+    "accn": "0001628280-26-012240",
+    "classes": 1
+   },
+   "debtLikeItems": [
+    {
+     "label": "Royalty financing obligations, current",
+     "value": 38.455
+    },
+    {
+     "label": "Royalty financing obligations, noncurrent",
+     "value": 427.233
+    }
+   ],
    "docChecked": true
   },
   "OGN": {
@@ -7385,6 +7649,13 @@
       "end": "2025-12-31"
      }
     }
+   },
+   "shares": {
+    "value": 260.31565,
+    "end": "2026-02-17",
+    "filed": "2026-02-24",
+    "accn": "0001628280-26-011125",
+    "classes": 1
    },
    "docChecked": true
   },
@@ -7663,6 +7934,13 @@
       "end": "2025-12-31"
      }
     }
+   },
+   "shares": {
+    "value": 137.649352,
+    "end": "2026-02-24",
+    "filed": "2026-02-26",
+    "accn": "0001585364-26-000009",
+    "classes": 1
    },
    "docChecked": true
   },
@@ -7966,22 +8244,20 @@
      }
     }
    },
+   "shares": {
+    "value": 192.323359,
+    "end": "2026-02-19",
+    "filed": "2026-02-26",
+    "accn": "0001048477-26-000004",
+    "classes": 1
+   },
    "docChecked": false
   }
  },
  "issues": [
-  "SUPN FY2025: debt not found",
-  "CORT FY2025: debt not found",
-  "IRWD FY2025: debt not found",
   "COLL FY2025: rnd not found",
   "HRMY FY2025: da not found",
   "INVA FY2025: da not found",
-  "VNDA FY2025: debt not found",
-  "LGND FY2025: debt not found",
-  "ACAD FY2025: debt not found",
-  "EXEL FY2025: debt not found",
-  "NBIX FY2025: debt not found",
-  "KNSA FY2025: debt not found",
   "OGN FY2025: operating_income not found"
  ]
 }
