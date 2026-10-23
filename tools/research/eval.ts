@@ -4,6 +4,8 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync } from "node:fs";
 import { ask, MIN_COVERAGE, MIN_SCORE } from "../../src/lib/research/ask.ts";
 import { buildIndex } from "../../src/lib/research/search.ts";
+import { ask2, MIN_COVERAGE2, MIN_SCORE2 } from "../../src/lib/research/ask2.ts";
+import { buildIndex2 } from "../../src/lib/research/search2.ts";
 import type { Passage } from "../../src/lib/research/search.ts";
 import type { Dataset } from "../../src/lib/pharma/model.ts";
 
@@ -11,7 +13,10 @@ const keys = ["novartis", "astrazeneca", "gsk"];
 const passages: Passage[] = keys.flatMap((c) =>
   (JSON.parse(readFileSync(`public/research/passages-${c}.json`, "utf8")) as [number, string, string, string][]).map(([id, section, anchor, text]) => ({ id, company: c, section, anchor, text })),
 );
+const ENGINE = process.argv[4] === "v2" ? "v2" : "v1";
 const ix = buildIndex(passages);
+const ix2 = ENGINE === "v2" ? buildIndex2(passages, existsSync("public/research/expansion.json") && process.argv[5] !== "no-expansion" ? JSON.parse(readFileSync("public/research/expansion.json", "utf8")) : {}) : undefined;
+const askAny = (q: string) => (ENGINE === "v2" ? ask2(q, ix2!, ds) : ask(q, ix, ds));
 const ds = JSON.parse(readFileSync("src/data/pharma/dataset.json", "utf8")) as Dataset;
 const QFILE = `src/data/research/${process.argv[2] ?? "eval-questions.json"}`;
 const RFILE = `src/data/research/${process.argv[3] ?? "eval-results.json"}`;
@@ -35,7 +40,7 @@ if (invalid.length) {
 
 type Row = { id: string; type: Q["type"]; q: string; outcome: string; pass: boolean; rank?: number; detail: string };
 const rows: Row[] = questions.map((q) => {
-  const a = ask(q.q, ix, ds);
+  const a = askAny(q.q);
   if (q.type === "unanswerable") {
     return { id: q.id, type: q.type, q: q.q, outcome: a.kind === "refusal" ? `refused (${a.reason})` : `answered (${a.kind})`, pass: a.kind === "refusal", detail: a.kind === "passages" ? `${a.hits[0].passage.company} #${a.hits[0].passage.id} ${a.hits[0].passage.section}` : a.kind === "calc" ? a.text : "" };
   }
@@ -60,7 +65,7 @@ const summary = {
   unanswerable: { n: by("unanswerable").length, correctlyRefused: share(by("unanswerable"), (r) => r.pass) },
   overallPass: share(rows, (r) => r.pass),
 };
-const out = { ran: new Date().toISOString().slice(0, 10), thresholds: { MIN_COVERAGE, MIN_SCORE }, passages: passages.length, summary, failures: rows.filter((r) => !r.pass), rows };
+const out = { ran: new Date().toISOString().slice(0, 10), engine: ENGINE, thresholds: ENGINE === "v2" ? { MIN_COVERAGE2, MIN_SCORE2 } : { MIN_COVERAGE, MIN_SCORE }, passages: passages.length, summary, failures: rows.filter((r) => !r.pass), rows };
 const prev = existsSync(RFILE) ? JSON.parse(readFileSync(RFILE, "utf8")) : {};
 writeFileSync(RFILE, JSON.stringify({ ...out, firstRun: prev.firstRun ?? { ran: out.ran, summary, failures: out.failures.map((f) => `${f.id}: ${f.outcome}`) }, changesAfterFirstRun: prev.changesAfterFirstRun ?? [], notes: prev.notes ?? [] }, null, 1));
 // The page offers the question and result files as downloads.
