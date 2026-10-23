@@ -42,6 +42,17 @@ for (const [t, c] of Object.entries(cur.companies)) {
     add(t, "recorded debt equals the sum of the listed lines", Math.abs(sum - c.debt) < 0.0015, `${sum.toFixed(3)} vs ${c.debt}`);
   }
 }
+// Manually read FY2025 figures (manual-values.json): each text snippet must appear in the filing and the amounts must add up.
+const man = JSON.parse(fs.readFileSync("src/data/ma/manual-values.json", "utf8"));
+for (const [t, metrics] of Object.entries(man.companies)) {
+  const x = textOf(t);
+  for (const [metric, mv] of Object.entries(metrics)) {
+    const lines = mv.lines ?? [{ text: mv.text, value: mv.value }];
+    for (const l of lines) add(t, `${metric}: 10-K text contains "${l.text}"`, x.includes(l.text));
+    if (mv.lines) add(t, `${metric}: recorded value equals the sum of the lines`, Math.abs(mv.lines.reduce((s, l) => s + l.value, 0) - mv.value) < 0.0015, `${mv.value}`);
+    else if (mv.value !== 0) add(t, `${metric}: amount matches the printed figure`, mv.text.includes(Math.round(mv.value * 1000).toLocaleString("en-US")));
+  }
+}
 const failed = results.filter((r) => !r.ok);
 console.log(`${results.length - failed.length}/${results.length} balance-sheet checks pass`);
 for (const f of failed) console.log("FAIL", f.ticker, f.check, f.detail);

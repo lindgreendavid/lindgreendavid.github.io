@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21",
+ "generated": "2026-10-23",
  "units": "US dollars, millions",
  "years": [
   2022,
@@ -2323,7 +2323,14 @@
       "filed": "2026-02-26",
       "end": "2025-12-31"
      },
-     "rnd": null,
+     "rnd": {
+      "value": 0,
+      "tag": "10-K text: no research and development line on the FY2025 income statement (operating expenses are SG&A and a contingent consideration remeasurement only)",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2025-12-31",
+      "note": "read from the 10-K text"
+     },
      "cfo": {
       "value": 329.323,
       "tag": "NetCashProvidedByUsedInOperatingActivities",
@@ -2926,7 +2933,14 @@
       "filed": "2026-02-24",
       "end": "2025-12-31"
      },
-     "da": null,
+     "da": {
+      "value": 25.335,
+      "tag": "10-K text: segment expense table in the 10-K notes",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2025-12-31",
+      "note": "read from the 10-K text"
+     },
      "cash": {
       "value": 752.502,
       "tag": "CashAndCashEquivalentsAtCarryingValue",
@@ -3187,7 +3201,14 @@
       "filed": "2026-02-25",
       "end": "2025-12-31"
      },
-     "da": null,
+     "da": {
+      "value": 40.228,
+      "tag": "10-K text: cash flow statement: depreciation and amortisation of fees, plus amortisation of acquired intangibles",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2025-12-31",
+      "note": "read from the 10-K text"
+     },
      "cash": {
       "value": 550.941,
       "tag": "CashAndCashEquivalentsAtCarryingValue",
@@ -8255,9 +8276,6 @@
   }
  },
  "issues": [
-  "COLL FY2025: rnd not found",
-  "HRMY FY2025: da not found",
-  "INVA FY2025: da not found",
   "OGN FY2025: operating_income not found"
  ]
 }

@@ -68,6 +68,7 @@ function valueOf(facts, alt, flow, year) {
 
 const curated = JSON.parse(fs.readFileSync("src/data/ma/balance-sheet-debt.json", "utf8"));
 const coverShares = JSON.parse(fs.readFileSync("src/data/ma/cover-shares.json", "utf8"));
+const manual = JSON.parse(fs.readFileSync("src/data/ma/manual-values.json", "utf8"));
 const out = { generated: new Date().toISOString().slice(0, 10), units: "US dollars, millions", years: YEARS, companies: {}, issues: [] };
 
 for (const [ticker, cik] of UNIVERSE) {
@@ -116,6 +117,11 @@ for (const [ticker, cik] of UNIVERSE) {
     const y25 = c.years[2025];
     y25.debt = { value: bs.debt, tag: `balance sheet: ${bs.basis}`, accn: y25.revenue?.accn ?? "", filed: y25.revenue?.filed ?? "", end: y25.revenue?.end ?? "", note: "read from the 10-K balance sheet text" };
     if (bs.debtLike.length) c.debtLikeItems = bs.debtLike.map((l) => ({ label: l.label, value: l.value }));
+  }
+  // Figures the standard tags did not carry, read from the 10-K text (manual-values.json; re-checked by verify-balance-sheet.mjs).
+  for (const [metric, mv] of Object.entries(manual.companies[ticker] ?? {})) {
+    const y25 = c.years[2025];
+    y25[metric] = { value: mv.value, tag: `10-K text: ${mv.basis}`, accn: y25.revenue?.accn ?? "", filed: y25.revenue?.filed ?? "", end: y25.revenue?.end ?? "", note: "read from the 10-K text" };
   }
   const doc = `data-raw/ma/${ticker}-10k.htm`;
   c.docChecked = fs.existsSync(doc);

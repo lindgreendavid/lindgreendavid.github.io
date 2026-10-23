@@ -364,3 +364,32 @@ export function memo(o: Outcome, ds: Dataset, universeSize: number): string[] {
   lines.push(`Not assessed: ${usesMarket ? "control premium and deal terms, " : "valuation or market capitalisation, "}ownership and control, product concentration and patent expiry, pipeline quality, litigation, financing, synergies, antitrust, and whether any company is for sale. The ranking says which companies fit a fundamentals-based brief, not that a deal is feasible or advisable.`);
   return lines;
 }
+
+// ---- does the shortlist survive a different brief? ----
+
+export type Brief = { id: string; name: string; summary: string; weights: Weights; filters: Filters };
+
+const W = (o: Partial<Weights>): Weights => ({ scale: 0, growth: 0, margin: 0, cash: 0, leverage: 0, rnd: 0, value: 0, capacity: 0, ...o });
+
+/** Three hypothetical briefs written by the author. They differ in weights and filters only, so they test the weights, not the criteria. */
+export const BRIEFS: Brief[] = [
+  { id: "A", name: "BuyerCo (the default brief)", summary: "Balanced: growth and profitability first, profitable companies only, revenue $150m to $3bn.", weights: DEFAULT_WEIGHTS, filters: DEFAULT_FILTERS },
+  { id: "B", name: "GrowthCo", summary: "Pays for momentum: growth 40, R&D reinvestment 20, no profit filter, revenue $100m to $5bn.", weights: W({ scale: 10, growth: 40, margin: 10, cash: 10, leverage: 10, rnd: 20 }), filters: { minRevenue: 100, maxRevenue: 5000, requireProfitable: false } },
+  { id: "C", name: "IncomeCo", summary: "Wants cash yield and a clean balance sheet: margin 30, cash 30, balance sheet 25, little growth weight.", weights: W({ scale: 10, growth: 5, margin: 30, cash: 30, leverage: 25 }), filters: DEFAULT_FILTERS },
+];
+
+export type BriefResult = { brief: Brief; passed: number; top: { ticker: string; name: string; rank: number; score: number }[] };
+
+export function compareBriefs(ds: Dataset, options: Options = DEFAULT_OPTIONS, n = 5): { results: BriefResult[]; inAll: string[]; inMajority: string[] } {
+  const rows = buildRows(ds, options);
+  const results = BRIEFS.map((b) => {
+    const { passed } = applyFilters(rows, b.filters);
+    const ranked = rank(score(passed, b.weights));
+    return { brief: b, passed: passed.length, top: ranked.slice(0, n).map((r) => ({ ticker: r.ticker, name: r.s.row.name, rank: r.rank, score: r.s.score })) };
+  });
+  const count: Record<string, number> = {};
+  for (const r of results) for (const t of r.top) count[t.ticker] = (count[t.ticker] ?? 0) + 1;
+  const inAll = Object.entries(count).filter(([, c]) => c === results.length).map(([t]) => t);
+  const inMajority = Object.entries(count).filter(([, c]) => c >= 2 && c < results.length).map(([t]) => t);
+  return { results, inAll, inMajority };
+}

@@ -1,0 +1,17 @@
+{
+  "note": "FY2025 figures that the standard XBRL tags did not carry, read from each company's Form 10-K text on 2026-10-23. US dollars, millions. Every text snippet is re-checked against the filing by tools/ma/verify-balance-sheet.mjs.",
+  "companies": {
+    "HRMY": { "da": { "value": 25.335, "text": "Depreciation and amortization 25,335 24,112 24,359", "basis": "segment expense table in the 10-K notes" } },
+    "INVA": {
+      "da": {
+        "value": 40.228,
+        "basis": "cash flow statement: depreciation and amortisation of fees, plus amortisation of acquired intangibles",
+        "lines": [
+          { "text": "Amortization of capitalized fees and depreciation of property and equipment 13,951", "value": 13.951 },
+          { "text": "Amortization of acquired intangible assets 26,277", "value": 26.277 }
+        ]
+      }
+    },
+    "COLL": { "rnd": { "value": 0, "text": "Selling, general and administrative 284,803 210,363 Gain on fair value remeasurement of contingent consideration (1,182) (2,914) Total operating expenses 283,621 207,449", "basis": "no research and development line on the FY2025 income statement (operating expenses are SG&A and a contingent consideration remeasurement only)" } }
+  }
+}

@@ -1,7 +1,7 @@
 {
- "generated": "2026-10-21",
- "total": 39,
- "passed": 39,
+ "generated": "2026-10-23",
+ "total": 45,
+ "passed": 45,
  "results": [
   {
    "ticker": "SUPN",
@@ -236,6 +236,42 @@
    "check": "recorded debt equals the sum of the listed lines",
    "ok": true,
    "detail": "202.834 vs 202.834"
+  },
+  {
+   "ticker": "HRMY",
+   "check": "da: 10-K text contains \"Depreciation and amortization 25,335 24,112 24,359\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "HRMY",
+   "check": "da: amount matches the printed figure",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "INVA",
+   "check": "da: 10-K text contains \"Amortization of capitalized fees and depreciation of property and equipment 13,951\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "INVA",
+   "check": "da: 10-K text contains \"Amortization of acquired intangible assets 26,277\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "INVA",
+   "check": "da: recorded value equals the sum of the lines",
+   "ok": true,
+   "detail": "40.228"
+  },
+  {
+   "ticker": "COLL",
+   "check": "rnd: 10-K text contains \"Selling, general and administrative 284,803 210,363 Gain on fair value remeasurement of contingent consideration (1,182) (2,914) Total operating expenses 283,621 207,449\"",
+   "ok": true,
+   "detail": ""
   }
  ]
 }

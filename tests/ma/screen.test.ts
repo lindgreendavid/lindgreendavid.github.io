@@ -208,3 +208,15 @@ test("real dataset: PTCT net debt counts $2.3bn of sold royalties and every comp
   assert.ok(Math.abs(ptct.debtLike - 2308.366) < 1e-6);
   assert.ok(Object.values(real.companies).every((c) => c.shares && c.shares.value > 1));
 });
+
+import { BRIEFS, compareBriefs } from "../../src/lib/ma/screen.ts";
+
+test("briefs: identical briefs agree completely; the default brief equals run()", () => {
+  const real = JSON.parse(readFileSync("src/data/ma/dataset.json", "utf8")) as Dataset;
+  const cmp = compareBriefs(real);
+  assert.equal(cmp.results.length, BRIEFS.length);
+  const a = run(real, DEFAULT_WEIGHTS, DEFAULT_FILTERS, { draws: 10 });
+  assert.deepEqual(cmp.results[0].top.map((t) => t.ticker), a.ranked.slice(0, 5).map((r) => r.ticker));
+  for (const t of cmp.inAll) assert.ok(cmp.results.every((r) => r.top.some((x) => x.ticker === t)));
+  for (const r of cmp.results) for (const t of r.top) assert.ok(applyFilters(buildRows(real), r.brief.filters).passed.some((p) => p.ticker === t.ticker));
+});

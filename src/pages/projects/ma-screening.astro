@@ -5,7 +5,7 @@ import "../../styles/projects.css";
 import ds from "../../data/ma/dataset.json";
 import validation from "../../data/ma/validation.json";
 import bsValidation from "../../data/ma/balance-sheet-validation.json";
-import { CRITERIA, CRITERION_INFO, DEFAULT_FILTERS, DEFAULT_WEIGHTS } from "../../lib/ma/screen.ts";
+import { CRITERIA, CRITERION_INFO, DEFAULT_FILTERS, DEFAULT_WEIGHTS, compareBriefs } from "../../lib/ma/screen.ts";
 import type { Dataset } from "../../lib/ma/screen.ts";
 import { defaultOutput } from "../../lib/ma/ui.ts";
 
@@ -13,6 +13,7 @@ const data = ds as unknown as Dataset;
 const n = Object.keys(data.companies).length;
 const initial = defaultOutput(data, n);
 const v = validation;
+const cmp = compareBriefs(data);
 ---
 <Base title="M&A Screening Workbench | David Lindgreen" description="A preliminary screening of US-listed pharma and biotech companies against a hypothetical buyer brief, with adjustable weights, data-gap flags, ranking sensitivity and a screening memo. Screening only; first release.">
   <ProjectHeader current="projects" />
@@ -26,7 +27,7 @@ const v = validation;
         <div><h2>The problem</h2><p>A long list is easy to rank by gut feel. A screen should state its criteria, show its gaps and show how fragile the order is.</p></div>
         <div><h2>What it supports</h2><p>Deciding which handful of companies deserve a proper look. It is not a valuation model, a fairness view or a recommendation.</p></div>
       </div>
-      <nav class="jump" aria-label="On this page"><a href="#brief">Brief</a><a href="#screen">Screen</a><a href="#memo">Memo</a><a href="#evidence">Evidence</a><a href="#method">Method</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a></nav>
+      <nav class="jump" aria-label="On this page"><a href="#brief">Brief</a><a href="#screen">Screen</a><a href="#briefs">Briefs</a><a href="#memo">Memo</a><a href="#evidence">Evidence</a><a href="#method">Method</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a></nav>
     </section>
 
     <section class="wrap" aria-label="Disclosures">
@@ -104,6 +105,21 @@ const v = validation;
       </div>
     </section>
 
+    <section class="wrap section" id="briefs" aria-labelledby="briefs-h">
+      <div class="section-head"><h2 id="briefs-h">Does the shortlist survive a different brief?</h2><p>The same data scored under three hypothetical briefs. A company that stays in the top five under all of them does not owe its place to one set of weights.</p></div>
+      <div class="pane">
+        <div class="tbl-wrap" role="region" aria-label="Top five under three briefs, scrolls horizontally on small screens" tabindex="0">
+          <table class="tbl">
+            <caption class="sr">Top five companies under three hypothetical briefs</caption>
+            <thead><tr><th scope="col">Brief</th><th scope="col">Companies passing</th><th scope="col">Top five, best first</th></tr></thead>
+            <tbody>{cmp.results.map((r) => <tr><th scope="row">{r.brief.id}. {r.brief.name}<br /><span class="muted">{r.brief.summary}</span></th><td class="num">{r.passed}</td><td>{r.top.map((t) => t.ticker).join(", ")}</td></tr>)}</tbody>
+          </table>
+        </div>
+        <p style="margin-top:0.75rem"><strong>In the top five under all three:</strong> {cmp.inAll.join(", ") || "none"}.{cmp.inMajority.length ? <> <strong>In two of three:</strong> {cmp.inMajority.join(", ")}.</> : null}</p>
+        <p class="muted">These three briefs were all written by the author and differ only in weights and filters, so this tests the weights, not the criteria or anchors. A brief written independently by someone else would be a harder test. Reported figures include one-off items (for example a $998m licence payment in PTC Therapeutics' revenue), which flatter several of the companies that stay on top.</p>
+      </div>
+    </section>
+
     <div class="band band-mint">
       <section class="wrap section" id="memo" aria-labelledby="memo-h">
         <div class="section-head"><h2 id="memo-h">Screening memo</h2><p>Generated from the numbers above with fixed sentence templates, so every statement can be traced. It always lists what was not assessed.</p></div>
@@ -177,7 +193,7 @@ const v = validation;
             <li>Add a licensed or redistributable price source so valuation does not depend on pasted prices.</li>
             <li>Use diluted share counts (options, restricted units, convertible notes) for market capitalisation.</li>
             <li>Add product concentration and patent-expiry data from the filings.</li>
-            <li>Test the ranking against a second, independently written brief.</li>
+            <li>Have someone else write a brief and compare the shortlist (the three briefs above are all the author's).</li>
           </ul>
         </div>
       </div>
