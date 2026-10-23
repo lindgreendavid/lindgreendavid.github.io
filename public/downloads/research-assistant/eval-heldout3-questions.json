@@ -1,0 +1,173 @@
+{
+  "notes": [
+    "Blind held-out set 3: 17 paraphrased lookup and 4 unanswerable questions, written 2026-10-24 BEFORE the second retrieval engine (v2) was designed and before this set was run on any engine.",
+    "Lookup questions come from passages drawn at random (seed 20261025) and are paraphrased. The unanswerable questions probe gaps in the scope guard that the author had not yet fixed.",
+    "Run once on v1 (baseline) and once on v2. Not used for tuning. Written and checked with AI assistance; the author's own check is pending."
+  ],
+  "questions": [
+    {
+      "id": "M01",
+      "type": "lookup",
+      "company": "novartis",
+      "q": "Where did Novartis stand among its healthcare peers on shareholder return at the end of 2025?",
+      "gold": "No. 4",
+      "evidence": "the relative TSR for Novartis was No. 4 among our global healthcare peer group"
+    },
+    {
+      "id": "M02",
+      "type": "lookup",
+      "company": "novartis",
+      "q": "Why do swings in the dollar's value against other currencies change what Novartis reports?",
+      "gold": "Exchange-rate fluctuations have a significant effect on results and on the reported value of assets, liabilities and cash flows",
+      "evidence": "fluctuations in the exchange rates between the US dollar and other currencies can have a significant effect"
+    },
+    {
+      "id": "M03",
+      "type": "lookup",
+      "company": "novartis",
+      "q": "How much do raw material price moves threaten Novartis?",
+      "gold": "Only a very limited exposure",
+      "evidence": "very limited exposure to price risk related to anticipated purchases of certain commodities"
+    },
+    {
+      "id": "M04",
+      "type": "lookup",
+      "company": "novartis",
+      "q": "At which tier of the fair-value ranking are contingent payment estimates placed?",
+      "gold": "Level 3",
+      "evidence": "These valuations are classified as “Level 3” in the fair value hierarchy"
+    },
+    {
+      "id": "M05",
+      "type": "lookup",
+      "company": "novartis",
+      "q": "Who leads biomedical research at Novartis, and since when?",
+      "gold": "Fiona H. Marshall, since 2022",
+      "evidence": "President, Biomedical Research since 2022"
+    },
+    {
+      "id": "M06",
+      "type": "lookup",
+      "company": "novartis",
+      "q": "What type of drug is Vanrafia?",
+      "gold": "A selective endothelin A receptor antagonist",
+      "evidence": "Vanrafia (atrasentan) is a selective endothelin A receptor antagonist"
+    },
+    {
+      "id": "M07",
+      "type": "lookup",
+      "company": "astrazeneca",
+      "q": "What did the Chinese patent authority decide about Tagrisso's main compound patents in late 2025?",
+      "gold": "It maintained them",
+      "evidence": "the Patent Office issued decisions maintaining the compound patents"
+    },
+    {
+      "id": "M08",
+      "type": "lookup",
+      "company": "astrazeneca",
+      "q": "In which court did AstraZeneca sue over how Calquence was picked for price talks?",
+      "gold": "US District Court for the District of Maryland",
+      "evidence": "filed a lawsuit in the US District Court for the District of Maryland"
+    },
+    {
+      "id": "M09",
+      "type": "lookup",
+      "company": "astrazeneca",
+      "q": "Were there any significant modifications to AstraZeneca's financial-reporting controls this year?",
+      "gold": "No",
+      "evidence": "no such changes have occurred during the period covered by this Form 20-F"
+    },
+    {
+      "id": "M10",
+      "type": "lookup",
+      "company": "astrazeneca",
+      "q": "What tax rate hits shares moved into the US clearing system from outside it?",
+      "gold": "1.5%",
+      "evidence": "UK stamp duty or SDRT at the rate of 1.5%"
+    },
+    {
+      "id": "M11",
+      "type": "lookup",
+      "company": "astrazeneca",
+      "q": "Has the pension scheme finished levelling up benefits for men and women under the minimum guarantee?",
+      "gold": "Completed for pensioners and dependants in 2024; non-pensioners are equalised at retirement",
+      "evidence": "Guaranteed Minimum Pensions (GMP) equalisation of member benefits, as required by UK legislation, was completed for pensioner and dependent members in 2024"
+    },
+    {
+      "id": "M12",
+      "type": "lookup",
+      "company": "gsk",
+      "q": "How did the appeals court rule in the nausea-drug litigation Zofran?",
+      "gold": "It affirmed the decision in GSK's favour",
+      "evidence": "the First Circuit affirmed the district court’s decision in favour of the Group"
+    },
+    {
+      "id": "M13",
+      "type": "lookup",
+      "company": "gsk",
+      "q": "What selection process for its external accountants did GSK start?",
+      "gold": "A formal audit contract tender",
+      "evidence": "a formal audit contract tender process"
+    },
+    {
+      "id": "M14",
+      "type": "lookup",
+      "company": "gsk",
+      "q": "Who ran the 2024 self-assessment of the GSK board?",
+      "gold": "The Senior Independent Director supported by the Company Secretary",
+      "evidence": "internal 2024 Board evaluation, which was carried out by the SID supported by the Company Secretary"
+    },
+    {
+      "id": "M15",
+      "type": "lookup",
+      "company": "gsk",
+      "q": "What is GSK trying to treat by using genomics in liver disease?",
+      "gold": "Inflammation and fibrosis",
+      "evidence": "In liver disease, we’re applying insights from genomics and disease phenotyping to target inflammation and fibrosis"
+    },
+    {
+      "id": "M17",
+      "type": "lookup",
+      "company": "novartis",
+      "q": "On which company's board did a Novartis director lead the pay committee until 2025?",
+      "gold": "Arvinas Inc",
+      "evidence": "Board member and chair of the compensation committee, Arvinas Inc, US (2022–2025)"
+    },
+    {
+      "id": "M18",
+      "type": "lookup",
+      "company": "astrazeneca",
+      "q": "How does AstraZeneca view the strength of its tax positions on cross-border pricing between group companies?",
+      "gold": "Robust",
+      "evidence": "positions on all its transfer pricing positions, audits and disputes are robust"
+    },
+    {
+      "id": "MU1",
+      "type": "unanswerable",
+      "company": "gsk",
+      "q": "What dividend will GSK pay in 2029?",
+      "gold": "refuse: forecast"
+    },
+    {
+      "id": "MU2",
+      "type": "unanswerable",
+      "company": "none",
+      "q": "What is Johnson & Johnson's market share in oncology?",
+      "gold": "refuse: not covered"
+    },
+    {
+      "id": "MU3",
+      "type": "unanswerable",
+      "company": "none",
+      "q": "What is the best pizza restaurant in Frankfurt?",
+      "gold": "refuse: not in the reports"
+    },
+    {
+      "id": "MU4",
+      "type": "unanswerable",
+      "company": "astrazeneca",
+      "q": "What is AstraZeneca's stock price at the moment?",
+      "gold": "refuse: live data"
+    }
+  ]
+}

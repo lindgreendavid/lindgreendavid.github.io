@@ -1,0 +1,40 @@
+{
+  "notes": [
+    "Held-out set 2: 24 lookup and 6 unanswerable questions, written 2026-10-24 BEFORE the second retrieval engine was built.",
+    "Lookup questions come from passages drawn at random (seed 20261024) and are deliberately PARAPHRASED: they avoid copying the passage's wording, to test the weakness of keyword search. Gold evidence strings are checked by the harness to exist in the filing text.",
+    "Run first on the frozen v1 engine (baseline), then once on v2. Not used for tuning. Written and checked with AI assistance; the author's own check is pending."
+  ],
+  "questions": [
+    {"id": "K01", "type": "lookup", "company": "novartis", "q": "What must a shareholder confirm before Novartis lets them vote their shares?", "gold": "That it acquired the shares in its own name and for its own account", "evidence": "acquired the shares in its own name and for its own account"},
+    {"id": "K02", "type": "lookup", "company": "novartis", "q": "Which brand moved from the spun-off business into Novartis's continuing activities in 2023?", "gold": "Coartem", "evidence": "the Coartem brand"},
+    {"id": "K03", "type": "lookup", "company": "novartis", "q": "Which companies did Novartis buy recently that added to its goodwill?", "gold": "Anthos Therapeutics, Regulus Therapeutics and Tourmaline Bio", "evidence": "Anthos Therapeutics, Regulus Therapeutics, and Tourmaline Bio"},
+    {"id": "K04", "type": "lookup", "company": "novartis", "q": "Which new immunology medicine was cleared by the FDA in the third quarter of 2025?", "gold": "Rhapsido (oral BTK inhibitor for CSU)", "evidence": "received FDA approval in Q3 2025 as the only oral, targeted BTK inhibitor for CSU"},
+    {"id": "K05", "type": "lookup", "company": "novartis", "q": "How much leased-asset value did Novartis add during 2025?", "gold": "USD 458 million of right-of-use assets", "evidence": "USD 458 million (2024: USD 304 million; 2023: USD 421 million) additions to right-of-use assets"},
+    {"id": "K06", "type": "lookup", "company": "novartis", "q": "What was the combined year-end 2025 balance of Novartis's deposits, short-term investments and derivatives?", "gold": "USD 155 million", "evidence": "Total marketable securities, time deposits and derivative financial instruments | 155"},
+    {"id": "K07", "type": "lookup", "company": "novartis", "q": "Why could a weak economy reduce demand for Novartis medicines?", "gold": "Patients paying more of their own costs may cut back on prescription drugs", "evidence": "patients may cut back on prescription drugs due to financial constraints"},
+    {"id": "K08", "type": "lookup", "company": "novartis", "q": "Why does the compensation committee choose peers that are similar to Novartis in size?", "gold": "So shareholders can compare pay year-on-year and against performance", "evidence": "consistent set of global peers that is similar to Novartis in size and scope of operations"},
+    {"id": "K09", "type": "lookup", "company": "astrazeneca", "q": "Which two firms did AstraZeneca take to court in Britain in May 2024 over a biosimilar of eculizumab?", "gold": "Amgen and Samsung Bioepis UK", "evidence": "against Amgen Ltd. (Amgen) and Samsung Bioepis UK Limited (Samsung)"},
+    {"id": "K10", "type": "lookup", "company": "astrazeneca", "q": "How are the results of subsidiaries that do not use dollars converted?", "gold": "At average exchange rates for the period", "evidence": "translated into US dollars at average exchange rates"},
+    {"id": "K11", "type": "lookup", "company": "astrazeneca", "q": "When does half of an award in the extended incentive plan become payable?", "gold": "On the fifth anniversary of grant", "evidence": "50% of the award will normally vest on the fifth anniversary of grant"},
+    {"id": "K12", "type": "lookup", "company": "astrazeneca", "q": "What was the full price, at fair value, of the acquisition that brought in FPI-2265?", "gold": "$2,195m", "evidence": "The total consideration fair value of $2,195m"},
+    {"id": "K13", "type": "lookup", "company": "astrazeneca", "q": "Does UK law restrict sending capital abroad or paying dividends to overseas holders of AstraZeneca shares?", "gold": "No, apart from sanctions", "evidence": "there are no governmental laws, decrees or regulations in the United Kingdom restricting the import or export of capital"},
+    {"id": "K14", "type": "lookup", "company": "astrazeneca", "q": "Where does AstraZeneca record grant money received before the costs it covers?", "gold": "As deferred income within trade and other payables", "evidence": "initially recognised in the Consolidated Statement of Financial Position under Trade and other payables as deferred income"},
+    {"id": "K15", "type": "lookup", "company": "astrazeneca", "q": "Who runs the British pension scheme of AstraZeneca?", "gold": "A corporate Trustee", "evidence": "The UK Pension Fund is governed and administered by a corporate Trustee"},
+    {"id": "K16", "type": "lookup", "company": "astrazeneca", "q": "What kind of funds hold most of the group's cash?", "gold": "US dollar AAA-rated money market liquidity funds", "evidence": "invested in US dollar AAA-rated money market liquidity funds"},
+    {"id": "K17", "type": "lookup", "company": "gsk", "q": "How did the endometrial cancer drug Jemperli sell in 2025?", "gold": "GBP 861m, up from 467m", "evidence": "Jemperli | 861 | 467"},
+    {"id": "K18", "type": "lookup", "company": "gsk", "q": "Which medicine leads GSK's HIV range by sales?", "gold": "Dovato", "evidence": "Dovato, the first and only once-daily oral 2DR"},
+    {"id": "K19", "type": "lookup", "company": "gsk", "q": "What did GSK earn from royalties in 2025?", "gold": "GBP 879m", "evidence": "Total royalty income | 879 | 639"},
+    {"id": "K20", "type": "lookup", "company": "gsk", "q": "Which GSK executive is in charge of corporate development?", "gold": "David Redfern", "evidence": "David Redfern President, Corporate Development"},
+    {"id": "K21", "type": "lookup", "company": "gsk", "q": "How much money has GSK committed to investments?", "gold": "GBP 0.2 billion", "evidence": "the Group had £0.2 billion of investment commitments"},
+    {"id": "K22", "type": "lookup", "company": "gsk", "q": "What share of the 2026 share-award measures is based on relative shareholder return?", "gold": "40%", "evidence": "Relative TSR 40%"},
+    {"id": "K23", "type": "lookup", "company": "gsk", "q": "What did the mid-stage trial of N6LS show?", "gold": "High efficacy and tolerability", "evidence": "N6LS achieved high efficacy and tolerability"},
+    {"id": "K24", "type": "lookup", "company": "gsk", "q": "Was GSK on track for its responsible business goals in 2025?", "gold": "Yes: final 'On Track' rating", "evidence": "final ‘On Track’ Responsible Business Performance Rating for 2025"},
+
+    {"id": "KU1", "type": "unanswerable", "company": "novartis", "q": "What is the Novartis share price on the SIX exchange right now?", "gold": "refuse: live data"},
+    {"id": "KU2", "type": "unanswerable", "company": "none", "q": "How does Roche's revenue compare with Novartis?", "gold": "refuse: not covered"},
+    {"id": "KU3", "type": "unanswerable", "company": "novartis", "q": "How many patients will take Kisqali in 2030?", "gold": "refuse: forecast"},
+    {"id": "KU4", "type": "unanswerable", "company": "astrazeneca", "q": "Is AstraZeneca a nicer employer than Pfizer?", "gold": "refuse: opinion / not covered"},
+    {"id": "KU5", "type": "unanswerable", "company": "astrazeneca", "q": "What colour is the AstraZeneca logo?", "gold": "refuse: not in the reports"},
+    {"id": "KU6", "type": "unanswerable", "company": "none", "q": "Who won the football match in Basel last night?", "gold": "refuse: not in the reports"}
+  ]
+}
