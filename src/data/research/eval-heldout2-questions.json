@@ -1,6 +1,6 @@
 {
   "notes": [
-    "Held-out set 2: 24 lookup and 6 unanswerable questions, written 2026-10-24 BEFORE the second retrieval engine was built.",
+    "Held-out set 2: 24 lookup and 6 unanswerable questions, written 2026-10-23 BEFORE the second retrieval engine was built.",
     "Lookup questions come from passages drawn at random (seed 20261024) and are deliberately PARAPHRASED: they avoid copying the passage's wording, to test the weakness of keyword search. Gold evidence strings are checked by the harness to exist in the filing text.",
     "Run first on the frozen v1 engine (baseline), then once on v2. Not used for tuning. Written and checked with AI assistance; the author's own check is pending."
   ],

@@ -1,6 +1,6 @@
 {
   "notes": [
-    "Blind held-out set 3: 17 paraphrased lookup and 4 unanswerable questions, written 2026-10-24 BEFORE the second retrieval engine (v2) was designed and before this set was run on any engine.",
+    "Blind held-out set 3: 17 paraphrased lookup and 4 unanswerable questions, written 2026-10-23 BEFORE the second retrieval engine (v2) was designed and before this set was run on any engine.",
     "Lookup questions come from passages drawn at random (seed 20261025) and are paraphrased. The unanswerable questions probe gaps in the scope guard that the author had not yet fixed.",
     "Run once on v1 (baseline) and once on v2. Not used for tuning. Written and checked with AI assistance; the author's own check is pending."
   ],
