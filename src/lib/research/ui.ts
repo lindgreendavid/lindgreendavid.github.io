@@ -1,10 +1,12 @@
 // Browser behaviour for the research assistant page. Filing text is untrusted: it is only ever inserted as text nodes, never as HTML.
 import type { Dataset } from "../pharma/model.ts";
-import { ask } from "./ask.ts";
+import { ask2 } from "./ask2.ts";
+import type { Answer2 } from "./ask2.ts";
 import { companiesIn } from "./calc.ts";
-import type { Answer } from "./ask.ts";
-import { buildIndex, tokenize } from "./search.ts";
-import type { Hit, Index, Passage } from "./search.ts";
+import { tokenize } from "./search.ts";
+import { buildIndex2 } from "./search2.ts";
+import type { Index2 } from "./search2.ts";
+import type { Passage } from "./search.ts";
 
 export type FilingInfo = Record<string, { name: string; url: string; filed: string; accession: string }>;
 
@@ -27,7 +29,7 @@ function highlight(parent: HTMLElement, text: string, words: string[]) {
   });
 }
 
-function passageCard(h: Hit, filings: FilingInfo, words: string[], rank: number): HTMLElement {
+function passageCard(h: { passage: Passage }, filings: FilingInfo, words: string[], rank: number): HTMLElement {
   const f = filings[h.passage.company];
   const card = el("article", "passage");
   const head = el("header");
@@ -43,7 +45,7 @@ function passageCard(h: Hit, filings: FilingInfo, words: string[], rank: number)
   return card;
 }
 
-export function render(out: HTMLElement, a: Answer, q: string, filings: FilingInfo, ms: number) {
+export function render(out: HTMLElement, a: Answer2, q: string, filings: FilingInfo, ms: number) {
   out.replaceChildren();
   const words = [...new Set(q.toLowerCase().match(/[a-z0-9][a-z0-9.%-]{2,}/g) ?? [])].filter((w) => tokenize(w).length && !companiesIn(w).length);
   if (a.kind === "calc") {
@@ -81,7 +83,7 @@ export function render(out: HTMLElement, a: Answer, q: string, filings: FilingIn
     out.append(box);
   } else {
     const box = el("div", "answer");
-    box.append(el("p", "kind", `Source passages · ranked by keyword match (BM25) · no generated text · ${ms} ms`));
+    box.append(el("p", "kind", `Source passages · ranked by keyword match with stemming and synonyms · no generated text · ${ms} ms`));
     a.hits.forEach((h, i) => box.append(passageCard(h, filings, words, i + 1)));
     box.append(el("p", "muted", "The passages are quoted from the filing. Check the top result against the filing before relying on it: keyword ranking can put a related passage first."));
     out.append(box);
@@ -94,20 +96,22 @@ export function initResearch(ds: Dataset, filings: FilingInfo) {
   const out = document.getElementById("ask-out");
   const status = document.getElementById("ask-status");
   if (!form || !input || !out || !status) return;
-  let index: Promise<Index> | undefined;
+  let index: Promise<Index2> | undefined;
+  const getJson = (url: string) => fetch(url).then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${url}: HTTP ${r.status}`))));
   const load = () =>
-    (index ??= Promise.all(KEYS.map((c) => fetch(`/research/passages-${c}.json`).then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${c}: HTTP ${r.status}`)))))).then((files) => {
-      const passages: Passage[] = files.flatMap((rows: [number, string, string, string][], i) => rows.map(([id, section, anchor, text]) => ({ id, company: KEYS[i], section, anchor, text })));
-      return buildIndex(passages);
+    (index ??= Promise.all([...KEYS.map((c) => getJson(`/research/passages-${c}.json`)), getJson("/research/expansion.json").catch(() => ({}))]).then((files) => {
+      const nb = files[KEYS.length] as Record<string, [string, number][]>;
+      const passages: Passage[] = KEYS.flatMap((c, i) => (files[i] as [number, string, string, string][]).map(([id, section, anchor, text]) => ({ id, company: c, section, anchor, text })));
+      return buildIndex2(passages, nb);
     }));
   const run = async (q: string) => {
     q = q.trim();
     if (!q) return;
-    status.textContent = "Loading the three reports (about 2.8 MB, once)…";
+    status.textContent = "Loading the three reports (about 2.9 MB, once)…";
     try {
       const ix = await load();
       const t0 = performance.now();
-      const answer = ask(q, ix, ds);
+      const answer = ask2(q, ix, ds);
       status.textContent = "";
       render(out, answer, q, filings, Math.round(performance.now() - t0));
     } catch (e) {

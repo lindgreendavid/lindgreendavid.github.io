@@ -93,3 +93,50 @@ test("evaluation sets: sizes, unique ids and gold evidence present in the extrac
   for (const q of [...dev, ...held].filter((x) => x.type === "lookup")) assert.ok(text[q.company].includes(norm(q.evidence!)), `${q.id}: evidence not found`);
   for (const t of ["lookup", "calculation", "unanswerable"]) assert.ok(dev.some((q) => q.type === t), `development set has ${t} questions`);
 });
+
+// ---- v2 engine ----
+import { porter } from "../../src/lib/research/porter.ts";
+import { buildIndex2, concepts, search2, tokenize2 } from "../../src/lib/research/search2.ts";
+import { ask2, guard2 } from "../../src/lib/research/ask2.ts";
+
+test("porter: textbook examples and shared stems", () => {
+  const cases: Record<string, string> = { caresses: "caress", ponies: "poni", relational: "relat", conditional: "condit", generalization: "gener", agreed: "agre", motoring: "motor", happy: "happi" };
+  for (const [w, s] of Object.entries(cases)) assert.equal(porter(w), s, w);
+  assert.equal(porter("acquired"), porter("acquires"));
+  assert.equal(porter("restricting"), porter("restrictions"));
+});
+
+test("v2 concepts: a synonym joins the same concept at a discount and never counts twice", () => {
+  const ix = buildIndex2([mk(0, "gsk", "Legal", "The court dismissed the lawsuit in July."), mk(1, "gsk", "Other", "Sales grew strongly.")]);
+  const cs = concepts(ix, "litigation");
+  assert.equal(cs.length, 1);
+  assert.ok(cs[0].alts.some(([t, w]) => t === porter("lawsuit") && w < 1));
+  const hits = search2(ix, "litigation");
+  assert.equal(hits[0].passage.id, 0);
+  assert.ok(hits[0].coverage > 0.5 && hits[0].coverage < 1);
+});
+
+test("v2 guard: 'will', far-future years, 'at the moment' and uncovered companies are refused", () => {
+  assert.equal(guard2("What dividend will GSK pay in 2029?")?.reason, "forecast");
+  assert.equal(guard2("How many patients will take Kisqali in 2030?")?.reason, "forecast");
+  assert.equal(guard2("What is AstraZeneca's stock price at the moment?")?.reason, "live-data");
+  assert.equal(guard2("How does Roche's revenue compare with Novartis?")?.reason, "not-covered");
+  assert.equal(guard2("What was the Novartis dividend per share in 2025?"), null);
+});
+
+test("v2 answers a paraphrased question that v1 refuses", () => {
+  const real = buildIndex2(["novartis", "astrazeneca", "gsk"].flatMap((c) => (JSON.parse(readFileSync(`public/research/passages-${c}.json`, "utf8")) as [number, string, string, string][]).map(([id, section, anchor, text]) => ({ id, company: c, section, anchor, text }))));
+  const a = ask2("Who runs the British pension scheme of AstraZeneca?", real, ds);
+  assert.equal(a.kind, "passages");
+  if (a.kind === "passages") assert.ok(a.hits.some((h) => h.passage.text.includes("The UK Pension Fund is governed and administered by a corporate Trustee")));
+  assert.equal(ask2("What is the best pizza restaurant in Frankfurt?", real, ds).kind, "refusal");
+});
+
+test("evaluation files: summary matches the per-set result files", () => {
+  const sm = JSON.parse(readFileSync("src/data/research/eval-summary.json", "utf8")) as { sets: { id: string; v2: { overall: string; questions: number } }[] };
+  assert.equal(sm.sets.length, 4);
+  assert.equal(sm.sets.reduce((a, x) => a + x.v2.questions, 0), 118);
+  const h3 = JSON.parse(readFileSync("src/data/research/eval-heldout3-v2-results.json", "utf8")) as { summary: { overallPass: string }; engine: string };
+  assert.equal(h3.engine, "v2");
+  assert.equal(sm.sets[3].v2.overall, h3.summary.overallPass);
+});

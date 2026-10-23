@@ -1,0 +1,441 @@
+{
+ "ran": "2026-10-23",
+ "engine": "v2",
+ "thresholds": {
+  "MIN_COVERAGE2": 0.5,
+  "MIN_SCORE2": 6
+ },
+ "passages": 3214,
+ "summary": {
+  "questions": 30,
+  "lookup": {
+   "n": 24,
+   "hitAt1": "12/24",
+   "hitAt5": "19/24",
+   "refusedWrongly": "1/24"
+  },
+  "calculation": {
+   "n": 0,
+   "exact": "0/0"
+  },
+  "comparison": {
+   "n": 0,
+   "correct": "0/0"
+  },
+  "unanswerable": {
+   "n": 6,
+   "correctlyRefused": "6/6"
+  },
+  "overallPass": "18/30"
+ },
+ "failures": [
+  {
+   "id": "K02",
+   "type": "lookup",
+   "q": "Which brand moved from the spun-off business into Novartis's continuing activities in 2023?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "K05",
+   "type": "lookup",
+   "q": "How much leased-asset value did Novartis add during 2025?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: novartis #966 10. Right-of-use assets and lease liabilities"
+  },
+  {
+   "id": "K07",
+   "type": "lookup",
+   "q": "Why could a weak economy reduce demand for Novartis medicines?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "K10",
+   "type": "lookup",
+   "q": "How are the results of subsidiaries that do not use dollars converted?",
+   "outcome": "hit@3",
+   "pass": false,
+   "rank": 3,
+   "detail": ""
+  },
+  {
+   "id": "K12",
+   "type": "lookup",
+   "q": "What was the full price, at fair value, of the acquisition that brought in FPI-2265?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "K14",
+   "type": "lookup",
+   "q": "Where does AstraZeneca record grant money received before the costs it covers?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: astrazeneca #310 Group Accounting Policies"
+  },
+  {
+   "id": "K15",
+   "type": "lookup",
+   "q": "Who runs the British pension scheme of AstraZeneca?",
+   "outcome": "hit@3",
+   "pass": false,
+   "rank": 3,
+   "detail": ""
+  },
+  {
+   "id": "K16",
+   "type": "lookup",
+   "q": "What kind of funds hold most of the group's cash?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "K17",
+   "type": "lookup",
+   "q": "How did the endometrial cancer drug Jemperli sell in 2025?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "K18",
+   "type": "lookup",
+   "q": "Which medicine leads GSK's HIV range by sales?",
+   "outcome": "hit@3",
+   "pass": false,
+   "rank": 3,
+   "detail": ""
+  },
+  {
+   "id": "K21",
+   "type": "lookup",
+   "q": "How much money has GSK committed to investments?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: gsk #885 Financial instruments › Other investments"
+  },
+  {
+   "id": "K23",
+   "type": "lookup",
+   "q": "What did the mid-stage trial of N6LS show?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: gsk #171 Accelerating innovation in our pipeline › Accelerating clinical trials"
+  }
+ ],
+ "rows": [
+  {
+   "id": "K01",
+   "type": "lookup",
+   "q": "What must a shareholder confirm before Novartis lets them vote their shares?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "K02",
+   "type": "lookup",
+   "q": "Which brand moved from the spun-off business into Novartis's continuing activities in 2023?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "K03",
+   "type": "lookup",
+   "q": "Which companies did Novartis buy recently that added to its goodwill?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "K04",
+   "type": "lookup",
+   "q": "Which new immunology medicine was cleared by the FDA in the third quarter of 2025?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "K05",
+   "type": "lookup",
+   "q": "How much leased-asset value did Novartis add during 2025?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: novartis #966 10. Right-of-use assets and lease liabilities"
+  },
+  {
+   "id": "K06",
+   "type": "lookup",
+   "q": "What was the combined year-end 2025 balance of Novartis's deposits, short-term investments and derivatives?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "K07",
+   "type": "lookup",
+   "q": "Why could a weak economy reduce demand for Novartis medicines?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "K08",
+   "type": "lookup",
+   "q": "Why does the compensation committee choose peers that are similar to Novartis in size?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "K09",
+   "type": "lookup",
+   "q": "Which two firms did AstraZeneca take to court in Britain in May 2024 over a biosimilar of eculizumab?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "K10",
+   "type": "lookup",
+   "q": "How are the results of subsidiaries that do not use dollars converted?",
+   "outcome": "hit@3",
+   "pass": false,
+   "rank": 3,
+   "detail": ""
+  },
+  {
+   "id": "K11",
+   "type": "lookup",
+   "q": "When does half of an award in the extended incentive plan become payable?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "K12",
+   "type": "lookup",
+   "q": "What was the full price, at fair value, of the acquisition that brought in FPI-2265?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "K13",
+   "type": "lookup",
+   "q": "Does UK law restrict sending capital abroad or paying dividends to overseas holders of AstraZeneca shares?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "K14",
+   "type": "lookup",
+   "q": "Where does AstraZeneca record grant money received before the costs it covers?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: astrazeneca #310 Group Accounting Policies"
+  },
+  {
+   "id": "K15",
+   "type": "lookup",
+   "q": "Who runs the British pension scheme of AstraZeneca?",
+   "outcome": "hit@3",
+   "pass": false,
+   "rank": 3,
+   "detail": ""
+  },
+  {
+   "id": "K16",
+   "type": "lookup",
+   "q": "What kind of funds hold most of the group's cash?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "K17",
+   "type": "lookup",
+   "q": "How did the endometrial cancer drug Jemperli sell in 2025?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "K18",
+   "type": "lookup",
+   "q": "Which medicine leads GSK's HIV range by sales?",
+   "outcome": "hit@3",
+   "pass": false,
+   "rank": 3,
+   "detail": ""
+  },
+  {
+   "id": "K19",
+   "type": "lookup",
+   "q": "What did GSK earn from royalties in 2025?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "K20",
+   "type": "lookup",
+   "q": "Which GSK executive is in charge of corporate development?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "K21",
+   "type": "lookup",
+   "q": "How much money has GSK committed to investments?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: gsk #885 Financial instruments › Other investments"
+  },
+  {
+   "id": "K22",
+   "type": "lookup",
+   "q": "What share of the 2026 share-award measures is based on relative shareholder return?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "K23",
+   "type": "lookup",
+   "q": "What did the mid-stage trial of N6LS show?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: gsk #171 Accelerating innovation in our pipeline › Accelerating clinical trials"
+  },
+  {
+   "id": "K24",
+   "type": "lookup",
+   "q": "Was GSK on track for its responsible business goals in 2025?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "KU1",
+   "type": "unanswerable",
+   "q": "What is the Novartis share price on the SIX exchange right now?",
+   "outcome": "refused (live-data)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "KU2",
+   "type": "unanswerable",
+   "q": "How does Roche's revenue compare with Novartis?",
+   "outcome": "refused (not-covered)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "KU3",
+   "type": "unanswerable",
+   "q": "How many patients will take Kisqali in 2030?",
+   "outcome": "refused (forecast)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "KU4",
+   "type": "unanswerable",
+   "q": "Is AstraZeneca a nicer employer than Pfizer?",
+   "outcome": "refused (not-covered)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "KU5",
+   "type": "unanswerable",
+   "q": "What colour is the AstraZeneca logo?",
+   "outcome": "refused (weak-evidence)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "KU6",
+   "type": "unanswerable",
+   "q": "Who won the football match in Basel last night?",
+   "outcome": "refused (live-data)",
+   "pass": true,
+   "detail": ""
+  }
+ ],
+ "firstRun": {
+  "ran": "2026-10-23",
+  "summary": {
+   "questions": 30,
+   "lookup": {
+    "n": 24,
+    "hitAt1": "9/24",
+    "hitAt5": "14/24",
+    "refusedWrongly": "5/24"
+   },
+   "calculation": {
+    "n": 0,
+    "exact": "0/0"
+   },
+   "comparison": {
+    "n": 0,
+    "correct": "0/0"
+   },
+   "unanswerable": {
+    "n": 6,
+    "correctlyRefused": "6/6"
+   },
+   "overallPass": "15/30"
+  },
+  "failures": [
+   "K01: refused (weak-evidence)",
+   "K05: miss",
+   "K07: refused (weak-evidence)",
+   "K09: refused (weak-evidence)",
+   "K10: miss",
+   "K12: hit@2",
+   "K14: miss",
+   "K15: refused (weak-evidence)",
+   "K16: hit@5",
+   "K17: hit@2",
+   "K18: miss",
+   "K20: hit@2",
+   "K21: miss",
+   "K23: refused (weak-evidence)",
+   "K24: hit@3"
+  ]
+ },
+ "changesAfterFirstRun": [],
+ "notes": []
+}

@@ -1,0 +1,314 @@
+{
+ "ran": "2026-10-23",
+ "engine": "v2",
+ "thresholds": {
+  "MIN_COVERAGE2": 0.5,
+  "MIN_SCORE2": 6
+ },
+ "passages": 3214,
+ "summary": {
+  "questions": 26,
+  "lookup": {
+   "n": 14,
+   "hitAt1": "13/14",
+   "hitAt5": "14/14",
+   "refusedWrongly": "0/14"
+  },
+  "calculation": {
+   "n": 4,
+   "exact": "4/4"
+  },
+  "comparison": {
+   "n": 1,
+   "correct": "1/1"
+  },
+  "unanswerable": {
+   "n": 7,
+   "correctlyRefused": "5/7"
+  },
+  "overallPass": "23/26"
+ },
+ "failures": [
+  {
+   "id": "H03",
+   "type": "lookup",
+   "q": "What kind of drug is Entresto?",
+   "outcome": "hit@5",
+   "pass": false,
+   "rank": 5,
+   "detail": ""
+  },
+  {
+   "id": "HU4",
+   "type": "unanswerable",
+   "q": "What did Novartis pay its CEO in 1999?",
+   "outcome": "answered (passages)",
+   "pass": false,
+   "detail": "novartis #401 CEO and Executive Committee 2025 realized compensation › Pay for performance assessment"
+  },
+  {
+   "id": "HU6",
+   "type": "unanswerable",
+   "q": "Is GSK a good company to work for?",
+   "outcome": "answered (passages)",
+   "pass": false,
+   "detail": "gsk #563 Engaging with our people"
+  }
+ ],
+ "rows": [
+  {
+   "id": "H01",
+   "type": "lookup",
+   "q": "How much in-process research and development was acquired in the 2025 acquisitions that applied the optional concentration test?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "H02",
+   "type": "lookup",
+   "q": "How many full-time equivalent field force employees did Novartis have as of December 31, 2025?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "H03",
+   "type": "lookup",
+   "q": "What kind of drug is Entresto?",
+   "outcome": "hit@5",
+   "pass": false,
+   "rank": 5,
+   "detail": ""
+  },
+  {
+   "id": "H04",
+   "type": "lookup",
+   "q": "How large was the share buyback authority approved at the 2022 Annual General Meeting of Novartis?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "H05",
+   "type": "lookup",
+   "q": "What does the AstraZeneca Standard for Dealing in Shares and Securities govern?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "H06",
+   "type": "lookup",
+   "q": "What is surovatamig?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "H07",
+   "type": "lookup",
+   "q": "On what date is the AstraZeneca Form 20-F dated?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "H08",
+   "type": "lookup",
+   "q": "Of which company is Julie Brown an independent non-executive director?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "H09",
+   "type": "lookup",
+   "q": "Over how many years does GSK depreciate equipment and vehicles?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "H10",
+   "type": "lookup",
+   "q": "What is the key source of estimation uncertainty for GSK's pension costs?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "H11",
+   "type": "lookup",
+   "q": "Besides next-generation INSTIs, what is GSK exploring in HIV?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "H12",
+   "type": "lookup",
+   "q": "Which Novartis board committee reviewed AI use cases such as New Target Identification?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "H13",
+   "type": "lookup",
+   "q": "When is the external review of the GSK Board and its committees expected?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "H14",
+   "type": "lookup",
+   "q": "How are future changes in an index or rate treated in AstraZeneca's lease liability?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "HC1",
+   "type": "calculation",
+   "q": "What was AstraZeneca's profit margin in 2024?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "HC2",
+   "type": "calculation",
+   "q": "What was GSK's net debt including leases at the end of 2025?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "HC3",
+   "type": "comparison",
+   "q": "Which company had the highest effective tax rate in 2024?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "HC4",
+   "type": "calculation",
+   "q": "What was Novartis's cash conversion in 2023?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "HC5",
+   "type": "calculation",
+   "q": "What was Novartis's free cash flow after intangible purchases in FY2025?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "HU1",
+   "type": "unanswerable",
+   "q": "How many employees does Bayer have in Germany?",
+   "outcome": "refused (not-covered)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "HU2",
+   "type": "unanswerable",
+   "q": "What is the current market capitalisation of Novartis?",
+   "outcome": "refused (weak-evidence)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "HU3",
+   "type": "unanswerable",
+   "q": "Will AstraZeneca pay a higher dividend next year?",
+   "outcome": "refused (forecast)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "HU4",
+   "type": "unanswerable",
+   "q": "What did Novartis pay its CEO in 1999?",
+   "outcome": "answered (passages)",
+   "pass": false,
+   "detail": "novartis #401 CEO and Executive Committee 2025 realized compensation › Pay for performance assessment"
+  },
+  {
+   "id": "HU5",
+   "type": "unanswerable",
+   "q": "Who is the best oncologist in Basel?",
+   "outcome": "refused (weak-evidence)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "HU6",
+   "type": "unanswerable",
+   "q": "Is GSK a good company to work for?",
+   "outcome": "answered (passages)",
+   "pass": false,
+   "detail": "gsk #563 Engaging with our people"
+  },
+  {
+   "id": "HU7",
+   "type": "unanswerable",
+   "q": "What is the weather forecast for Cambridge?",
+   "outcome": "refused (forecast)",
+   "pass": true,
+   "detail": ""
+  }
+ ],
+ "firstRun": {
+  "ran": "2026-10-23",
+  "summary": {
+   "questions": 26,
+   "lookup": {
+    "n": 14,
+    "hitAt1": "13/14",
+    "hitAt5": "14/14",
+    "refusedWrongly": "0/14"
+   },
+   "calculation": {
+    "n": 4,
+    "exact": "4/4"
+   },
+   "comparison": {
+    "n": 1,
+    "correct": "1/1"
+   },
+   "unanswerable": {
+    "n": 7,
+    "correctlyRefused": "5/7"
+   },
+   "overallPass": "23/26"
+  },
+  "failures": [
+   "H03: hit@5",
+   "HU4: answered (passages)",
+   "HU6: answered (passages)"
+  ]
+ },
+ "changesAfterFirstRun": [],
+ "notes": []
+}

@@ -1,0 +1,538 @@
+{
+ "ran": "2026-10-23",
+ "engine": "v2",
+ "thresholds": {
+  "MIN_COVERAGE2": 0.5,
+  "MIN_SCORE2": 6
+ },
+ "passages": 3214,
+ "summary": {
+  "questions": 41,
+  "lookup": {
+   "n": 19,
+   "hitAt1": "8/19",
+   "hitAt5": "14/19",
+   "refusedWrongly": "0/19"
+  },
+  "calculation": {
+   "n": 10,
+   "exact": "10/10"
+  },
+  "comparison": {
+   "n": 4,
+   "correct": "4/4"
+  },
+  "unanswerable": {
+   "n": 8,
+   "correctlyRefused": "5/8"
+  },
+  "overallPass": "27/41"
+ },
+ "failures": [
+  {
+   "id": "L01",
+   "type": "lookup",
+   "q": "Where are AstraZeneca's principal executive offices located?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: astrazeneca #240 ITEM 16G. CORPORATE GOVERNANCE"
+  },
+  {
+   "id": "L04",
+   "type": "lookup",
+   "q": "What dividend per share in Swiss francs did Novartis report for 2025?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "L07",
+   "type": "lookup",
+   "q": "When was the Sandoz spin-off completed?",
+   "outcome": "hit@5",
+   "pass": false,
+   "rank": 5,
+   "detail": ""
+  },
+  {
+   "id": "L08",
+   "type": "lookup",
+   "q": "Which firm audited AstraZeneca's internal control over financial reporting?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "L09",
+   "type": "lookup",
+   "q": "In which jurisdiction is AstraZeneca incorporated?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: astrazeneca #266 ITEM 19. EXHIBITS(1)"
+  },
+  {
+   "id": "L14",
+   "type": "lookup",
+   "q": "What were Novartis net sales in the US in 2025?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: novartis #265 Net sales from continuing operations › Neuroscience"
+  },
+  {
+   "id": "L15",
+   "type": "lookup",
+   "q": "Which GSK vaccine had another record year?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: gsk #142 benefits of shingles vaccination"
+  },
+  {
+   "id": "L16",
+   "type": "lookup",
+   "q": "What dividend did GSK declare for the fourth quarter of 2025?",
+   "outcome": "hit@3",
+   "pass": false,
+   "rank": 3,
+   "detail": ""
+  },
+  {
+   "id": "L17",
+   "type": "lookup",
+   "q": "What was Novartis basic earnings per share from continuing operations in 2025?",
+   "outcome": "hit@4",
+   "pass": false,
+   "rank": 4,
+   "detail": ""
+  },
+  {
+   "id": "L18",
+   "type": "lookup",
+   "q": "What undrawn committed bank facilities does AstraZeneca have?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "L19",
+   "type": "lookup",
+   "q": "Which audit firm does GSK use?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: gsk #611 Financial"
+  },
+  {
+   "id": "U06",
+   "type": "unanswerable",
+   "q": "What is the home address of GSK's chief executive?",
+   "outcome": "answered (passages)",
+   "pass": false,
+   "detail": "gsk #1431 GSK’s internet address is gsk.com › GSK plc"
+  },
+  {
+   "id": "U07",
+   "type": "unanswerable",
+   "q": "What was the temperature in Basel on 3 February 2026?",
+   "outcome": "answered (passages)",
+   "pass": false,
+   "detail": "novartis #1157 Report of Independent Registered Public Accounting Firm › Critical Audit Matter"
+  },
+  {
+   "id": "U08",
+   "type": "unanswerable",
+   "q": "What is the capital of Switzerland?",
+   "outcome": "answered (passages)",
+   "pass": false,
+   "detail": "novartis #4 Switzerland › None"
+  }
+ ],
+ "rows": [
+  {
+   "id": "L01",
+   "type": "lookup",
+   "q": "Where are AstraZeneca's principal executive offices located?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: astrazeneca #240 ITEM 16G. CORPORATE GOVERNANCE"
+  },
+  {
+   "id": "L02",
+   "type": "lookup",
+   "q": "Who became GSK's chief executive officer on 1 January 2026?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "L03",
+   "type": "lookup",
+   "q": "How many full-time equivalent employees did Novartis have at the end of 2025?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "L04",
+   "type": "lookup",
+   "q": "What dividend per share in Swiss francs did Novartis report for 2025?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "L05",
+   "type": "lookup",
+   "q": "What was the Novartis year-end share price in 2025?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "L06",
+   "type": "lookup",
+   "q": "What were Kisqali sales in 2025?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "L07",
+   "type": "lookup",
+   "q": "When was the Sandoz spin-off completed?",
+   "outcome": "hit@5",
+   "pass": false,
+   "rank": 5,
+   "detail": ""
+  },
+  {
+   "id": "L08",
+   "type": "lookup",
+   "q": "Which firm audited AstraZeneca's internal control over financial reporting?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "L09",
+   "type": "lookup",
+   "q": "In which jurisdiction is AstraZeneca incorporated?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: astrazeneca #266 ITEM 19. EXHIBITS(1)"
+  },
+  {
+   "id": "L10",
+   "type": "lookup",
+   "q": "How much in financial resources did AstraZeneca have at 31 December 2025?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "L11",
+   "type": "lookup",
+   "q": "What was the 2024 second interim dividend per share that AstraZeneca paid in March 2025?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "L12",
+   "type": "lookup",
+   "q": "Since which year has the current auditor served Novartis?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "L13",
+   "type": "lookup",
+   "q": "What were net sales in the Novartis oncology therapeutic area in 2025?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "L14",
+   "type": "lookup",
+   "q": "What were Novartis net sales in the US in 2025?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: novartis #265 Net sales from continuing operations › Neuroscience"
+  },
+  {
+   "id": "L15",
+   "type": "lookup",
+   "q": "Which GSK vaccine had another record year?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: gsk #142 benefits of shingles vaccination"
+  },
+  {
+   "id": "L16",
+   "type": "lookup",
+   "q": "What dividend did GSK declare for the fourth quarter of 2025?",
+   "outcome": "hit@3",
+   "pass": false,
+   "rank": 3,
+   "detail": ""
+  },
+  {
+   "id": "L17",
+   "type": "lookup",
+   "q": "What was Novartis basic earnings per share from continuing operations in 2025?",
+   "outcome": "hit@4",
+   "pass": false,
+   "rank": 4,
+   "detail": ""
+  },
+  {
+   "id": "L18",
+   "type": "lookup",
+   "q": "What undrawn committed bank facilities does AstraZeneca have?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "L19",
+   "type": "lookup",
+   "q": "Which audit firm does GSK use?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: gsk #611 Financial"
+  },
+  {
+   "id": "C01",
+   "type": "calculation",
+   "q": "What was Novartis's operating margin in FY2025?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "C02",
+   "type": "calculation",
+   "q": "What was AstraZeneca's operating margin in 2025?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "C03",
+   "type": "calculation",
+   "q": "What was GSK's revenue growth in FY2025?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "C04",
+   "type": "calculation",
+   "q": "What was Novartis's R&D as a percentage of revenue in 2025?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "C05",
+   "type": "calculation",
+   "q": "What was AstraZeneca's net debt including leases at the end of 2025?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "C06",
+   "type": "calculation",
+   "q": "What was GSK's effective tax rate in 2025?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "C07",
+   "type": "calculation",
+   "q": "What was AstraZeneca's cash conversion in 2025?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "C08",
+   "type": "calculation",
+   "q": "What was Novartis's free cash flow in FY2025?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "C09",
+   "type": "calculation",
+   "q": "What was Novartis's revenue in 2024?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "C10",
+   "type": "calculation",
+   "q": "What was GSK's operating cash flow in 2025?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "M01",
+   "type": "comparison",
+   "q": "Which of the three companies had the highest operating margin in 2025?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "M02",
+   "type": "comparison",
+   "q": "Which company had the highest R&D intensity in 2025?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "M03",
+   "type": "comparison",
+   "q": "Which company had the largest revenue in 2025?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "M04",
+   "type": "comparison",
+   "q": "Which company had the lowest net debt including leases in 2025?",
+   "outcome": "match",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "U01",
+   "type": "unanswerable",
+   "q": "What is AstraZeneca's share price today?",
+   "outcome": "refused (live-data)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "U02",
+   "type": "unanswerable",
+   "q": "What was Sanofi's revenue in 2025?",
+   "outcome": "refused (not-covered)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "U03",
+   "type": "unanswerable",
+   "q": "Should I buy GSK shares?",
+   "outcome": "refused (advice)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "U04",
+   "type": "unanswerable",
+   "q": "What will Novartis's operating margin be in 2028?",
+   "outcome": "refused (forecast)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "U05",
+   "type": "unanswerable",
+   "q": "How many employees does Pfizer have?",
+   "outcome": "refused (not-covered)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "U06",
+   "type": "unanswerable",
+   "q": "What is the home address of GSK's chief executive?",
+   "outcome": "answered (passages)",
+   "pass": false,
+   "detail": "gsk #1431 GSK’s internet address is gsk.com › GSK plc"
+  },
+  {
+   "id": "U07",
+   "type": "unanswerable",
+   "q": "What was the temperature in Basel on 3 February 2026?",
+   "outcome": "answered (passages)",
+   "pass": false,
+   "detail": "novartis #1157 Report of Independent Registered Public Accounting Firm › Critical Audit Matter"
+  },
+  {
+   "id": "U08",
+   "type": "unanswerable",
+   "q": "What is the capital of Switzerland?",
+   "outcome": "answered (passages)",
+   "pass": false,
+   "detail": "novartis #4 Switzerland › None"
+  }
+ ],
+ "firstRun": {
+  "ran": "2026-10-23",
+  "summary": {
+   "questions": 41,
+   "lookup": {
+    "n": 19,
+    "hitAt1": "8/19",
+    "hitAt5": "14/19",
+    "refusedWrongly": "0/19"
+   },
+   "calculation": {
+    "n": 10,
+    "exact": "10/10"
+   },
+   "comparison": {
+    "n": 4,
+    "correct": "4/4"
+   },
+   "unanswerable": {
+    "n": 8,
+    "correctlyRefused": "5/8"
+   },
+   "overallPass": "27/41"
+  },
+  "failures": [
+   "L01: miss",
+   "L04: hit@2",
+   "L07: hit@5",
+   "L08: hit@2",
+   "L09: miss",
+   "L14: miss",
+   "L15: miss",
+   "L16: hit@3",
+   "L17: hit@4",
+   "L18: hit@2",
+   "L19: miss",
+   "U06: answered (passages)",
+   "U07: answered (passages)",
+   "U08: answered (passages)"
+  ]
+ },
+ "changesAfterFirstRun": [],
+ "notes": []
+}

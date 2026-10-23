@@ -4,19 +4,14 @@ import ProjectHeader from "../../components/ProjectHeader.astro";
 import "../../styles/projects.css";
 import ds from "../../data/pharma/dataset.json";
 import filings from "../../data/research/filings.json";
-import dev from "../../data/research/eval-results.json";
-import held from "../../data/research/eval-heldout-results.json";
+import summary from "../../data/research/eval-summary.json";
+import devResults from "../../data/research/eval-results.json";
 
 const chips = ["In which jurisdiction is AstraZeneca incorporated?", "Which company had the highest operating margin in 2025?", "What was GSK's net debt including leases at the end of 2025?", "What were Kisqali sales in 2025?", "Should I buy GSK shares?"];
-const rows: [string, string, string, string][] = [
-  ["Lookup: answer is in the text", `${dev.summary.lookup.n}`, `${dev.firstRun.summary.lookup.hitAt1} · ${dev.summary.lookup.hitAt1} · ${dev.summary.lookup.hitAt5}`, `${held.summary.lookup.hitAt1} · ${held.summary.lookup.hitAt5} (n=${held.summary.lookup.n})`],
-  ["Calculation and comparison", `${dev.summary.calculation.n + dev.summary.comparison.n}`, `${dev.firstRun.summary.calculation.exact}, ${dev.firstRun.summary.comparison.correct} · ${dev.summary.calculation.exact}, ${dev.summary.comparison.correct}`, `${held.summary.calculation.exact} + ${held.summary.comparison.correct} (n=${held.summary.calculation.n + held.summary.comparison.n})`],
-  ["Unanswerable: should refuse", `${dev.summary.unanswerable.n}`, `${dev.firstRun.summary.unanswerable.correctlyRefused} · ${dev.summary.unanswerable.correctlyRefused}`, `${held.summary.unanswerable.correctlyRefused} (n=${held.summary.unanswerable.n})`],
-  ["All questions", `${dev.summary.questions}`, `${dev.firstRun.summary.overallPass} · ${dev.summary.overallPass}`, `${held.summary.overallPass}`],
-];
+const totalQuestions = summary.sets.reduce((acc, x) => acc + x.v2.questions, 0);
 const fmt = (n: number) => n.toLocaleString("en-US");
 ---
-<Base title="Annual-Report Research Assistant | David Lindgreen" description="Ask questions across the FY2025 Form 20-F reports of Novartis, AstraZeneca and GSK. Answers are source passages with links, deterministic calculations or an explicit refusal. First release, evaluated on 67 hand-written questions.">
+<Base title="Annual-Report Research Assistant | David Lindgreen" description="Ask questions across the FY2025 Form 20-F reports of Novartis, AstraZeneca and GSK. Answers are source passages with links, deterministic calculations or an explicit refusal. First release, evaluated on 118 hand-written questions.">
   <ProjectHeader current="projects" />
   <main id="main">
     <section class="wrap proj-hero">
@@ -60,37 +55,46 @@ const fmt = (n: number) => n.toLocaleString("en-US");
       <div class="cols-3">
         <div class="pane prose"><h3 style="margin-top:0">1. Scope guard</h3><p>Refuses what annual reports cannot support: investment advice, live prices, forecasts and companies that are not in the corpus. A refusal says why.</p></div>
         <div class="pane prose"><h3 style="margin-top:0">2. Calculation</h3><p>Numerical questions (margins, cash flow, net debt, tax rate, growth, comparisons) are answered by code from the reconciled dataset of the <a href="/projects/pharma-valuation/">valuation project</a>, with the formula shown. Questions about a product or region are not guessed at; they go to search.</p></div>
-        <div class="pane prose"><h3 style="margin-top:0">3. Retrieval</h3><p>Everything else is a keyword search (BM25) over {fmt(Object.values(filings).reduce((a, f) => a + f.passages, 0))} passages cut from the filings. The top passages are shown as quoted, with a link to that place in the filing. If the best passage lacks the question's key terms, it refuses and shows the nearest passages so you can judge.</p></div>
+        <div class="pane prose"><h3 style="margin-top:0">3. Retrieval</h3><p>Everything else is a keyword search over {fmt(Object.values(filings).reduce((a, f) => a + f.passages, 0))} passages cut from the filings. Version 2 stems words (Porter), treats close synonyms from a small hand-written thesaurus and corpus-derived neighbours as the same idea at a discount, and rewards question words that sit together. The top passages are shown as quoted, with a link to that place in the filing. If the best passage lacks the question's key ideas, it refuses and shows the nearest passages so you can judge.</p></div>
       </div>
     </section>
 
     <div class="band band-mint">
       <section class="wrap section" id="evaluation" aria-labelledby="eval-h">
-        <div class="section-head"><h2 id="eval-h">Evaluation</h2><p>{dev.summary.questions + held.summary.questions} hand-written questions in two sets. Failures are listed, not hidden.</p></div>
+        <div class="section-head"><h2 id="eval-h">Evaluation</h2><p>{totalQuestions} hand-written questions in four sets, each run on version 1 (keyword search) and version 2. Failures are listed, not hidden.</p></div>
         <div class="pane">
           <div class="tbl-wrap" role="region" aria-label="Evaluation results, scrolls horizontally on small screens" tabindex="0">
             <table class="tbl">
-              <caption class="sr">Evaluation results by question type</caption>
-              <thead><tr><th scope="col">Question type</th><th scope="col">Dev questions</th><th scope="col">Development set: first run · after fixes{" "}(lookup: top-1 · top-5)</th><th scope="col">Held-out set (run once on the frozen system)</th></tr></thead>
-              <tbody>{rows.map((r) => <tr><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>)}</tbody>
+              <caption class="sr">Evaluation results by question set and engine</caption>
+              <thead><tr><th scope="col">Question set</th><th scope="col">Questions</th><th scope="col">All correct, v1 → v2</th><th scope="col">Lookup right passage first, v1 → v2</th><th scope="col">Lookup in top five, v1 → v2</th><th scope="col">Correct refusals, v1 → v2</th></tr></thead>
+              <tbody>{summary.sets.map((x) => <tr><th scope="row">{x.name}</th><td>{x.v2.questions}</td><td>{x.v1.overall} → <strong>{x.v2.overall}</strong></td><td>{x.v1.top1} → <strong>{x.v2.top1}</strong></td><td>{x.v1.top5} → <strong>{x.v2.top5}</strong></td><td>{x.v1.unanswerable} → <strong>{x.v2.unanswerable}</strong></td></tr>)}</tbody>
             </table>
           </div>
           <div class="prose">
             <h3>How to read this</h3>
             <ul>
-              <li><strong>Development set:</strong> used while building, so the "after fixes" column is optimistic. The first-run column is the honest baseline before any change.</li>
-              <li><strong>Held-out set:</strong> written after the system was frozen and run once. Its lookup questions were written from randomly sampled passages, so their wording is close to the filing text; real questions will probably do worse.</li>
-              <li>Lookup passes only if the passage containing the gold evidence is the top result ("top-1") or among the top five ("top-5"). Calculations pass only on an exact match with a value computed separately from the filing figures. Unanswerable questions pass only if the tool refuses.</li>
+              <li><strong>Version 2 helps where questions are paraphrased:</strong> on the blind set 3 the right passage comes first {summary.sets[3].v2.top1} of the time against {summary.sets[3].v1.top1} for version 1, and on set 2 {summary.sets[2].v2.top1} against {summary.sets[2].v1.top1}. It is still wrong or silent on roughly half of such questions.</li>
+              <li><strong>It is slightly worse on the original development set</strong> ({summary.sets[0].v2.overall} against {summary.sets[0].v1.overall}): the stronger matching lets two unanswerable questions through ("home address of the CEO", "temperature in Basel") and moves some lookups down. That is the trade-off the numbers show.</li>
+              <li><strong>Set 3 is the only fair test of version 2.</strong> It was written before version 2 existed and run once on each frozen engine. Set 2 was used to design and tune version 2 (stemming, thesaurus, thresholds), so its result is optimistic. The development set was used to build version 1. Set 1 was run once on version 1 and its questions are close to the filing wording.</li>
+              <li><strong>Independence caveat:</strong> the same person wrote the questions and the thesaurus. The thesaurus is general business English, but independence cannot be guaranteed.</li>
+              <li>Lookup passes only if the passage containing the gold evidence is first ("top-1") or among the first five ("top-5"). Calculations pass only on an exact match with a value computed separately from the filing figures. Unanswerable questions pass only if the tool refuses.</li>
               <li>The questions and gold answers were written and checked with AI assistance. The author's own check against the filings is pending.</li>
             </ul>
-            <h3>Known failures</h3>
+            <h3>Known failures of version 2</h3>
+            {summary.sets.map((x) => (
+              <details class="data"><summary>{x.name}: {x.failuresV2.length} of {x.v2.questions} not passed</summary><ul>{x.failuresV2.map((f) => <li><strong>{f.id}</strong> ({f.outcome}): {f.q}</li>)}</ul></details>
+            ))}
+            <p class="muted">Remaining lookup misses are mostly paraphrases that need real language understanding, for example a question about a "court" where the passage names a specific "District Court", or "confirm" where the filing says "declare". Questions whose words do appear in the reports but mean something else ("capital of Switzerland") can still get passages instead of a refusal.</p>
+            <h3>What changed in version 1 after its first run</h3>
+            <ul>{devResults.changesAfterFirstRun.map((c) => <li>{c}</li>)}</ul>
+            <h3>What version 2 changed</h3>
             <ul>
-              {dev.failures.map((f) => <li><strong>{f.id}</strong> ({f.outcome}): {f.q}</li>)}
-              {held.failures.map((f) => <li><strong>{f.id}</strong> ({f.outcome}): {f.q}</li>)}
+              <li>Porter stemming instead of a hand-rolled suffix rule.</li>
+              <li>A hand-written thesaurus of about 100 groups of general business, legal and pharma words, matched at 60% weight, and corpus neighbours (random-indexing co-occurrence) at about 35%, so one idea is never counted twice.</li>
+              <li>A bonus for question words that appear next to each other in the passage.</li>
+              <li>A stronger scope guard: any "will" question, a year after 2026, "at the moment" or "last night", and questions involving a company that is not covered are refused.</li>
+              <li>Refusal thresholds (coverage 0.5, score 6) were chosen on set 2, then frozen before set 3 was run.</li>
             </ul>
-            <p class="muted">Most lookup misses are keyword search limits: the passage uses different words from the question. Two unanswerable questions ("capital of Switzerland", "good company to work for") are refused by no rule because their words do appear in the reports.</p>
-            <h3>What changed after the first run</h3>
-            <ul>{dev.changesAfterFirstRun.map((c) => <li>{c}</li>)}</ul>
           </div>
         </div>
       </section>
@@ -122,7 +126,7 @@ const fmt = (n: number) => n.toLocaleString("en-US");
           <div class="pane prose">
             <h3 style="margin-top:0">Limits</h3>
             <ul>
-              <li>Keyword search: it misses paraphrases and can rank a related passage above the right one.</li>
+              <li>Keyword search with synonyms is not understanding: it still misses many paraphrases (about half on the blind set) and can rank a related passage above the right one.</li>
               <li>Only FY2025 Forms 20-F of three companies. Earlier years appear only where the 2025 report repeats them, and the calculator uses the reconciled FY2023 to FY2025 dataset.</li>
               <li>Tables are flattened to text rows; complex tables can lose structure.</li>
               <li>Passage boundaries come from font and bold cues in the HTML, so some section labels are imperfect.</li>
@@ -132,7 +136,7 @@ const fmt = (n: number) => n.toLocaleString("en-US");
           <div class="pane prose">
             <h3 style="margin-top:0">Next steps</h3>
             <ul>
-              <li>Add semantic retrieval and compare it with this baseline on the same questions.</li>
+              <li>Add a real embedding model and compare it with version 2 on the same four sets (set 3 stays blind).</li>
               <li>Only then consider a language model, with citations required and the same refusal tests.</li>
               <li>Have another person write and answer a new question set.</li>
               <li>Extend to the FY2024 filings.</li>
@@ -148,7 +152,9 @@ const fmt = (n: number) => n.toLocaleString("en-US");
         <li><a href="/downloads/research-assistant/eval-questions.json" download>Development questions with gold answers (json)</a></li>
         <li><a href="/downloads/research-assistant/eval-results.json" download>Development results (json)</a></li>
         <li><a href="/downloads/research-assistant/eval-heldout-questions.json" download>Held-out questions with gold answers (json)</a></li>
-        <li><a href="/downloads/research-assistant/eval-heldout-results.json" download>Held-out results (json)</a></li>
+        <li><a href="/downloads/research-assistant/eval-heldout-results.json" download>Held-out set 1 results, version 1 (json)</a></li>
+        <li><a href="/downloads/research-assistant/eval-heldout2-questions.json" download>Held-out set 2 questions (json)</a> and <a href="/downloads/research-assistant/eval-heldout3-questions.json" download>blind set 3 questions (json)</a></li>
+        <li><a href="/downloads/research-assistant/eval-summary.json" download>Summary of all sets, both versions (json)</a>; per-set results use the names eval-*-results.json</li>
       </ul>
     </section>
 

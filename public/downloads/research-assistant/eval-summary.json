@@ -1,0 +1,321 @@
+{
+ "generated": "2026-10-23",
+ "sets": [
+  {
+   "id": "dev",
+   "name": "Development set",
+   "note": "Used while building v1; optimistic for v1.",
+   "v1": {
+    "questions": 41,
+    "overall": "31/41",
+    "lookupN": 19,
+    "top1": "10/19",
+    "top5": "16/19",
+    "refusedWrongly": "1/19",
+    "unanswerable": "7/8",
+    "unanswerableN": 8,
+    "calc": "10/10, 4/4"
+   },
+   "v2": {
+    "questions": 41,
+    "overall": "27/41",
+    "lookupN": 19,
+    "top1": "8/19",
+    "top5": "14/19",
+    "refusedWrongly": "0/19",
+    "unanswerable": "5/8",
+    "unanswerableN": 8,
+    "calc": "10/10, 4/4"
+   },
+   "failuresV2": [
+    {
+     "id": "L01",
+     "outcome": "miss",
+     "q": "Where are AstraZeneca's principal executive offices located?"
+    },
+    {
+     "id": "L04",
+     "outcome": "hit@2",
+     "q": "What dividend per share in Swiss francs did Novartis report for 2025?"
+    },
+    {
+     "id": "L07",
+     "outcome": "hit@5",
+     "q": "When was the Sandoz spin-off completed?"
+    },
+    {
+     "id": "L08",
+     "outcome": "hit@2",
+     "q": "Which firm audited AstraZeneca's internal control over financial reporting?"
+    },
+    {
+     "id": "L09",
+     "outcome": "miss",
+     "q": "In which jurisdiction is AstraZeneca incorporated?"
+    },
+    {
+     "id": "L14",
+     "outcome": "miss",
+     "q": "What were Novartis net sales in the US in 2025?"
+    },
+    {
+     "id": "L15",
+     "outcome": "miss",
+     "q": "Which GSK vaccine had another record year?"
+    },
+    {
+     "id": "L16",
+     "outcome": "hit@3",
+     "q": "What dividend did GSK declare for the fourth quarter of 2025?"
+    },
+    {
+     "id": "L17",
+     "outcome": "hit@4",
+     "q": "What was Novartis basic earnings per share from continuing operations in 2025?"
+    },
+    {
+     "id": "L18",
+     "outcome": "hit@2",
+     "q": "What undrawn committed bank facilities does AstraZeneca have?"
+    },
+    {
+     "id": "L19",
+     "outcome": "miss",
+     "q": "Which audit firm does GSK use?"
+    },
+    {
+     "id": "U06",
+     "outcome": "answered (passages)",
+     "q": "What is the home address of GSK's chief executive?"
+    },
+    {
+     "id": "U07",
+     "outcome": "answered (passages)",
+     "q": "What was the temperature in Basel on 3 February 2026?"
+    },
+    {
+     "id": "U08",
+     "outcome": "answered (passages)",
+     "q": "What is the capital of Switzerland?"
+    }
+   ]
+  },
+  {
+   "id": "h1",
+   "name": "Held-out set 1",
+   "note": "Run once on frozen v1; questions written close to the filing wording.",
+   "v1": {
+    "questions": 26,
+    "overall": "23/26",
+    "lookupN": 14,
+    "top1": "12/14",
+    "top5": "12/14",
+    "refusedWrongly": "1/14",
+    "unanswerable": "6/7",
+    "unanswerableN": 7,
+    "calc": "4/4, 1/1"
+   },
+   "v2": {
+    "questions": 26,
+    "overall": "23/26",
+    "lookupN": 14,
+    "top1": "13/14",
+    "top5": "14/14",
+    "refusedWrongly": "0/14",
+    "unanswerable": "5/7",
+    "unanswerableN": 7,
+    "calc": "4/4, 1/1"
+   },
+   "failuresV2": [
+    {
+     "id": "H03",
+     "outcome": "hit@5",
+     "q": "What kind of drug is Entresto?"
+    },
+    {
+     "id": "HU4",
+     "outcome": "answered (passages)",
+     "q": "What did Novartis pay its CEO in 1999?"
+    },
+    {
+     "id": "HU6",
+     "outcome": "answered (passages)",
+     "q": "Is GSK a good company to work for?"
+    }
+   ]
+  },
+  {
+   "id": "h2",
+   "name": "Held-out set 2 (paraphrased)",
+   "note": "Written before v2. Used to design and tune v2, so it is v2's development set.",
+   "v1": {
+    "questions": 30,
+    "overall": "7/30",
+    "lookupN": 24,
+    "top1": "2/24",
+    "top5": "5/24",
+    "refusedWrongly": "19/24",
+    "unanswerable": "5/6",
+    "unanswerableN": 6,
+    "calc": "0/0, 0/0"
+   },
+   "v2": {
+    "questions": 30,
+    "overall": "18/30",
+    "lookupN": 24,
+    "top1": "12/24",
+    "top5": "19/24",
+    "refusedWrongly": "1/24",
+    "unanswerable": "6/6",
+    "unanswerableN": 6,
+    "calc": "0/0, 0/0"
+   },
+   "failuresV2": [
+    {
+     "id": "K02",
+     "outcome": "hit@2",
+     "q": "Which brand moved from the spun-off business into Novartis's continuing activities in 2023?"
+    },
+    {
+     "id": "K05",
+     "outcome": "miss",
+     "q": "How much leased-asset value did Novartis add during 2025?"
+    },
+    {
+     "id": "K07",
+     "outcome": "refused (weak-evidence)",
+     "q": "Why could a weak economy reduce demand for Novartis medicines?"
+    },
+    {
+     "id": "K10",
+     "outcome": "hit@3",
+     "q": "How are the results of subsidiaries that do not use dollars converted?"
+    },
+    {
+     "id": "K12",
+     "outcome": "hit@2",
+     "q": "What was the full price, at fair value, of the acquisition that brought in FPI-2265?"
+    },
+    {
+     "id": "K14",
+     "outcome": "miss",
+     "q": "Where does AstraZeneca record grant money received before the costs it covers?"
+    },
+    {
+     "id": "K15",
+     "outcome": "hit@3",
+     "q": "Who runs the British pension scheme of AstraZeneca?"
+    },
+    {
+     "id": "K16",
+     "outcome": "hit@2",
+     "q": "What kind of funds hold most of the group's cash?"
+    },
+    {
+     "id": "K17",
+     "outcome": "hit@2",
+     "q": "How did the endometrial cancer drug Jemperli sell in 2025?"
+    },
+    {
+     "id": "K18",
+     "outcome": "hit@3",
+     "q": "Which medicine leads GSK's HIV range by sales?"
+    },
+    {
+     "id": "K21",
+     "outcome": "miss",
+     "q": "How much money has GSK committed to investments?"
+    },
+    {
+     "id": "K23",
+     "outcome": "miss",
+     "q": "What did the mid-stage trial of N6LS show?"
+    }
+   ]
+  },
+  {
+   "id": "h3",
+   "name": "Held-out set 3 (blind, paraphrased)",
+   "note": "Written before v2 was designed; run once on frozen v1 and once on frozen v2.",
+   "v1": {
+    "questions": 21,
+    "overall": "4/21",
+    "lookupN": 17,
+    "top1": "1/17",
+    "top5": "2/17",
+    "refusedWrongly": "15/17",
+    "unanswerable": "3/4",
+    "unanswerableN": 4,
+    "calc": "0/0, 0/0"
+   },
+   "v2": {
+    "questions": 21,
+    "overall": "10/21",
+    "lookupN": 17,
+    "top1": "6/17",
+    "top5": "9/17",
+    "refusedWrongly": "5/17",
+    "unanswerable": "4/4",
+    "unanswerableN": 4,
+    "calc": "0/0, 0/0"
+   },
+   "failuresV2": [
+    {
+     "id": "M01",
+     "outcome": "hit@2",
+     "q": "Where did Novartis stand among its healthcare peers on shareholder return at the end of 2025?"
+    },
+    {
+     "id": "M02",
+     "outcome": "miss",
+     "q": "Why do swings in the dollar's value against other currencies change what Novartis reports?"
+    },
+    {
+     "id": "M03",
+     "outcome": "refused (weak-evidence)",
+     "q": "How much do raw material price moves threaten Novartis?"
+    },
+    {
+     "id": "M04",
+     "outcome": "refused (weak-evidence)",
+     "q": "At which tier of the fair-value ranking are contingent payment estimates placed?"
+    },
+    {
+     "id": "M08",
+     "outcome": "refused (weak-evidence)",
+     "q": "In which court did AstraZeneca sue over how Calquence was picked for price talks?"
+    },
+    {
+     "id": "M11",
+     "outcome": "hit@3",
+     "q": "Has the pension scheme finished levelling up benefits for men and women under the minimum guarantee?"
+    },
+    {
+     "id": "M12",
+     "outcome": "hit@2",
+     "q": "How did the appeals court rule in the nausea-drug litigation Zofran?"
+    },
+    {
+     "id": "M13",
+     "outcome": "miss",
+     "q": "What selection process for its external accountants did GSK start?"
+    },
+    {
+     "id": "M14",
+     "outcome": "refused (weak-evidence)",
+     "q": "Who ran the 2024 self-assessment of the GSK board?"
+    },
+    {
+     "id": "M17",
+     "outcome": "miss",
+     "q": "On which company's board did a Novartis director lead the pay committee until 2025?"
+    },
+    {
+     "id": "M18",
+     "outcome": "refused (weak-evidence)",
+     "q": "How does AstraZeneca view the strength of its tax positions on cross-border pricing between group companies?"
+    }
+   ]
+  }
+ ]
+}

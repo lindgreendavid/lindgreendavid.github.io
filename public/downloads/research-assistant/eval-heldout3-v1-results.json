@@ -1,5 +1,6 @@
 {
  "ran": "2026-10-23",
+ "engine": "v1",
  "thresholds": {
   "MIN_COVERAGE": 0.6,
   "MIN_SCORE": 5

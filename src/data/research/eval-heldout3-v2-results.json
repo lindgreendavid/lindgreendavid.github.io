@@ -1,0 +1,343 @@
+{
+ "ran": "2026-10-23",
+ "engine": "v2",
+ "thresholds": {
+  "MIN_COVERAGE2": 0.5,
+  "MIN_SCORE2": 6
+ },
+ "passages": 3214,
+ "summary": {
+  "questions": 21,
+  "lookup": {
+   "n": 17,
+   "hitAt1": "6/17",
+   "hitAt5": "9/17",
+   "refusedWrongly": "5/17"
+  },
+  "calculation": {
+   "n": 0,
+   "exact": "0/0"
+  },
+  "comparison": {
+   "n": 0,
+   "correct": "0/0"
+  },
+  "unanswerable": {
+   "n": 4,
+   "correctlyRefused": "4/4"
+  },
+  "overallPass": "10/21"
+ },
+ "failures": [
+  {
+   "id": "M01",
+   "type": "lookup",
+   "q": "Where did Novartis stand among its healthcare peers on shareholder return at the end of 2025?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "M02",
+   "type": "lookup",
+   "q": "Why do swings in the dollar's value against other currencies change what Novartis reports?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: novartis #1125 Sensitivity analysis › Foreign currency exchange rate sensitivity"
+  },
+  {
+   "id": "M03",
+   "type": "lookup",
+   "q": "How much do raw material price moves threaten Novartis?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "M04",
+   "type": "lookup",
+   "q": "At which tier of the fair-value ranking are contingent payment estimates placed?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "M08",
+   "type": "lookup",
+   "q": "In which court did AstraZeneca sue over how Calquence was picked for price talks?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "M11",
+   "type": "lookup",
+   "q": "Has the pension scheme finished levelling up benefits for men and women under the minimum guarantee?",
+   "outcome": "hit@3",
+   "pass": false,
+   "rank": 3,
+   "detail": ""
+  },
+  {
+   "id": "M12",
+   "type": "lookup",
+   "q": "How did the appeals court rule in the nausea-drug litigation Zofran?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "M13",
+   "type": "lookup",
+   "q": "What selection process for its external accountants did GSK start?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: gsk #543 Board focus in 2025 › Sir Jonathan Symonds"
+  },
+  {
+   "id": "M14",
+   "type": "lookup",
+   "q": "Who ran the 2024 self-assessment of the GSK board?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "M17",
+   "type": "lookup",
+   "q": "On which company's board did a Novartis director lead the pay committee until 2025?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: novartis #389 CEO and Executive Committee 2025 realized compensation"
+  },
+  {
+   "id": "M18",
+   "type": "lookup",
+   "q": "How does AstraZeneca view the strength of its tax positions on cross-border pricing between group companies?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  }
+ ],
+ "rows": [
+  {
+   "id": "M01",
+   "type": "lookup",
+   "q": "Where did Novartis stand among its healthcare peers on shareholder return at the end of 2025?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "M02",
+   "type": "lookup",
+   "q": "Why do swings in the dollar's value against other currencies change what Novartis reports?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: novartis #1125 Sensitivity analysis › Foreign currency exchange rate sensitivity"
+  },
+  {
+   "id": "M03",
+   "type": "lookup",
+   "q": "How much do raw material price moves threaten Novartis?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "M04",
+   "type": "lookup",
+   "q": "At which tier of the fair-value ranking are contingent payment estimates placed?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "M05",
+   "type": "lookup",
+   "q": "Who leads biomedical research at Novartis, and since when?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "M06",
+   "type": "lookup",
+   "q": "What type of drug is Vanrafia?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "M07",
+   "type": "lookup",
+   "q": "What did the Chinese patent authority decide about Tagrisso's main compound patents in late 2025?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "M08",
+   "type": "lookup",
+   "q": "In which court did AstraZeneca sue over how Calquence was picked for price talks?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "M09",
+   "type": "lookup",
+   "q": "Were there any significant modifications to AstraZeneca's financial-reporting controls this year?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "M10",
+   "type": "lookup",
+   "q": "What tax rate hits shares moved into the US clearing system from outside it?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "M11",
+   "type": "lookup",
+   "q": "Has the pension scheme finished levelling up benefits for men and women under the minimum guarantee?",
+   "outcome": "hit@3",
+   "pass": false,
+   "rank": 3,
+   "detail": ""
+  },
+  {
+   "id": "M12",
+   "type": "lookup",
+   "q": "How did the appeals court rule in the nausea-drug litigation Zofran?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "detail": ""
+  },
+  {
+   "id": "M13",
+   "type": "lookup",
+   "q": "What selection process for its external accountants did GSK start?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: gsk #543 Board focus in 2025 › Sir Jonathan Symonds"
+  },
+  {
+   "id": "M14",
+   "type": "lookup",
+   "q": "Who ran the 2024 self-assessment of the GSK board?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "M15",
+   "type": "lookup",
+   "q": "What is GSK trying to treat by using genomics in liver disease?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "detail": ""
+  },
+  {
+   "id": "M17",
+   "type": "lookup",
+   "q": "On which company's board did a Novartis director lead the pay committee until 2025?",
+   "outcome": "miss",
+   "pass": false,
+   "detail": "top: novartis #389 CEO and Executive Committee 2025 realized compensation"
+  },
+  {
+   "id": "M18",
+   "type": "lookup",
+   "q": "How does AstraZeneca view the strength of its tax positions on cross-border pricing between group companies?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "MU1",
+   "type": "unanswerable",
+   "q": "What dividend will GSK pay in 2029?",
+   "outcome": "refused (forecast)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "MU2",
+   "type": "unanswerable",
+   "q": "What is Johnson & Johnson's market share in oncology?",
+   "outcome": "refused (not-covered)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "MU3",
+   "type": "unanswerable",
+   "q": "What is the best pizza restaurant in Frankfurt?",
+   "outcome": "refused (not-covered)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "MU4",
+   "type": "unanswerable",
+   "q": "What is AstraZeneca's stock price at the moment?",
+   "outcome": "refused (live-data)",
+   "pass": true,
+   "detail": ""
+  }
+ ],
+ "firstRun": {
+  "ran": "2026-10-23",
+  "summary": {
+   "questions": 21,
+   "lookup": {
+    "n": 17,
+    "hitAt1": "6/17",
+    "hitAt5": "9/17",
+    "refusedWrongly": "5/17"
+   },
+   "calculation": {
+    "n": 0,
+    "exact": "0/0"
+   },
+   "comparison": {
+    "n": 0,
+    "correct": "0/0"
+   },
+   "unanswerable": {
+    "n": 4,
+    "correctlyRefused": "4/4"
+   },
+   "overallPass": "10/21"
+  },
+  "failures": [
+   "M01: hit@2",
+   "M02: miss",
+   "M03: refused (weak-evidence)",
+   "M04: refused (weak-evidence)",
+   "M08: refused (weak-evidence)",
+   "M11: hit@3",
+   "M12: hit@2",
+   "M13: miss",
+   "M14: refused (weak-evidence)",
+   "M17: miss",
+   "M18: refused (weak-evidence)"
+  ]
+ },
+ "changesAfterFirstRun": [],
+ "notes": []
+}
