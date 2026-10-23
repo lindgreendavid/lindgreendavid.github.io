@@ -12,7 +12,11 @@
    "n": 17,
    "hitAt1": "6/17",
    "hitAt5": "9/17",
-   "refusedWrongly": "5/17"
+   "refusedWrongly": "5/17",
+   "topPassageContainsGoldAnswer": "5/17",
+   "evidenceHitButAnswerNotSupported": [
+    "M07"
+   ]
   },
   "calculation": {
    "n": 0,
@@ -36,6 +40,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -44,6 +49,7 @@
    "q": "Why do swings in the dollar's value against other currencies change what Novartis reports?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: novartis #1125 Sensitivity analysis › Foreign currency exchange rate sensitivity"
   },
   {
@@ -77,6 +83,7 @@
    "outcome": "hit@3",
    "pass": false,
    "rank": 3,
+   "supported": false,
    "detail": ""
   },
   {
@@ -86,6 +93,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -94,6 +102,7 @@
    "q": "What selection process for its external accountants did GSK start?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: gsk #543 Board focus in 2025 › Sir Jonathan Symonds"
   },
   {
@@ -110,6 +119,7 @@
    "q": "On which company's board did a Novartis director lead the pay committee until 2025?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: novartis #389 CEO and Executive Committee 2025 realized compensation"
   },
   {
@@ -129,6 +139,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -137,6 +148,7 @@
    "q": "Why do swings in the dollar's value against other currencies change what Novartis reports?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: novartis #1125 Sensitivity analysis › Foreign currency exchange rate sensitivity"
   },
   {
@@ -162,6 +174,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -171,6 +184,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -180,6 +194,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": false,
    "detail": ""
   },
   {
@@ -197,6 +212,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -206,6 +222,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -215,6 +232,7 @@
    "outcome": "hit@3",
    "pass": false,
    "rank": 3,
+   "supported": false,
    "detail": ""
   },
   {
@@ -224,6 +242,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -232,6 +251,7 @@
    "q": "What selection process for its external accountants did GSK start?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: gsk #543 Board focus in 2025 › Sir Jonathan Symonds"
   },
   {
@@ -249,6 +269,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -257,6 +278,7 @@
    "q": "On which company's board did a Novartis director lead the pay committee until 2025?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: novartis #389 CEO and Executive Committee 2025 realized compensation"
   },
   {

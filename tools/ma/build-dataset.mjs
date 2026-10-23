@@ -7,8 +7,16 @@ import fs from "node:fs";
 import { UNIVERSE } from "./universe.mjs";
 
 const YEARS = [2022, 2023, 2024, 2025];
+/** Statement-confirmed D&A components, used instead of the generic priority list (see the comment where it is applied). */
+const DA_SEPARATE_INTANGIBLES = {
+  HALO: [["DepreciationDepletionAndAmortization", "AmortizationOfIntangibleAssets"]],
+  JAZZ: [["Depreciation", "AmortizationOfIntangibleAssets"]],
+};
 const days = (a, b) => (new Date(b) - new Date(a)) / 86400000;
 
+// Debt policy: the CARRYING amount on the balance sheet (net of unamortised discount and issuance costs), current plus non-current, excluding
+// operating leases. Principal (face) amounts are not used. "DebtInstrumentCarryingAmount" is last in the list because companies often tag
+// principal under that name (BioMarin: 600.0 principal vs 597.176 carrying); "ConvertibleDebt" is the balance-sheet carrying tag.
 // Alternatives in priority order. Each alternative is a list of us-gaap tags that are summed; a tag starting with "?" is optional
 // (absent means nothing to add), every other tag must be present. `flow` = a duration of about a year, otherwise a year-end balance.
 const METRICS = {
@@ -21,7 +29,7 @@ const METRICS = {
   cash: { flow: false, alts: [["CashAndCashEquivalentsAtCarryingValue"], ["CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents"]] },
   debt: {
     flow: false,
-    alts: [["LongTermDebt"], ["DebtLongtermAndShorttermCombinedAmount"], ["LongTermDebtNoncurrent", "?LongTermDebtCurrent"], ["LongTermDebtAndCapitalLeaseObligations", "?LongTermDebtAndCapitalLeaseObligationsCurrent"], ["ConvertibleLongTermNotesPayable", "?LongTermLoansPayable", "?LoansPayableCurrent"], ["LongTermLoansPayable", "?LoansPayableCurrent"], ["ConvertibleNotesPayable"], ["SeniorNotes"], ["NotesPayable"], ["DebtInstrumentCarryingAmount"], ["LongTermDebtCurrent"]],
+    alts: [["LongTermDebt"], ["DebtLongtermAndShorttermCombinedAmount"], ["LongTermDebtNoncurrent", "?LongTermDebtCurrent"], ["LongTermDebtAndCapitalLeaseObligations", "?LongTermDebtAndCapitalLeaseObligationsCurrent"], ["ConvertibleLongTermNotesPayable", "?LongTermLoansPayable", "?LoansPayableCurrent"], ["LongTermLoansPayable", "?LoansPayableCurrent"], ["ConvertibleNotesPayable"], ["ConvertibleDebt"], ["SeniorNotes"], ["NotesPayable"], ["DebtInstrumentCarryingAmount"], ["LongTermDebtCurrent"]],
   },
   st_investments: { flow: false, alts: [["MarketableSecuritiesCurrent"], ["ShortTermInvestments"], ["AvailableForSaleSecuritiesDebtSecuritiesCurrent"], ["DebtSecuritiesAvailableForSaleExcludingAccruedInterestCurrent"]] },
   assets: { flow: false, alts: [["Assets"]] },
@@ -68,6 +76,7 @@ function valueOf(facts, alt, flow, year) {
 
 const curated = JSON.parse(fs.readFileSync("src/data/ma/balance-sheet-debt.json", "utf8"));
 const coverShares = JSON.parse(fs.readFileSync("src/data/ma/cover-shares.json", "utf8"));
+const eq = JSON.parse(fs.readFileSync("src/data/ma/earnings-quality.json", "utf8"));
 const manual = JSON.parse(fs.readFileSync("src/data/ma/manual-values.json", "utf8"));
 const out = { generated: new Date().toISOString().slice(0, 10), units: "US dollars, millions", years: YEARS, companies: {}, issues: [] };
 
@@ -76,7 +85,11 @@ for (const [ticker, cik] of UNIVERSE) {
   const sub = JSON.parse(fs.readFileSync(`data-raw/ma/${ticker}.submissions.json`, "utf8"));
   const c = { ticker, cik, name: facts.entityName, sic: sub.sic, sicDescription: sub.sicDescription, exchanges: sub.exchanges, fiscalYearEnd: sub.fiscalYearEnd, years: {} };
   // The alternative with the most years of data is used for every year; another alternative fills a year only if the chosen one cannot, and says so.
-  for (const [metric, rule] of Object.entries(METRICS)) {
+  for (const [metric, baseRule] of Object.entries(METRICS)) {
+    // Companies whose cash-flow statement lists intangible amortisation SEPARATELY from the depreciation line must have both summed
+    // (a combined D&A tag would otherwise omit it). Confirmed from the cash-flow statements for Halozyme and Jazz; every other company's
+    // selected D&A is checked by validate-dataset.mjs to be at least as large as its separate intangible-amortisation tag.
+    const rule = metric === "da" && DA_SEPARATE_INTANGIBLES[ticker] ? { ...baseRule, alts: DA_SEPARATE_INTANGIBLES[ticker] } : baseRule;
     let best = null;
     rule.alts.forEach((alt, i) => {
       const n = YEARS.filter((y) => valueOf(facts, alt, rule.flow, y)).length;
@@ -123,6 +136,7 @@ for (const [ticker, cik] of UNIVERSE) {
     const y25 = c.years[2025];
     y25[metric] = { value: mv.value, tag: `10-K text: ${mv.basis}`, accn: y25.revenue?.accn ?? "", filed: y25.revenue?.filed ?? "", end: y25.revenue?.end ?? "", note: "read from the 10-K text" };
   }
+  if (eq.companies[ticker]) c.oneOffs = eq.companies[ticker].oneOffs.map((o) => ({ label: o.label, value: o.value }));
   const doc = `data-raw/ma/${ticker}-10k.htm`;
   c.docChecked = fs.existsSync(doc);
   out.companies[ticker] = c;

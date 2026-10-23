@@ -26,6 +26,15 @@ for (const it of rec.items) {
   }
 }
 
+// 1b. GSK: project net debt (borrowings less cash) reconciles to the company-reported figure through the two items the project omits.
+{
+  const ref = ds.companies.gsk.reference;
+  const projectNetDebt = val("gsk", "2025", "debt_financial") - val("gsk", "2025", "cash");
+  const viaItems = projectNetDebt + ref.liabilitiesRelatingToAssetsHeldForSale2025.value - ref.liquidInvestments2025.value;
+  add("identity", "gsk 2025: project net debt + held-for-sale liabilities - liquid investments = company-reported net debt", Math.abs(viaItems - ref.reportedNetDebt2025.value) <= 0.5, `${projectNetDebt} + ${ref.liabilitiesRelatingToAssetsHeldForSale2025.value} - ${ref.liquidInvestments2025.value} = ${viaItems} vs reported ${ref.reportedNetDebt2025.value}`);
+  add("identity", "gsk 2025: lease liabilities inside borrowings (137 + 693) equal the 830 in the dataset note", ref.leaseLiabilitiesInBorrowings2025.shortTerm + ref.leaseLiabilitiesInBorrowings2025.longTerm === 830, "137 + 693 = 830");
+}
+
 // 2. Accounting identities.
 for (const c of Object.keys(ds.companies)) {
   for (const y of YEARS) {

@@ -234,7 +234,7 @@ export const next: Next[] = [
     name: "Finance foundations",
     field: "Accounting, valuation",
     status: "Planned",
-    points: "Free self-study in valuation and accounting (Damodaran's valuation course and an open accounting textbook), applied in the projects above. Done so far: one investment-banking job simulation (Bank of America, on Forage).",
+    points: "Free self-study in valuation and accounting (Damodaran's valuation course and an open accounting textbook), applied in the projects above.",
   },
   {
     name: "Projects on public filings",
@@ -243,10 +243,10 @@ export const next: Next[] = [
     points: "A pharma valuation explorer, an annual-report research assistant and an M&A screening workbench are published on this site as first releases. They are still in development and not yet independently reviewed.",
   },
   {
-    name: "Next short simulation",
-    field: "Generative AI",
-    status: "Planned",
-    points: "A BCG GenAI job simulation on Forage, if the task page is accessible. Not started.",
+    name: "Job simulations on Forage",
+    field: "Investment banking, generative AI",
+    status: "Completed",
+    points: "Three finished: Bank of America investment banking (20 October 2026), BCG GenAI and Vista Equity Partners AI in Action (both 23 October 2026). Practice exercises, not employment or internships.",
   },
 ];
 

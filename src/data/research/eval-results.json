@@ -1,5 +1,6 @@
 {
- "ran": "2026-10-20",
+ "ran": "2026-10-23",
+ "engine": "v1",
  "thresholds": {
   "MIN_COVERAGE": 0.6,
   "MIN_SCORE": 5
@@ -11,7 +12,9 @@
    "n": 19,
    "hitAt1": "10/19",
    "hitAt5": "16/19",
-   "refusedWrongly": "1/19"
+   "refusedWrongly": "1/19",
+   "topPassageContainsGoldAnswer": "11/19",
+   "evidenceHitButAnswerNotSupported": []
   },
   "calculation": {
    "n": 10,
@@ -43,6 +46,7 @@
    "outcome": "hit@3",
    "pass": false,
    "rank": 3,
+   "supported": false,
    "detail": ""
   },
   {
@@ -52,6 +56,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -61,6 +66,7 @@
    "outcome": "hit@4",
    "pass": false,
    "rank": 4,
+   "supported": false,
    "detail": ""
   },
   {
@@ -69,6 +75,7 @@
    "q": "What were Novartis net sales in the US in 2025?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: novartis #265 Net sales from continuing operations › Neuroscience"
   },
   {
@@ -78,6 +85,7 @@
    "outcome": "hit@3",
    "pass": false,
    "rank": 3,
+   "supported": false,
    "detail": ""
   },
   {
@@ -87,6 +95,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -96,6 +105,7 @@
    "outcome": "hit@4",
    "pass": false,
    "rank": 4,
+   "supported": true,
    "detail": ""
   },
   {
@@ -104,6 +114,7 @@
    "q": "Which audit firm does GSK use?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: gsk #611 Financial"
   },
   {
@@ -131,6 +142,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -140,6 +152,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -149,6 +162,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -158,6 +172,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -167,6 +182,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -176,6 +192,7 @@
    "outcome": "hit@3",
    "pass": false,
    "rank": 3,
+   "supported": false,
    "detail": ""
   },
   {
@@ -185,6 +202,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -194,6 +212,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -203,6 +222,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -212,6 +232,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -221,6 +242,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -230,6 +252,7 @@
    "outcome": "hit@4",
    "pass": false,
    "rank": 4,
+   "supported": false,
    "detail": ""
   },
   {
@@ -238,6 +261,7 @@
    "q": "What were Novartis net sales in the US in 2025?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: novartis #265 Net sales from continuing operations › Neuroscience"
   },
   {
@@ -247,6 +271,7 @@
    "outcome": "hit@3",
    "pass": false,
    "rank": 3,
+   "supported": false,
    "detail": ""
   },
   {
@@ -256,6 +281,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -265,6 +291,7 @@
    "outcome": "hit@4",
    "pass": false,
    "rank": 4,
+   "supported": true,
    "detail": ""
   },
   {
@@ -274,6 +301,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -282,6 +310,7 @@
    "q": "Which audit firm does GSK use?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: gsk #611 Financial"
   },
   {

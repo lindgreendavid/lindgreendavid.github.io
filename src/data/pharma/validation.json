@@ -1,8 +1,8 @@
 {
- "generated": "2026-10-20",
+ "generated": "2026-10-23",
  "totals": {
-  "checks": 168,
-  "passed": 168,
+  "checks": 170,
+  "passed": 170,
   "failed": 0,
   "reconciledFigures": 137,
   "reconciliationMismatches": 0
@@ -13,8 +13,8 @@
    "total": 137
   },
   "identity": {
-   "passed": 18,
-   "total": 18
+   "passed": 20,
+   "total": 20
   },
   "units": {
    "passed": 9,

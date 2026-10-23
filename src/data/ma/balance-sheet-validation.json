@@ -1,7 +1,7 @@
 {
  "generated": "2026-10-23",
- "total": 45,
- "passed": 45,
+ "total": 54,
+ "passed": 54,
  "results": [
   {
    "ticker": "SUPN",
@@ -268,8 +268,62 @@
    "detail": "40.228"
   },
   {
-   "ticker": "COLL",
-   "check": "rnd: 10-K text contains \"Selling, general and administrative 284,803 210,363 Gain on fair value remeasurement of contingent consideration (1,182) (2,914) Total operating expenses 283,621 207,449\"",
+   "ticker": "HALO",
+   "check": "da: 10-K text contains \"Depreciation and amortization 11,389\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "HALO",
+   "check": "da: 10-K text contains \"Amortization of intangible assets 76,662\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "HALO",
+   "check": "da: recorded value equals the sum of the lines",
+   "ok": true,
+   "detail": "88.051"
+  },
+  {
+   "ticker": "JAZZ",
+   "check": "da: 10-K text contains \"Depreciation 41,636\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "JAZZ",
+   "check": "da: 10-K text contains \"Intangible asset amortization 654,661\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "JAZZ",
+   "check": "da: recorded value equals the sum of the lines",
+   "ok": true,
+   "detail": "696.297"
+  },
+  {
+   "ticker": "PTCT",
+   "check": "one-off: 10-K text contains \"Collaboration and license revenue 998,357\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "PTCT",
+   "check": "one-off: amount matches the printed figure (998.357)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "BCRX",
+   "check": "one-off: 10-K text contains \"License revenue 243,980\"",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "ticker": "BCRX",
+   "check": "one-off: amount matches the printed figure (243.98)",
    "ok": true,
    "detail": ""
   }

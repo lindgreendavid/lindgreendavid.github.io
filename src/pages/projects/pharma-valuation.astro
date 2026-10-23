@@ -110,7 +110,7 @@ const v = validation;
 
     <section class="wrap" aria-label="Second implementation">
       <p class="callout">
-        <strong>A second, independent implementation exists.</strong> The <a href="https://lindgreendavid.com/pharma-valuation-explorer/" rel="noopener">standalone Pharma Valuation Explorer</a> was built separately from the rendered 20-F pages (Novartis, GSK and Novo Nordisk, with a DCF of Novartis). The 78 values the two datasets share are identical. They differ on purpose: revenue definition (this build includes other revenues; the standalone build uses net sales) and the company valued (AstraZeneca here, Novartis there). This build is the canonical Project 1 on this site, because the research assistant and the M&amp;A workbench reuse its checked dataset; the standalone build stays as a second implementation and cross-check. Both are first releases, not independently reviewed.
+        <strong>A second, independent implementation exists.</strong> The <a href="https://lindgreendavid.com/pharma-valuation-explorer/" rel="noopener">standalone Pharma Valuation Explorer</a> was built separately from the rendered 20-F pages (Novartis, GSK and Novo Nordisk, with a DCF of Novartis). The 78 values the two datasets share are identical. They differ on purpose: revenue definition (this build includes other revenues; the standalone build uses net sales) and the company valued (AstraZeneca here, Novartis there). This build is the canonical Project 1 on this site, because the research assistant reuses its checked dataset; the M&amp;A workbench uses a separate US-company dataset; the standalone build stays as a second implementation and cross-check. Both are first releases, not independently reviewed.
       </p>
     </section>
 
@@ -295,7 +295,7 @@ const v = validation;
           <div class="checks">
             <div><h3>{v.totals.passed} / {v.totals.checks}</h3><p>automated checks pass: reconciliation, accounting identities, units, exchange rates and completeness.</p></div>
             <div><h3>{v.totals.reconciledFigures}</h3><p>figures compared with the SEC's rendered statement pages; {v.totals.reconciliationMismatches} mismatches.</p></div>
-            <div><h3>15</h3><p>unit tests of the valuation maths, and an independent Excel recalculation that matches the web model to the cent.</p></div>
+            <div><h3>17</h3><p>unit tests of the valuation maths and input validation, and a recalculation of the workbook formulas that matches the web model to the cent. An external check reproduced the DCF with separate Python code and two formula engines; a fresh Microsoft Excel run was not possible there.</p></div>
           </div>
           <div class="prose">
             <h3>What this does and does not show</h3>
@@ -341,11 +341,13 @@ const v = validation;
         <h3>Definitions</h3>
         <ul>
           <li><strong>Revenue:</strong> AstraZeneca total revenue; GSK turnover; Novartis net sales plus other revenues.</li>
-          <li><strong>Net debt:</strong> financial debt plus lease liabilities, less cash and cash equivalents (and, for Novartis, marketable securities and time deposits). Novartis reports its own net debt excluding leases; the difference equals its lease liabilities exactly.</li>
+          <li><strong>Net debt:</strong> financial debt plus lease liabilities, less cash and cash equivalents (and, for Novartis, marketable securities and time deposits). Novartis reports its own net debt excluding leases; the difference equals its lease liabilities exactly. GSK reports net debt of GBP 14,453m, which also includes GBP 139m of liabilities relating to assets held for sale and deducts GBP 9m of liquid investments; this project's definition (borrowings less cash) gives GBP 14,323m, and the GBP 130m difference is reconciled and checked in the validator.</li>
+          <li><strong>Cash flows are not fully normalised.</strong> IFRS companies classify interest and dividend cash flows differently inside or outside operating cash flow, so operating cash flow, free cash flow and cash conversion are not perfectly comparable across the three. No normalisation was applied.</li>
+          <li><strong>Kinds of numbers.</strong> <em>Reported:</em> figures from the filings (revenue, profit, cash flow, debt). <em>Derived:</em> margins, net debt, free cash flow and the translation to US dollars. <em>Adjusted measures:</em> none; no company-defined "core" or "adjusted" figure is used. <em>Illustrative assumptions:</em> every DCF input (growth, margin, tax, D&amp;A, capex, working-capital investment, WACC, terminal growth) and the three scenarios; they are not forecasts.</li>
           <li><strong>Free cash flow:</strong> operating cash flow less purchases of PP&amp;E; the stricter version also deducts purchases of intangible assets.</li>
         </ul>
         <h3>DCF</h3>
-        <p>Free cash flow to the firm = operating profit × (1 − tax rate) + D&amp;A − capex − working-capital investment, for five years. Operating margin moves linearly from the FY2025 actual to the chosen FY2030 value. Cash flows are discounted at year-end; the terminal value uses constant growth: FCFF₅ × (1 + g) ÷ (WACC − g). Enterprise value is converted to equity value with the bridge above and divided by ordinary shares outstanding (1,550.9 million per the FY2025 cover page).</p>
+        <p>Free cash flow to the firm = operating profit × (1 − tax rate) + D&amp;A − capex − working-capital investment, for five years. Operating margin moves linearly from the FY2025 actual to the chosen FY2030 value. Working-capital investment is an annual cash outflow equal to a percentage of that year's revenue (not a change in a forecast working-capital balance); a negative percentage models a release. Cash flows are discounted at year-end; the terminal value uses constant growth: FCFF₅ × (1 + g) ÷ (WACC − g). Enterprise value is converted to equity value with the bridge above and divided by ordinary shares outstanding (1,550.9 million per the FY2025 cover page).</p>
       </div>
     </section>
 
@@ -360,7 +362,7 @@ const v = validation;
               <li>The DCF depends on assumptions that are illustrative. Terminal value is most of the result.</li>
               <li>The enterprise-to-equity bridge is partial (see above). Pharma litigation and contingent consideration can be material.</li>
               <li>No pipeline probability or patent-expiry modelling; a single revenue path per scenario.</li>
-              <li>GSK: lease treatment inside borrowings is assumed, and non-controlling interests are understated at book value.</li>
+              <li>GSK: borrowings include lease liabilities (Note 29); non-controlling interests are represented at book value, which may understate their economic value.</li>
               <li>No share-price data is bundled, so multiples need your own inputs.</li>
               <li>Not independently reviewed. Do not use it for investment decisions.</li>
             </ul>
@@ -369,7 +371,7 @@ const v = validation;
             <h3 style="margin-top:0">Next steps</h3>
             <ul>
               <li>Add a market-data source whose terms allow redistribution, and verify ADS ratios.</li>
-              <li>Confirm GSK's lease presentation and value its non-controlling interests at market-based value.</li>
+              <li>Value GSK's non-controlling interests using a market-based approach; Note 29 confirms that borrowings include leases.</li>
               <li>Build a peer-based WACC with explicit beta and capital-structure inputs.</li>
               <li>Add a pipeline-risk scenario and a patent-expiry view.</li>
               <li>Add trailing-twelve-month figures and a fourth company.</li>

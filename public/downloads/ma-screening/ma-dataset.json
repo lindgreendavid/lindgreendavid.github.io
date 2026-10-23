@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21",
+ "generated": "2026-10-23",
  "units": "US dollars, millions",
  "years": [
   2022,
@@ -56,8 +56,8 @@
       "end": "2022-12-31"
      },
      "da": {
-      "value": 30.3,
-      "tag": "DepreciationDepletionAndAmortization",
+      "value": 629.471,
+      "tag": "Depreciation + AmortizationOfIntangibleAssets",
       "accn": "0001232524-25-000011",
       "filed": "2025-02-26",
       "end": "2022-12-31"
@@ -122,8 +122,8 @@
       "end": "2023-12-31"
      },
      "da": {
-      "value": 30.4,
-      "tag": "DepreciationDepletionAndAmortization",
+      "value": 638.696,
+      "tag": "Depreciation + AmortizationOfIntangibleAssets",
       "accn": "0001232524-26-000013",
       "filed": "2026-02-24",
       "end": "2023-12-31"
@@ -188,8 +188,8 @@
       "end": "2024-12-31"
      },
      "da": {
-      "value": 32.8,
-      "tag": "DepreciationDepletionAndAmortization",
+      "value": 660.067,
+      "tag": "Depreciation + AmortizationOfIntangibleAssets",
       "accn": "0001232524-26-000013",
       "filed": "2026-02-24",
       "end": "2024-12-31"
@@ -254,11 +254,12 @@
       "end": "2025-12-31"
      },
      "da": {
-      "value": 41.6,
-      "tag": "DepreciationDepletionAndAmortization",
+      "value": 696.297,
+      "tag": "10-K text: cash flow statement: depreciation plus separately reported intangible asset amortization; excludes non-cash interest",
       "accn": "0001232524-26-000013",
       "filed": "2026-02-24",
-      "end": "2025-12-31"
+      "end": "2025-12-31",
+      "note": "read from the 10-K text"
      },
      "cash": {
       "value": 1391.899,
@@ -932,8 +933,8 @@
       "end": "2022-12-31"
      },
      "da": {
-      "value": 6.493,
-      "tag": "DepreciationDepletionAndAmortization",
+      "value": 49.641,
+      "tag": "DepreciationDepletionAndAmortization + AmortizationOfIntangibleAssets",
       "accn": "0001159036-25-000010",
       "filed": "2025-02-18",
       "end": "2022-12-31"
@@ -1004,8 +1005,8 @@
       "end": "2023-12-31"
      },
      "da": {
-      "value": 11.083,
-      "tag": "DepreciationDepletionAndAmortization",
+      "value": 84.856,
+      "tag": "DepreciationDepletionAndAmortization + AmortizationOfIntangibleAssets",
       "accn": "0001159036-26-000024",
       "filed": "2026-02-17",
       "end": "2023-12-31"
@@ -1076,8 +1077,8 @@
       "end": "2024-12-31"
      },
      "da": {
-      "value": 10.263,
-      "tag": "DepreciationDepletionAndAmortization",
+      "value": 81.312,
+      "tag": "DepreciationDepletionAndAmortization + AmortizationOfIntangibleAssets",
       "accn": "0001159036-26-000024",
       "filed": "2026-02-17",
       "end": "2024-12-31"
@@ -1149,11 +1150,12 @@
       "end": "2025-12-31"
      },
      "da": {
-      "value": 11.389,
-      "tag": "DepreciationDepletionAndAmortization",
+      "value": 88.051,
+      "tag": "10-K text: cash flow statement: depreciation and amortization plus separately reported intangible asset amortization; excludes debt discount amortization",
       "accn": "0001159036-26-000024",
       "filed": "2026-02-17",
-      "end": "2025-12-31"
+      "end": "2025-12-31",
+      "note": "read from the 10-K text"
      },
      "cash": {
       "value": 133.82,
@@ -2926,7 +2928,14 @@
       "filed": "2026-02-24",
       "end": "2025-12-31"
      },
-     "da": null,
+     "da": {
+      "value": 25.335,
+      "tag": "10-K text: segment expense table in the 10-K notes",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2025-12-31",
+      "note": "read from the 10-K text"
+     },
      "cash": {
       "value": 752.502,
       "tag": "CashAndCashEquivalentsAtCarryingValue",
@@ -3187,7 +3196,14 @@
       "filed": "2026-02-25",
       "end": "2025-12-31"
      },
-     "da": null,
+     "da": {
+      "value": 40.228,
+      "tag": "10-K text: cash flow statement: depreciation and amortisation of fees, plus amortisation of acquired intangibles",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2025-12-31",
+      "note": "read from the 10-K text"
+     },
      "cash": {
       "value": 550.941,
       "tag": "CashAndCashEquivalentsAtCarryingValue",
@@ -6140,6 +6156,12 @@
      "value": 2025.366
     }
    ],
+   "oneOffs": [
+    {
+     "label": "Collaboration and license revenue (principally the $1.0bn upfront payment under the Novartis agreement)",
+     "value": 998.357
+    }
+   ],
    "docChecked": true
   },
   "TGTX": {
@@ -7396,6 +7418,12 @@
      "value": 427.233
     }
    ],
+   "oneOffs": [
+    {
+     "label": "License revenue (principally licensing of intellectual property)",
+     "value": 243.98
+    }
+   ],
    "docChecked": true
   },
   "OGN": {
@@ -8006,10 +8034,10 @@
       "end": "2022-12-31"
      },
      "debt": {
-      "value": 1100,
-      "tag": "DebtInstrumentCarryingAmount",
-      "accn": "0001048477-23-000009",
-      "filed": "2023-02-27",
+      "value": 1083.019,
+      "tag": "ConvertibleDebt",
+      "accn": "0001048477-24-000016",
+      "filed": "2024-02-26",
       "end": "2022-12-31"
      },
      "st_investments": {
@@ -8078,10 +8106,10 @@
       "end": "2023-12-31"
      },
      "debt": {
-      "value": 1100,
-      "tag": "DebtInstrumentCarryingAmount",
-      "accn": "0001048477-24-000016",
-      "filed": "2024-02-26",
+      "value": 1086.972,
+      "tag": "ConvertibleDebt",
+      "accn": "0001048477-25-000007",
+      "filed": "2025-02-24",
       "end": "2023-12-31"
      },
      "st_investments": {
@@ -8150,10 +8178,10 @@
       "end": "2024-12-31"
      },
      "debt": {
-      "value": 600,
-      "tag": "DebtInstrumentCarryingAmount",
-      "accn": "0001048477-25-000007",
-      "filed": "2025-02-24",
+      "value": 595.138,
+      "tag": "ConvertibleDebt",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
       "end": "2024-12-31"
      },
      "st_investments": {
@@ -8222,8 +8250,8 @@
       "end": "2025-12-31"
      },
      "debt": {
-      "value": 600,
-      "tag": "DebtInstrumentCarryingAmount",
+      "value": 597.176,
+      "tag": "ConvertibleDebt",
       "accn": "0001048477-26-000004",
       "filed": "2026-02-26",
       "end": "2025-12-31"
@@ -8256,8 +8284,6 @@
  },
  "issues": [
   "COLL FY2025: rnd not found",
-  "HRMY FY2025: da not found",
-  "INVA FY2025: da not found",
   "OGN FY2025: operating_income not found"
  ]
 }

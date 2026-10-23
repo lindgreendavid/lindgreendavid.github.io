@@ -8,10 +8,10 @@ import summary from "../../data/research/eval-summary.json";
 import devResults from "../../data/research/eval-results.json";
 
 const chips = ["In which jurisdiction is AstraZeneca incorporated?", "Which company had the highest operating margin in 2025?", "What was GSK's net debt including leases at the end of 2025?", "What were Kisqali sales in 2025?", "Should I buy GSK shares?"];
-const totalQuestions = summary.sets.reduce((acc, x) => acc + x.v2.questions, 0);
+const totalQuestions = summary.sets.reduce((acc, x) => acc + x.v21.questions, 0);
 const fmt = (n: number) => n.toLocaleString("en-US");
 ---
-<Base title="Annual-Report Research Assistant | David Lindgreen" description="Ask questions across the FY2025 Form 20-F reports of Novartis, AstraZeneca and GSK. Answers are source passages with links, deterministic calculations or an explicit refusal. First release, evaluated on 118 hand-written questions.">
+<Base title="Annual-Report Research Assistant | David Lindgreen" description="Ask questions across the FY2025 Form 20-F reports of Novartis, AstraZeneca and GSK. Answers are source passages with links, deterministic calculations or an explicit refusal. First release, evaluated on 142 hand-written questions.">
   <ProjectHeader current="projects" />
   <main id="main">
     <section class="wrap proj-hero">
@@ -61,30 +61,32 @@ const fmt = (n: number) => n.toLocaleString("en-US");
 
     <div class="band band-mint">
       <section class="wrap section" id="evaluation" aria-labelledby="eval-h">
-        <div class="section-head"><h2 id="eval-h">Evaluation</h2><p>{totalQuestions} hand-written questions in four sets, each run on version 1 (keyword search) and version 2. Failures are listed, not hidden.</p></div>
+        <div class="section-head"><h2 id="eval-h">Evaluation</h2><p>{totalQuestions} hand-written questions in five sets, each run on three versions of the engine. Failures are listed, not hidden.</p></div>
         <div class="pane">
           <div class="tbl-wrap" role="region" aria-label="Evaluation results, scrolls horizontally on small screens" tabindex="0">
             <table class="tbl">
-              <caption class="sr">Evaluation results by question set and engine</caption>
-              <thead><tr><th scope="col">Question set</th><th scope="col">Questions</th><th scope="col">All correct, v1 → v2</th><th scope="col">Lookup right passage first, v1 → v2</th><th scope="col">Lookup in top five, v1 → v2</th><th scope="col">Correct refusals, v1 → v2</th></tr></thead>
-              <tbody>{summary.sets.map((x) => <tr><th scope="row">{x.name}</th><td>{x.v2.questions}</td><td>{x.v1.overall} → <strong>{x.v2.overall}</strong></td><td>{x.v1.top1} → <strong>{x.v2.top1}</strong></td><td>{x.v1.top5} → <strong>{x.v2.top5}</strong></td><td>{x.v1.unanswerable} → <strong>{x.v2.unanswerable}</strong></td></tr>)}</tbody>
+              <caption class="sr">Evaluation results by question set and engine version</caption>
+              <thead><tr><th scope="col">Question set</th><th scope="col">All correct: v1 → v2 → v2.1</th><th scope="col">Lookup, right passage first</th><th scope="col">Lookup, right passage in top five</th><th scope="col">Lookup, first passage contains the gold answer*</th><th scope="col">Correct refusals</th></tr></thead>
+              <tbody>{summary.sets.map((x) => <tr><th scope="row">{x.name}</th><td>{x.v1.overall} → {x.v2.overall} → <strong>{x.v21.overall}</strong></td><td>{x.v1.top1} → {x.v2.top1} → <strong>{x.v21.top1}</strong></td><td>{x.v1.top5} → {x.v2.top5} → <strong>{x.v21.top5}</strong></td><td>{x.v1.answerInTop1} → {x.v2.answerInTop1} → <strong>{x.v21.answerInTop1}</strong></td><td>{x.v1.unanswerable} → {x.v2.unanswerable} → <strong>{x.v21.unanswerable}</strong></td></tr>)}</tbody>
             </table>
           </div>
+          <p class="muted" style="margin-top:0.75rem">{summary.note} These columns overlap; they are different views of the same questions, not separate tests to add together. *A word-overlap check of the first passage against the gold answer, added after an external check; it is stricter than the evidence-string test in some cases and looser in others.</p>
           <div class="prose">
             <h3>How to read this</h3>
             <ul>
-              <li><strong>Version 2 helps where questions are paraphrased:</strong> on the blind set 3 the right passage comes first {summary.sets[3].v2.top1} of the time against {summary.sets[3].v1.top1} for version 1, and on set 2 {summary.sets[2].v2.top1} against {summary.sets[2].v1.top1}. It is still wrong or silent on roughly half of such questions.</li>
-              <li><strong>It is slightly worse on the original development set</strong> ({summary.sets[0].v2.overall} against {summary.sets[0].v1.overall}): the stronger matching lets two unanswerable questions through ("home address of the CEO", "temperature in Basel") and moves some lookups down. That is the trade-off the numbers show.</li>
-              <li><strong>Set 3 is the only fair test of version 2.</strong> It was written before version 2 existed and run once on each frozen engine. Set 2 was used to design and tune version 2 (stemming, thesaurus, thresholds), so its result is optimistic. The development set was used to build version 1. Set 1 was run once on version 1 and its questions are close to the filing wording.</li>
-              <li><strong>Independence caveat:</strong> the same person wrote the questions and the thesaurus. The thesaurus is general business English, but independence cannot be guaranteed.</li>
-              <li>Lookup passes only if the passage containing the gold evidence is first ("top-1") or among the first five ("top-5"). Calculations pass only on an exact match with a value computed separately from the filing figures. Unanswerable questions pass only if the tool refuses.</li>
+              <li><strong>Version 2 helps where questions are paraphrased</strong> (set 2: {summary.sets[2].v1.top1} → {summary.sets[2].v2.top1}; set 3: {summary.sets[3].v1.top1} → {summary.sets[3].v2.top1} right passage first) and it is still wrong or silent on about half of such questions. On the original development set it was slightly worse ({summary.sets[0].v1.overall} → {summary.sets[0].v2.overall}).</li>
+              <li><strong>Version 2.1 changes only the scope guard</strong> (retrieval is identical to version 2). An external technical check found that "What is the capital of Switzerland?" and "What is 2 plus 2?" retrieved unrelated passages, and that an undated share-price question returned a historical year-end table. Version 2.1 refuses arithmetic, country-geography and general-knowledge questions, and refuses undated share-price and market-value questions with an explanation that only year-end figures exist. Lookup quality did not change.</li>
+              <li><strong>Set 4 is the only test written for version 2.1</strong> ({summary.sets[4].v2.overall} → {summary.sets[4].v21.overall}; correct refusals {summary.sets[4].v2.unanswerable} → {summary.sets[4].v21.unanswerable}). It was written by Claude, an AI assistant, on 2026-10-23, before the new guard was run on anything, then run once per engine. It has now been seen, so any further change needs a new set.</li>
+              <li><strong>Set 3 is no longer untouched.</strong> It was written before version 2 and run once per engine, but its results have been read by reviewers. Set 2 was used to design version 2. The development set was used to build version 1.</li>
+              <li><strong>Independence limitation:</strong> the questions, the gold evidence, the thesaurus and the engine all come from the same AI-assisted process. The author has not reviewed the gold answers. An external technical check reproduced every published result; it did not write any question set.</li>
+              <li>Lookup passes only if a passage containing the gold evidence string is first ("top-1") or among the first five ("top-5"). Calculations pass only on an exact match with a value computed separately from the filing figures. Unanswerable questions pass only if the tool refuses.</li>
               <li>The questions and gold answers were written and checked with AI assistance. The author's own check against the filings is pending.</li>
             </ul>
-            <h3>Known failures of version 2</h3>
+            <h3>Known failures of version 2.1</h3>
             {summary.sets.map((x) => (
-              <details class="data"><summary>{x.name}: {x.failuresV2.length} of {x.v2.questions} not passed</summary><ul>{x.failuresV2.map((f) => <li><strong>{f.id}</strong> ({f.outcome}): {f.q}</li>)}</ul></details>
+              <details class="data"><summary>{x.name}: {x.failuresV21.length} not passed</summary><ul>{x.failuresV21.map((f) => <li><strong>{f.id}</strong> ({f.outcome}): {f.q}</li>)}</ul></details>
             ))}
-            <p class="muted">Remaining lookup misses are mostly paraphrases that need real language understanding, for example a question about a "court" where the passage names a specific "District Court", or "confirm" where the filing says "declare". Questions whose words do appear in the reports but mean something else ("capital of Switzerland") can still get passages instead of a refusal.</p>
+            <p class="muted">Findings still open: several answerable questions are refused or ranked low when the filing uses different words (a paraphrase needs real language understanding); a question that merely contains the word "will" is refused as a forecast even when it asks about the past or about policy ("how long will a launched product remain useful"); medical-advice questions about topics the reports mention (for example shingles treatment) still return passages; indirect price phrasings such as "how much is a GSK share" are not all caught. Version 2.1's guard is pattern-based and incomplete.</p>
             <h3>What changed in version 1 after its first run</h3>
             <ul>{devResults.changesAfterFirstRun.map((c) => <li>{c}</li>)}</ul>
             <h3>What version 2 changed</h3>
@@ -126,7 +128,7 @@ const fmt = (n: number) => n.toLocaleString("en-US");
           <div class="pane prose">
             <h3 style="margin-top:0">Limits</h3>
             <ul>
-              <li>Keyword search with synonyms is not understanding: it still misses many paraphrases (about half on the blind set) and can rank a related passage above the right one.</li>
+              <li>Keyword search with synonyms is not understanding: it still misses many paraphrases (roughly two in three on the blind sets) and can rank a related passage above the right one.</li>
               <li>Only FY2025 Forms 20-F of three companies. Earlier years appear only where the 2025 report repeats them, and the calculator uses the reconciled FY2023 to FY2025 dataset.</li>
               <li>Tables are flattened to text rows; complex tables can lose structure.</li>
               <li>Passage boundaries come from font and bold cues in the HTML, so some section labels are imperfect.</li>
@@ -136,7 +138,7 @@ const fmt = (n: number) => n.toLocaleString("en-US");
           <div class="pane prose">
             <h3 style="margin-top:0">Next steps</h3>
             <ul>
-              <li>Add a real embedding model and compare it with version 2 on the same four sets (set 3 stays blind).</li>
+              <li>Add a real embedding model and compare it with version 2.1; write a new set 5 first, because sets 1 to 4 have all been seen.</li>
               <li>Only then consider a language model, with citations required and the same refusal tests.</li>
               <li>Have another person write and answer a new question set.</li>
               <li>Extend to the FY2024 filings.</li>

@@ -1,0 +1,7 @@
+{
+  "note": "Identified one-off revenue items in FY2025, read from each company's Form 10-K text on 2026-10-23. US dollars, millions. They are shown as flags and can be removed in an ILLUSTRATIVE adjustment (switch off by default) that subtracts the item from revenue, operating income and operating cash flow as if it had no related cost. This is not a company-reported adjusted measure.",
+  "companies": {
+    "PTCT": { "oneOffs": [{ "label": "Collaboration and license revenue (principally the $1.0bn upfront payment under the Novartis agreement)", "value": 998.357, "text": "Collaboration and license revenue 998,357" }] },
+    "BCRX": { "oneOffs": [{ "label": "License revenue (principally licensing of intellectual property)", "value": 243.98, "text": "License revenue 243,980" }] }
+  }
+}

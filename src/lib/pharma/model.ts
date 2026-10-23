@@ -161,8 +161,40 @@ export type DcfResult = {
   bridge: { label: string; amount: number }[];
 };
 
+export class DcfInputError extends Error {}
+
+const fin = (x: unknown): x is number => typeof x === "number" && Number.isFinite(x);
+
+/**
+ * Domain checks for DCF inputs. Returns a plain-language message for the first problem, or null if the inputs can be valued.
+ * Legitimate cases stay valid: negative growth, margins below the base margin, and a working-capital release (negative nwcPct).
+ */
+export function validateDcfInputs(i: DcfInputs): string | null {
+  if (!Array.isArray(i.growth) || i.growth.length < 1) return "The forecast needs at least one year of revenue growth.";
+  if (i.growth.length > 20) return "The forecast can have at most 20 years.";
+  if (i.growth.some((g) => !fin(g))) return "Every year of revenue growth needs a number.";
+  if (i.growth.some((g) => g <= -1)) return "Revenue growth cannot be -100% or lower.";
+  if (!fin(i.baseRevenue) || i.baseRevenue <= 0) return "Base revenue must be a positive number.";
+  if (!fin(i.baseOperatingMargin) || !fin(i.targetMargin)) return "Operating margins need to be numbers.";
+  if (i.targetMargin >= 1) return "The target operating margin must be below 100%.";
+  if (!fin(i.taxRate) || i.taxRate < 0 || i.taxRate >= 1) return "The tax rate must be between 0% and 100%.";
+  for (const [name, v] of [["D&A", i.daPct], ["Capex", i.capexPct], ["Working-capital investment", i.nwcPct]] as const) {
+    if (!fin(v)) return `${name} needs a number.`;
+    if (Math.abs(v) >= 1) return `${name} as a share of revenue must be between -100% and 100%.`;
+  }
+  if (!fin(i.wacc) || i.wacc <= 0) return "The discount rate (WACC) must be a positive number.";
+  if (i.wacc >= 1) return "The discount rate (WACC) must be below 100%.";
+  if (!fin(i.terminalGrowth)) return "Terminal growth needs a number.";
+  if (i.wacc <= i.terminalGrowth) return "The discount rate (WACC) must be higher than terminal growth, otherwise the terminal value is not defined.";
+  const b = i.bridge;
+  if (!b || [b.debtInclLeases, b.cash, b.equityMethodInvestments, b.pensionDeficit, b.nonControllingInterests].some((x) => !fin(x))) return "Every enterprise-to-equity bridge item needs a number.";
+  if (!fin(i.sharesMillions) || i.sharesMillions <= 0) return "The share count must be a positive number.";
+  return null;
+}
+
 export function runDcf(i: DcfInputs, baseYear = 2025): DcfResult {
-  if (i.wacc <= i.terminalGrowth) throw new Error("WACC must exceed terminal growth");
+  const problem = validateDcfInputs(i);
+  if (problem) throw new DcfInputError(problem);
   const n = i.growth.length;
   const years: DcfYear[] = [];
   let revenue = i.baseRevenue;
@@ -183,6 +215,7 @@ export function runDcf(i: DcfInputs, baseYear = 2025): DcfResult {
   const tv = (last.fcff * (1 + i.terminalGrowth)) / (i.wacc - i.terminalGrowth);
   const pvTv = tv * last.discountFactor;
   const ev = sumPv + pvTv;
+  if (!fin(ev) || !fin(tv)) throw new DcfInputError("These inputs produce a value that cannot be computed. Check the assumptions.");
   const b = i.bridge;
   const equity = ev - b.debtInclLeases + b.cash + b.equityMethodInvestments - b.pensionDeficit - b.nonControllingInterests;
   return {

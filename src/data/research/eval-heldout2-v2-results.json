@@ -12,7 +12,13 @@
    "n": 24,
    "hitAt1": "12/24",
    "hitAt5": "19/24",
-   "refusedWrongly": "1/24"
+   "refusedWrongly": "1/24",
+   "topPassageContainsGoldAnswer": "10/24",
+   "evidenceHitButAnswerNotSupported": [
+    "K08",
+    "K13",
+    "K19"
+   ]
   },
   "calculation": {
    "n": 0,
@@ -36,6 +42,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -44,6 +51,7 @@
    "q": "How much leased-asset value did Novartis add during 2025?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: novartis #966 10. Right-of-use assets and lease liabilities"
   },
   {
@@ -61,6 +69,7 @@
    "outcome": "hit@3",
    "pass": false,
    "rank": 3,
+   "supported": true,
    "detail": ""
   },
   {
@@ -70,6 +79,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -78,6 +88,7 @@
    "q": "Where does AstraZeneca record grant money received before the costs it covers?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: astrazeneca #310 Group Accounting Policies"
   },
   {
@@ -87,6 +98,7 @@
    "outcome": "hit@3",
    "pass": false,
    "rank": 3,
+   "supported": false,
    "detail": ""
   },
   {
@@ -96,6 +108,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -105,6 +118,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -114,6 +128,7 @@
    "outcome": "hit@3",
    "pass": false,
    "rank": 3,
+   "supported": false,
    "detail": ""
   },
   {
@@ -122,6 +137,7 @@
    "q": "How much money has GSK committed to investments?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: gsk #885 Financial instruments › Other investments"
   },
   {
@@ -130,6 +146,7 @@
    "q": "What did the mid-stage trial of N6LS show?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: gsk #171 Accelerating innovation in our pipeline › Accelerating clinical trials"
   }
  ],
@@ -141,6 +158,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -150,6 +168,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -159,6 +178,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -168,6 +188,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -176,6 +197,7 @@
    "q": "How much leased-asset value did Novartis add during 2025?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: novartis #966 10. Right-of-use assets and lease liabilities"
   },
   {
@@ -185,6 +207,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -202,6 +225,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": false,
    "detail": ""
   },
   {
@@ -211,6 +235,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -220,6 +245,7 @@
    "outcome": "hit@3",
    "pass": false,
    "rank": 3,
+   "supported": true,
    "detail": ""
   },
   {
@@ -229,6 +255,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -238,6 +265,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -247,6 +275,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": false,
    "detail": ""
   },
   {
@@ -255,6 +284,7 @@
    "q": "Where does AstraZeneca record grant money received before the costs it covers?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: astrazeneca #310 Group Accounting Policies"
   },
   {
@@ -264,6 +294,7 @@
    "outcome": "hit@3",
    "pass": false,
    "rank": 3,
+   "supported": false,
    "detail": ""
   },
   {
@@ -273,6 +304,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -282,6 +314,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -291,6 +324,7 @@
    "outcome": "hit@3",
    "pass": false,
    "rank": 3,
+   "supported": false,
    "detail": ""
   },
   {
@@ -300,6 +334,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": false,
    "detail": ""
   },
   {
@@ -309,6 +344,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -317,6 +353,7 @@
    "q": "How much money has GSK committed to investments?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: gsk #885 Financial instruments › Other investments"
   },
   {
@@ -326,6 +363,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -334,6 +372,7 @@
    "q": "What did the mid-stage trial of N6LS show?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: gsk #171 Accelerating innovation in our pipeline › Accelerating clinical trials"
   },
   {
@@ -343,6 +382,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {

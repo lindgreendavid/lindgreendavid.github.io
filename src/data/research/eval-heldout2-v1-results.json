@@ -12,7 +12,9 @@
    "n": 24,
    "hitAt1": "2/24",
    "hitAt5": "5/24",
-   "refusedWrongly": "19/24"
+   "refusedWrongly": "19/24",
+   "topPassageContainsGoldAnswer": "2/24",
+   "evidenceHitButAnswerNotSupported": []
   },
   "calculation": {
    "n": 0,
@@ -124,6 +126,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -165,6 +168,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -190,6 +194,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -313,6 +318,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -354,6 +360,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -379,6 +386,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -396,6 +404,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -413,6 +422,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {

@@ -12,7 +12,9 @@
    "n": 17,
    "hitAt1": "1/17",
    "hitAt5": "2/17",
-   "refusedWrongly": "15/17"
+   "refusedWrongly": "15/17",
+   "topPassageContainsGoldAnswer": "1/17",
+   "evidenceHitButAnswerNotSupported": []
   },
   "calculation": {
    "n": 0,
@@ -116,6 +118,7 @@
    "outcome": "hit@5",
    "pass": false,
    "rank": 5,
+   "supported": false,
    "detail": ""
   },
   {
@@ -207,6 +210,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -264,6 +268,7 @@
    "outcome": "hit@5",
    "pass": false,
    "rank": 5,
+   "supported": false,
    "detail": ""
   },
   {

@@ -1,6 +1,6 @@
 // Browser behaviour for the research assistant page. Filing text is untrusted: it is only ever inserted as text nodes, never as HTML.
 import type { Dataset } from "../pharma/model.ts";
-import { ask2 } from "./ask2.ts";
+import { ask21 } from "./ask2.ts";
 import type { Answer2 } from "./ask2.ts";
 import { companiesIn } from "./calc.ts";
 import { tokenize } from "./search.ts";
@@ -111,7 +111,7 @@ export function initResearch(ds: Dataset, filings: FilingInfo) {
     try {
       const ix = await load();
       const t0 = performance.now();
-      const answer = ask2(q, ix, ds);
+      const answer = ask21(q, ix, ds);
       status.textContent = "";
       render(out, answer, q, filings, Math.round(performance.now() - t0));
     } catch (e) {

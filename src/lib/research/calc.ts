@@ -91,6 +91,8 @@ export function calculate(q: string, ds: Dataset): CalcAnswer | null {
   if (rows.some((r) => r.raw === undefined || !Number.isFinite(r.raw))) return null;
   const rowsOut = rows.map((r) => ({ company: COMPANIES[r.company].name, raw: r.raw as number, value: fmt(metric, r.raw as number, "USD ") }));
   const steps = [`Metric: ${metric.label} = ${metric.how}.`, mode === "local" ? `Basis: FY${year}, reconciled dataset; growth in each company's reporting currency (Novartis and AstraZeneca USD, GSK GBP).` : `Basis: FY${year}, reconciled dataset; money in US dollars (GSK translated at ECB reference rates).`];
+  if (["cfo", "fcfPpe", "fcfAfterIntangibles", "cashConversion"].includes(metric.key)) steps.push("Caveat: IFRS companies classify interest and dividend cash flows differently inside or outside operating cash flow, and this is not normalised, so cross-company cash-flow comparisons are approximate.");
+  if (metric.key === "netDebt") steps.push("Caveat: GSK's own reported net debt is GBP 14,453m, which also counts GBP 139m of held-for-sale lease liabilities and deducts GBP 9m of liquid investments; this tool uses the project definition (borrowings less cash).");
   let text: string;
   if (!compare) {
     const c = subjects[0];

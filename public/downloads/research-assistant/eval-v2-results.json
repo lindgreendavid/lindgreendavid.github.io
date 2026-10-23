@@ -12,7 +12,9 @@
    "n": 19,
    "hitAt1": "8/19",
    "hitAt5": "14/19",
-   "refusedWrongly": "0/19"
+   "refusedWrongly": "0/19",
+   "topPassageContainsGoldAnswer": "9/19",
+   "evidenceHitButAnswerNotSupported": []
   },
   "calculation": {
    "n": 10,
@@ -35,6 +37,7 @@
    "q": "Where are AstraZeneca's principal executive offices located?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: astrazeneca #240 ITEM 16G. CORPORATE GOVERNANCE"
   },
   {
@@ -44,6 +47,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -53,6 +57,7 @@
    "outcome": "hit@5",
    "pass": false,
    "rank": 5,
+   "supported": false,
    "detail": ""
   },
   {
@@ -62,6 +67,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -70,6 +76,7 @@
    "q": "In which jurisdiction is AstraZeneca incorporated?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: astrazeneca #266 ITEM 19. EXHIBITS(1)"
   },
   {
@@ -78,6 +85,7 @@
    "q": "What were Novartis net sales in the US in 2025?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: novartis #265 Net sales from continuing operations › Neuroscience"
   },
   {
@@ -86,6 +94,7 @@
    "q": "Which GSK vaccine had another record year?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: gsk #142 benefits of shingles vaccination"
   },
   {
@@ -95,6 +104,7 @@
    "outcome": "hit@3",
    "pass": false,
    "rank": 3,
+   "supported": false,
    "detail": ""
   },
   {
@@ -104,6 +114,7 @@
    "outcome": "hit@4",
    "pass": false,
    "rank": 4,
+   "supported": true,
    "detail": ""
   },
   {
@@ -113,6 +124,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -121,6 +133,7 @@
    "q": "Which audit firm does GSK use?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: gsk #611 Financial"
   },
   {
@@ -155,6 +168,7 @@
    "q": "Where are AstraZeneca's principal executive offices located?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: astrazeneca #240 ITEM 16G. CORPORATE GOVERNANCE"
   },
   {
@@ -164,6 +178,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -173,6 +188,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -182,6 +198,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -191,6 +208,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -200,6 +218,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -209,6 +228,7 @@
    "outcome": "hit@5",
    "pass": false,
    "rank": 5,
+   "supported": false,
    "detail": ""
   },
   {
@@ -218,6 +238,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -226,6 +247,7 @@
    "q": "In which jurisdiction is AstraZeneca incorporated?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: astrazeneca #266 ITEM 19. EXHIBITS(1)"
   },
   {
@@ -235,6 +257,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -244,6 +267,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -253,6 +277,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -262,6 +287,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -270,6 +296,7 @@
    "q": "What were Novartis net sales in the US in 2025?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: novartis #265 Net sales from continuing operations › Neuroscience"
   },
   {
@@ -278,6 +305,7 @@
    "q": "Which GSK vaccine had another record year?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: gsk #142 benefits of shingles vaccination"
   },
   {
@@ -287,6 +315,7 @@
    "outcome": "hit@3",
    "pass": false,
    "rank": 3,
+   "supported": false,
    "detail": ""
   },
   {
@@ -296,6 +325,7 @@
    "outcome": "hit@4",
    "pass": false,
    "rank": 4,
+   "supported": true,
    "detail": ""
   },
   {
@@ -305,6 +335,7 @@
    "outcome": "hit@2",
    "pass": false,
    "rank": 2,
+   "supported": false,
    "detail": ""
   },
   {
@@ -313,6 +344,7 @@
    "q": "Which audit firm does GSK use?",
    "outcome": "miss",
    "pass": false,
+   "supported": false,
    "detail": "top: gsk #611 Financial"
   },
   {

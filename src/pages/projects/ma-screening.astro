@@ -14,6 +14,7 @@ const n = Object.keys(data.companies).length;
 const initial = defaultOutput(data, n);
 const v = validation;
 const cmp = compareBriefs(data);
+const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true });
 ---
 <Base title="M&A Screening Workbench | David Lindgreen" description="A preliminary screening of US-listed pharma and biotech companies against a hypothetical buyer brief, with adjustable weights, data-gap flags, ranking sensitivity and a screening memo. Screening only; first release.">
   <ProjectHeader current="projects" />
@@ -71,6 +72,7 @@ const cmp = compareBriefs(data);
           </div>
           <label class="switch"><input type="checkbox" id="req-profit" name="req-profit" checked={DEFAULT_FILTERS.requireProfitable} /> <span>Require positive FY2025 operating income</span></label>
           <label class="switch"><input type="checkbox" id="incl-royalty" name="incl-royalty" checked /> <span>Count royalty-financing obligations as debt</span></label>
+          <label class="switch"><input type="checkbox" id="excl-oneoffs" name="excl-oneoffs" /> <span>Illustrative: remove identified one-off licence revenue (PTC, BioCryst)</span></label>
           <div class="field">
             <label for="policy">When a criterion has no data</label>
             <select id="policy" name="policy"><option value="renormalize">Drop it and rescale the other weights (flagged)</option><option value="zero">Score it 0 (pessimistic)</option></select>
@@ -87,7 +89,7 @@ const cmp = compareBriefs(data);
           <h3 style="margin-top:0">How to read the result</h3>
           <ul>
             <li><strong>Score</strong> is a weighted average of the criterion scores (0 to 100).</li>
-            <li><strong>Rank range</strong> and <strong>in top 5</strong> come from 1,000 random re-weightings in which each weight is multiplied by a random factor of roughly 0.6 to 1.65. A narrow range and a high share mean the position does not depend on the exact weights.</li>
+            <li><strong>Rank range</strong> and <strong>in top 5</strong> come from 1,000 random re-weightings in which each weight is multiplied by a lognormal factor exp(0.5 Z), where Z is standard normal (about 68% lie between 0.61 and 1.65; these are not bounds). A narrow range and a high share mean the position does not depend on the exact weights.</li>
             <li><strong>Data flags</strong> say what is missing or needs a human look. Flags are not penalties.</li>
             <li>Companies are never ranked on numbers that were not found: missing data is flagged, then handled by the policy you choose.</li>
             <li><strong>Net debt</strong> includes royalty-financing obligations (sold future royalties) by default, because they are debt-like. Switch that off to see the effect: PTC Therapeutics carries $2.3bn of them.</li>
@@ -111,12 +113,12 @@ const cmp = compareBriefs(data);
         <div class="tbl-wrap" role="region" aria-label="Top five under three briefs, scrolls horizontally on small screens" tabindex="0">
           <table class="tbl">
             <caption class="sr">Top five companies under three hypothetical briefs</caption>
-            <thead><tr><th scope="col">Brief</th><th scope="col">Companies passing</th><th scope="col">Top five, best first</th></tr></thead>
-            <tbody>{cmp.results.map((r) => <tr><th scope="row">{r.brief.id}. {r.brief.name}<br /><span class="muted">{r.brief.summary}</span></th><td class="num">{r.passed}</td><td>{r.top.map((t) => t.ticker).join(", ")}</td></tr>)}</tbody>
+            <thead><tr><th scope="col">Brief</th><th scope="col">Companies passing</th><th scope="col">Top five as reported, best first</th><th scope="col">Top five with identified one-off revenue removed (illustrative)</th></tr></thead>
+            <tbody>{cmp.results.map((r, k) => <tr><th scope="row">{r.brief.id}. {r.brief.name}<br /><span class="muted">{r.brief.summary}</span></th><td class="num">{r.passed}</td><td>{r.top.map((t) => t.ticker).join(", ")}</td><td>{cmpAdj.results[k].top.map((t) => t.ticker).join(", ")}</td></tr>)}</tbody>
           </table>
         </div>
-        <p style="margin-top:0.75rem"><strong>In the top five under all three:</strong> {cmp.inAll.join(", ") || "none"}.{cmp.inMajority.length ? <> <strong>In two of three:</strong> {cmp.inMajority.join(", ")}.</> : null}</p>
-        <p class="muted">These three briefs were all written by the author and differ only in weights and filters, so this tests the weights, not the criteria or anchors. A brief written independently by someone else would be a harder test. Reported figures include one-off items (for example a $998m licence payment in PTC Therapeutics' revenue), which flatter several of the companies that stay on top.</p>
+        <p style="margin-top:0.75rem"><strong>As reported, in the top five under all three:</strong> {cmp.inAll.join(", ") || "none"}.{cmp.inMajority.length ? <> <strong>In two of three:</strong> {cmp.inMajority.join(", ")}.</> : null} <strong>With the identified one-off licence revenue removed:</strong> {cmpAdj.inAll.join(", ") || "none"} in all three{cmpAdj.inMajority.length ? <>, {cmpAdj.inMajority.join(", ")} in two</> : null}. BioCryst and PTC Therapeutics lead the reported ranking partly because of one-off licence revenue (about $244m and $998m); take it out and the default top five changes (PTC Therapeutics then shows an operating loss and drops out through the profit filter).</p>
+        <p class="muted">These three briefs were all written by the author and differ only in weights and filters, so this tests the weights, not the criteria or anchors. A brief written independently by someone else would be a harder test. The adjustment is illustrative: it subtracts the item from revenue, operating income and operating cash flow as if it had no related cost, which is not a company-reported measure.</p>
       </div>
     </section>
 
@@ -134,19 +136,23 @@ const cmp = compareBriefs(data);
       <div class="section-head"><h2 id="ev-h">Evidence and validation</h2><p>Retrieved {ds.generated} (debt amounts read 2026-10-21) from the SEC's XBRL company-facts feed.</p></div>
       <div class="pane">
         <div class="checks">
-          <div><h3>{v.totals.passed} / {v.totals.checks}</h3><p>automated checks pass: fiscal-year dates, one filing per company for the core figures, sign and size sanity.</p></div>
-          <div><h3>{v.totals.filingTextPassed} / {v.totals.filingTextChecks}</h3><p>FY2025 figures found, as printed, in the company's Form 10-K text. This catches mis-scaled or wrong-period values.</p></div>
-          <div><h3>{bsValidation.passed} / {bsValidation.total}</h3><p>checks on debt read from the balance sheets: each amount is found in the 10-K text, and companies recorded as having no borrowings show no debt line.</p></div>
+          <div><h3>{v.totals.passed} / {v.totals.checks}</h3><p>automated checks pass: fiscal-year dates, one filing per company for the core figures, sign and size sanity, share counts, and that each D&amp;A is not below the separately tagged intangible amortisation. {v.totals.filingTextPassed} of them (next box) are the figure-in-filing checks, so the boxes overlap.</p></div>
+          <div><h3>{v.totals.filingTextPassed} / {v.totals.filingTextChecks}</h3><p>of those checks find an FY2025 figure or cover-page share count, as printed, in the company's Form 10-K text. This catches mis-scaled or wrong-period values, not wrong classifications.</p></div>
+          <div><h3>{bsValidation.passed} / {bsValidation.total}</h3><p>separate checks on figures read by hand from the 10-Ks (debt, D&amp;A, one-off revenue): each text snippet is found in the filing and the totals add up. These are in addition to the box above.</p></div>
         </div>
         <div class="prose">
           <h3>What this does and does not show</h3>
           <ul>
-            <li>21 unit tests cover the scoring, filters, royalty-debt and market-cap maths, missing-data handling and sensitivity logic, including hand-computed cases.</li>
+            <li>30 unit tests cover the scoring, filters, royalty-debt, market-cap and one-off maths, missing-data handling, sensitivity logic, D&amp;A history and download consistency, including hand-computed cases.</li>
+            <li><strong>These counts passed while two real errors existed.</strong> An external technical check found that FY2025 depreciation and amortisation for Halozyme and Jazz omitted separately reported intangible amortisation (each number was in the filing, so presence checks passed). Both are fixed for all years and a new check compares every company-year; presence in the filing is not proof of the right classification.</li>
             <li>The text check shows a figure is printed in the filing. It does not prove the right line was chosen; the tag used for every figure is in the download.</li>
             <li>Not checked against the filing text: {v.uncheckedAgainstFilingText.join(", ") || "none"} (10-K not downloaded). Sums of several tags (for example debt) are listed rather than searched.</li>
-            <li>Debt: standard tags missed borrowings or debt-like items at several companies. For nine companies the amounts were read from the 10-K balance sheet and are re-checked by script: Ironwood's revolver and convertible notes ($585m), Ligand's convertible notes ($446m), PTC Therapeutics' convertible notes ($287m) and $2.3bn of sold royalties, BioCryst's $466m of royalty financing, Ardelyx's $26m deferred royalty obligation, and no borrowings at Supernus, Corcept, Vanda, Acadia, Exelixis, Neurocrine and Kiniksa. Operating and finance leases are not counted as debt.</li>
+            <li>Debt: standard tags missed borrowings or debt-like items at several companies. The policy is the balance-sheet carrying amount (net of unamortised discount and issuance costs, current plus non-current, no operating leases), not principal; BioMarin's tagged $600m was principal and is now its $597.176m carrying amount. For twelve companies the amounts were read from the 10-K balance sheet and are re-checked by script: Ironwood's revolver and convertible notes ($585m), Ligand's convertible notes ($446m), PTC Therapeutics' convertible notes ($287m) and $2.3bn of sold royalties, BioCryst's $466m of royalty financing, Ardelyx's $203m debt plus $26m deferred royalty obligation, and no borrowings at Supernus, Corcept, Vanda, Acadia, Exelixis, Neurocrine and Kiniksa. Operating and finance leases are not counted as debt.</li>
             <li>Share counts come from each 10-K cover page (SEC XBRL cover data; Ani Pharmaceuticals and Kiniksa read from the cover text). They exclude options, restricted units and convertible notes, so market capitalisation from them is approximate.</li>
-            <li>Figures are as reported under US GAAP and include one-off items such as licence or milestone revenue. Margins of 40% or more and growth of 40% or more are flagged for that reason.</li>
+            <li>Collegium shows no separate R&amp;D line. That does not prove R&amp;D is zero, so it is treated as missing and flagged (before, it was set to zero; its default rank moved from 14th to 9th when that changed).</li>
+            <li><strong>Kinds of numbers on this page.</strong> <em>Reported:</em> figures printed in the 10-Ks. <em>Derived:</em> ratios and EBITDA (operating income plus depreciation and amortisation, which is not a company-adjusted EBITDA and still contains exceptional items). <em>Adjusted:</em> only the switch that removes identified one-off licence revenue, which is illustrative and off by default. <em>Illustrative assumptions:</em> the buyer brief, scoring anchors, weights and the three briefs.</li>
+            <li>Identified one-off revenue (verified in the 10-K text): PTC Therapeutics $998m of collaboration and licence revenue (principally the Novartis upfront payment) and BioCryst $244m of licence revenue. Removing them as if they had no cost takes both out of the default top five (PTC Therapeutics then fails the profit filter).</li>
+            <li>Figures are as reported under US GAAP. Margins of 40% or more and growth of 40% or more are flagged for possible one-offs beyond the two identified items.</li>
             <li>Fiscal years: Exelixis uses a 52/53-week year; FY2025 ends 2 January 2026.</li>
           </ul>
         </div>
@@ -190,6 +196,7 @@ const cmp = compareBriefs(data);
         <div class="pane prose">
           <h3 style="margin-top:0">Next steps</h3>
           <ul>
+            <li>Read the notes of every top-ranked company for further one-off items (acquired IPR&amp;D, impairments, disposals).</li>
             <li>Add a licensed or redistributable price source so valuation does not depend on pasted prices.</li>
             <li>Use diluted share counts (options, restricted units, convertible notes) for market capitalisation.</li>
             <li>Add product concentration and patent-expiry data from the filings.</li>

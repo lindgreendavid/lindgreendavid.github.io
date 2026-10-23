@@ -1,10 +1,11 @@
 {
  "generated": "2026-10-23",
+ "note": "Correct-answer counts are overlapping views of the same questions: 'all correct' includes lookups, calculations and refusals; 'right passage first' counts lookups whose first passage contains the gold evidence string; 'first passage contains the gold answer' is a separate, weaker word-overlap heuristic, not a semantic judgement.",
  "sets": [
   {
    "id": "dev",
-   "name": "Development set",
-   "note": "Used while building v1; optimistic for v1.",
+   "name": "Development set (41)",
+   "note": "Used while building v1.",
    "v1": {
     "questions": 41,
     "overall": "31/41",
@@ -12,9 +13,9 @@
     "top1": "10/19",
     "top5": "16/19",
     "refusedWrongly": "1/19",
+    "answerInTop1": "11/19",
     "unanswerable": "7/8",
-    "unanswerableN": 8,
-    "calc": "10/10, 4/4"
+    "unanswerableN": 8
    },
    "v2": {
     "questions": 41,
@@ -23,11 +24,22 @@
     "top1": "8/19",
     "top5": "14/19",
     "refusedWrongly": "0/19",
+    "answerInTop1": "9/19",
     "unanswerable": "5/8",
-    "unanswerableN": 8,
-    "calc": "10/10, 4/4"
+    "unanswerableN": 8
    },
-   "failuresV2": [
+   "v21": {
+    "questions": 41,
+    "overall": "28/41",
+    "lookupN": 19,
+    "top1": "8/19",
+    "top5": "14/19",
+    "refusedWrongly": "0/19",
+    "answerInTop1": "9/19",
+    "unanswerable": "6/8",
+    "unanswerableN": 8
+   },
+   "failuresV21": [
     {
      "id": "L01",
      "outcome": "miss",
@@ -92,18 +104,13 @@
      "id": "U07",
      "outcome": "answered (passages)",
      "q": "What was the temperature in Basel on 3 February 2026?"
-    },
-    {
-     "id": "U08",
-     "outcome": "answered (passages)",
-     "q": "What is the capital of Switzerland?"
     }
    ]
   },
   {
    "id": "h1",
-   "name": "Held-out set 1",
-   "note": "Run once on frozen v1; questions written close to the filing wording.",
+   "name": "Held-out set 1 (26)",
+   "note": "Run once on frozen v1; questions close to the filing wording.",
    "v1": {
     "questions": 26,
     "overall": "23/26",
@@ -111,9 +118,9 @@
     "top1": "12/14",
     "top5": "12/14",
     "refusedWrongly": "1/14",
+    "answerInTop1": "11/14",
     "unanswerable": "6/7",
-    "unanswerableN": 7,
-    "calc": "4/4, 1/1"
+    "unanswerableN": 7
    },
    "v2": {
     "questions": 26,
@@ -122,11 +129,22 @@
     "top1": "13/14",
     "top5": "14/14",
     "refusedWrongly": "0/14",
+    "answerInTop1": "12/14",
     "unanswerable": "5/7",
-    "unanswerableN": 7,
-    "calc": "4/4, 1/1"
+    "unanswerableN": 7
    },
-   "failuresV2": [
+   "v21": {
+    "questions": 26,
+    "overall": "23/26",
+    "lookupN": 14,
+    "top1": "13/14",
+    "top5": "14/14",
+    "refusedWrongly": "0/14",
+    "answerInTop1": "12/14",
+    "unanswerable": "5/7",
+    "unanswerableN": 7
+   },
+   "failuresV21": [
     {
      "id": "H03",
      "outcome": "hit@5",
@@ -146,8 +164,8 @@
   },
   {
    "id": "h2",
-   "name": "Held-out set 2 (paraphrased)",
-   "note": "Written before v2. Used to design and tune v2, so it is v2's development set.",
+   "name": "Held-out set 2, paraphrased (30)",
+   "note": "Written before v2; used to design and tune v2, so it is v2's development set.",
    "v1": {
     "questions": 30,
     "overall": "7/30",
@@ -155,9 +173,9 @@
     "top1": "2/24",
     "top5": "5/24",
     "refusedWrongly": "19/24",
+    "answerInTop1": "2/24",
     "unanswerable": "5/6",
-    "unanswerableN": 6,
-    "calc": "0/0, 0/0"
+    "unanswerableN": 6
    },
    "v2": {
     "questions": 30,
@@ -166,11 +184,22 @@
     "top1": "12/24",
     "top5": "19/24",
     "refusedWrongly": "1/24",
+    "answerInTop1": "10/24",
     "unanswerable": "6/6",
-    "unanswerableN": 6,
-    "calc": "0/0, 0/0"
+    "unanswerableN": 6
    },
-   "failuresV2": [
+   "v21": {
+    "questions": 30,
+    "overall": "18/30",
+    "lookupN": 24,
+    "top1": "12/24",
+    "top5": "19/24",
+    "refusedWrongly": "1/24",
+    "answerInTop1": "10/24",
+    "unanswerable": "6/6",
+    "unanswerableN": 6
+   },
+   "failuresV21": [
     {
      "id": "K02",
      "outcome": "hit@2",
@@ -235,8 +264,8 @@
   },
   {
    "id": "h3",
-   "name": "Held-out set 3 (blind, paraphrased)",
-   "note": "Written before v2 was designed; run once on frozen v1 and once on frozen v2.",
+   "name": "Held-out set 3, paraphrased (21)",
+   "note": "Written before v2 was designed and run once per engine. Its failures have since been seen by external reviewers, so it is no longer an untouched test for anything built next.",
    "v1": {
     "questions": 21,
     "overall": "4/21",
@@ -244,9 +273,9 @@
     "top1": "1/17",
     "top5": "2/17",
     "refusedWrongly": "15/17",
+    "answerInTop1": "1/17",
     "unanswerable": "3/4",
-    "unanswerableN": 4,
-    "calc": "0/0, 0/0"
+    "unanswerableN": 4
    },
    "v2": {
     "questions": 21,
@@ -255,11 +284,22 @@
     "top1": "6/17",
     "top5": "9/17",
     "refusedWrongly": "5/17",
+    "answerInTop1": "5/17",
     "unanswerable": "4/4",
-    "unanswerableN": 4,
-    "calc": "0/0, 0/0"
+    "unanswerableN": 4
    },
-   "failuresV2": [
+   "v21": {
+    "questions": 21,
+    "overall": "10/21",
+    "lookupN": 17,
+    "top1": "6/17",
+    "top5": "9/17",
+    "refusedWrongly": "5/17",
+    "answerInTop1": "5/17",
+    "unanswerable": "4/4",
+    "unanswerableN": 4
+   },
+   "failuresV21": [
     {
      "id": "M01",
      "outcome": "hit@2",
@@ -314,6 +354,101 @@
      "id": "M18",
      "outcome": "refused (weak-evidence)",
      "q": "How does AstraZeneca view the strength of its tax positions on cross-border pricing between group companies?"
+    }
+   ]
+  },
+  {
+   "id": "h4",
+   "name": "Set 4, paraphrased plus scope probes (24)",
+   "note": "Written by Claude on 2026-10-23 before v2.1 existed in evaluated form; run once on each engine. The only test written for v2.1; now also observed.",
+   "v1": {
+    "questions": 24,
+    "overall": "8/24",
+    "lookupN": 14,
+    "top1": "2/14",
+    "top5": "4/14",
+    "refusedWrongly": "10/14",
+    "answerInTop1": "2/14",
+    "unanswerable": "6/10",
+    "unanswerableN": 10
+   },
+   "v2": {
+    "questions": 24,
+    "overall": "8/24",
+    "lookupN": 14,
+    "top1": "4/14",
+    "top5": "7/14",
+    "refusedWrongly": "5/14",
+    "answerInTop1": "4/14",
+    "unanswerable": "4/10",
+    "unanswerableN": 10
+   },
+   "v21": {
+    "questions": 24,
+    "overall": "13/24",
+    "lookupN": 14,
+    "top1": "4/14",
+    "top5": "7/14",
+    "refusedWrongly": "5/14",
+    "answerInTop1": "4/14",
+    "unanswerable": "9/10",
+    "unanswerableN": 10
+   },
+   "failuresV21": [
+    {
+     "id": "N01",
+     "outcome": "hit@3",
+     "q": "After the first year of the three-year performance cycle, where did Novartis rank among healthcare peers on shareholder return?"
+    },
+    {
+     "id": "N03",
+     "outcome": "refused (weak-evidence)",
+     "q": "What kind of business does Novartis disclose having in Iran?"
+    },
+    {
+     "id": "N04",
+     "outcome": "refused (forecast)",
+     "q": "How does AstraZeneca decide how long a newly launched product will remain useful commercially?"
+    },
+    {
+     "id": "N05",
+     "outcome": "refused (weak-evidence)",
+     "q": "For which medicine did AstraZeneca book 100 million dollars of partnership income in 2024 and none in 2025?"
+    },
+    {
+     "id": "N06",
+     "outcome": "hit@2",
+     "q": "Which generic maker took on a Lynparza patent in Canada in August 2025?"
+    },
+    {
+     "id": "N07",
+     "outcome": "miss",
+     "q": "Does AstraZeneca book deferred tax for the global minimum tax rules?"
+    },
+    {
+     "id": "N10",
+     "outcome": "refused (weak-evidence)",
+     "q": "How many American depositary share awards were still outstanding at GSK at the end of 2025?"
+    },
+    {
+     "id": "N12",
+     "outcome": "refused (weak-evidence)",
+     "q": "Apart from the product itself, what else can Novartis's patents protect?"
+    },
+    {
+     "id": "N13",
+     "outcome": "hit@4",
+     "q": "What was the Novartis year-end share price in 2025 in Swiss francs?"
+    },
+    {
+     "id": "N14",
+     "outcome": "miss",
+     "q": "What was the highest Novartis share price in 2025 in Swiss francs?"
+    },
+    {
+     "id": "NU8",
+     "outcome": "answered (passages)",
+     "q": "What is the best treatment for shingles?"
     }
    ]
   }

@@ -1,8 +1,8 @@
 {
  "generated": "2026-10-23",
  "totals": {
-  "checks": 366,
-  "passed": 366,
+  "checks": 437,
+  "passed": 437,
   "failed": 0,
   "filingTextChecks": 199,
   "filingTextPassed": 199
@@ -2216,6 +2216,432 @@
    "check": "FY2022 revenue period ends in 2022 or the first days of 2023",
    "ok": true,
    "detail": "2022-12-31"
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2022 D&A (629.5m) is not below the separate intangible amortisation (599.2m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2023 D&A (638.7m) is not below the separate intangible amortisation (608.3m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2024 D&A (660.1m) is not below the separate intangible amortisation (627.3m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2025 D&A (696.3m) is not below the separate intangible amortisation (654.7m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2022 D&A (85.5m) is not below the separate intangible amortisation (82.6m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2023 D&A (84.9m) is not below the separate intangible amortisation (82.4m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2024 D&A (80.4m) is not below the separate intangible amortisation (78.0m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2025 D&A (91.6m) is not below the separate intangible amortisation (89.5m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HALO",
+   "check": "FY2022 D&A (49.6m) is not below the separate intangible amortisation (43.1m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HALO",
+   "check": "FY2023 D&A (84.9m) is not below the separate intangible amortisation (73.8m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HALO",
+   "check": "FY2024 D&A (81.3m) is not below the separate intangible amortisation (71.0m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 D&A (88.1m) is not below the separate intangible amortisation (76.7m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2022 D&A (24.8m) is not below the separate intangible amortisation (1.0m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2023 D&A (38.0m) is not below the separate intangible amortisation (12.8m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2024 D&A (53.0m) is not below the separate intangible amortisation (24.7m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 D&A (56.7m) is not below the separate intangible amortisation (25.0m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2022 D&A (91.5m) is not below the separate intangible amortisation (57.3m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2023 D&A (75.6m) is not below the separate intangible amortisation (57.3m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2024 D&A (78.8m) is not below the separate intangible amortisation (57.3m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 D&A (91.0m) is not below the separate intangible amortisation (57.3m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "COLL",
+   "check": "FY2023 D&A (149.3m) is not below the separate intangible amortisation (145.8m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "COLL",
+   "check": "FY2024 D&A (169.2m) is not below the separate intangible amortisation (165.3m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "COLL",
+   "check": "FY2025 D&A (226.1m) is not below the separate intangible amortisation (221.9m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2022 D&A (57.0m) is not below the separate intangible amortisation (49.5m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2023 D&A (59.8m) is not below the separate intangible amortisation (52.3m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2024 D&A (67.7m) is not below the separate intangible amortisation (60.3m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 D&A (91.4m) is not below the separate intangible amortisation (82.5m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2022 D&A (23.4m) is not below the separate intangible amortisation (23.0m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2023 D&A (24.4m) is not below the separate intangible amortisation (23.8m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2024 D&A (24.1m) is not below the separate intangible amortisation (23.8m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 D&A (25.3m) is not below the separate intangible amortisation (23.8m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 D&A (40.2m) is not below the separate intangible amortisation (26.3m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2022 D&A (2.7m) is not below the separate intangible amortisation (1.5m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2023 D&A (3.0m) is not below the separate intangible amortisation (2.1m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2024 D&A (8.1m) is not below the separate intangible amortisation (7.3m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2025 D&A (8.1m) is not below the separate intangible amortisation (7.0m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2022 D&A (240.2m) is not below the separate intangible amortisation (172.1m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2023 D&A (229.4m) is not below the separate intangible amortisation (163.2m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2024 D&A (236.2m) is not below the separate intangible amortisation (173.6m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2025 D&A (223.6m) is not below the separate intangible amortisation (166.3m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2023 D&A (5.6m) is not below the separate intangible amortisation (4.1m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2024 D&A (15.9m) is not below the separate intangible amortisation (15.0m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2025 D&A (11.8m) is not below the separate intangible amortisation (10.9m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2023 D&A (21.3m) is not below the separate intangible amortisation (3.5m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2024 D&A (27.1m) is not below the separate intangible amortisation (3.6m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2025 D&A (30.1m) is not below the separate intangible amortisation (4.1m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2022 D&A (47.9m) is not below the separate intangible amortisation (33.2m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2023 D&A (60.0m) is not below the separate intangible amortisation (46.4m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2024 D&A (64.6m) is not below the separate intangible amortisation (43.8m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2025 D&A (70.1m) is not below the separate intangible amortisation (47.1m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2022 D&A (6.4m) is not below the separate intangible amortisation (0.7m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2023 D&A (7.6m) is not below the separate intangible amortisation (0.7m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2022 D&A (128.8m) is not below the separate intangible amortisation (116.6m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2023 D&A (236.6m) is not below the separate intangible amortisation (222.6m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2024 D&A (75.7m) is not below the separate intangible amortisation (60.7m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 D&A (38.8m) is not below the separate intangible amortisation (24.7m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2023 D&A (1.2m) is not below the separate intangible amortisation (1.1m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2024 D&A (2.2m) is not below the separate intangible amortisation (2.1m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 D&A (2.4m) is not below the separate intangible amortisation (2.4m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "OGN",
+   "check": "FY2022 D&A (212.0m) is not below the separate intangible amortisation (116.0m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "OGN",
+   "check": "FY2023 D&A (236.0m) is not below the separate intangible amortisation (116.0m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "OGN",
+   "check": "FY2024 D&A (277.0m) is not below the separate intangible amortisation (145.0m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "OGN",
+   "check": "FY2025 D&A (361.0m) is not below the separate intangible amortisation (205.0m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2022 D&A (338.6m) is not below the separate intangible amortisation (252.4m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2023 D&A (359.5m) is not below the separate intangible amortisation (265.8m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2024 D&A (325.9m) is not below the separate intangible amortisation (228.5m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 D&A (337.5m) is not below the separate intangible amortisation (222.7m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BMRN",
+   "check": "FY2022 D&A (102.0m) is not below the separate intangible amortisation (67.2m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BMRN",
+   "check": "FY2023 D&A (104.4m) is not below the separate intangible amortisation (62.2m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BMRN",
+   "check": "FY2024 D&A (96.4m) is not below the separate intangible amortisation (43.3m)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BMRN",
+   "check": "FY2025 D&A (79.6m) is not below the separate intangible amortisation (19.4m)",
+   "ok": true,
+   "detail": ""
   }
  ],
  "notes": [

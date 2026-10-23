@@ -12,7 +12,11 @@
    "n": 14,
    "hitAt1": "13/14",
    "hitAt5": "14/14",
-   "refusedWrongly": "0/14"
+   "refusedWrongly": "0/14",
+   "topPassageContainsGoldAnswer": "12/14",
+   "evidenceHitButAnswerNotSupported": [
+    "H12"
+   ]
   },
   "calculation": {
    "n": 4,
@@ -36,6 +40,7 @@
    "outcome": "hit@5",
    "pass": false,
    "rank": 5,
+   "supported": false,
    "detail": ""
   },
   {
@@ -63,6 +68,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -72,6 +78,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -81,6 +88,7 @@
    "outcome": "hit@5",
    "pass": false,
    "rank": 5,
+   "supported": false,
    "detail": ""
   },
   {
@@ -90,6 +98,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -99,6 +108,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -108,6 +118,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -117,6 +128,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -126,6 +138,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -135,6 +148,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -144,6 +158,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -153,6 +168,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -162,6 +178,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": false,
    "detail": ""
   },
   {
@@ -171,6 +188,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {
@@ -180,6 +198,7 @@
    "outcome": "hit@1",
    "pass": true,
    "rank": 1,
+   "supported": true,
    "detail": ""
   },
   {

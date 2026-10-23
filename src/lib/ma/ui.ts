@@ -18,7 +18,7 @@ function readControls(form: HTMLFormElement, tickers: string[]): Controls | stri
   const f: Filters = { minRevenue: Number(get("min-rev").value), maxRevenue: Number(get("max-rev").value), requireProfitable: get("req-profit").checked };
   if (!Number.isFinite(f.minRevenue) || !Number.isFinite(f.maxRevenue) || f.minRevenue < 0 || f.maxRevenue <= f.minRevenue) return "The revenue range needs a minimum below the maximum.";
   const parsed = parsePrices((form.elements.namedItem("prices") as HTMLTextAreaElement).value, tickers);
-  const options: Options = { includeRoyalty: get("incl-royalty").checked, ...(Object.keys(parsed.prices).length ? { prices: parsed.prices } : {}) };
+  const options: Options = { includeRoyalty: get("incl-royalty").checked, excludeOneOffs: get("excl-oneoffs").checked, ...(Object.keys(parsed.prices).length ? { prices: parsed.prices } : {}) };
   return { w, f, policy: (get("policy").value as Policy) ?? "renormalize", options, date: get("price-date").value.trim(), priceErrors: parsed.errors };
 }
 
@@ -120,6 +120,7 @@ export function initScreen(ds: Dataset, universeSize: number) {
     set("max-rev", DEFAULT_FILTERS.maxRevenue);
     set("req-profit", DEFAULT_FILTERS.requireProfitable);
     set("incl-royalty", DEFAULT_OPTIONS.includeRoyalty);
+    set("excl-oneoffs", false);
     set("policy", "renormalize");
     set("prices", "");
     set("price-date", "");

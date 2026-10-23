@@ -134,9 +134,27 @@ test("v2 answers a paraphrased question that v1 refuses", () => {
 
 test("evaluation files: summary matches the per-set result files", () => {
   const sm = JSON.parse(readFileSync("src/data/research/eval-summary.json", "utf8")) as { sets: { id: string; v2: { overall: string; questions: number } }[] };
-  assert.equal(sm.sets.length, 4);
-  assert.equal(sm.sets.reduce((a, x) => a + x.v2.questions, 0), 118);
+  assert.equal(sm.sets.length, 5);
+  assert.equal(sm.sets.reduce((a, x) => a + x.v2.questions, 0), 142);
   const h3 = JSON.parse(readFileSync("src/data/research/eval-heldout3-v2-results.json", "utf8")) as { summary: { overallPass: string }; engine: string };
   assert.equal(h3.engine, "v2");
   assert.equal(sm.sets[3].v2.overall, h3.summary.overallPass);
+  const h4 = JSON.parse(readFileSync("src/data/research/eval-heldout4-v21-results.json", "utf8")) as { summary: { overallPass: string }; engine: string };
+  assert.equal(h4.engine, "v21");
+  assert.equal(sm.sets[4].v21.overall, h4.summary.overallPass);
+});
+
+// ---- v2.1 scope guard ----
+import { ask21, guard21 } from "../../src/lib/research/ask2.ts";
+
+test("v2.1 guard: arithmetic, geography, general knowledge and undated prices are refused; dated or per-share questions are not", () => {
+  for (const q of ["What is the capital of Switzerland?", "What is 2 plus 2?", "What is 15 times 4?", "What is two times three?", "What is the population of Germany?", "Who is the president of the United States?", "What is the AstraZeneca share price?", "What is the Novartis market capitalisation?"]) assert.equal(guard21(q)?.kind, "refusal", q);
+  assert.equal(guard21("What is the AstraZeneca share price?")?.reason, "live-data");
+  for (const q of ["What was the Novartis year-end share price in 2025?", "What is the share capital of Novartis?", "What was the highest Novartis share price in 2025 in Swiss francs?", "What were Novartis earnings per share in 2025?", "How many shares were outstanding at 31 December 2025?", "Which company had the highest operating margin in 2025?"]) assert.equal(guard21(q), null, q);
+});
+
+test("v2.1 equals v2 for questions the extended guard does not touch", () => {
+  const real = buildIndex2(["novartis", "astrazeneca", "gsk"].flatMap((c) => (JSON.parse(readFileSync(`public/research/passages-${c}.json`, "utf8")) as [number, string, string, string][]).map(([id, section, anchor, text]) => ({ id, company: c, section, anchor, text }))));
+  const q = "In which jurisdiction is AstraZeneca incorporated?";
+  assert.deepEqual(JSON.stringify(ask21(q, real, ds)), JSON.stringify(ask2(q, real, ds)));
 });

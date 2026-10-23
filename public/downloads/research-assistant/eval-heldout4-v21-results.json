@@ -1,0 +1,383 @@
+{
+ "ran": "2026-10-23",
+ "engine": "v21",
+ "thresholds": {
+  "MIN_COVERAGE2": 0.5,
+  "MIN_SCORE2": 6
+ },
+ "passages": 3214,
+ "summary": {
+  "questions": 24,
+  "lookup": {
+   "n": 14,
+   "hitAt1": "4/14",
+   "hitAt5": "7/14",
+   "refusedWrongly": "5/14",
+   "topPassageContainsGoldAnswer": "4/14",
+   "evidenceHitButAnswerNotSupported": []
+  },
+  "calculation": {
+   "n": 0,
+   "exact": "0/0"
+  },
+  "comparison": {
+   "n": 0,
+   "correct": "0/0"
+  },
+  "unanswerable": {
+   "n": 10,
+   "correctlyRefused": "9/10"
+  },
+  "overallPass": "13/24"
+ },
+ "failures": [
+  {
+   "id": "N01",
+   "type": "lookup",
+   "q": "After the first year of the three-year performance cycle, where did Novartis rank among healthcare peers on shareholder return?",
+   "outcome": "hit@3",
+   "pass": false,
+   "rank": 3,
+   "supported": false,
+   "detail": ""
+  },
+  {
+   "id": "N03",
+   "type": "lookup",
+   "q": "What kind of business does Novartis disclose having in Iran?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "N04",
+   "type": "lookup",
+   "q": "How does AstraZeneca decide how long a newly launched product will remain useful commercially?",
+   "outcome": "refused (forecast)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "N05",
+   "type": "lookup",
+   "q": "For which medicine did AstraZeneca book 100 million dollars of partnership income in 2024 and none in 2025?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "N06",
+   "type": "lookup",
+   "q": "Which generic maker took on a Lynparza patent in Canada in August 2025?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "supported": false,
+   "detail": ""
+  },
+  {
+   "id": "N07",
+   "type": "lookup",
+   "q": "Does AstraZeneca book deferred tax for the global minimum tax rules?",
+   "outcome": "miss",
+   "pass": false,
+   "supported": false,
+   "detail": "top: astrazeneca #205 Taxation for US persons"
+  },
+  {
+   "id": "N10",
+   "type": "lookup",
+   "q": "How many American depositary share awards were still outstanding at GSK at the end of 2025?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "N12",
+   "type": "lookup",
+   "q": "Apart from the product itself, what else can Novartis's patents protect?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "N13",
+   "type": "lookup",
+   "q": "What was the Novartis year-end share price in 2025 in Swiss francs?",
+   "outcome": "hit@4",
+   "pass": false,
+   "rank": 4,
+   "supported": false,
+   "detail": ""
+  },
+  {
+   "id": "N14",
+   "type": "lookup",
+   "q": "What was the highest Novartis share price in 2025 in Swiss francs?",
+   "outcome": "miss",
+   "pass": false,
+   "supported": false,
+   "detail": "top: novartis #782 US federal income taxation"
+  },
+  {
+   "id": "NU8",
+   "type": "unanswerable",
+   "q": "What is the best treatment for shingles?",
+   "outcome": "answered (passages)",
+   "pass": false,
+   "detail": "gsk #142 benefits of shingles vaccination"
+  }
+ ],
+ "rows": [
+  {
+   "id": "N01",
+   "type": "lookup",
+   "q": "After the first year of the three-year performance cycle, where did Novartis rank among healthcare peers on shareholder return?",
+   "outcome": "hit@3",
+   "pass": false,
+   "rank": 3,
+   "supported": false,
+   "detail": ""
+  },
+  {
+   "id": "N02",
+   "type": "lookup",
+   "q": "What was the fair value of the equity holdings that Novartis sold in 2025 because they were no longer strategic?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "supported": true,
+   "detail": ""
+  },
+  {
+   "id": "N03",
+   "type": "lookup",
+   "q": "What kind of business does Novartis disclose having in Iran?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "N04",
+   "type": "lookup",
+   "q": "How does AstraZeneca decide how long a newly launched product will remain useful commercially?",
+   "outcome": "refused (forecast)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "N05",
+   "type": "lookup",
+   "q": "For which medicine did AstraZeneca book 100 million dollars of partnership income in 2024 and none in 2025?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "N06",
+   "type": "lookup",
+   "q": "Which generic maker took on a Lynparza patent in Canada in August 2025?",
+   "outcome": "hit@2",
+   "pass": false,
+   "rank": 2,
+   "supported": false,
+   "detail": ""
+  },
+  {
+   "id": "N07",
+   "type": "lookup",
+   "q": "Does AstraZeneca book deferred tax for the global minimum tax rules?",
+   "outcome": "miss",
+   "pass": false,
+   "supported": false,
+   "detail": "top: astrazeneca #205 Taxation for US persons"
+  },
+  {
+   "id": "N08",
+   "type": "lookup",
+   "q": "Who looks after medical strategy as Chief Patient Officer at GSK, and since when is he on the Executive Committee?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "supported": true,
+   "detail": ""
+  },
+  {
+   "id": "N09",
+   "type": "lookup",
+   "q": "What was the average fair value per share of the performance awards granted by GSK in 2025?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "supported": true,
+   "detail": ""
+  },
+  {
+   "id": "N10",
+   "type": "lookup",
+   "q": "How many American depositary share awards were still outstanding at GSK at the end of 2025?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "N11",
+   "type": "lookup",
+   "q": "What strategic updates did the GSK board conclude in early 2025?",
+   "outcome": "hit@1",
+   "pass": true,
+   "rank": 1,
+   "supported": true,
+   "detail": ""
+  },
+  {
+   "id": "N12",
+   "type": "lookup",
+   "q": "Apart from the product itself, what else can Novartis's patents protect?",
+   "outcome": "refused (weak-evidence)",
+   "pass": false,
+   "detail": ""
+  },
+  {
+   "id": "N13",
+   "type": "lookup",
+   "q": "What was the Novartis year-end share price in 2025 in Swiss francs?",
+   "outcome": "hit@4",
+   "pass": false,
+   "rank": 4,
+   "supported": false,
+   "detail": ""
+  },
+  {
+   "id": "N14",
+   "type": "lookup",
+   "q": "What was the highest Novartis share price in 2025 in Swiss francs?",
+   "outcome": "miss",
+   "pass": false,
+   "supported": false,
+   "detail": "top: novartis #782 US federal income taxation"
+  },
+  {
+   "id": "NU1",
+   "type": "unanswerable",
+   "q": "What is the capital of France?",
+   "outcome": "refused (not-covered)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "NU2",
+   "type": "unanswerable",
+   "q": "What is 15 times 4?",
+   "outcome": "refused (not-covered)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "NU3",
+   "type": "unanswerable",
+   "q": "What is the population of Germany?",
+   "outcome": "refused (not-covered)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "NU4",
+   "type": "unanswerable",
+   "q": "Who is the president of the United States?",
+   "outcome": "refused (not-covered)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "NU5",
+   "type": "unanswerable",
+   "q": "What is the AstraZeneca share price?",
+   "outcome": "refused (live-data)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "NU6",
+   "type": "unanswerable",
+   "q": "How much is a GSK share?",
+   "outcome": "refused (weak-evidence)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "NU7",
+   "type": "unanswerable",
+   "q": "What dividend per share will GSK declare next year?",
+   "outcome": "refused (forecast)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "NU8",
+   "type": "unanswerable",
+   "q": "What is the best treatment for shingles?",
+   "outcome": "answered (passages)",
+   "pass": false,
+   "detail": "gsk #142 benefits of shingles vaccination"
+  },
+  {
+   "id": "NU9",
+   "type": "unanswerable",
+   "q": "What is the weather in Cambridge today?",
+   "outcome": "refused (live-data)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "NU10",
+   "type": "unanswerable",
+   "q": "Write a poem about Novartis.",
+   "outcome": "refused (not-covered)",
+   "pass": true,
+   "detail": ""
+  }
+ ],
+ "firstRun": {
+  "ran": "2026-10-23",
+  "summary": {
+   "questions": 24,
+   "lookup": {
+    "n": 14,
+    "hitAt1": "4/14",
+    "hitAt5": "7/14",
+    "refusedWrongly": "5/14",
+    "topPassageContainsGoldAnswer": "4/14",
+    "evidenceHitButAnswerNotSupported": []
+   },
+   "calculation": {
+    "n": 0,
+    "exact": "0/0"
+   },
+   "comparison": {
+    "n": 0,
+    "correct": "0/0"
+   },
+   "unanswerable": {
+    "n": 10,
+    "correctlyRefused": "9/10"
+   },
+   "overallPass": "13/24"
+  },
+  "failures": [
+   "N01: hit@3",
+   "N03: refused (weak-evidence)",
+   "N04: refused (forecast)",
+   "N05: refused (weak-evidence)",
+   "N06: hit@2",
+   "N07: miss",
+   "N10: refused (weak-evidence)",
+   "N12: refused (weak-evidence)",
+   "N13: hit@4",
+   "N14: miss",
+   "NU8: answered (passages)"
+  ]
+ },
+ "changesAfterFirstRun": [],
+ "notes": []
+}

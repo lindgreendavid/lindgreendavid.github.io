@@ -49,7 +49,7 @@ const dataset = { generated: new Date().toISOString().slice(0, 10), units: "mill
 
 for (const [id, c] of Object.entries(COMPANIES)) {
   const facts = raw(id);
-  const out = { name: c.name, entity: facts.entityName, cik: c.cik, currency: c.currency, standard: c.standard, form: c.form, fiscalYearEnd: c.fiscalYearEnd, notes: c.notes, years: {} };
+  const out = { name: c.name, entity: facts.entityName, cik: c.cik, currency: c.currency, standard: c.standard, form: c.form, fiscalYearEnd: c.fiscalYearEnd, notes: c.notes, ...(c.reference ? { reference: c.reference } : {}), years: {} };
   for (const year of YEARS) {
     const y = {};
     for (const [metric, rule] of Object.entries(c.rules)) {

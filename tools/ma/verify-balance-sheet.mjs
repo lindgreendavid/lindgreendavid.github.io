@@ -53,6 +53,15 @@ for (const [t, metrics] of Object.entries(man.companies)) {
     else if (mv.value !== 0) add(t, `${metric}: amount matches the printed figure`, mv.text.includes(Math.round(mv.value * 1000).toLocaleString("en-US")));
   }
 }
+// Identified one-off revenue items (earnings-quality.json): each snippet must appear in the filing and the amount must match.
+const eqd = JSON.parse(fs.readFileSync("src/data/ma/earnings-quality.json", "utf8"));
+for (const [t, c] of Object.entries(eqd.companies)) {
+  const x = textOf(t);
+  for (const o of c.oneOffs) {
+    add(t, `one-off: 10-K text contains "${o.text}"`, x.includes(o.text));
+    add(t, `one-off: amount matches the printed figure (${o.value})`, o.text.endsWith(Math.round(o.value * 1000).toLocaleString("en-US")));
+  }
+}
 const failed = results.filter((r) => !r.ok);
 console.log(`${results.length - failed.length}/${results.length} balance-sheet checks pass`);
 for (const f of failed) console.log("FAIL", f.ticker, f.check, f.detail);

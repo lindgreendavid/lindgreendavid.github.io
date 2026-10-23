@@ -5,7 +5,7 @@
 
 export type Cell = { value: number; tag: string; accn: string; filed: string; end: string; note?: string } | null;
 export type YearData = Record<"revenue" | "operating_income" | "net_income" | "rnd" | "cfo" | "da" | "cash" | "debt" | "st_investments" | "assets", Cell>;
-export type Company = { ticker: string; name: string; sic: string; sicDescription: string; fiscalYearEnd: string; shares?: { value: number; end: string; accn: string; filed: string; classes: number; note?: string }; debtLikeItems?: { label: string; value: number }[]; docChecked?: boolean; years: Record<string, YearData> };
+export type Company = { ticker: string; name: string; sic: string; sicDescription: string; fiscalYearEnd: string; shares?: { value: number; end: string; accn: string; filed: string; classes: number; note?: string }; debtLikeItems?: { label: string; value: number }[]; oneOffs?: { label: string; value: number }[]; docChecked?: boolean; years: Record<string, YearData> };
 export type Dataset = { generated: string; companies: Record<string, Company> };
 
 export const CRITERIA = ["scale", "growth", "margin", "cash", "leverage", "rnd", "value", "capacity"] as const;
@@ -33,7 +33,7 @@ export const DEFAULT_FILTERS: Filters = { minRevenue: 150, maxRevenue: 3000, req
 export type Policy = "renormalize" | "zero";
 
 /** Royalty-financing obligations (sold future royalties) are debt-like; counting them is the default and can be switched off. `prices` are user-entered, US dollars per share. */
-export type Options = { includeRoyalty: boolean; prices?: Record<string, number> };
+export type Options = { includeRoyalty: boolean; prices?: Record<string, number>; /** Illustrative adjustment: remove identified one-off revenue from revenue, operating income and operating cash flow. */ excludeOneOffs?: boolean };
 export const DEFAULT_OPTIONS: Options = { includeRoyalty: true };
 
 export type Metrics = {
@@ -61,10 +61,16 @@ export function metricsFor(c: Company, opts: Options = DEFAULT_OPTIONS): { m: Me
   const y25 = c.years["2025"];
   const y22 = c.years["2022"];
   const flags: string[] = [];
-  const rev = v(y25.revenue);
+  // Identified one-off revenue: always flagged; removed only when the user switches on the illustrative adjustment.
+  const oneOff = (c.oneOffs ?? []).reduce((acc, o) => acc + o.value, 0);
+  const cut = opts.excludeOneOffs ? oneOff : 0;
+  const rev0 = v(y25.revenue);
+  const rev = rev0 === null ? null : rev0 - cut;
   const rev22 = v(y22?.revenue);
-  const op = v(y25.operating_income);
-  const cfo = v(y25.cfo);
+  const op0 = v(y25.operating_income);
+  const op = op0 === null ? null : op0 - cut;
+  const cfo0 = v(y25.cfo);
+  const cfo = cfo0 === null ? null : cfo0 - cut;
   const rnd = v(y25.rnd);
   const da = v(y25.da);
   const debt = v(y25.debt);
@@ -77,8 +83,11 @@ export function metricsFor(c: Company, opts: Options = DEFAULT_OPTIONS): { m: Me
   if (rev === null) flags.push("FY2025 revenue not found");
   if (op === null) flags.push("FY2025 operating income not found");
   if (cfo === null) flags.push("FY2025 operating cash flow not found");
-  if (rnd === null) flags.push("R&D expense not found in the XBRL data (the company may report none, or tag it differently)");
+  if (rnd === null) flags.push("R&D expense not reported as a separate line in the XBRL data or income statement. That does not prove it is zero, so the R&D criterion is treated as missing");
   if (debt === null) flags.push("No debt balance found in the XBRL data: the company may have no borrowings, but that is not confirmed here");
+  if (y25.debt?.tag === "LongTermDebtNoncurrent") flags.push("Debt is the non-current portion only (no current portion is tagged)");
+  if (y25.debt?.tag.includes("CapitalLease")) flags.push("The company's debt total includes finance-lease obligations (small), unlike the other companies");
+  if (y25.debt?.tag === "DebtInstrumentCarryingAmount") flags.push("Debt comes from a tag that companies often use for principal, not carrying amount");
   if (debt !== null && y25.debt?.note?.startsWith("read from the 10-K")) flags.push("Debt read from the 10-K balance sheet text (the standard XBRL tags did not carry it)");
   if (da === null) flags.push("Depreciation and amortisation not found: EBITDA is unavailable unless the company is in net cash");
   if (cash === null) flags.push("Cash balance not found");
@@ -91,6 +100,7 @@ export function metricsFor(c: Company, opts: Options = DEFAULT_OPTIONS): { m: Me
   const debtLike = (c.debtLikeItems ?? []).reduce((acc, i) => acc + i.value, 0);
   if (debtLike > 0) flags.push(`Royalty-financing obligations of $${debtLike.toFixed(0)}m (sold future royalties) are ${opts.includeRoyalty ? "counted as debt" : "NOT counted as debt"} in net debt; they are repaid from royalty income and are often non-recourse`);
   if (c.docChecked === false) flags.push("The 10-K text was not checked for debt-like obligations");
+  for (const o of c.oneOffs ?? []) if (rev0) flags.push(`FY2025 revenue includes a one-off item of $${o.value.toFixed(0)}m (${((o.value / rev0) * 100).toFixed(0)}% of revenue): ${o.label}. ${opts.excludeOneOffs ? "It is REMOVED from revenue, operating income and operating cash flow in this view (illustrative adjustment, no related costs assumed)" : "It is still INCLUDED in the figures shown"}`);
   if (rev && op !== null && op / rev >= 0.4) flags.push("Operating margin of 40% or more: check the filing for one-off items such as licence or milestone revenue");
   if (revenueCagr !== null && revenueCagr >= 0.4) flags.push("Revenue CAGR of 40% or more: check for one-off revenue and acquisitions");
   if (!c.shares) flags.push("No cover-page share count found: market capitalisation cannot be computed");
@@ -347,6 +357,7 @@ export function memo(o: Outcome, ds: Dataset, universeSize: number): string[] {
   const usesMarket = (w.value > 0 || w.capacity > 0) && !!o.market;
   lines.push(`Weights: ${active.map((c) => `${CRITERION_INFO[c].label} ${w[c]}`).join(", ")}.`);
   lines.push(`Net debt ${o.options.includeRoyalty ? "counts" : "does not count"} royalty-financing obligations (sold future royalties) as debt.`);
+  if (o.options.excludeOneOffs) lines.push("Illustrative adjustment ON: identified one-off licence revenue (PTC Therapeutics, BioCryst) is removed from revenue, operating income and operating cash flow as if it had no related cost. This is not a company-reported adjusted measure.");
   if (usesMarket) lines.push(`Valuation and deal-size criteria use share prices entered by the user for ${o.market!.count} companies${o.market!.date ? ` (dated ${o.market!.date})` : " (no date given)"}, multiplied by the share count on each 10-K cover page. No prices are bundled with this tool, and companies without a price are flagged and handled by the missing-data policy.`);
   lines.push("Top candidates for further work:");
   top.forEach((t) => {

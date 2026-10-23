@@ -84,10 +84,18 @@ export const COMPANIES = {
     standard: "IFRS",
     fiscalYearEnd: "31 Dec",
     notes: [
-      "GSK presents no separate lease line on the balance sheet; borrowings are assumed to include lease liabilities. This was not separately confirmed in the notes (lease liabilities were £830m at 2025 year-end).",
+      "GSK presents no separate lease line on the balance sheet. Its borrowings note (Note 29) lists lease liabilities inside borrowings (£137m short-term; £693m long-term, £830m in total at 2025 year-end), so borrowings include leases.",
+      "GSK's own net debt (£14,453m) also includes £139m of liabilities relating to assets held for sale and deducts £9m of liquid investments. The project definition (borrowings less cash) omits both and gives £14,323m; the £130m difference is shown in the reference block and checked by the validator.",
       "Non-controlling interests earn a large share of profit (£573m in 2025) while their book value is negative (£-421m), so book NCI understates their claim on value.",
       "Reported in pounds sterling; translated to US dollars with ECB reference rates for cross-company comparison.",
     ],
+    // Figures read from the filing text (Note 29 "Net debt" and the group financial review), used only for a reconciliation check.
+    reference: {
+      reportedNetDebt2025: { value: 14453, source: "GSK 2025 Form 20-F, Note 29 Net debt" },
+      liabilitiesRelatingToAssetsHeldForSale2025: { value: 139, source: "GSK 2025 Form 20-F, Note 29 Net debt" },
+      liquidInvestments2025: { value: 9, source: "GSK 2025 Form 20-F, balance sheet and Note 29" },
+      leaseLiabilitiesInBorrowings2025: { shortTerm: 137, longTerm: 693, source: "GSK 2025 Form 20-F, Note 29 borrowings and lease liabilities" },
+    },
     rules: {
       revenue: { tag: "Revenue" },
       operating_profit: { tag: "ProfitLossFromOperatingActivities" },

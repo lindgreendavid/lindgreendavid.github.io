@@ -1,6 +1,6 @@
 // Rendering and interaction for the Pharma Valuation Explorer. The render functions return HTML strings, so the first view
 // is produced on the server and the same code re-renders in the browser when someone changes an assumption.
-import { dcfInputsFor, multiples, runDcf, SCENARIOS, sensitivity, sensitivityOperating } from "./model.ts";
+import { dcfInputsFor, multiples, runDcf, SCENARIOS, sensitivity, sensitivityOperating, validateDcfInputs } from "./model.ts";
 import type { Dataset, DcfInputs, Grid } from "./model.ts";
 
 const nf0 = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 0 });
@@ -113,8 +113,8 @@ export function initPharma(ds: Dataset, names: Record<string, string>) {
     if (vals.some((x) => !Number.isFinite(x))) return "Every assumption needs a number.";
     const base = dcfInputsFor(ds, SCENARIOS.base);
     const i: DcfInputs = { ...base, growth: [n("g1"), n("g2"), n("g3"), n("g4"), n("g5")], targetMargin: n("target"), taxRate: n("tax"), daPct: n("da"), capexPct: n("capex"), nwcPct: n("nwc"), wacc: n("wacc"), terminalGrowth: n("tg") };
-    if (i.wacc <= i.terminalGrowth) return "The discount rate (WACC) must be higher than terminal growth, otherwise the terminal value is not defined.";
-    if (i.taxRate < 0 || i.taxRate >= 1) return "The tax rate must be between 0% and 100%.";
+    const problem = validateDcfInputs(i);
+    if (problem) return problem;
     return i;
   };
 

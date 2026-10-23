@@ -220,3 +220,77 @@ test("briefs: identical briefs agree completely; the default brief equals run()"
   for (const t of cmp.inAll) assert.ok(cmp.results.every((r) => r.top.some((x) => x.ticker === t)));
   for (const r of cmp.results) for (const t of r.top) assert.ok(applyFilters(buildRows(real), r.brief.filters).passed.some((p) => p.ticker === t.ticker));
 });
+
+test("separate intangible amortisation is included in Halozyme and Jazz EBITDA", () => {
+  const real = JSON.parse(readFileSync("src/data/ma/dataset.json", "utf8")) as Dataset;
+  // Source: FY2025 10-K cash-flow statements. Neither total includes debt discount amortisation.
+  assert.ok(Math.abs(real.companies.HALO.years["2025"].da!.value - (11.389 + 76.662)) < 1e-9);
+  assert.ok(Math.abs(metricsFor(real.companies.HALO).m.ebitda! - (469.006 + 88.051)) < 1e-9);
+  assert.ok(Math.abs(real.companies.JAZZ.years["2025"].da!.value - (41.636 + 654.661)) < 1e-9);
+});
+
+test("downloadable M&A JSON matches the dataset used by the page", () => {
+  const source = JSON.parse(readFileSync("src/data/ma/dataset.json", "utf8"));
+  const download = JSON.parse(readFileSync("public/downloads/ma-screening/ma-dataset.json", "utf8"));
+  assert.deepEqual(download, source, "Regenerate downloads after changing source data.");
+});
+
+// ---- corrections after the external technical check (D&A history, debt basis, R&D, one-offs) ----
+test("D&A: Halozyme and Jazz include separately reported intangible amortisation in every year, not only FY2025", () => {
+  const real = JSON.parse(readFileSync("src/data/ma/dataset.json", "utf8")) as Dataset;
+  const da = (t: string, y: number) => real.companies[t].years[String(y)].da!.value;
+  assert.ok(Math.abs(da("HALO", 2022) - (6.493 + 43.148)) < 0.002);
+  assert.ok(Math.abs(da("HALO", 2023) - (11.083 + 73.773)) < 0.002);
+  assert.ok(Math.abs(da("HALO", 2024) - (10.263 + 71.049)) < 0.002);
+  assert.ok(Math.abs(da("HALO", 2025) - (11.389 + 76.662)) < 0.002);
+  assert.ok(Math.abs(da("JAZZ", 2022) - (30.302 + 599.169)) < 0.002);
+  assert.ok(Math.abs(da("JAZZ", 2023) - (30.412 + 608.284)) < 0.002);
+  assert.ok(Math.abs(da("JAZZ", 2024) - (32.754 + 627.313)) < 0.002);
+  assert.ok(Math.abs(da("JAZZ", 2025) - (41.636 + 654.661)) < 0.002);
+});
+
+test("D&A is never below a separately tagged intangible amortisation (the check that caught Halozyme and Jazz)", () => {
+  const v = JSON.parse(readFileSync("src/data/ma/validation.json", "utf8")) as { results: { check: string; ok: boolean }[] };
+  const rows = v.results.filter((r) => r.check.includes("is not below the separate intangible amortisation"));
+  assert.ok(rows.length >= 30, "the check ran for many company-years");
+  assert.ok(rows.every((r) => r.ok));
+});
+
+test("debt basis: BioMarin uses the carrying amount (597.176), not the 600 principal, and no company uses a principal-style tag", () => {
+  const real = JSON.parse(readFileSync("src/data/ma/dataset.json", "utf8")) as Dataset;
+  assert.ok(Math.abs(real.companies.BMRN.years["2025"].debt!.value - 597.176) < 1e-6);
+  for (const c of Object.values(real.companies)) assert.ok(!/Principal|FaceAmount/i.test(c.years["2025"].debt?.tag ?? ""), c.ticker);
+});
+
+test("Collegium's R&D is missing (not zero): no separate line does not prove zero", () => {
+  const real = JSON.parse(readFileSync("src/data/ma/dataset.json", "utf8")) as Dataset;
+  assert.equal(real.companies.COLL.years["2025"].rnd, null);
+  const { m, flags, missing } = metricsFor(real.companies.COLL);
+  assert.equal(m.rndIntensity, null);
+  assert.ok(missing.includes("rnd"));
+  assert.ok(flags.some((f) => f.includes("does not prove it is zero")));
+});
+
+test("one-off revenue: flagged by default; removing it (illustrative) lowers PTCT revenue, margin and EBITDA, and does not touch other companies", () => {
+  const real = JSON.parse(readFileSync("src/data/ma/dataset.json", "utf8")) as Dataset;
+  const base = metricsFor(real.companies.PTCT, { includeRoyalty: true });
+  const adj = metricsFor(real.companies.PTCT, { includeRoyalty: true, excludeOneOffs: true });
+  assert.ok(base.flags.some((f) => f.includes("one-off item of $998m") && f.includes("still INCLUDED")));
+  assert.ok(adj.flags.some((f) => f.includes("REMOVED")));
+  assert.ok(Math.abs((base.m.revenue as number) - (adj.m.revenue as number) - 998.357) < 1e-6);
+  assert.ok((adj.m.opMargin as number) < (base.m.opMargin as number));
+  assert.ok((adj.m.ebitda as number) < (base.m.ebitda as number));
+  const a = metricsFor(real.companies.HALO, { includeRoyalty: true }).m;
+  const b = metricsFor(real.companies.HALO, { includeRoyalty: true, excludeOneOffs: true }).m;
+  assert.equal(a.revenue, b.revenue);
+});
+
+test("one-off adjustment changes the default ranking in a documented way", () => {
+  const real = JSON.parse(readFileSync("src/data/ma/dataset.json", "utf8")) as Dataset;
+  const top = (opt: boolean) => run(real, DEFAULT_WEIGHTS, DEFAULT_FILTERS, { draws: 50 }, { includeRoyalty: true, excludeOneOffs: opt }).ranked.slice(0, 5).map((r) => r.ticker);
+  const before = top(false);
+  const after = top(true);
+  assert.deepEqual(before.slice(0, 3), ["BCRX", "PTCT", "RIGL"]);
+  assert.ok(after.length === 5);
+  console.log("top five, reported:", before.join(" "), "| one-offs removed:", after.join(" "));
+});

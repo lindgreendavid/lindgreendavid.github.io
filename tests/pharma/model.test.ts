@@ -72,7 +72,7 @@ test("discount factors fall over time and the terminal share of value is sensibl
 });
 
 test("WACC at or below terminal growth is rejected", () => {
-  assert.throws(() => runDcf(flat({ wacc: 0.02, terminalGrowth: 0.02 })), /WACC must exceed/);
+  assert.throws(() => runDcf(flat({ wacc: 0.02, terminalGrowth: 0.02 })), /higher than terminal growth/);
 });
 
 function runDcfInputs() {
@@ -161,4 +161,39 @@ test("P/E uses profit attributable to owners (profit less the non-controlling sh
   const profit = line(ds, "gsk", 2025, "profit_continuing", "usd")!;
   const nciProfit = line(ds, "gsk", 2025, "nci_profit", "usd")!;
   close(m.priceToEarnings, 80000 / (profit - nciProfit));
+});
+
+// ---- input validation ----
+import { DcfInputError, validateDcfInputs } from "../../src/lib/pharma/model.ts";
+
+test("validateDcfInputs: rejects non-finite values, empty forecasts and invalid share counts with plain messages", () => {
+  const ds = JSON.parse(fs.readFileSync("src/data/pharma/dataset.json", "utf8"));
+  const base = dcfInputsFor(ds, SCENARIOS.base);
+  assert.equal(validateDcfInputs(base), null);
+  assert.match(validateDcfInputs({ ...base, growth: [] })!, /at least one year/);
+  assert.match(validateDcfInputs({ ...base, growth: [0.05, NaN, 0.03, 0.02, 0.02] })!, /Every year of revenue growth/);
+  assert.match(validateDcfInputs({ ...base, growth: [0.05, -1, 0.03] })!, /-100%/);
+  assert.match(validateDcfInputs({ ...base, wacc: NaN })!, /positive number/);
+  assert.match(validateDcfInputs({ ...base, wacc: Infinity })!, /below 100%|positive number/);
+  assert.match(validateDcfInputs({ ...base, wacc: 0.01, terminalGrowth: 0.02 })!, /higher than terminal growth/);
+  assert.match(validateDcfInputs({ ...base, sharesMillions: 0 })!, /share count/);
+  assert.match(validateDcfInputs({ ...base, sharesMillions: -5 })!, /share count/);
+  assert.match(validateDcfInputs({ ...base, sharesMillions: NaN })!, /share count/);
+  assert.match(validateDcfInputs({ ...base, taxRate: 1.2 })!, /tax rate/);
+  assert.match(validateDcfInputs({ ...base, baseRevenue: 0 })!, /Base revenue/);
+  assert.match(validateDcfInputs({ ...base, bridge: { ...base.bridge, cash: NaN } })!, /bridge item/);
+  assert.throws(() => runDcf({ ...base, growth: [] }), DcfInputError);
+  assert.throws(() => runDcf({ ...base, sharesMillions: 0 }), DcfInputError);
+});
+
+test("validateDcfInputs keeps legitimate cases valid: negative growth, a working-capital release, a lower target margin", () => {
+  const ds = JSON.parse(fs.readFileSync("src/data/pharma/dataset.json", "utf8"));
+  const base = dcfInputsFor(ds, SCENARIOS.base);
+  const decline = { ...base, growth: [-0.03, -0.02, 0, 0.01, 0.01], targetMargin: 0.18 };
+  assert.equal(validateDcfInputs(decline), null);
+  assert.ok(Number.isFinite(runDcf(decline).valuePerShare));
+  const release = { ...base, nwcPct: -0.005 };
+  assert.equal(validateDcfInputs(release), null);
+  assert.ok(runDcf(release).valuePerShare > runDcf(base).valuePerShare, "a working-capital release raises value");
+  assert.equal(runDcf({ ...base, growth: [0.05] }).years.length, 1);
 });

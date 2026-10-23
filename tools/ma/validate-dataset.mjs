@@ -66,6 +66,24 @@ for (const [t, c] of Object.entries(ds.companies)) {
   if (y.cash) add(t, "Cash is not negative", y.cash.value >= 0);
   if (y.revenue && c.years["2022"].revenue) add(t, "FY2022 revenue period ends in 2022 or the first days of 2023", c.years["2022"].revenue.end >= "2022-12-01" && c.years["2022"].revenue.end <= "2023-01-05", c.years["2022"].revenue.end);
 }
+// D&A must not omit separately reported intangible amortisation: for every company and year where an intangible-amortisation tag exists,
+// the selected D&A must be at least as large (this is how the Halozyme and Jazz omissions are caught; companies whose combined tag
+// already includes it pass). A failure means "check the cash-flow statement", not necessarily an error.
+const fiscalYear = (end) => new Date(new Date(end).getTime() - 14 * 86400000).getUTCFullYear();
+for (const [t, c] of Object.entries(ds.companies)) {
+  const f = `data-raw/ma/${t}.json`;
+  if (!fs.existsSync(f)) continue;
+  const g = JSON.parse(fs.readFileSync(f, "utf8")).facts["us-gaap"] ?? {};
+  for (const y of [2022, 2023, 2024, 2025]) {
+    const da = c.years[String(y)]?.da;
+    let it = 0;
+    for (const tag of ["AmortizationOfIntangibleAssets", "AmortizationOfAcquiredIntangibleAssets"]) {
+      const rows = (g[tag]?.units?.USD ?? []).filter((x) => x.form === "10-K" && x.start && Math.abs((new Date(x.end) - new Date(x.start)) / 864e5 - 365) <= 10 && fiscalYear(x.end) === y).sort((a, b) => (a.filed < b.filed ? -1 : 1));
+      if (rows.length) it = Math.max(it, rows[rows.length - 1].val / 1e6);
+    }
+    if (it > 0.5 && da) add(t, `FY${y} D&A (${da.value.toFixed(1)}m) is not below the separate intangible amortisation (${it.toFixed(1)}m)`, da.value >= it - 0.0005);
+  }
+}
 const failed = checks.filter((c) => !c.ok);
 const filing = checks.filter((c) => c.check.includes("10-K text"));
 const out = {
