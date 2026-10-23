@@ -4,8 +4,9 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync } from "node:fs";
 import { ask, MIN_COVERAGE, MIN_SCORE } from "../../src/lib/research/ask.ts";
 import { buildIndex } from "../../src/lib/research/search.ts";
-import { ask2, MIN_COVERAGE2, MIN_SCORE2 } from "../../src/lib/research/ask2.ts";
+import { ask2, ask21, MIN_COVERAGE2, MIN_SCORE2 } from "../../src/lib/research/ask2.ts";
 import { buildIndex2 } from "../../src/lib/research/search2.ts";
+import { porter } from "../../src/lib/research/porter.ts";
 import type { Passage } from "../../src/lib/research/search.ts";
 import type { Dataset } from "../../src/lib/pharma/model.ts";
 
@@ -13,10 +14,10 @@ const keys = ["novartis", "astrazeneca", "gsk"];
 const passages: Passage[] = keys.flatMap((c) =>
   (JSON.parse(readFileSync(`public/research/passages-${c}.json`, "utf8")) as [number, string, string, string][]).map(([id, section, anchor, text]) => ({ id, company: c, section, anchor, text })),
 );
-const ENGINE = process.argv[4] === "v2" ? "v2" : "v1";
+const ENGINE = process.argv[4] === "v21" ? "v21" : process.argv[4] === "v2" ? "v2" : "v1";
 const ix = buildIndex(passages);
-const ix2 = ENGINE === "v2" ? buildIndex2(passages, existsSync("public/research/expansion.json") && process.argv[5] !== "no-expansion" ? JSON.parse(readFileSync("public/research/expansion.json", "utf8")) : {}) : undefined;
-const askAny = (q: string) => (ENGINE === "v2" ? ask2(q, ix2!, ds) : ask(q, ix, ds));
+const ix2 = ENGINE !== "v1" ? buildIndex2(passages, existsSync("public/research/expansion.json") && process.argv[5] !== "no-expansion" ? JSON.parse(readFileSync("public/research/expansion.json", "utf8")) : {}) : undefined;
+const askAny = (q: string) => (ENGINE === "v21" ? ask21(q, ix2!, ds) : ENGINE === "v2" ? ask2(q, ix2!, ds) : ask(q, ix, ds));
 const ds = JSON.parse(readFileSync("src/data/pharma/dataset.json", "utf8")) as Dataset;
 const QFILE = `src/data/research/${process.argv[2] ?? "eval-questions.json"}`;
 const RFILE = `src/data/research/${process.argv[3] ?? "eval-results.json"}`;
@@ -38,7 +39,21 @@ if (invalid.length) {
   process.exit(1);
 }
 
-type Row = { id: string; type: Q["type"]; q: string; outcome: string; pass: boolean; rank?: number; detail: string };
+// Second, independent-of-the-evidence-string check: does the returned top passage actually contain the gold ANSWER? Heuristic: every number in the
+// gold answer and at least 70% of its other content words must appear in the passage. It is a weaker, different test from the evidence string,
+// meant to catch passages that merely contain the expected string without answering the question. It is not a semantic judgement.
+const STOPW = new Set("a an and are as at be by for from in is it its of on or that the to was were with that it than into out no yes not".split(" "));
+const words = (x: string) => (norm(x).replace(/(\d)[, ](\d{3})(?!\d)/g, "$1$2").match(/[a-z0-9.%$£]+/g) ?? []).map((w) => w.replace(/[.%$£]+$/g, "")).filter((w) => w && !STOPW.has(w)).map((w) => porter(w));
+function supports(gold: string, text: string): boolean {
+  const gw = [...new Set(words(gold))];
+  if (!gw.length) return true;
+  const tw = new Set(words(text));
+  const nums = gw.filter((w) => /\d/.test(w));
+  const rest = gw.filter((w) => !/\d/.test(w));
+  return nums.every((w) => tw.has(w)) && (!rest.length || rest.filter((w) => tw.has(w)).length / rest.length >= 0.7);
+}
+
+type Row = { id: string; type: Q["type"]; q: string; outcome: string; pass: boolean; rank?: number; supported?: boolean; detail: string };
 const rows: Row[] = questions.map((q) => {
   const a = askAny(q.q);
   if (q.type === "unanswerable") {
@@ -47,7 +62,7 @@ const rows: Row[] = questions.map((q) => {
   if (q.type === "lookup") {
     if (a.kind !== "passages") return { id: q.id, type: q.type, q: q.q, outcome: a.kind === "refusal" ? `refused (${a.reason})` : "calculation instead", pass: false, detail: a.kind === "calc" ? a.text : "" };
     const rank = a.hits.findIndex((h) => norm(h.passage.text).includes(norm(q.evidence!))) + 1;
-    return { id: q.id, type: q.type, q: q.q, outcome: rank === 1 ? "hit@1" : rank ? `hit@${rank}` : "miss", pass: rank === 1, rank: rank || undefined, detail: rank ? "" : `top: ${a.hits[0].passage.company} #${a.hits[0].passage.id} ${a.hits[0].passage.section}` };
+    return { id: q.id, type: q.type, q: q.q, outcome: rank === 1 ? "hit@1" : rank ? `hit@${rank}` : "miss", pass: rank === 1, rank: rank || undefined, supported: supports(q.gold, a.hits[0].passage.text), detail: rank ? "" : `top: ${a.hits[0].passage.company} #${a.hits[0].passage.id} ${a.hits[0].passage.section}` };
   }
   if (a.kind !== "calc") return { id: q.id, type: q.type, q: q.q, outcome: a.kind === "refusal" ? `refused (${a.reason})` : "passages instead", pass: false, detail: "" };
   const ok = q.expect!.every((e) => a.text.includes(e));
@@ -59,13 +74,13 @@ const share = (r: Row[], f: (x: Row) => boolean) => `${r.filter(f).length}/${r.l
 const lookups = by("lookup");
 const summary = {
   questions: rows.length,
-  lookup: { n: lookups.length, hitAt1: share(lookups, (r) => r.rank === 1), hitAt5: share(lookups, (r) => r.rank !== undefined), refusedWrongly: share(lookups, (r) => r.outcome.startsWith("refused")) },
+  lookup: { n: lookups.length, hitAt1: share(lookups, (r) => r.rank === 1), hitAt5: share(lookups, (r) => r.rank !== undefined), refusedWrongly: share(lookups, (r) => r.outcome.startsWith("refused")), topPassageContainsGoldAnswer: share(lookups, (r) => r.supported === true), evidenceHitButAnswerNotSupported: lookups.filter((r) => r.rank === 1 && r.supported === false).map((r) => r.id) },
   calculation: { n: by("calculation").length, exact: share(by("calculation"), (r) => r.pass) },
   comparison: { n: by("comparison").length, correct: share(by("comparison"), (r) => r.pass) },
   unanswerable: { n: by("unanswerable").length, correctlyRefused: share(by("unanswerable"), (r) => r.pass) },
   overallPass: share(rows, (r) => r.pass),
 };
-const out = { ran: new Date().toISOString().slice(0, 10), engine: ENGINE, thresholds: ENGINE === "v2" ? { MIN_COVERAGE2, MIN_SCORE2 } : { MIN_COVERAGE, MIN_SCORE }, passages: passages.length, summary, failures: rows.filter((r) => !r.pass), rows };
+const out = { ran: new Date().toISOString().slice(0, 10), engine: ENGINE, thresholds: ENGINE !== "v1" ? { MIN_COVERAGE2, MIN_SCORE2 } : { MIN_COVERAGE, MIN_SCORE }, passages: passages.length, summary, failures: rows.filter((r) => !r.pass), rows };
 const prev = existsSync(RFILE) ? JSON.parse(readFileSync(RFILE, "utf8")) : {};
 writeFileSync(RFILE, JSON.stringify({ ...out, firstRun: prev.firstRun ?? { ran: out.ran, summary, failures: out.failures.map((f) => `${f.id}: ${f.outcome}`) }, changesAfterFirstRun: prev.changesAfterFirstRun ?? [], notes: prev.notes ?? [] }, null, 1));
 // The page offers the question and result files as downloads.

@@ -45,3 +45,35 @@ export function ask2(q: string, ix: Index2, ds: Dataset): Answer2 {
   }
   return { kind: "passages", hits };
 }
+
+// ---------------------------------------------------------------- version 2.1: scope guard additions only (retrieval is identical to v2)
+// Added after an external technical check reproduced two scope failures ("What is the capital of Switzerland?", "What is 2 plus 2?") and
+// found that an undated share-price question retrieves a historical year-end table. The patterns below are still heuristics: they catch
+// common out-of-scope question shapes, not every possible one.
+
+const NUMBER_WORD = "one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|twenty|hundred";
+const NUM = String.raw`(?:\d+(?:\.\d+)?|\b(?:${NUMBER_WORD})\b)`;
+const OP = String.raw`(?:\+|\*|×|\bx\b|\bplus\b|\bminus\b|\btimes\b|\bdivided by\b|\bmultiplied by\b)`;
+const ARITHMETIC = new RegExp(String.raw`${NUM}\s*${OP}\s*${NUM}`, "i");
+const COUNTRIES = "afghanistan|argentina|australia|austria|belgium|brazil|britain|canada|chile|china|colombia|denmark|egypt|england|finland|france|germany|greece|india|indonesia|ireland|israel|italy|japan|mexico|netherlands|new zealand|norway|pakistan|peru|poland|portugal|russia|singapore|south africa|south korea|spain|sweden|switzerland|turkey|ukraine|united kingdom|united states|usa|vietnam";
+const GEOGRAPHY = new RegExp(String.raw`\bcapital(?: city)? of (?:the )?(?:${COUNTRIES})\b|\bpopulation of (?:the )?(?:${COUNTRIES})\b|\bcurrency of (?:the )?(?:${COUNTRIES})\b`, "i");
+const GENERAL_KNOWLEDGE = /\b(who (?:is|was) the (?:president|prime minister|king|queen)|tell me a joke|write (?:me )?a (?:poem|story|song)|translate\b|how tall is|how old is the (?:earth|universe)|speed of light|meaning of life|what is the (?:time|date)\b)/i;
+// A share price or market value asked for without a date or year-end context: the reports only give year-end figures.
+const UNDATED_PRICE = /\b(?:share|stock) price\b|\bmarket cap(?:italisation|italization)?\b|\bhow much (?:is|are) (?:the )?(?:novartis|astrazeneca|gsk|shares?|stock)\b/i;
+const DATED_CONTEXT = /\b(?:year[- ]end|20(?:2[0-5])|31 december|december 31|high|low|per share|dividend|earnings|ratio|outstanding|number of)\b/i;
+
+export function guard21(q: string): Refusal | null {
+  const g = guard2(q);
+  if (g) return g;
+  if (ARITHMETIC.test(q)) return { kind: "refusal", reason: "not-covered", message: "This is an arithmetic question, not a question about the three annual reports. A calculator will do better." };
+  if (GEOGRAPHY.test(q) || GENERAL_KNOWLEDGE.test(q)) return { kind: "refusal", reason: "not-covered", message: "This is a general-knowledge question, not a question about the three annual reports." };
+  if (UNDATED_PRICE.test(q) && !DATED_CONTEXT.test(q)) return { kind: "refusal", reason: "live-data", message: "Share prices and market values change every day and the reports hold only year-end figures. Ask for a specific year-end (for example 'the Novartis year-end share price in 2025') or enter your own prices in the M&A workbench." };
+  return null;
+}
+
+/** Version 2.1: identical retrieval to v2 with the extended scope guard. */
+export function ask21(q: string, ix: Index2, ds: Dataset): Answer2 {
+  const g = guard21(q);
+  if (g) return g;
+  return ask2(q, ix, ds);
+}

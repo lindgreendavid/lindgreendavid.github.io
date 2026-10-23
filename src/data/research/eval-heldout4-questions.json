@@ -1,0 +1,34 @@
+{
+  "notes": [
+    "Set 4: 14 lookup and 10 scope-probe (unanswerable) questions, written on 2026-10-23 by Claude (an AI assistant) after Codex's technical check and BEFORE version 2.1 existed in any evaluated form and before this set was run on any engine.",
+    "Lookup questions come from passages drawn at random (seed 20261026) and are paraphrased; two are answerable controls that contain words (share price) which the new guard must not wrongly refuse. The scope probes are new instances of the failure shapes found by the external check (geography, arithmetic, general knowledge, undated share price), plus probes the guard is not expected to catch (a medical-advice question, an indirect 'how much is a GSK share').",
+    "Run once on v2 (baseline) and once on v2.1. Not used for tuning. Independence limitation: the same AI-assisted process wrote the questions, the gold evidence and the engine; the author (David) has not reviewed the set. Codex's external check did not write this set."
+  ],
+  "questions": [
+    {"id": "N01", "type": "lookup", "company": "novartis", "q": "After the first year of the three-year performance cycle, where did Novartis rank among healthcare peers on shareholder return?", "gold": "No. 7", "evidence": "the relative TSR for Novartis was No. 7 among our global healthcare peer group"},
+    {"id": "N02", "type": "lookup", "company": "novartis", "q": "What was the fair value of the equity holdings that Novartis sold in 2025 because they were no longer strategic?", "gold": "USD 52 million", "evidence": "with a fair value of USD 52 million (2024: USD 95 million)"},
+    {"id": "N03", "type": "lookup", "company": "novartis", "q": "What kind of business does Novartis disclose having in Iran?", "gold": "Operations including employees; paying taxes and salaries; services such as rentals, insurance, utilities and customs", "evidence": "Because we have operations in Iran, including employees"},
+    {"id": "N04", "type": "lookup", "company": "astrazeneca", "q": "How does AstraZeneca decide how long a newly launched product will remain useful commercially?", "gold": "By reference to patent expiry, the competitive environment and long-term sales projections", "evidence": "expected useful economic life with reference to the expiry of associated patents for the product"},
+    {"id": "N05", "type": "lookup", "company": "astrazeneca", "q": "For which medicine did AstraZeneca book 100 million dollars of partnership income in 2024 and none in 2025?", "gold": "Koselugo", "evidence": "$nil of Collaboration Revenue in relation to Koselugo in 2025 (2024: $100 million"},
+    {"id": "N06", "type": "lookup", "company": "astrazeneca", "q": "Which generic maker took on a Lynparza patent in Canada in August 2025?", "gold": "Natco Pharma (Canada) Inc.", "evidence": "Notice of Allegation from Natco Pharma (Canada) Inc. challenging a patent relating to Lynparza"},
+    {"id": "N07", "type": "lookup", "company": "astrazeneca", "q": "Does AstraZeneca book deferred tax for the global minimum tax rules?", "gold": "No, it applies the IAS 12 exception for Pillar Two income taxes", "evidence": "applies the exception to recognising and disclosing information about deferred tax assets and liabilities related to Pillar Two income taxes"},
+    {"id": "N08", "type": "lookup", "company": "gsk", "q": "Who looks after medical strategy as Chief Patient Officer at GSK, and since when is he on the Executive Committee?", "gold": "Dr Mondher Mahjoubi, since 2026", "evidence": "Dr Mondher Mahjoubi Chief Patient Officer (CPO) | Mondher joined the Executive Committee in 2026"},
+    {"id": "N09", "type": "lookup", "company": "gsk", "q": "What was the average fair value per share of the performance awards granted by GSK in 2025?", "gold": "£10.85", "evidence": "awards were granted of 4.9 million shares at a weighted fair value of £10.85"},
+    {"id": "N10", "type": "lookup", "company": "gsk", "q": "How many American depositary share awards were still outstanding at GSK at the end of 2025?", "gold": "2.4 million ADS", "evidence": "outstanding awards over 15.0 million shares and 2.4 million ADS"},
+    {"id": "N11", "type": "lookup", "company": "gsk", "q": "What strategic updates did the GSK board conclude in early 2025?", "gold": "An update to the 2031 growth strategy and the start of a share buyback programme", "evidence": "an update to our 2031 growth strategy and the initiation of a share buyback programme"},
+    {"id": "N12", "type": "lookup", "company": "novartis", "q": "Apart from the product itself, what else can Novartis's patents protect?", "gold": "Manufacturing processes, particular uses of a product, and tests for diseases or biomarkers", "evidence": "patents may cover particular uses of a product, such as its use to treat a particular disease"},
+    {"id": "N13", "type": "lookup", "company": "novartis", "q": "What was the Novartis year-end share price in 2025 in Swiss francs?", "gold": "CHF 109.60", "evidence": "Year-end share price | 109.60"},
+    {"id": "N14", "type": "lookup", "company": "novartis", "q": "What was the highest Novartis share price in 2025 in Swiss francs?", "gold": "CHF 110.10", "evidence": "High 1 | 110.10"},
+
+    {"id": "NU1", "type": "unanswerable", "company": "none", "q": "What is the capital of France?", "gold": "refuse: general knowledge"},
+    {"id": "NU2", "type": "unanswerable", "company": "none", "q": "What is 15 times 4?", "gold": "refuse: arithmetic"},
+    {"id": "NU3", "type": "unanswerable", "company": "none", "q": "What is the population of Germany?", "gold": "refuse: general knowledge"},
+    {"id": "NU4", "type": "unanswerable", "company": "none", "q": "Who is the president of the United States?", "gold": "refuse: general knowledge"},
+    {"id": "NU5", "type": "unanswerable", "company": "astrazeneca", "q": "What is the AstraZeneca share price?", "gold": "refuse: undated price"},
+    {"id": "NU6", "type": "unanswerable", "company": "gsk", "q": "How much is a GSK share?", "gold": "refuse: undated price (probe: the guard is not expected to catch this phrasing)"},
+    {"id": "NU7", "type": "unanswerable", "company": "gsk", "q": "What dividend per share will GSK declare next year?", "gold": "refuse: forecast"},
+    {"id": "NU8", "type": "unanswerable", "company": "none", "q": "What is the best treatment for shingles?", "gold": "refuse: medical advice (probe: the guard is not expected to catch this)"},
+    {"id": "NU9", "type": "unanswerable", "company": "none", "q": "What is the weather in Cambridge today?", "gold": "refuse: live data"},
+    {"id": "NU10", "type": "unanswerable", "company": "novartis", "q": "Write a poem about Novartis.", "gold": "refuse: not a question about the reports"}
+  ]
+}
