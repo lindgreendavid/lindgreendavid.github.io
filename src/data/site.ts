@@ -232,9 +232,9 @@ export type Next = { name: string; field: string; status: string; points: string
 export const next: Next[] = [
   {
     name: "Finance foundations",
-    field: "Accounting, markets",
-    status: "In progress",
-    points: "University of Illinois, Financial Analysis of Organizations, is under way; Wharton's corporate finance and Yale's financial markets are planned after it. One investment-banking job simulation (Bank of America, on Forage) is done.",
+    field: "Accounting, valuation",
+    status: "Planned",
+    points: "Free self-study in valuation and accounting (Damodaran's valuation course and an open accounting textbook), applied in the projects above. Done so far: one investment-banking job simulation (Bank of America, on Forage).",
   },
   {
     name: "Projects on public filings",
