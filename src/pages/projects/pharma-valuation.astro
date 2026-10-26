@@ -325,7 +325,7 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
           <p>The 7.5% is not proven wrong: AstraZeneca's own FY2025 report discloses a 7.5% nominal post-tax WACC for impairment testing. That rate has a different purpose and date, so treat 7.5% as a lower comparison case and {pc(wc.wacc)} as an estimate built from market-based industry inputs.</p>
           <h3>Limits</h3>
           <ul>
-            <li>Inputs were read on {waccData.asOf} and matched against their sources by an external AI-assisted check; nothing was independently reviewed by a finance professional. The equity risk premium is a January 2026 estimate, not an October one.</li>
+            <li>Inputs were read on {waccData.asOf}. The author checked each one against its source, and an external AI-assisted check matched them to the sources as well. No finance professional has reviewed the section. The equity risk premium is a January 2026 estimate, not an October one.</li>
             <li>Industry beta and industry debt-to-equity stand in for AstraZeneca's own; the credit spread is a rating-based proxy (Moody's A1, S&amp;P A+ per the 20-F), not a measured bond spread.</li>
             <li>Not done: AstraZeneca's market-value weights (no bundled share price), a country or company-specific premium, a roll-forward of every input to the same valuation date.</li>
             <li>The operating tax rate in the cash flows stays at 18%, so this comparison isolates the discount rate.</li>

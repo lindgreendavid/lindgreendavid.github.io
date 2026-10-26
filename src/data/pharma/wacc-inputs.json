@@ -1,5 +1,5 @@
 {
-  "note": "Inputs for an ILLUSTRATIVE WACC scenario for AstraZeneca. Each was read on 2026-10-26 and matched against its source by an external AI-assisted check the same day. They are dated estimates, not AstraZeneca-specific market measurements.",
+  "note": "Inputs for an ILLUSTRATIVE WACC scenario for AstraZeneca. Each was read on 2026-10-26, checked against its source by the author (David confirmed on 2026-10-26 that he checked them) and matched by an external AI-assisted check the same day. They are dated estimates, not AstraZeneca-specific market measurements.",
   "asOf": "2026-10-26",
   "inputs": {
     "rf": { "value": 0.0496, "label": "Risk-free rate (10-year US Treasury yield)", "source": "FRED DGS10, value for 22 October 2026", "url": "https://fred.stlouisfed.org/series/DGS10", "note": "AstraZeneca reports and generates cash flows in US dollars, so a dollar rate is used." },
