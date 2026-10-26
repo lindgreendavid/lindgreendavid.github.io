@@ -1,0 +1,12 @@
+{
+  "note": "Inputs for an ILLUSTRATIVE WACC scenario for AstraZeneca. Each was read on 2026-10-26 and matched against its source by an external AI-assisted check the same day. They are dated estimates, not AstraZeneca-specific market measurements.",
+  "asOf": "2026-10-26",
+  "inputs": {
+    "rf": { "value": 0.0496, "label": "Risk-free rate (10-year US Treasury yield)", "source": "FRED DGS10, value for 22 October 2026", "url": "https://fred.stlouisfed.org/series/DGS10", "note": "AstraZeneca reports and generates cash flows in US dollars, so a dollar rate is used." },
+    "erp": { "value": 0.0423, "label": "Equity risk premium (implied, mature market)", "source": "Damodaran implied ERP, 2025 year-end row (published January 2026)", "url": "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/histimpl.html", "note": "Not an October 2026 estimate; other sources use roughly 5% to 6%." },
+    "unlevBeta": { "value": 0.96, "label": "Unlevered beta, global pharmaceuticals", "source": "Damodaran betas by sector, global, January 2026 (1,260 firms)", "url": "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/BetasGlobal.html", "note": "An industry estimate, not AstraZeneca's own beta. The same table lists a cash-corrected beta of 1.00." },
+    "de": { "value": 0.1494, "label": "Target debt-to-equity", "source": "Same Damodaran global pharma row", "url": "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/BetasGlobal.html", "note": "Industry average used as a target structure; AstraZeneca's own market-value weights are not used (no bundled share price)." },
+    "tax": { "value": 0.25, "label": "Marginal tax rate (debt shield and relevering)", "source": "UK statutory corporation tax rate", "url": "https://www.gov.uk/corporation-tax-rates", "note": "AstraZeneca's FY2025 effective rate was 17.5% (2,169 / 12,402); the DCF's operating-tax assumption of 18% is unchanged so the comparison isolates WACC." },
+    "spread": { "value": 0.007, "label": "Credit spread over the risk-free rate", "source": "AstraZeneca FY2025 20-F: long-term ratings Moody's A1 and S&P A+; Damodaran's January 2026 spread for A1/A+", "url": "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/ratings.html", "note": "A rating-based proxy, not a measured current AstraZeneca bond spread." }
+  }
+}

@@ -197,3 +197,24 @@ test("validateDcfInputs keeps legitimate cases valid: negative growth, a working
   assert.ok(runDcf(release).valuePerShare > runDcf(base).valuePerShare, "a working-capital release raises value");
   assert.equal(runDcf({ ...base, growth: [0.05] }).years.length, 1);
 });
+
+// ---- WACC from sourced inputs ----
+import { waccFromInputs } from "../../src/lib/pharma/model.ts";
+
+test("waccFromInputs: hand-computed case (Rf 4.96%, ERP 4.23%, beta 0.96, D/E 14.94%, tax 25%, spread 0.70%)", () => {
+  const w = waccFromInputs({ rf: 0.0496, erp: 0.0423, unlevBeta: 0.96, de: 0.1494, tax: 0.25, spread: 0.007 });
+  assert.ok(Math.abs(w.levBeta - 1.067568) < 1e-6); // 0.96 x (1 + 0.75 x 0.1494)
+  assert.ok(Math.abs(w.costOfEquity - 0.094758) < 1e-5);
+  assert.ok(Math.abs(w.afterTaxCostOfDebt - 0.04245) < 1e-6); // (4.96% + 0.70%) x 0.75
+  assert.ok(Math.abs(w.debtWeight - 0.1494 / 1.1494) < 1e-12);
+  assert.ok(Math.abs(w.wacc - 0.08795907) < 1e-7);
+});
+
+test("waccFromInputs feeds the DCF: the sourced WACC gives about $103.69 per share against $132.41 at 7.5%", () => {
+  const ds = JSON.parse(fs.readFileSync("src/data/pharma/dataset.json", "utf8"));
+  const base = dcfInputsFor(ds, SCENARIOS.base);
+  const w = waccFromInputs({ rf: 0.0496, erp: 0.0423, unlevBeta: 0.96, de: 0.1494, tax: 0.25, spread: 0.007 });
+  assert.ok(Math.abs(runDcf({ ...base, wacc: w.wacc }).valuePerShare - 103.69) < 0.01);
+  assert.ok(Math.abs(runDcf(base).valuePerShare - 132.41) < 0.01);
+  assert.throws(() => waccFromInputs({ rf: NaN, erp: 0.04, unlevBeta: 1, de: 0.1, tax: 0.25, spread: 0.01 }), DcfInputError);
+});

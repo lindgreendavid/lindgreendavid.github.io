@@ -4,7 +4,8 @@ import ProjectHeader from "../../components/ProjectHeader.astro";
 import "../../styles/projects.css";
 import ds from "../../data/pharma/dataset.json";
 import validation from "../../data/pharma/validation.json";
-import { comparable, dcfInputsFor, line, SCENARIOS, YEARS } from "../../lib/pharma/model.ts";
+import { comparable, dcfInputsFor, line, runDcf, SCENARIOS, waccFromInputs, YEARS } from "../../lib/pharma/model.ts";
+import waccData from "../../data/pharma/wacc-inputs.json";
 import type { Dataset } from "../../lib/pharma/model.ts";
 import { groupedBars, lines } from "../../lib/pharma/charts.ts";
 import { fmtBn, fmtM, fmtPct, fmtX, renderDcf } from "../../lib/pharma/ui.ts";
@@ -74,6 +75,21 @@ const metricLabel: Record<string, string> = {
 };
 const accnLink = (c: string, accn: string) => `https://www.sec.gov/Archives/edgar/data/${parseInt(ds.companies[c].cik, 10)}/${accn.split(",")[0].trim().replaceAll("-", "")}/`;
 const v = validation;
+// Illustrative WACC scenario built from dated, sourced inputs (see wacc-inputs.json). The DCF cash flows are unchanged: only the discount rate differs.
+const wi = Object.fromEntries(Object.entries(waccData.inputs).map(([k, x]) => [k, x.value])) as { rf: number; erp: number; unlevBeta: number; de: number; tax: number; spread: number };
+const wc = waccFromInputs(wi);
+const valueAt = (w: number) => runDcf({ ...base, wacc: w }).valuePerShare;
+const vBase = runDcf(base).valuePerShare;
+const vSourced = valueAt(wc.wacc);
+const waccCases = [
+  { name: "Typed-in comparison case (also AstraZeneca's own impairment-test rate)", w: base.wacc },
+  { name: "Sourced central case", w: wc.wacc },
+  { name: "Equity risk premium 4.0%", w: waccFromInputs({ ...wi, erp: 0.04 }).wacc },
+  { name: "Equity risk premium 5.0%", w: waccFromInputs({ ...wi, erp: 0.05 }).wacc },
+  { name: "US pharma beta 0.89", w: waccFromInputs({ ...wi, unlevBeta: 0.89 }).wacc },
+  { name: "Cash-corrected global pharma beta 1.00", w: waccFromInputs({ ...wi, unlevBeta: 1.0 }).wacc },
+];
+const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
 ---
 <Base title="Pharma Valuation Explorer | David Lindgreen" description="A transparent comparison of Novartis, AstraZeneca and GSK from public filings, with a DCF of AstraZeneca, sensitivity analysis and a downloadable model. First release, in development.">
   <ProjectHeader current="projects" />
@@ -97,7 +113,7 @@ const v = validation;
         </div>
       </div>
       <nav class="jump" aria-label="On this page">
-        <a href="#compare">Compare</a><a href="#valuation">Valuation</a><a href="#evidence">Evidence</a><a href="#method">Method</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a>
+        <a href="#compare">Compare</a><a href="#valuation">Valuation</a><a href="#wacc-sources">WACC from sources</a><a href="#evidence">Evidence</a><a href="#method">Method</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a>
       </nav>
     </section>
 
@@ -285,6 +301,39 @@ const v = validation;
       <p class="muted" style="margin-top: 0.75rem">In the base case the terminal value is {fmtPct(initial.r.terminalShareOfEv, 0)} of enterprise value, so the result is mostly a statement about long-run assumptions. The outlined cell marks the current assumptions.</p>
     </section>
 
+    <section class="wrap section" id="wacc-sources" aria-labelledby="wacc-h">
+      <div class="section-head"><h2 id="wacc-h">A WACC built from sources (a scenario, not a correction)</h2><p>The scenarios above use a typed-in discount rate. Here the same cash flows are discounted at a rate built from dated public inputs, so you can see how much the answer depends on that choice.</p></div>
+      <div class="pane">
+        <div class="tbl-wrap" role="region" aria-label="WACC inputs, scrolls horizontally on small screens" tabindex="0">
+          <table class="tbl">
+            <caption class="sr">Inputs to the sourced WACC</caption>
+            <thead><tr><th scope="col">Input</th><th scope="col">Value</th><th scope="col">Source and caveat</th></tr></thead>
+            <tbody>{Object.values(waccData.inputs).map((x) => <tr><th scope="row">{x.label}</th><td class="num">{pc(x.value)}</td><td style="white-space:normal"><a href={x.url} rel="noopener">{x.source}</a>. {x.note}</td></tr>)}</tbody>
+          </table>
+        </div>
+        <p style="margin-top:1rem"><strong>Calculation.</strong> Relevered beta {wc.levBeta.toFixed(3)} = {wi.unlevBeta} × (1 + (1 − {pc(wi.tax, 0)}) × {pc(wi.de)}). Cost of equity {pc(wc.costOfEquity)} = {pc(wi.rf)} + {wc.levBeta.toFixed(3)} × {pc(wi.erp)}. Cost of debt {pc(wc.preTaxCostOfDebt)} before tax, {pc(wc.afterTaxCostOfDebt)} after. Weights: {pc(wc.equityWeight, 1)} equity, {pc(wc.debtWeight, 1)} debt. <strong>WACC {pc(wc.wacc)}.</strong></p>
+        <div class="tbl-wrap" role="region" aria-label="Value per share at different discount rates, scrolls horizontally on small screens" tabindex="0">
+          <table class="tbl">
+            <caption class="sr">Value per ordinary share at different discount rates, same base-case cash flows</caption>
+            <thead><tr><th scope="col">Case</th><th scope="col">WACC</th><th scope="col">Value per ordinary share</th><th scope="col">Versus the 7.5% case</th></tr></thead>
+            <tbody>{waccCases.map((c) => <tr><th scope="row">{c.name}</th><td class="num">{pc(c.w)}</td><td class="num">${valueAt(c.w).toFixed(2)}</td><td class="num">{c.w === base.wacc ? "n/a" : `${((valueAt(c.w) / vBase - 1) * 100).toFixed(1)}%`}</td></tr>)}</tbody>
+          </table>
+        </div>
+        <div class="prose">
+          <h3>What it shows</h3>
+          <p>Discounting the same projected cash flows at the sourced {pc(wc.wacc)} instead of 7.5% lowers the modelled value from ${vBase.toFixed(2)} to ${vSourced.toFixed(2)} per ordinary share, about {((1 - vSourced / vBase) * 100).toFixed(0)}% lower. The equity risk premium is the largest swing factor.</p>
+          <p>The 7.5% is not proven wrong: AstraZeneca's own FY2025 report discloses a 7.5% nominal post-tax WACC for impairment testing. That rate has a different purpose and date, so treat 7.5% as a lower comparison case and {pc(wc.wacc)} as an estimate built from market-based industry inputs.</p>
+          <h3>Limits</h3>
+          <ul>
+            <li>Inputs were read on {waccData.asOf} and matched against their sources by an external AI-assisted check; nothing was independently reviewed by a finance professional. The equity risk premium is a January 2026 estimate, not an October one.</li>
+            <li>Industry beta and industry debt-to-equity stand in for AstraZeneca's own; the credit spread is a rating-based proxy (Moody's A1, S&amp;P A+ per the 20-F), not a measured bond spread.</li>
+            <li>Not done: AstraZeneca's market-value weights (no bundled share price), a country or company-specific premium, a roll-forward of every input to the same valuation date.</li>
+            <li>The operating tax rate in the cash flows stays at 18%, so this comparison isolates the discount rate.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <div class="band band-mint">
       <section class="wrap section" id="evidence" aria-labelledby="ev-h">
         <div class="section-head">
@@ -372,7 +421,7 @@ const v = validation;
             <ul>
               <li>Add a market-data source whose terms allow redistribution, and verify ADS ratios.</li>
               <li>Value GSK's non-controlling interests using a market-based approach; Note 29 confirms that borrowings include leases.</li>
-              <li>Build a peer-based WACC with explicit beta and capital-structure inputs.</li>
+              <li>Replace the industry beta and debt-to-equity with a peer set and AstraZeneca's own market-value weights (needs a licensed price source), and re-date every input to one valuation date.</li>
               <li>Add a pipeline-risk scenario and a patent-expiry view.</li>
               <li>Add trailing-twelve-month figures and a fourth company.</li>
               <li>Have a finance professional review the assumptions and bridge.</li>

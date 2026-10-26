@@ -240,6 +240,22 @@ export function runDcf(i: DcfInputs, baseYear = 2025): DcfResult {
   };
 }
 
+export type WaccInputs = { rf: number; erp: number; unlevBeta: number; de: number; tax: number; spread: number };
+export type WaccResult = { levBeta: number; costOfEquity: number; preTaxCostOfDebt: number; afterTaxCostOfDebt: number; debtWeight: number; equityWeight: number; wacc: number };
+
+/** CAPM cost of equity with a relevered beta, blended with an after-tax cost of debt (risk-free rate plus a credit spread). */
+export function waccFromInputs(i: WaccInputs): WaccResult {
+  for (const [k, v] of Object.entries(i)) if (!Number.isFinite(v)) throw new DcfInputError(`WACC input ${k} needs a number.`);
+  if (i.de < 0 || i.tax < 0 || i.tax >= 1 || i.unlevBeta <= 0) throw new DcfInputError("WACC inputs are out of range.");
+  const levBeta = i.unlevBeta * (1 + (1 - i.tax) * i.de);
+  const costOfEquity = i.rf + levBeta * i.erp;
+  const preTaxCostOfDebt = i.rf + i.spread;
+  const afterTaxCostOfDebt = preTaxCostOfDebt * (1 - i.tax);
+  const debtWeight = i.de / (1 + i.de);
+  const equityWeight = 1 - debtWeight;
+  return { levBeta, costOfEquity, preTaxCostOfDebt, afterTaxCostOfDebt, debtWeight, equityWeight, wacc: equityWeight * costOfEquity + debtWeight * afterTaxCostOfDebt };
+}
+
 export type Scenario = { name: string; growth: number[]; targetMargin: number; wacc: number; terminalGrowth: number; taxRate: number; daPct: number; capexPct: number; nwcPct: number };
 
 /** Illustrative scenarios. They are assumptions for exploring the model, not forecasts or company guidance. */
