@@ -2,7 +2,9 @@
 import Base from "../../layouts/Base.astro";
 import ProjectHeader from "../../components/ProjectHeader.astro";
 import "../../styles/projects.css";
+import MiniBars from "../../components/MiniBars.astro";
 import { person } from "../../data/site";
+import { evalRows, marginRows, top5Rows } from "../../lib/projectViz.ts";
 ---
 <Base title="Projects | David Lindgreen" description="Three connected projects on public financial data: a pharma valuation explorer, an annual-report research assistant and an M&A screening workbench. Honest status for each.">
   <ProjectHeader current="projects" />
@@ -18,9 +20,11 @@ import { person } from "../../data/site";
           <div>
             <p class="status">First release · in development</p>
             <h3 style="margin-top:1rem">Pharma Valuation Explorer</h3>
+            <MiniBars title="Operating margin, FY2025" rows={marginRows} note="From the reconciled dataset. Same definition for all three." />
           </div>
           <div>
-            <p>A like-for-like comparison of Novartis, AstraZeneca and GSK from SEC filings, a DCF of AstraZeneca with sensitivity analysis, and a downloadable model with sources. 137 figures reconciled to filing pages; 168 automated checks pass; not yet independently reviewed.</p>
+            <p class="use-line"><strong>Good for:</strong> comparing companies on one basis and seeing which assumption moves a valuation most.</p>
+            <p>A like-for-like comparison of Novartis, AstraZeneca and GSK from SEC filings, a DCF of AstraZeneca with sensitivity analysis, and a downloadable model with sources. 137 figures reconciled to filing pages; 170 automated checks pass; not yet independently reviewed.</p>
             <p class="links"><a href="/projects/pharma-valuation/">Open the explorer</a><a href="/projects/pharma-valuation/#evidence">See the evidence</a></p>
           </div>
         </article>
@@ -28,8 +32,10 @@ import { person } from "../../data/site";
           <div>
             <p class="status">First release · in development</p>
             <h3 style="margin-top:1rem">Annual-Report Research Assistant</h3>
+            <MiniBars title="Questions answered correctly, latest engine" rows={evalRows} note="Five hand-written question sets. Failures are listed on the page." />
           </div>
           <div>
+            <p class="use-line"><strong>Good for:</strong> finding what a filing says with a link to the source, and for learning how to test a question-answering system honestly.</p>
             <p>Ask questions across the FY2025 reports of Novartis, AstraZeneca and GSK. Answers are quoted source passages with links into the filing, calculations from the reconciled dataset, or an explicit refusal; there is no language model in this version. Evaluated on 142 hand-written questions in five sets, each run on three engine versions, with failures listed; not yet independently reviewed.</p>
             <p class="links"><a href="/projects/research-assistant/">Open the assistant</a><a href="/projects/research-assistant/#evaluation">See the evaluation</a></p>
           </div>
@@ -38,8 +44,10 @@ import { person } from "../../data/site";
           <div>
             <p class="status">First release · in development</p>
             <h3 style="margin-top:1rem">Strategic M&amp;A Screening Workbench</h3>
+            <MiniBars title="Top five of 28 under the default brief, score 0 to 100" rows={top5Rows} note="Hypothetical buyer. A screen, not a valuation." />
           </div>
           <div>
+            <p class="use-line"><strong>Good for:</strong> turning a long list into a defensible short list, and showing how fragile a ranking is.</p>
             <p>An explainable preliminary shortlist for a clearly labelled hypothetical buyer brief, over 28 US-listed pharma and biotech companies from SEC filings. Adjustable criterion weights, missing-data flags, ranking sensitivity and a generated screening memo. It supports initial screening only; it makes no worth or deal-feasibility claim. Optional valuation and deal-size criteria run only on share prices you paste in. Figures checked against the filing text and balance sheets; not independently reviewed.</p>
             <p class="links"><a href="/projects/ma-screening/">Open the workbench</a><a href="/projects/ma-screening/#evidence">See the evidence</a></p>
           </div>

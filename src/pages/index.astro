@@ -2,7 +2,9 @@
 import Base from "../layouts/Base.astro";
 import RateChart from "../components/RateChart.astro";
 import LegalLinks from "../components/LegalLinks.astro";
+import MiniBars from "../components/MiniBars.astro";
 import { person, notes, roles, next } from "../data/site";
+import { evalRows, marginRows, top5Rows } from "../lib/projectViz.ts";
 
 const [lead, second, third] = notes;
 const more = notes.slice(3);
@@ -71,11 +73,38 @@ const education = roles.filter((r) => !work.includes(r) && r.role !== "Teaching 
       </div>
     </section>
 
+    <section class="wrap section section-tight" id="projects" aria-labelledby="projects-h">
+      <div class="section-head" data-rv>
+        <h2 id="projects-h">Finance projects on public filings</h2>
+        <p>Three connected tools, each drawn from real data and checked against the source. First releases, built with AI assistance, not independently reviewed.</p>
+      </div>
+      <div class="proj-trio" data-rv data-stagger>
+        <div>
+          <h3>Pharma Valuation Explorer</h3>
+          <p class="trio-for">Compares Novartis, AstraZeneca and GSK on one basis, then values AstraZeneca with a DCF.</p>
+          <MiniBars title="Operating margin, FY2025" rows={marginRows} />
+          <p class="links"><a href="/projects/pharma-valuation/">Open the explorer<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d={arrow} /></svg></a></p>
+        </div>
+        <div>
+          <h3>Annual-Report Research Assistant</h3>
+          <p class="trio-for">Answers questions from the filings with a source link, a calculation or a refusal. No language model.</p>
+          <MiniBars title="Questions answered correctly" rows={evalRows} />
+          <p class="links"><a href="/projects/research-assistant/">Open the assistant<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d={arrow} /></svg></a></p>
+        </div>
+        <div>
+          <h3>M&amp;A Screening Workbench</h3>
+          <p class="trio-for">Ranks 28 pharma and biotech companies for a hypothetical buyer and shows how fragile the order is.</p>
+          <MiniBars title="Top five, score 0 to 100" rows={top5Rows} />
+          <p class="links"><a href="/projects/ma-screening/">Open the workbench<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d={arrow} /></svg></a></p>
+        </div>
+      </div>
+    </section>
+
     <div class="band band-mint">
       <section class="wrap section" id="work" aria-labelledby="work-h">
         <div class="section-head" data-rv>
           <h2 id="work-h">Selected work</h2>
-          <p>Three analyses closest to data and AI work in finance. Each links to the write-up and the code. New: <a href="/projects/">three connected projects on public filings</a> (a pharma valuation explorer, an annual-report research assistant and an M&amp;A screening workbench), first releases and still in development.</p>
+          <p>Three analyses closest to data and AI work in finance. Each links to the write-up and the code.</p>
         </div>
 
         <div class="work" data-rv data-stagger>

@@ -1,6 +1,8 @@
 ---
 import Base from "../../layouts/Base.astro";
 import ProjectHeader from "../../components/ProjectHeader.astro";
+import ProjectFlow from "../../components/ProjectFlow.astro";
+import ProjectUses from "../../components/ProjectUses.astro";
 import "../../styles/projects.css";
 import ds from "../../data/pharma/dataset.json";
 import filings from "../../data/research/filings.json";
@@ -23,7 +25,7 @@ const fmt = (n: number) => n.toLocaleString("en-US");
         <div><h2>The problem</h2><p>Annual reports run to hundreds of pages. Search finds words, not the right passage, and chat tools can answer fluently without a source.</p></div>
         <div><h2>What it supports</h2><p>Locating evidence and checking figures, with every answer traceable. It is not a buy or sell signal.</p></div>
       </div>
-      <nav class="jump" aria-label="On this page"><a href="#ask">Ask</a><a href="#how">How it works</a><a href="#evaluation">Evaluation</a><a href="#documents">Documents</a><a href="#limits">Limits</a></nav>
+      <nav class="jump" aria-label="On this page"><a href="#ask">Ask</a><a href="#how">How it works</a><a href="#evaluation">Evaluation</a><a href="#documents">Documents</a><a href="#uses">Uses</a><a href="#limits">Limits</a></nav>
     </section>
 
     <section class="wrap" aria-label="Disclosures">
@@ -49,6 +51,13 @@ const fmt = (n: number) => n.toLocaleString("en-US");
         </div>
       </section>
     </div>
+
+    <ProjectFlow id="path" heading="From question to answer" intro="Every question takes one of three routes. None of them writes text." steps={[
+      { title: "Your question", detail: "Typed in plain English. Nothing is sent anywhere; the search runs in your browser." },
+      { title: "Scope guard", detail: "Advice, live prices, forecasts and companies outside the corpus are refused, with the reason." },
+      { title: "Calculator or search", detail: `Numbers are computed by code from the reconciled dataset. Everything else is searched across ${fmt(Object.values(filings).reduce((a, f) => a + f.passages, 0))} passages cut from the filings.` },
+      { title: "What you get", detail: "A quoted passage with a link into the filing, a calculation with its formula, or a clear refusal." },
+    ]} />
 
     <section class="wrap section" id="how" aria-labelledby="how-h">
       <div class="section-head"><h2 id="how-h">How it works</h2><p>Three separate stages. Each can be tested on its own, and none of them generates text.</p></div>
@@ -120,6 +129,20 @@ const fmt = (n: number) => n.toLocaleString("en-US");
         </div>
       </div>
     </section>
+
+    <ProjectUses id="uses" heading="What it is for, and what it taught" intro="The same design, with a guard, a calculator and a retriever that cites its source, fits any task where an answer must be traceable."
+      uses={[
+        { where: "Equity research, credit and ESG analysis", how: "Finding where a filing discloses litigation, segment sales or a risk, and jumping to the source to read it in context." },
+        { where: "Audit, compliance and due diligence", how: "Retrieval that shows its source, and refuses what the documents cannot support, is the control these teams ask for." },
+        { where: "Internal knowledge search", how: "Policies, contracts and reports can use the same three stages. The guard decides what the system may not answer." },
+        { where: "Evaluating AI question-answering", how: "The method (written-down questions, blind sets, a baseline, listed failures) applies to a language-model system as much as to this one." },
+      ]}
+      learned={[
+        { lesson: "Tuning on your own test set flatters you.", evidence: "Version 2 raised the paraphrased set from 7/30 to 18/30 but dropped the original development set from 31/41 to 27/41. Blind sets written before the change are what exposed it." },
+        { lesson: "Refusing is part of being correct.", evidence: "Questions about advice or live prices are scored as correct only if the system refuses; some paraphrased questions were wrongly refused, and the page lists them." },
+        { lesson: "Numbers should come from code, not from text.", evidence: "Margins, net debt and growth are calculated from the reconciled dataset with the formula shown, so they cannot be misquoted." },
+        { lesson: "Independence is hard to fake.", evidence: "The author wrote the questions and the thesaurus, so the page says the results are not independent. A second question-writer is the next step." },
+      ]} />
 
     <div class="band band-mint">
       <section class="wrap section" id="limits" aria-labelledby="lim-h">

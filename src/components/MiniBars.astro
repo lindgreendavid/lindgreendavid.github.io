@@ -1,0 +1,28 @@
+---
+// Horizontal bars drawn as HTML so labels stay readable at phone width. Values are shown as text too; the bars are decoration.
+interface Row {
+  label: string;
+  /** 0 to 1, share of the track */
+  share: number;
+  text: string;
+}
+interface Props {
+  title: string;
+  note?: string;
+  rows: Row[];
+}
+const { title, note, rows } = Astro.props;
+---
+<figure class="mb">
+  <figcaption>{title}</figcaption>
+  <ul>
+    {rows.map((r) => (
+      <li>
+        <span class="mb-label">{r.label}</span>
+        <span class="mb-track" aria-hidden="true"><span class="mb-fill" style={`--w:${Math.max(0, Math.min(1, r.share)) * 100}%`}></span></span>
+        <span class="mb-val">{r.text}</span>
+      </li>
+    ))}
+  </ul>
+  {note && <p class="mb-note">{note}</p>}
+</figure>

@@ -1,0 +1,38 @@
+---
+// What this kind of analysis is used for in practice, and what building it taught. Uses are general practice, not claims about the author's own work.
+interface Use {
+  where: string;
+  how: string;
+}
+interface Props {
+  id: string;
+  heading: string;
+  intro: string;
+  uses: Use[];
+  learnedHeading?: string;
+  learned: { lesson: string; evidence: string }[];
+}
+const { id, heading, intro, uses, learnedHeading = "What building it taught", learned } = Astro.props;
+---
+<section class="wrap section" id={id} aria-labelledby={`${id}-h`}>
+  <div class="section-head"><h2 id={`${id}-h`}>{heading}</h2><p>{intro}</p></div>
+  <div class="uses">
+    <div class="uses-col">
+      <h3>Where this kind of work is used</h3>
+      <ul class="uses-list">
+        {uses.map((u) => (
+          <li><strong>{u.where}</strong><span>{u.how}</span></li>
+        ))}
+      </ul>
+      <p class="muted uses-note">These are common professional settings for this method, from general practice. They are not claims about the author's own work experience, and this tool is a first release.</p>
+    </div>
+    <div class="uses-col">
+      <h3>{learnedHeading}</h3>
+      <ul class="uses-list">
+        {learned.map((l) => (
+          <li><strong>{l.lesson}</strong><span>{l.evidence}</span></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

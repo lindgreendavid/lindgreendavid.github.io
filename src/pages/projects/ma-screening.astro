@@ -1,6 +1,8 @@
 ---
 import Base from "../../layouts/Base.astro";
 import ProjectHeader from "../../components/ProjectHeader.astro";
+import ProjectFlow from "../../components/ProjectFlow.astro";
+import ProjectUses from "../../components/ProjectUses.astro";
 import "../../styles/projects.css";
 import ds from "../../data/ma/dataset.json";
 import validation from "../../data/ma/validation.json";
@@ -28,12 +30,20 @@ const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true 
         <div><h2>The problem</h2><p>A long list is easy to rank by gut feel. A screen should state its criteria, show its gaps and show how fragile the order is.</p></div>
         <div><h2>What it supports</h2><p>Deciding which handful of companies deserve a proper look. It is not a valuation model, a fairness view or a recommendation.</p></div>
       </div>
-      <nav class="jump" aria-label="On this page"><a href="#brief">Brief</a><a href="#screen">Screen</a><a href="#briefs">Briefs</a><a href="#memo">Memo</a><a href="#evidence">Evidence</a><a href="#method">Method</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a></nav>
+      <nav class="jump" aria-label="On this page"><a href="#brief">Brief</a><a href="#screen">Screen</a><a href="#briefs">Briefs</a><a href="#memo">Memo</a><a href="#evidence">Evidence</a><a href="#method">Method</a><a href="#uses">Uses</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a></nav>
     </section>
 
     <section class="wrap" aria-label="Disclosures">
       <p class="callout"><strong>The buyer is hypothetical.</strong> "BuyerCo" below is invented for this exercise; it is not a real client, mandate or employer. Data is public (SEC XBRL for Forms 10-K). The author works at Sanofi; no Sanofi or other employer information is used. Built with AI assistance; the author is responsible for checking it. Educational only, not investment advice.</p>
     </section>
+
+    <ProjectFlow id="built" heading="How it is built" intro="A screen is only as good as its data and its stated rules. Both are visible here." steps={[
+      { title: "28 filers", detail: "US-listed pharma and biotech companies. Every figure comes from SEC XBRL data and keeps its tag, filing and date." },
+      { title: "Filters", detail: "A revenue range, positive operating income and complete core data. Excluded companies are listed with the reason." },
+      { title: "Score", detail: "Criteria are scored against fixed anchors from the brief, with weights you can change and a policy for missing data." },
+      { title: "Stress test", detail: "1,000 random re-weightings and three different briefs show how fragile the order is." },
+      { title: "What you get", detail: "A ranked shortlist and a generated memo that always lists what was not assessed." },
+    ]} />
 
     <div class="band band-mint">
       <section class="wrap section" id="brief" aria-labelledby="brief-h">
@@ -178,6 +188,20 @@ const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true 
         </div>
       </section>
     </div>
+
+    <ProjectUses id="uses" heading="What it is for, and what it taught" intro="Screening is the step before valuation: decide which few names deserve the expensive work, and be able to say why."
+      uses={[
+        { where: "Corporate development and strategy", how: "A long list of possible targets is cut to a short list against a written brief, before any detailed analysis." },
+        { where: "Investment banking coverage", how: "Target screens support pitches and buyer lists. A transparent screen is easier to defend in front of a client." },
+        { where: "Private equity and venture sourcing", how: "Funds screen large universes for companies that meet a thesis. The same filters, weights and flags apply." },
+        { where: "Any ranking decision", how: "Vendor selection, credit screens or hiring shortlists all gain from stated criteria, a missing-data rule and a fragility check." },
+      ]}
+      learned={[
+        { lesson: "Standard data tags miss real debt.", evidence: "At several companies the usual debt tags found nothing. Debt for nine companies was read from the 10-K balance sheets, and each figure is re-checked by a script." },
+        { lesson: "A ranking is less certain than it looks.", evidence: "Each company's rank range across 1,000 re-weightings is shown, and only a few names stay in the top five under all three briefs." },
+        { lesson: "Missing data is a choice, not a detail.", evidence: "Dropping a missing criterion and scoring it zero give different orders, so the page shows both." },
+        { lesson: "A screen says nothing about price.", evidence: "No licensed market data is bundled. Valuation and deal size only switch on if you paste your own prices." },
+      ]} />
 
     <section class="wrap section" id="limits" aria-labelledby="lim-h">
       <div class="section-head"><h2 id="lim-h">Limits and next steps</h2></div>

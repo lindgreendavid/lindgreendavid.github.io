@@ -1,0 +1,28 @@
+---
+// A left-to-right (top-to-bottom on phones) picture of how a project turns inputs into an answer. Last step is the output.
+interface Step {
+  title: string;
+  detail: string;
+}
+interface Props {
+  id: string;
+  heading: string;
+  intro: string;
+  steps: Step[];
+}
+const { id, heading, intro, steps } = Astro.props;
+---
+<section class="wrap section" id={id} aria-labelledby={`${id}-h`}>
+  <div class="section-head"><h2 id={`${id}-h`}>{heading}</h2><p>{intro}</p></div>
+  <ol class="flow" style={`--n:${steps.length}`}>
+    {steps.map((s, i) => (
+      <li class:list={["flow-step", { "flow-out": i === steps.length - 1 }]}>
+        <h3>{s.title}</h3>
+        <p>{s.detail}</p>
+        {i < steps.length - 1 && (
+          <svg class="flow-arrow" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        )}
+      </li>
+    ))}
+  </ol>
+</section>

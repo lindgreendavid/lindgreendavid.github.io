@@ -1,6 +1,8 @@
 ---
 import Base from "../../layouts/Base.astro";
 import ProjectHeader from "../../components/ProjectHeader.astro";
+import ProjectFlow from "../../components/ProjectFlow.astro";
+import ProjectUses from "../../components/ProjectUses.astro";
 import "../../styles/projects.css";
 import ds from "../../data/pharma/dataset.json";
 import validation from "../../data/pharma/validation.json";
@@ -113,7 +115,7 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
         </div>
       </div>
       <nav class="jump" aria-label="On this page">
-        <a href="#compare">Compare</a><a href="#valuation">Valuation</a><a href="#wacc-sources">WACC from sources</a><a href="#evidence">Evidence</a><a href="#method">Method</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a>
+        <a href="#compare">Compare</a><a href="#valuation">Valuation</a><a href="#wacc-sources">WACC from sources</a><a href="#evidence">Evidence</a><a href="#method">Method</a><a href="#uses">Uses</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a>
       </nav>
     </section>
 
@@ -129,6 +131,14 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
         <strong>A second, independent implementation exists.</strong> The <a href="https://lindgreendavid.com/pharma-valuation-explorer/" rel="noopener">standalone Pharma Valuation Explorer</a> was built separately from the rendered 20-F pages (Novartis, GSK and Novo Nordisk, with a DCF of Novartis). The 78 values the two datasets share are identical. They differ on purpose: revenue definition (this build includes other revenues; the standalone build uses net sales) and the company valued (AstraZeneca here, Novartis there). This build is the canonical Project 1 on this site, because the research assistant reuses its checked dataset; the M&amp;A workbench uses a separate US-company dataset; the standalone build stays as a second implementation and cross-check. Both are first releases, not independently reviewed.
       </p>
     </section>
+
+    <ProjectFlow id="built" heading="How it is built" intro="From a public filing to a number you can check. Each step has its own tests." steps={[
+      { title: "Public filings", detail: "Forms 20-F for Novartis, AstraZeneca and GSK from the SEC, plus ECB reference exchange rates." },
+      { title: "Read and reconcile", detail: "Figures are read from the filings' XBRL tags, then compared with the SEC's rendered statement pages. Differences are listed." },
+      { title: "Automated checks", detail: "Accounting identities, units, currency bands and completeness are tested on every build." },
+      { title: "Model", detail: "Comparable metrics, then a DCF with scenarios, sensitivity grids and a discount rate built from sourced inputs." },
+      { title: "What you get", detail: "A comparison, charts with data tables and an Excel workbook with live formulas that matches the page." },
+    ]} />
 
     <div class="band band-mint">
       <section class="wrap section" id="compare" aria-labelledby="compare-h">
@@ -399,6 +409,20 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
         <p>Free cash flow to the firm = operating profit × (1 − tax rate) + D&amp;A − capex − working-capital investment, for five years. Operating margin moves linearly from the FY2025 actual to the chosen FY2030 value. Working-capital investment is an annual cash outflow equal to a percentage of that year's revenue (not a change in a forecast working-capital balance); a negative percentage models a release. Cash flows are discounted at year-end; the terminal value uses constant growth: FCFF₅ × (1 + g) ÷ (WACC − g). Enterprise value is converted to equity value with the bridge above and divided by ordinary shares outstanding (1,550.9 million per the FY2025 cover page).</p>
       </div>
     </section>
+
+    <ProjectUses id="uses" heading="What it is for, and what it taught" intro="Valuation work looks precise. The useful skill is knowing which numbers are solid and which are choices."
+      uses={[
+        { where: "Equity research and investing", how: "Comparable-company tables and a DCF are the usual first pass on a stock. The sensitivity grid shows which assumption the answer really depends on." },
+        { where: "Investment banking and corporate finance", how: "Valuation pages in pitch books and board papers use the same ingredients: a common basis for peers, a discount rate, and a range instead of a point." },
+        { where: "Finance teams benchmarking against peers", how: "Cash conversion, R&D intensity and net debt only compare if the definitions match. The notes on this page show how much that matters." },
+        { where: "Learning valuation", how: "Every input can be changed and every figure links to its source, so you can see what a WACC or a growth rate does to value." },
+      ]}
+      learned={[
+        { lesson: "The same word hides different numbers.", evidence: "GSK's net debt moves by about £130m depending on whether liabilities held for sale and liquid investments are counted. An outside check found it; the page now shows both." },
+        { lesson: "The discount rate is a bigger lever than it looks.", evidence: `Moving from a typed-in 7.5% to a WACC built from sourced inputs (${pc(wc.wacc)}) lowers the modelled value from $${vBase.toFixed(2)} to $${vSourced.toFixed(2)} per share, with the cash flows unchanged.` },
+        { lesson: "A model should refuse nonsense.", evidence: "A discount rate at or below terminal growth gives an infinite or negative value, so the model rejects it and says why." },
+        { lesson: "Checking against the rendered page catches what tag-reading misses.", evidence: "137 figures were compared with the SEC's statement pages; the unreconciled ones are listed, not hidden." },
+      ]} />
 
     <div class="band band-mint">
       <section class="wrap section" id="limits" aria-labelledby="lim-h">

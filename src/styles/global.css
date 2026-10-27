@@ -770,6 +770,110 @@ h2.big,
   }
 }
 
+/* ---- finance projects on the home page: three columns of type with a data picture each, no surfaces ---- */
+.proj-trio {
+  display: grid;
+  gap: 3rem 3.5rem;
+}
+.proj-trio h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+.proj-trio .trio-for {
+  max-width: 34ch;
+  margin-top: 0.5rem;
+  color: var(--ink-2);
+}
+.proj-trio > div {
+  display: flex;
+  flex-direction: column;
+}
+.proj-trio .links {
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+.proj-trio .links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: none;
+}
+@media (min-width: 900px) {
+  .proj-trio {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* mini bars: data pictures on the project index */
+.mb {
+  margin: 1.5rem 0 0;
+}
+.mb figcaption {
+  margin-bottom: 0.6rem;
+  color: var(--ink-2);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.mb ul {
+  display: grid;
+  gap: 0.45rem;
+}
+.mb li {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, 8.5rem) minmax(0, 1fr) 3.4rem;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+.mb-label {
+  color: var(--ink-2);
+}
+.mb-track {
+  display: block;
+  height: 10px;
+  background: var(--tone);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.mb-fill {
+  display: block;
+  width: var(--w);
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transform-origin: left;
+}
+.mb-val {
+  text-align: right;
+  font-weight: 600;
+}
+.mb-note {
+  margin-top: 0.6rem;
+  color: var(--ink-3);
+  font-size: 0.85rem;
+}
+.reveal-ready .in .mb-fill,
+.mb-fill {
+  animation: mb-grow 800ms var(--out) 150ms backwards;
+}
+@keyframes mb-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-fill,
+  .reveal-ready .in .mb-fill {
+    animation: none;
+  }
+}
+
 /* ---- tools: each skill group comes with what was actually done with it ---- */
 .section-tight {
   padding-top: 0;
