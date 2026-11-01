@@ -228,7 +228,7 @@ export const roles: Role[] = [
 
 export type Next = { name: string; field: string; status: string; points: string };
 
-// Honest status words: Planned, In progress, First release. Nothing here is "reviewed" or "completed" unless the roadmap says so.
+// Honest status words: Planned, In progress, Version 1.0 (published with a method note; not independently reviewed). Nothing here is "reviewed" or "completed" unless the roadmap says so.
 export const next: Next[] = [
   {
     name: "Finance foundations",
@@ -238,15 +238,15 @@ export const next: Next[] = [
   },
   {
     name: "Projects on public filings",
-    field: "Valuation, search, M&A screening",
-    status: "First releases",
-    points: "A pharma valuation explorer, an annual-report research assistant and an M&A screening workbench are published on this site as first releases. They are still in development and not yet independently reviewed.",
+    field: "Valuation, search, M&A, buyouts, credit",
+    status: "Version 1.0",
+    points: "A pharma valuation explorer, an annual-report research assistant, an M&A screening workbench, an LBO workbench and a credit risk screen are published on this site as version 1.0, each with a method note, tests and stated limits. They are built with AI assistance and not independently reviewed.",
   },
   {
     name: "Job simulations on Forage",
     field: "Investment banking, generative AI",
     status: "Completed",
-    points: "Three finished: Bank of America investment banking (20 October 2026), BCG GenAI and Vista Equity Partners AI in Action (both 23 October 2026). Practice exercises, not employment or internships.",
+    points: "Five finished: Bank of America investment banking (20 October 2026), BCG GenAI and Vista Equity Partners AI in Action (both 23 October 2026), Vista Demystifying Private Equity (26 October 2026) and Fidelity International Investment Management (27 October 2026). Practice exercises, not employment or internships.",
   },
 ];
 

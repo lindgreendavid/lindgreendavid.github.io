@@ -7,11 +7,17 @@ import "../../styles/projects.css";
 import ds from "../../data/pharma/dataset.json";
 import filings from "../../data/research/filings.json";
 import summary from "../../data/research/eval-summary.json";
+import { parseRatio, wilson } from "../../lib/stats.ts";
 import devResults from "../../data/research/eval-results.json";
 
 const chips = ["In which jurisdiction is AstraZeneca incorporated?", "Which company had the highest operating margin in 2025?", "What was GSK's net debt including leases at the end of 2025?", "What were Kisqali sales in 2025?", "Should I buy GSK shares?"];
 const totalQuestions = summary.sets.reduce((acc, x) => acc + x.v21.questions, 0);
 const fmt = (n: number) => n.toLocaleString("en-US");
+const ci = (r: string) => {
+  const { k, n } = parseRatio(r);
+  const w = wilson(k, n);
+  return `${(w.lo * 100).toFixed(0)} to ${(w.hi * 100).toFixed(0)}%`;
+};
 ---
 <Base title="Annual-Report Research Assistant | David Lindgreen" description="Ask questions across the FY2025 Form 20-F reports of Novartis, AstraZeneca and GSK. Answers are source passages with links, deterministic calculations or an explicit refusal. First release, evaluated on 142 hand-written questions.">
   <ProjectHeader current="projects" />
@@ -19,13 +25,13 @@ const fmt = (n: number) => n.toLocaleString("en-US");
     <section class="wrap proj-hero">
       <h1>Annual-Report Research Assistant</h1>
       <p class="proj-lede">Ask a question about the FY2025 annual reports of Novartis, AstraZeneca and GSK. You get the source passage with a link into the filing, a calculation shown step by step, or a clear refusal. It does not write answers.</p>
-      <p class="status">First release · in development · evaluated, not independently reviewed</p>
+      <p class="status">Version 1.0 · evaluated on 142 questions with intervals · not independently reviewed</p>
       <div class="brief">
         <div><h2>Who it is for</h2><p>An analyst who needs to find what a filing says, quickly, and to check it against the original.</p></div>
         <div><h2>The problem</h2><p>Annual reports run to hundreds of pages. Search finds words, not the right passage, and chat tools can answer fluently without a source.</p></div>
         <div><h2>What it supports</h2><p>Locating evidence and checking figures, with every answer traceable. It is not a buy or sell signal.</p></div>
       </div>
-      <nav class="jump" aria-label="On this page"><a href="#ask">Ask</a><a href="#how">How it works</a><a href="#evaluation">Evaluation</a><a href="#documents">Documents</a><a href="#uses">Uses</a><a href="#limits">Limits</a></nav>
+      <nav class="jump" aria-label="On this page"><a href="/projects/research-assistant/method/">Method note</a><a href="#ask">Ask</a><a href="#how">How it works</a><a href="#evaluation">Evaluation</a><a href="#documents">Documents</a><a href="#uses">Uses</a><a href="#limits">Limits</a></nav>
     </section>
 
     <section class="wrap" aria-label="Disclosures">
@@ -75,11 +81,11 @@ const fmt = (n: number) => n.toLocaleString("en-US");
           <div class="tbl-wrap" role="region" aria-label="Evaluation results, scrolls horizontally on small screens" tabindex="0">
             <table class="tbl">
               <caption class="sr">Evaluation results by question set and engine version</caption>
-              <thead><tr><th scope="col">Question set</th><th scope="col">All correct: v1 → v2 → v2.1</th><th scope="col">Lookup, right passage first</th><th scope="col">Lookup, right passage in top five</th><th scope="col">Lookup, first passage contains the gold answer*</th><th scope="col">Correct refusals</th></tr></thead>
-              <tbody>{summary.sets.map((x) => <tr><th scope="row">{x.name}</th><td>{x.v1.overall} → {x.v2.overall} → <strong>{x.v21.overall}</strong></td><td>{x.v1.top1} → {x.v2.top1} → <strong>{x.v21.top1}</strong></td><td>{x.v1.top5} → {x.v2.top5} → <strong>{x.v21.top5}</strong></td><td>{x.v1.answerInTop1} → {x.v2.answerInTop1} → <strong>{x.v21.answerInTop1}</strong></td><td>{x.v1.unanswerable} → {x.v2.unanswerable} → <strong>{x.v21.unanswerable}</strong></td></tr>)}</tbody>
+              <thead><tr><th scope="col">Question set</th><th scope="col">All correct: v1 → v2 → v2.1</th><th scope="col">v2.1 all correct, 95% interval*</th><th scope="col">Lookup, right passage first</th><th scope="col">Lookup, right passage in top five</th><th scope="col">Lookup, first passage contains the gold answer*</th><th scope="col">Correct refusals</th></tr></thead>
+              <tbody>{summary.sets.map((x) => <tr><th scope="row">{x.name}</th><td>{x.v1.overall} → {x.v2.overall} → <strong>{x.v21.overall}</strong></td><td class="num">{ci(x.v21.overall)}</td><td>{x.v1.top1} → {x.v2.top1} → <strong>{x.v21.top1}</strong></td><td>{x.v1.top5} → {x.v2.top5} → <strong>{x.v21.top5}</strong></td><td>{x.v1.answerInTop1} → {x.v2.answerInTop1} → <strong>{x.v21.answerInTop1}</strong></td><td>{x.v1.unanswerable} → {x.v2.unanswerable} → <strong>{x.v21.unanswerable}</strong></td></tr>)}</tbody>
             </table>
           </div>
-          <p class="muted" style="margin-top:0.75rem">{summary.note} These columns overlap; they are different views of the same questions, not separate tests to add together. *A word-overlap check of the first passage against the gold answer, added after an external check; it is stricter than the evidence-string test in some cases and looser in others.</p>
+          <p class="muted" style="margin-top:0.75rem">{summary.note} These columns overlap; they are different views of the same questions, not separate tests to add together. *Wilson 95% interval for the share of questions answered correctly (v2.1), computed from the counts in the table. The intervals are wide because each set has only 21 to 41 questions, so differences of a few questions between versions or sets are within chance; read the direction, not the decimals. A word-overlap check of the first passage against the gold answer, added after an external check; it is stricter than the evidence-string test in some cases and looser in others.</p>
           <div class="prose">
             <h3>How to read this</h3>
             <ul>

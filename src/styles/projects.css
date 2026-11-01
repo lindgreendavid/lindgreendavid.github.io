@@ -1079,3 +1079,72 @@ details.sources + details.sources {
   min-height: 44px;
   accent-color: var(--accent);
 }
+
+/* tornado: one-at-a-time sensitivity */
+.tn ul {
+  display: grid;
+  gap: 0.6rem;
+}
+.tn li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.2rem;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+.tn-label {
+  color: var(--ink-2);
+  font-weight: 500;
+}
+.tn-track {
+  position: relative;
+  display: block;
+  height: 12px;
+  background: var(--tone);
+  border-radius: 999px;
+}
+.tn-seg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--accent);
+  border-radius: 999px;
+  min-width: 4px;
+}
+.tn-base {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  background: var(--ink);
+}
+.tn-val {
+  font-weight: 600;
+}
+
+/* method notes */
+.cmd {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  background: var(--tone);
+  border-radius: 16px;
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+.prose ol {
+  display: grid;
+  gap: 0.6rem;
+  padding-left: 1.25rem;
+  list-style: decimal;
+  color: var(--ink-2);
+}
+
+/* method notes read as a paper: tighter section rhythm than the project pages */
+.note .section {
+  padding-block: clamp(40px, 5vw, 72px);
+}
+.note .band .section {
+  padding-top: clamp(40px, 5vw, 72px);
+}

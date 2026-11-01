@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below. Educational work: not investment advice, not a credit rating, not a valuation of any company."
+title: "Finance projects on public filings: pharma valuation, annual-report research assistant, M&A screening, LBO workbench and credit risk screen"
+version: "1.0"
+date-released: "2026-11-01"
+type: software
+authors:
+  - family-names: "Lindgreen"
+    given-names: "David"
+repository-code: "https://github.com/lindgreendavid/lindgreendavid.github.io"
+url: "https://lindgreendavid.com/projects/"
+abstract: "Five transparent analyses built on public SEC filings and ECB data, each with a method note, tests, validation checks and stated limits. Designed and directed by the author; code written with AI assistance (Claude); not independently reviewed."
+keywords:
+  - valuation
+  - leveraged buyout
+  - credit risk
+  - SEC XBRL
+  - reproducible research

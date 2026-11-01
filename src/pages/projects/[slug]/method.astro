@@ -1,0 +1,84 @@
+---
+import Base from "../../../layouts/Base.astro";
+import ProjectHeader from "../../../components/ProjectHeader.astro";
+import "../../../styles/projects.css";
+import { AUTHOR, BUILT_WITH, DATE, VERSION, noteBuilders, slugs } from "../../../lib/methodNotes.ts";
+
+export function getStaticPaths() {
+  return slugs.map((slug) => ({ params: { slug } }));
+}
+const { slug } = Astro.params;
+const n = noteBuilders[slug as string]();
+const url = `https://lindgreendavid.com${n.projectPath}method/`;
+const cite = `${AUTHOR} (${DATE.slice(0, 4)}). ${n.title}, version ${VERSION}. ${url}`;
+const sections: { id: string; h: string; items: string[] }[] = [
+  { id: "data", h: "Data", items: n.data },
+  { id: "method", h: "Method", items: n.method },
+  { id: "results", h: "Results", items: n.results },
+  { id: "validation", h: "Validation", items: n.validation },
+  { id: "threats", h: "Threats to validity", items: n.threats },
+  { id: "not-checked", h: "What was not checked", items: n.notChecked },
+];
+---
+<Base title={`${n.title} | David Lindgreen`} description={n.abstract.slice(0, 200)}>
+  <ProjectHeader current="projects" />
+  <main id="main" class="note">
+    <section class="wrap proj-hero">
+      <h1>{n.title}</h1>
+      <p class="status">Version {VERSION} · {DATE} · not independently reviewed</p>
+      <p class="proj-lede">{n.abstract}</p>
+      <nav class="jump" aria-label="On this page">
+        <a href={n.projectPath}>The project</a>
+        {sections.map((s) => <a href={`#${s.id}`}>{s.h}</a>)}
+        <a href="#reproduce">Reproduce</a><a href="#references">References</a><a href="#version">Version</a>
+      </nav>
+    </section>
+
+    <section class="wrap section" id="question" aria-labelledby="q-h">
+      <div class="section-head"><h2 id="q-h">Question and why it matters</h2></div>
+      <div class="prose">
+        <p><strong>Question.</strong> {n.question}</p>
+        <p><strong>Why it matters.</strong> {n.why}</p>
+        <p><strong>How it was built.</strong> {BUILT_WITH}</p>
+      </div>
+    </section>
+
+    {sections.map((s, k) => (
+      <div class={k % 2 === 0 ? "band band-mint" : ""}>
+        <section class="wrap section" id={s.id} aria-labelledby={`${s.id}-h`}>
+          <div class="section-head"><h2 id={`${s.id}-h`}>{s.h}</h2></div>
+          <div class="prose"><ul>{s.items.map((t) => <li>{t}</li>)}</ul></div>
+        </section>
+      </div>
+    ))}
+
+    <section class="wrap section" id="reproduce" aria-labelledby="rep-h">
+      <div class="section-head"><h2 id="rep-h">Reproduce</h2><p>Run from the <code>website</code> folder of the repository. The raw SEC files are not stored in the repository; the fetch scripts download them with a declared contact in the User-Agent, as the SEC asks. Needs Node 24 or later; the workbook steps need Python and, to recalculate, Microsoft Excel.</p></div>
+      <div class="pane"><pre class="cmd"><code>{n.reproduce.join("\n")}</code></pre></div>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="references" aria-labelledby="ref-h">
+        <div class="section-head"><h2 id="ref-h">References</h2><p>The standard sources for the methods used, given as background. This is not a literature review.</p></div>
+        <div class="prose"><ol>{n.references.map((r) => <li>{r}</li>)}</ol></div>
+      </section>
+    </div>
+
+    <section class="wrap section" id="version" aria-labelledby="ver-h">
+      <div class="section-head"><h2 id="ver-h">Version and citation</h2></div>
+      <div class="pane">
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <caption class="sr">Version history</caption>
+            <thead><tr><th scope="col">Version</th><th scope="col">Date</th><th scope="col">Change</th></tr></thead>
+            <tbody>{n.changelog.map((c) => <tr><th scope="row">{c.version}</th><td style="text-align:left">{c.date}</td><td style="white-space:normal;text-align:left">{c.change}</td></tr>)}</tbody>
+          </table>
+        </div>
+        <p class="muted" style="margin-top:1rem"><strong>Cite as:</strong> {cite}</p>
+        <p class="muted">Educational work. Not investment advice, not a credit rating and not a valuation of any company.</p>
+      </div>
+    </section>
+
+    <footer class="wrap proj-foot"><p><a href={n.projectPath}>Back to the project</a> · <a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p></footer>
+  </main>
+</Base>

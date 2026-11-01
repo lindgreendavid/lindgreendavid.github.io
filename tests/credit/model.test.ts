@@ -133,3 +133,49 @@ test("buildRows runs on a small made-up company and flags what is missing", () =
   assert.ok(r.score !== null && r.bucket !== null);
   assert.ok((r.stressedScore as number) <= (r.score as number));
 });
+
+import { readFileSync } from "node:fs";
+import { DEFAULT_OPTIONS, compact, scoreWith, validityChecks, weightRobustness } from "../../src/lib/credit/model.ts";
+import type { Row } from "../../src/lib/credit/model.ts";
+import { spearmanPermutationP } from "../../src/lib/stats.ts";
+
+test("scoreWith: equal factor scores give that score whatever the weights", () => {
+  const s = { leverage: 60, coverage: 60, fcf: 60, liquidity: 60, margin: 60 };
+  close(scoreWith(s, { leverage: 1, coverage: 5, fcf: 9, liquidity: 2, margin: 7 }) as number, 60);
+  close(scoreWith({ ...s, coverage: null }, { leverage: 1, coverage: 5, fcf: 9, liquidity: 2, margin: 7 }) as number, 60);
+});
+
+test("weight robustness: companies whose factor scores are all equal never change band or rank range", () => {
+  const mk = (ticker: string, v: number, bucket: Row["bucket"]) => ({ ticker, score: v, bucket, scores: { leverage: v, coverage: v, fcf: v, liquidity: v, margin: v } }) as unknown as Row;
+  const rb = weightRobustness([mk("A", 90, "Low strain"), mk("B", 50, "Elevated strain"), mk("C", 10, "High strain")], { draws: 200, seed: 2 });
+  for (const t of ["A", "B", "C"]) assert.equal(rb.perTicker[t].sameBand, 1);
+  assert.deepEqual([rb.perTicker.A.rankLo, rb.perTicker.A.rankHi], [1, 1]);
+  assert.deepEqual([rb.perTicker.C.rankLo, rb.perTicker.C.rankHi], [3, 3]);
+});
+
+test("weight robustness is reproducible for a seed", () => {
+  const mk = (ticker: string, a: number, b: number) => ({ ticker, score: (a + b) / 2, bucket: "Moderate strain", scores: { leverage: a, coverage: b, fcf: a, liquidity: b, margin: a } }) as unknown as Row;
+  const rows = [mk("A", 80, 40), mk("B", 40, 80), mk("C", 60, 60)];
+  assert.deepEqual(weightRobustness(rows, { draws: 100, seed: 4 }), weightRobustness(rows, { draws: 100, seed: 4 }));
+});
+
+test("permutation p-value: a perfect monotone relation is significant, an unrelated one is not", () => {
+  const x = [1, 2, 3, 4, 5, 6, 7, 8];
+  const strong = spearmanPermutationP(x, x.map((v) => v * 2), 2000, 1)!;
+  assert.ok(strong.p < 0.01);
+  const weak = spearmanPermutationP(x, [3, 8, 1, 6, 2, 7, 5, 4], 2000, 1)!;
+  assert.ok(weak.p > 0.1 && weak.p <= 1);
+});
+
+test("validity checks run on the real data and stay inside valid ranges", () => {
+  const ds = JSON.parse(readFileSync("src/data/ma/dataset.json", "utf8"));
+  const extra = JSON.parse(readFileSync("src/data/credit/extra.json", "utf8"));
+  const ks = Object.values(ds.companies).map((c) => compact(c as never, extra.companies[(c as { ticker: string }).ticker]));
+  const v = validityChecks(ks, DEFAULT_OPTIONS, 500);
+  assert.equal(v.length, 3);
+  for (const x of v) {
+    assert.ok(x.n >= 8 && x.n <= 28);
+    assert.ok(x.rho !== null && x.rho >= -1 && x.rho <= 1);
+    assert.ok(x.p !== null && x.p > 0 && x.p <= 1);
+  }
+});

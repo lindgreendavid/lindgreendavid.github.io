@@ -8,7 +8,7 @@ import ds from "../../data/ma/dataset.json";
 import type { Dataset } from "../../lib/ma/screen.ts";
 import { buildTargets, defaultTarget } from "../../lib/lbo/targets.ts";
 import { inputsFor, runLbo } from "../../lib/lbo/model.ts";
-import { renderLbo, toFormValues } from "../../lib/lbo/ui.ts";
+import { renderLbo, renderMonteCarlo, renderTornado, toFormValues } from "../../lib/lbo/ui.ts";
 
 const data = ds as unknown as Dataset;
 // Targets: every company in the screening dataset with the figures an LBO needs. Figures come from the 10-K data (see the M&A project).
@@ -17,6 +17,8 @@ const def = defaultTarget(data, targets);
 const inputs = inputsFor(def);
 const result = runLbo(inputs);
 const x = renderLbo(inputs, result);
+const mcHtml = renderMonteCarlo(inputs);
+const tnHtml = renderTornado(inputs);
 const fv = toFormValues(inputs);
 const fld = (v: number) => String(Math.round(v * 100) / 100);
 const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
@@ -27,13 +29,13 @@ const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
     <section class="wrap proj-hero">
       <h1>LBO Workbench</h1>
       <p class="proj-lede">Pick a listed pharma or biotech company, set the price and the debt, and see what a financial buyer could earn after five years and where the return comes from. Every step is visible, and the same model is in an Excel file with live formulas.</p>
-      <p class="status">First release · hypothetical deal · built with AI assistance · not independently reviewed</p>
+      <p class="status">Version 1.0 · hypothetical deal · method note · built with AI assistance · not independently reviewed</p>
       <div class="brief">
         <div><h2>Who it is for</h2><p>An analyst or student who wants to see how a buyout works, not just the result: how much debt, how fast it is repaid and what drives the return.</p></div>
         <div><h2>The problem</h2><p>Buyout returns depend on a handful of assumptions, and a single IRR hides which one matters. A good model shows the funding, the debt schedule and the sensitivities.</p></div>
         <div><h2>What it supports</h2><p>Understanding the mechanics of an LBO and testing how fragile a return is. It is not a bid, a valuation or a view on any company.</p></div>
       </div>
-      <nav class="jump" aria-label="On this page"><a href="#built">How it is built</a><a href="#model">Run a buyout</a><a href="#read">How to read it</a><a href="#method">Method</a><a href="#uses">Uses</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a></nav>
+      <nav class="jump" aria-label="On this page"><a href="/projects/lbo-workbench/method/">Method note</a><a href="#built">How it is built</a><a href="#model">Run a buyout</a><a href="#read">How to read it</a><a href="#method">Method</a><a href="#uses">Uses</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a></nav>
     </section>
 
     <section class="wrap" aria-label="Disclosures">
@@ -113,6 +115,10 @@ const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
           <div class="pane"><div id="sens1" class="tbl-wrap"><Fragment set:html={x.sens1} /></div></div>
           <div class="pane"><div id="sens2" class="tbl-wrap"><Fragment set:html={x.sens2} /></div></div>
         </div>
+        <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
+          <div class="pane"><h3 class="sub-h">How uncertain is the return?</h3><p class="sub-note">3,000 simulated cases (fixed seed, so the numbers repeat). Revenue growth, the year-5 margin, the exit multiple and the senior interest rate vary around your inputs; the price and the debt multiples do not. The spreads are illustrative assumptions, not estimates from data (see Method).</p><div id="lbo-mc"><Fragment set:html={mcHtml} /></div></div>
+          <div class="pane"><h3 class="sub-h">Which input matters most?</h3><p class="sub-note">One input at a time, everything else at your values. The longest bar is the input the return depends on most.</p><div id="lbo-tornado"><Fragment set:html={tnHtml} /></div></div>
+        </div>
         <p class="muted" style="margin-top: 0.75rem">The outlined cell marks the current inputs. A cell reads n/a where the inputs are not valid, for example when the debt is larger than the price.</p>
       </section>
     </div>
@@ -139,7 +145,8 @@ const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
             <li><strong>Plan.</strong> Revenue grows at the rates you set. EBITDA margin moves in a straight line to the year-5 margin. D&amp;A is the company's FY2025 share of revenue. Capex is a share of revenue and working-capital investment is a share of the growth in revenue. Tax is charged on EBIT less interest, never below zero.</li>
             <li><strong>Debt.</strong> Interest is charged on opening balances, which avoids a circular calculation. The senior debt has a mandatory repayment (a share of the original amount) and a cash sweep of the excess; the subordinated debt is repaid at exit. Cash that is not swept builds up on the balance sheet and counts at exit.</li>
             <li><strong>Return.</strong> Exit enterprise value is the exit multiple times year-5 EBITDA. Equity at exit is that less net debt. MOIC is exit equity divided by the equity invested; IRR is MOIC to the power of one fifth, less one, because there are no interim payments.</li>
-            <li><strong>Checks.</strong> {" "}13 unit tests cover the funding identity, a closed-form case, the bridge identity, the debt schedule, validation and the sensitivity grids. The Excel file is recalculated in Excel and compared with this page.</li>
+            <li><strong>Uncertainty.</strong> A Monte Carlo of 3,000 cases with a fixed seed: revenue growth shifts by a common amount (normal, standard deviation 3 points) plus year noise (2 points), the year-5 margin varies (normal, 3 points), the exit multiple is triangular within 2 turns of your input and the senior rate varies (normal, 1 point). The price, debt multiples and fees are deal terms and stay fixed. The spreads are my illustrative choices, so the output shows how wide the outcomes can be, not their true probabilities. The tornado moves one input at a time by a stated amount.</li>
+            <li><strong>Checks.</strong> {" "}17 unit tests cover the funding identity, a closed-form case, the bridge identity, the debt schedule, validation, the sensitivity grids, the reproducibility of the simulation and the tornado. The Excel file is recalculated in Excel and compared with this page.</li>
           </ul>
         </div>
       </section>

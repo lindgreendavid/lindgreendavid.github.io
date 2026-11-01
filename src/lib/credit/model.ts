@@ -2,6 +2,7 @@
 // Pure functions, no I/O, so the page, the tests and the build tools share the maths. US dollars, millions.
 // This is NOT a credit rating and does not predict default: the thresholds below are the author's choices (stated on the page).
 import type { Company } from "../ma/screen.ts";
+import { sampler, spearmanPermutationP } from "../stats.ts";
 
 export type Cell = { value: number; tag: string; accn: string; filed: string; end: string; note?: string } | null;
 export type ExtraMetric = "interest_expense" | "interest_paid" | "capex" | "assets_current" | "liabilities_current" | "liabilities" | "equity" | "retained_earnings";
@@ -240,4 +241,79 @@ export function buildRows(companies: Company[], extra: Extra, opts: Options = DE
 
 export function rankRows(rows: Row[]): Row[] {
   return [...rows].sort((a, b) => (b.score ?? -1) - (a.score ?? -1) || a.ticker.localeCompare(b.ticker));
+}
+
+/** Score with a different set of weights (missing factors dropped and the rest rescaled, as in the main score). */
+export function scoreWith(scores: Record<Factor, number | null>, weights: Record<Factor, number>): number | null {
+  let w = 0;
+  let acc = 0;
+  for (const f of FACTORS) {
+    const v = scores[f];
+    if (v === null) continue;
+    w += weights[f];
+    acc += v * weights[f];
+  }
+  return w === 0 ? null : acc / w;
+}
+
+export type Robustness = { draws: number; perTicker: Record<string, { sameBand: number; rankLo: number; rankHi: number; rank: number }> };
+
+/** Re-weights the five factors at random (each weight times exp(0.5 Z), as in the M&A screen) and records how often each company stays in its band and its rank range (5th to 95th percentile). */
+export function weightRobustness(rows: Row[], o: { draws?: number; seed?: number } = {}): Robustness {
+  const draws = o.draws ?? 1000;
+  const s = sampler(o.seed ?? 1);
+  const scored = rows.filter((r) => r.score !== null);
+  const same: Record<string, number> = {};
+  const rks: Record<string, number[]> = {};
+  for (const r of scored) {
+    same[r.ticker] = 0;
+    rks[r.ticker] = [];
+  }
+  for (let d = 0; d < draws; d++) {
+    const w = Object.fromEntries(FACTORS.map((f) => [f, FACTOR_INFO[f].weight * Math.exp(0.5 * s.normal())])) as Record<Factor, number>;
+    const sc = scored.map((r) => ({ t: r.ticker, v: scoreWith(r.scores, w) as number }));
+    const order = [...sc].sort((a, b) => b.v - a.v || a.t.localeCompare(b.t));
+    order.forEach((x, i) => rks[x.t].push(i + 1));
+    for (const r of scored) {
+      const v = sc.find((x) => x.t === r.ticker)!.v;
+      if (bucketOf(v) === r.bucket) same[r.ticker]++;
+    }
+  }
+  const q = (a: number[], p: number) => {
+    const b = [...a].sort((x, y) => x - y);
+    const h = (b.length - 1) * p;
+    return b[Math.floor(h)] + (b[Math.ceil(h)] - b[Math.floor(h)]) * (h - Math.floor(h));
+  };
+  const base = [...scored].sort((a, b) => (b.score as number) - (a.score as number) || a.ticker.localeCompare(b.ticker));
+  const perTicker: Robustness["perTicker"] = {};
+  for (const r of scored) perTicker[r.ticker] = { sameBand: same[r.ticker] / draws, rankLo: q(rks[r.ticker], 0.05), rankHi: q(rks[r.ticker], 0.95), rank: base.findIndex((x) => x.ticker === r.ticker) + 1 };
+  return { draws, perTicker };
+}
+
+export type Validity = { label: string; n: number; rho: number | null; p: number | null; note: string };
+
+/** Three exploratory checks on the 28 companies: does the score persist from FY2022 to FY2025, does it agree with Altman Z-double-prime, and does the FY2022 score line up with how EBITDA moved afterwards. Small samples: read as descriptions, not proof. */
+export function validityChecks(ks: Compact[], opts: Options, draws = 5000): Validity[] {
+  const o = { ...opts, includeRoyalty: false }; // royalty obligations exist for FY2025 only, so exclude them to keep the two years comparable
+  const rows22 = ks.map((k) => rowFor(k, 2022, o));
+  const rows25 = ks.map((k) => rowFor(k, 2025, o));
+  const pairs = (f: (i: number) => [number, number] | null) => ks.map((_, i) => f(i)).filter((x): x is [number, number] => x !== null);
+  const run = (label: string, ps: [number, number][], note: string): Validity => {
+    const r = spearmanPermutationP(ps.map((x) => x[0]), ps.map((x) => x[1]), draws, 1);
+    return { label, n: ps.length, rho: r ? r.rho : null, p: r ? r.p : null, note };
+  };
+  // Only companies scored on the full weights in the years compared: FY2022 debt is missing for several companies (the balance-sheet debt was read for FY2025 only), and a partial score is not comparable.
+  const full = (r: Row) => r.score !== null && r.used === 100;
+  const persist = pairs((i) => (full(rows22[i]) && full(rows25[i]) ? [rows22[i].score as number, rows25[i].score as number] : null));
+  const alt = pairs((i) => (rows25[i].score !== null && rows25[i].altman ? [rows25[i].score as number, rows25[i].altman!.z] : null));
+  const fut = pairs((i) => {
+    const e22 = rows22[i].raw.ebitda;
+    const e25 = rows25[i].raw.ebitda;
+    return full(rows22[i]) && e22 !== null && e22 > 0 && e25 !== null ? [rows22[i].score as number, (e25 - e22) / e22] : null;
+  });
+  return [
+    run("FY2022 score against FY2025 score", persist, "Does a company that scored well in FY2022 still score well three years later? Only companies scored on the full weights in both years."),
+    run("FY2025 score against Altman Z″", alt, "Do the two credit measures rank the companies alike?"),
+    run("FY2022 score against EBITDA growth to FY2025", fut, "Did companies that scored better in FY2022 see better earnings growth afterwards? Only companies with full FY2022 weights and positive FY2022 EBITDA."),
+  ];
 }

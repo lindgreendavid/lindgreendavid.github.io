@@ -99,7 +99,7 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
     <section class="wrap proj-hero">
       <h1>Pharma Valuation Explorer</h1>
       <p class="proj-lede">Compare Novartis, AstraZeneca and GSK on one consistent basis, then explore a transparent DCF of AstraZeneca. Every figure links back to a public filing.</p>
-      <p class="status">First release · in development · not yet independently reviewed</p>
+      <p class="status">Version 1.0 · method note, tests and Excel model · not independently reviewed</p>
       <div class="brief">
         <div>
           <h2>Who it is for</h2>
@@ -114,7 +114,7 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
           <p>Judging which company is more cash-generative on a like-for-like basis, and which assumptions a DCF value depends on. It is not a buy or sell signal.</p>
         </div>
       </div>
-      <nav class="jump" aria-label="On this page">
+      <nav class="jump" aria-label="On this page"><a href="/projects/pharma-valuation/method/">Method note</a>
         <a href="#compare">Compare</a><a href="#valuation">Valuation</a><a href="#wacc-sources">WACC from sources</a><a href="#evidence">Evidence</a><a href="#method">Method</a><a href="#uses">Uses</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a>
       </nav>
     </section>
@@ -354,7 +354,7 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
           <div class="checks">
             <div><h3>{v.totals.passed} / {v.totals.checks}</h3><p>automated checks pass: reconciliation, accounting identities, units, exchange rates and completeness.</p></div>
             <div><h3>{v.totals.reconciledFigures}</h3><p>figures compared with the SEC's rendered statement pages; {v.totals.reconciliationMismatches} mismatches.</p></div>
-            <div><h3>17</h3><p>unit tests of the valuation maths and input validation, and a recalculation of the workbook formulas that matches the web model to the cent. An external check reproduced the DCF with separate Python code and two formula engines; a fresh Microsoft Excel run was not possible there.</p></div>
+            <div><h3>19</h3><p>unit tests of the valuation maths and input validation, and a recalculation of the workbook formulas that matches the web model to the cent. An external check reproduced the DCF with separate Python code and two formula engines; a fresh Microsoft Excel run was not possible there.</p></div>
           </div>
           <div class="prose">
             <h3>What this does and does not show</h3>

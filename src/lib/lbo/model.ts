@@ -204,3 +204,78 @@ export function inputsFor(t: { revenue: number; ebitda: number; da: number; netD
     marginTarget: a.marginTarget ?? t.ebitda / t.revenue,
   };
 }
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Uncertainty: a seeded Monte Carlo of the return and a one-at-a-time (tornado) sensitivity. The ranges are illustrative assumptions chosen to
+// show how wide the outcome can be; they are not estimated from data. Entry price, debt multiples and fees are held fixed (they are deal terms).
+import { quantile, sampler } from "../stats.ts";
+
+export const MC_SPREAD = { growthShift: 0.03, growthYearNoise: 0.02, marginSd: 0.03, exitHalfRange: 2, rateSd: 0.01 };
+
+export type McResult = { draws: number; seed: number; p5: number; p25: number; p50: number; p75: number; p95: number; probLoss: number; probBelow10: number; probAbove20: number; moicMedian: number; hist: { lo: number; hi: number; count: number }[] };
+
+/** Monte Carlo of the IRR. Revenue growth shifts together (common shock plus year noise), the year-5 margin, the exit multiple (triangular) and the senior rate vary. `scale` 0 gives the base case on every draw. */
+export function monteCarlo(base: LboInputs, o: { draws?: number; seed?: number; scale?: number } = {}): McResult {
+  const draws = o.draws ?? 5000;
+  const seed = o.seed ?? 1;
+  const k = o.scale ?? 1;
+  const s = sampler(seed);
+  const irrs: number[] = [];
+  const moics: number[] = [];
+  for (let d = 0; d < draws; d++) {
+    const shift = k * MC_SPREAD.growthShift * s.normal();
+    const growth = base.growth.map((g) => Math.max(-0.5, g + shift + k * MC_SPREAD.growthYearNoise * s.normal()));
+    const margin = Math.min(0.95, Math.max(0.02, base.marginTarget + k * MC_SPREAD.marginSd * s.normal()));
+    const r = k * MC_SPREAD.exitHalfRange;
+    const exit = r === 0 ? base.exitMultiple : Math.max(1, s.triangular(base.exitMultiple - r, base.exitMultiple, base.exitMultiple + r));
+    const rate = Math.max(0, base.seniorRate + k * MC_SPREAD.rateSd * s.normal());
+    const res = runLbo({ ...base, growth, marginTarget: margin, exitMultiple: exit, seniorRate: rate });
+    irrs.push(res.irr);
+    moics.push(res.moic);
+  }
+  const sorted = [...irrs].sort((a, b) => a - b);
+  const ms = [...moics].sort((a, b) => a - b);
+  const lo = Math.max(-1, Math.floor(quantile(sorted, 0.01) * 50) / 50);
+  const hi = Math.ceil(quantile(sorted, 0.99) * 50) / 50;
+  const bins = 16;
+  const w = (hi - lo) / bins || 0.01;
+  const hist = Array.from({ length: bins }, (_, i) => ({ lo: lo + i * w, hi: lo + (i + 1) * w, count: 0 }));
+  for (const v of irrs) hist[Math.min(bins - 1, Math.max(0, Math.floor((v - lo) / w)))].count++;
+  const frac = (f: (x: number) => boolean) => irrs.filter(f).length / draws;
+  return { draws, seed, p5: quantile(sorted, 0.05), p25: quantile(sorted, 0.25), p50: quantile(sorted, 0.5), p75: quantile(sorted, 0.75), p95: quantile(sorted, 0.95), probLoss: frac((x) => x < 0), probBelow10: frac((x) => x < 0.1), probAbove20: frac((x) => x >= 0.2), moicMedian: quantile(ms, 0.5), hist };
+}
+
+export type TornadoRow = { driver: string; low: number | null; high: number | null; lowLabel: string; highLabel: string; swing: number };
+
+/** One-at-a-time: each driver moved down and up by a stated amount with everything else at base. Sorted by the size of the swing in IRR. */
+export function tornado(base: LboInputs): { base: number; rows: TornadoRow[] } {
+  const irr = (o: Partial<LboInputs>) => {
+    try {
+      return runLbo({ ...base, ...o }).irr;
+    } catch {
+      return null;
+    }
+  };
+  const b = runLbo(base).irr;
+  const pp = (x: number) => `${x >= 0 ? "+" : "−"}${Math.abs(x * 100).toFixed(0)} pts`;
+  const defs: { driver: string; lowLabel: string; highLabel: string; low: Partial<LboInputs>; high: Partial<LboInputs> }[] = [
+    { driver: "Exit multiple", lowLabel: "−2x", highLabel: "+2x", low: { exitMultiple: Math.max(1, base.exitMultiple - 2) }, high: { exitMultiple: base.exitMultiple + 2 } },
+    { driver: "Year-5 EBITDA margin", lowLabel: pp(-0.03), highLabel: pp(0.03), low: { marginTarget: Math.max(0.02, base.marginTarget - 0.03) }, high: { marginTarget: Math.min(0.95, base.marginTarget + 0.03) } },
+    { driver: "Revenue growth, every year", lowLabel: pp(-0.03), highLabel: pp(0.03), low: { growth: base.growth.map((g) => g - 0.03) }, high: { growth: base.growth.map((g) => g + 0.03) } },
+    { driver: "Senior debt multiple", lowLabel: "−1x", highLabel: "+1x", low: { seniorX: Math.max(0, base.seniorX - 1) }, high: { seniorX: base.seniorX + 1 } },
+    { driver: "Senior interest rate", lowLabel: pp(-0.02), highLabel: pp(0.02), low: { seniorRate: Math.max(0, base.seniorRate - 0.02) }, high: { seniorRate: base.seniorRate + 0.02 } },
+    { driver: "Capex, share of revenue", lowLabel: pp(-0.01), highLabel: pp(0.01), low: { capexPct: Math.max(0, base.capexPct - 0.01) }, high: { capexPct: base.capexPct + 0.01 } },
+    { driver: "Tax rate", lowLabel: pp(-0.05), highLabel: pp(0.05), low: { taxRate: Math.max(0, base.taxRate - 0.05) }, high: { taxRate: Math.min(0.9, base.taxRate + 0.05) } },
+  ];
+  const rows = defs.map((d) => {
+    const a = irr(d.low);
+    const c = irr(d.high);
+    const vals = [a, c].filter((x): x is number => x !== null);
+    // low and high are the worse and the better IRR of the two moves, so the bar always runs from the lower to the higher return
+    const lo = vals.length ? Math.min(...vals) : null;
+    const hi = vals.length ? Math.max(...vals) : null;
+    return { driver: d.driver, low: lo, high: hi, lowLabel: d.lowLabel, highLabel: d.highLabel, swing: lo !== null && hi !== null ? hi - lo : 0 };
+  });
+  rows.sort((x, y) => y.swing - x.swing);
+  return { base: b, rows };
+}

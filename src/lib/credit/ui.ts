@@ -1,7 +1,7 @@
 // Rendering and interaction for the Credit Risk Screen. The render functions return HTML strings, so the first view is produced on the server
 // and the same code re-renders in the browser when someone changes a limit. Nothing the visitor enters leaves the page.
 import { BUCKETS, FACTORS, FACTOR_INFO, rankRows, rowFor } from "./model.ts";
-import type { BucketName, Compact, Options, Row } from "./model.ts";
+import type { BucketName, Compact, Options, Robustness, Row, Validity } from "./model.ts";
 import { fmtM, fmtPct, fmtX } from "../pharma/ui.ts";
 
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -84,6 +84,23 @@ export function drill(k: Compact, opts: Options): string {
   <table class="tbl"><caption class="sr">Factor scores for the latest year</caption><thead><tr><th scope="col">Factor</th><th scope="col">Measure</th><th scope="col">Score</th><th scope="col">Weight</th></tr></thead><tbody>${FACTORS.map((f) => `<tr><th scope="row">${FACTOR_INFO[f].label}</th><td>${FACTOR_INFO[f].measure}</td><td class="num">${last.scores[f] === null ? "missing" : (last.scores[f] as number).toFixed(0)}</td><td class="num">${FACTOR_INFO[f].weight}</td></tr>`).join("")}</tbody></table>
   ${last.flags.length ? `<details class="flags" style="margin-top:0.75rem"><summary>${last.flags.length} flag${last.flags.length > 1 ? "s" : ""} for this company</summary><ul>${last.flags.map((f) => `<li>${esc(f)}</li>`).join("")}</ul></details>` : ""}
   <p class="muted" style="margin-top:0.75rem">Earlier years use the same definitions. Sold-royalty obligations are included only for FY2025, the only year they were read from the filing.</p>`;
+}
+
+
+/** Companies whose band is not stable under random re-weighting, and the exploratory validity checks. Built once, from the default settings. */
+export function renderRobustness(rb: Robustness, rows: Row[], validity: Validity[]): { stable: number; total: number; unstable: string; validity: string } {
+  const by = Object.fromEntries(rows.map((r) => [r.ticker, r]));
+  const entries = Object.entries(rb.perTicker);
+  const unstable = entries.filter(([, x]) => x.sameBand < 0.9).sort((a, b) => a[1].rank - b[1].rank);
+  const table = unstable.length
+    ? `<table class="tbl"><caption class="sr">Companies whose band changes in more than 10% of the random re-weightings</caption><thead><tr><th scope="col">Company</th><th scope="col">Base band</th><th scope="col">Base rank</th><th scope="col">Rank range (5th to 95th percentile)</th><th scope="col">Share of re-weightings in the same band</th></tr></thead><tbody>${unstable
+        .map(([t, x]) => `<tr><th scope="row">${esc(display(by[t].name))} <span class="tick">${esc(t)}</span></th><td>${chip(by[t].bucket)}</td><td class="num">${x.rank}</td><td class="num">${x.rankLo.toFixed(0)} to ${x.rankHi.toFixed(0)}</td><td class="num">${(x.sameBand * 100).toFixed(0)}%</td></tr>`)
+        .join("")}</tbody></table>`
+    : '<p class="muted">Every company keeps its band in at least 90% of the re-weightings.</p>';
+  const v = `<table class="tbl"><caption class="sr">Exploratory checks on how the score behaves</caption><thead><tr><th scope="col">Check</th><th scope="col">Companies</th><th scope="col">Spearman ρ</th><th scope="col">Permutation p</th></tr></thead><tbody>${validity
+    .map((x) => `<tr><th scope="row">${esc(x.label)}<br /><span class="muted">${esc(x.note)}</span></th><td class="num">${x.n}</td><td class="num">${x.rho === null ? "n/a" : x.rho.toFixed(2)}</td><td class="num">${x.p === null ? "n/a" : x.p.toFixed(3)}</td></tr>`)
+    .join("")}</tbody></table>`;
+  return { stable: entries.filter(([, x]) => x.sameBand >= 0.9).length, total: entries.length, unstable: table, validity: v };
 }
 
 export function renderAll(ks: Compact[], opts: Options) {

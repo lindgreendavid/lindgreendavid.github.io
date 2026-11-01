@@ -1,6 +1,6 @@
 // Rendering and interaction for the LBO Workbench. The render functions return HTML strings, so the first view is produced on the
 // server and the same code re-renders in the browser when someone changes an assumption. Nothing the visitor enters leaves the page.
-import { HOLD_YEARS, LboInputError, inputsFor, irrGrid, runLbo, validateLbo } from "./model.ts";
+import { HOLD_YEARS, LboInputError, inputsFor, irrGrid, monteCarlo, runLbo, tornado, validateLbo } from "./model.ts";
 import type { LboInputs, LboResult } from "./model.ts";
 import { stacked, waterfall } from "./charts.ts";
 import { heatmap, fmtM, fmtPct, fmtX } from "../pharma/ui.ts";
@@ -89,6 +89,45 @@ export function renderLbo(i: LboInputs, r: LboResult) {
   return { summary, su, years, bridge, debt, sens1, sens2, flags };
 }
 
+
+export const MC_DRAWS = 3000;
+
+/** Distribution of the IRR from the Monte Carlo, as a table of bins plus the headline quantiles. */
+export function renderMonteCarlo(i: LboInputs): string {
+  const bin = (x: number) => fmtPct(x, 0).replace("-0%", "0%");
+  const m = monteCarlo(i, { draws: MC_DRAWS, seed: 1 });
+  const max = Math.max(...m.hist.map((h) => h.count), 1);
+  const bins = m.hist.map((h) => `<li><span class="mb-label">${bin(h.lo)} to ${bin(h.hi)}</span><span class="mb-track" aria-hidden="true"><span class="mb-fill" style="--w:${((h.count / max) * 100).toFixed(1)}%"></span></span><span class="mb-val">${((h.count / m.draws) * 100).toFixed(0)}%</span></li>`).join("");
+  return `<table class="tbl"><caption class="sr">Distribution of the annual return across ${m.draws} simulated cases</caption><tbody>
+    <tr><th scope="row">5th percentile</th><td class="num">${fmtPct(m.p5)}</td></tr>
+    <tr><th scope="row">25th percentile</th><td class="num">${fmtPct(m.p25)}</td></tr>
+    <tr class="sum"><th scope="row">Median</th><td class="num">${fmtPct(m.p50)}</td></tr>
+    <tr><th scope="row">75th percentile</th><td class="num">${fmtPct(m.p75)}</td></tr>
+    <tr><th scope="row">95th percentile</th><td class="num">${fmtPct(m.p95)}</td></tr>
+    <tr><th scope="row">Share of cases with a loss (IRR below 0%)</th><td class="num">${fmtPct(m.probLoss, 1)}</td></tr>
+    <tr><th scope="row">Share below 10% a year</th><td class="num">${fmtPct(m.probBelow10, 0)}</td></tr>
+    <tr><th scope="row">Share at or above 20% a year</th><td class="num">${fmtPct(m.probAbove20, 0)}</td></tr>
+  </tbody></table>
+  <figure class="mb mb-w" style="margin-top:1.25rem"><figcaption>Share of simulated cases by annual return</figcaption><ul>${bins}</ul></figure>`;
+}
+
+/** One-at-a-time sensitivity: each bar runs from the lower to the higher return when one input is moved down and up. */
+export function renderTornado(i: LboInputs): string {
+  const t = tornado(i);
+  const vals = t.rows.flatMap((r) => [r.low, r.high]).filter((x): x is number => x !== null).concat(t.base);
+  const lo = Math.min(...vals);
+  const hi = Math.max(...vals);
+  const span = hi - lo || 1;
+  const pos = (x: number) => (((x - lo) / span) * 100).toFixed(1);
+  const rows = t.rows
+    .map((r) => {
+      if (r.low === null || r.high === null) return `<li><span class="tn-label">${esc(r.driver)}</span><span class="tn-track"></span><span class="tn-val">n/a</span></li>`;
+      return `<li><span class="tn-label">${esc(r.driver)}<span class="muted"> (${esc(r.lowLabel)} / ${esc(r.highLabel)})</span></span><span class="tn-track" aria-hidden="true"><span class="tn-seg" style="left:${pos(r.low)}%;width:${(((r.high - r.low) / span) * 100).toFixed(1)}%"></span><span class="tn-base" style="left:${pos(t.base)}%"></span></span><span class="tn-val">${fmtPct(r.low, 1)} to ${fmtPct(r.high, 1)}</span></li>`;
+    })
+    .join("");
+  return `<figure class="tn"><figcaption class="sr">Annual return when each input is moved down and up, everything else unchanged</figcaption><ul>${rows}</ul><p class="mb-note">The vertical mark is the base case (${fmtPct(t.base, 1)}). Bars show the range of the annual return when that one input moves by the amount in brackets.</p></figure>`;
+}
+
 type Field = "entry" | "exit" | "senior" | "sub" | "srate" | "brate" | "amort" | "sweep" | "fee" | "g1" | "g2" | "g3" | "g4" | "g5" | "margin" | "capex" | "nwc" | "tax";
 const FIELDS: Field[] = ["entry", "exit", "senior", "sub", "srate", "brate", "amort", "sweep", "fee", "g1", "g2", "g3", "g4", "g5", "margin", "capex", "nwc", "tax"];
 // Multiples are entered as plain numbers; everything else as percentages.
@@ -126,7 +165,7 @@ export function initLbo(targets: Target[]) {
     return i;
   };
 
-  const ids = ["lbo-summary", "lbo-su", "lbo-years", "lbo-bridge", "lbo-debt", "sens1", "sens2", "lbo-flags"];
+  const ids = ["lbo-summary", "lbo-su", "lbo-years", "lbo-bridge", "lbo-debt", "sens1", "sens2", "lbo-flags", "lbo-mc", "lbo-tornado"];
   const renderAll = () => {
     const i = read();
     const err = out("lbo-error");
@@ -146,6 +185,8 @@ export function initLbo(targets: Target[]) {
     out("sens1").innerHTML = x.sens1;
     out("sens2").innerHTML = x.sens2;
     out("lbo-flags").innerHTML = x.flags;
+    out("lbo-mc").innerHTML = renderMonteCarlo(i);
+    out("lbo-tornado").innerHTML = renderTornado(i);
   };
 
   let timer: number | undefined;

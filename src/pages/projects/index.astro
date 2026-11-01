@@ -11,69 +11,69 @@ import { creditBandRows, evalRows, lboRows, marginRows, top5Rows } from "../../l
   <main id="main">
     <section class="wrap proj-hero">
       <h1>Projects</h1>
-      <p class="proj-lede">Five connected tools built on public financial data. Each has an identifiable user, a decision it supports, traceable inputs and a result that can be evaluated. Their status is stated plainly.</p>
+      <p class="proj-lede">Five connected tools built on public financial data. Each has an identifiable user, a decision it supports, traceable inputs and a result that can be evaluated. Each has a method note with its question, data, method, results, validation, threats to validity and how to reproduce it. Their status is stated plainly.</p>
     </section>
 
     <section class="wrap" aria-label="Projects">
       <div class="proj-list">
         <article class="proj-item">
           <div>
-            <p class="status">First release · in development</p>
+            <p class="status">Version 1.0 · method note · not independently reviewed</p>
             <h3 style="margin-top:1rem">Pharma Valuation Explorer</h3>
             <MiniBars title="Operating margin, FY2025" rows={marginRows} note="From the reconciled dataset. Same definition for all three." />
           </div>
           <div>
             <p class="use-line"><strong>Good for:</strong> comparing companies on one basis and seeing which assumption moves a valuation most.</p>
             <p>A like-for-like comparison of Novartis, AstraZeneca and GSK from SEC filings, a DCF of AstraZeneca with sensitivity analysis, and a downloadable model with sources. 137 figures reconciled to filing pages; 170 automated checks pass; not yet independently reviewed.</p>
-            <p class="links"><a href="/projects/pharma-valuation/">Open the explorer</a><a href="/projects/pharma-valuation/#evidence">See the evidence</a></p>
+            <p class="links"><a href="/projects/pharma-valuation/">Open the explorer</a><a href="/projects/pharma-valuation/#evidence">See the evidence</a><a href="/projects/pharma-valuation/method/">Read the method note</a></p>
           </div>
         </article>
         <article class="proj-item">
           <div>
-            <p class="status">First release · in development</p>
+            <p class="status">Version 1.0 · method note · not independently reviewed</p>
             <h3 style="margin-top:1rem">Annual-Report Research Assistant</h3>
             <MiniBars title="Questions answered correctly, latest engine" rows={evalRows} note="Five hand-written question sets. Failures are listed on the page." />
           </div>
           <div>
             <p class="use-line"><strong>Good for:</strong> finding what a filing says with a link to the source, and for learning how to test a question-answering system honestly.</p>
             <p>Ask questions across the FY2025 reports of Novartis, AstraZeneca and GSK. Answers are quoted source passages with links into the filing, calculations from the reconciled dataset, or an explicit refusal; there is no language model in this version. Evaluated on 142 hand-written questions in five sets, each run on three engine versions, with failures listed; not yet independently reviewed.</p>
-            <p class="links"><a href="/projects/research-assistant/">Open the assistant</a><a href="/projects/research-assistant/#evaluation">See the evaluation</a></p>
+            <p class="links"><a href="/projects/research-assistant/">Open the assistant</a><a href="/projects/research-assistant/#evaluation">See the evaluation</a><a href="/projects/research-assistant/method/">Read the method note</a></p>
           </div>
         </article>
         <article class="proj-item">
           <div>
-            <p class="status">First release · in development</p>
+            <p class="status">Version 1.0 · method note · not independently reviewed</p>
             <h3 style="margin-top:1rem">Strategic M&amp;A Screening Workbench</h3>
             <MiniBars title="Top five of 28 under the default brief, score 0 to 100" rows={top5Rows} note="Hypothetical buyer. A screen, not a valuation." />
           </div>
           <div>
             <p class="use-line"><strong>Good for:</strong> turning a long list into a defensible short list, and showing how fragile a ranking is.</p>
             <p>An explainable preliminary shortlist for a clearly labelled hypothetical buyer brief, over 28 US-listed pharma and biotech companies from SEC filings. Adjustable criterion weights, missing-data flags, ranking sensitivity and a generated screening memo. It supports initial screening only; it makes no worth or deal-feasibility claim. Optional valuation and deal-size criteria run only on share prices you paste in. Figures checked against the filing text and balance sheets; not independently reviewed.</p>
-            <p class="links"><a href="/projects/ma-screening/">Open the workbench</a><a href="/projects/ma-screening/#evidence">See the evidence</a></p>
+            <p class="links"><a href="/projects/ma-screening/">Open the workbench</a><a href="/projects/ma-screening/#evidence">See the evidence</a><a href="/projects/ma-screening/method/">Read the method note</a></p>
           </div>
         </article>
         <article class="proj-item">
           <div>
-            <p class="status">First release · in development</p>
+            <p class="status">Version 1.0 · method note · not independently reviewed</p>
             <h3 style="margin-top:1rem">LBO Workbench</h3>
             <MiniBars title="Return to a hypothetical buyer by exit multiple (IRR)" rows={lboRows} note="Default company, entry multiple held fixed. Illustrative inputs, not a bid." />
           </div>
           <div>
             <p class="use-line"><strong>Good for:</strong> seeing how a buyout works, where the return comes from and how fragile it is.</p>
             <p>A leveraged-buyout model on real SEC figures for the companies in the screen. Set the price and the debt; see sources and uses, a five-year debt schedule, MOIC and IRR, a value-creation bridge and two sensitivity grids. A downloadable Excel model with live formulas was recalculated in Excel and matches the web model. 13 unit tests. Hypothetical deal; not a bid or a valuation; not independently reviewed.</p>
-            <p class="links"><a href="/projects/lbo-workbench/">Open the workbench</a><a href="/projects/lbo-workbench/#downloads">Download the Excel model</a></p>
+            <p class="links"><a href="/projects/lbo-workbench/">Open the workbench</a><a href="/projects/lbo-workbench/#downloads">Download the Excel model</a><a href="/projects/lbo-workbench/method/">Read the method note</a></p>
           </div>
         </article>
         <article class="proj-item">
           <div>
-            <p class="status">First release · in development</p>
+            <p class="status">Version 1.0 · method note · not independently reviewed</p>
             <h3 style="margin-top:1rem">Credit Risk Screen</h3>
             <MiniBars title="Companies by strain band (of 28), default settings" rows={creditBandRows} note="Ratios under the author's thresholds. Not a credit rating." />
           </div>
           <div>
             <p class="use-line"><strong>Good for:</strong> seeing which borrowers have the least room before a limit, and where two credit measures disagree.</p>
             <p>Scores 28 US pharma and biotech companies on leverage, interest cover, cash flow and liquidity from their 10-K figures, stresses earnings, shows how far EBITDA can fall before a leverage or cover limit is hit, and cross-checks with the Altman Z″ score. 337 filing-text checks on the extra data, 14 unit tests. Not a rating; not independently reviewed.</p>
-            <p class="links"><a href="/projects/credit-risk-screen/">Open the screen</a><a href="/projects/credit-risk-screen/#evidence">See the evidence</a></p>
+            <p class="links"><a href="/projects/credit-risk-screen/">Open the screen</a><a href="/projects/credit-risk-screen/#evidence">See the evidence</a><a href="/projects/credit-risk-screen/method/">Read the method note</a></p>
           </div>
         </article>
       </div>

@@ -7,10 +7,10 @@ import "../../styles/projects.css";
 import ds from "../../data/ma/dataset.json";
 import extra from "../../data/credit/extra.json";
 import validation from "../../data/credit/validation.json";
-import { BUCKETS, DEFAULT_OPTIONS, FACTORS, FACTOR_INFO, compact } from "../../lib/credit/model.ts";
+import { BUCKETS, DEFAULT_OPTIONS, FACTORS, FACTOR_INFO, compact, validityChecks, weightRobustness } from "../../lib/credit/model.ts";
 import type { Extra } from "../../lib/credit/model.ts";
 import type { Company, Dataset } from "../../lib/ma/screen.ts";
-import { display, renderAll } from "../../lib/credit/ui.ts";
+import { display, renderAll, renderRobustness } from "../../lib/credit/ui.ts";
 
 const data = ds as unknown as Dataset;
 const ex = extra as unknown as Extra;
@@ -18,6 +18,13 @@ const ks = Object.values(data.companies).map((c) => compact(c as Company, ex.com
 const x = renderAll(ks, DEFAULT_OPTIONS);
 const names = [...ks].sort((a, b) => display(a.name).localeCompare(display(b.name)));
 const first = x.rows[0].ticker;
+const rb = weightRobustness(x.rows, { draws: 1000, seed: 1 });
+const vc = validityChecks(ks, DEFAULT_OPTIONS, 5000);
+const rob = renderRobustness(rb, x.rows, vc);
+const persist = vc[0];
+const altm = vc[1];
+const fut = vc[2];
+const r2 = (n: number | null) => (n === null ? "n/a" : n.toFixed(2));
 const v = validation.totals;
 ---
 <Base title="Credit Risk Screen | David Lindgreen" description="A transparent first-pass credit screen of 28 US pharma and biotech companies from their 10-K figures: leverage, interest cover, cash flow and liquidity, an EBITDA stress test and an Altman cross-check. Not a rating. First release.">
@@ -26,13 +33,13 @@ const v = validation.totals;
     <section class="wrap proj-hero">
       <h1>Credit Risk Screen</h1>
       <p class="proj-lede">How much financial strain could each company take? Score 28 US pharma and biotech companies on leverage, interest cover, cash flow and liquidity, shock their earnings, and see who runs out of room first. The rules are written down and you can change the limits.</p>
-      <p class="status">First release · not a credit rating · built with AI assistance · not independently reviewed</p>
+      <p class="status">Version 1.0 · not a credit rating · method note · built with AI assistance · not independently reviewed</p>
       <div class="brief">
         <div><h2>Who it is for</h2><p>A credit or finance analyst who needs a quick, explainable first look at a group of borrowers, and a student learning how credit ratios are read.</p></div>
         <div><h2>The problem</h2><p>One ratio never tells the story. A company can have low debt and weak earnings, or high debt and strong cash flow. A screen should show each measure, a stress case and where the measures disagree.</p></div>
         <div><h2>What it supports</h2><p>Deciding which borrowers deserve a closer look, and how much earnings could fall before a limit is breached. It is not a rating, a default forecast or investment advice.</p></div>
       </div>
-      <nav class="jump" aria-label="On this page"><a href="#built">How it is built</a><a href="#screen">Screen</a><a href="#altman">Altman check</a><a href="#company">One company</a><a href="#method">Method</a><a href="#evidence">Evidence</a><a href="#uses">Uses</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a></nav>
+      <nav class="jump" aria-label="On this page"><a href="/projects/credit-risk-screen/method/">Method note</a><a href="#built">How it is built</a><a href="#screen">Screen</a><a href="#altman">Altman check</a><a href="#robust">Robustness</a><a href="#company">One company</a><a href="#method">Method</a><a href="#evidence">Evidence</a><a href="#uses">Uses</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a></nav>
     </section>
 
     <section class="wrap" aria-label="Disclosures">
@@ -116,6 +123,31 @@ const v = validation.totals;
       </div>
     </section>
 
+    <section class="wrap section" id="robust" aria-labelledby="robust-h">
+      <div class="section-head"><h2 id="robust-h">How robust is the screen?</h2><p>A scorecard is only useful if it does not fall apart when the choices behind it change. Two tests, both at the default settings.</p></div>
+      <div class="stack">
+        <div class="pane">
+          <h3 class="sub-h">Does the band survive different weights?</h3>
+          <p class="sub-note">The five factor weights were multiplied by random factors (1,000 draws, fixed seed) and every company re-scored. {rob.stable} of {rob.total} companies stay in their band in at least 90% of the draws. The others sit close to a band edge:</p>
+          <div class="tbl-wrap" role="region" aria-label="Companies with unstable bands, scrolls horizontally on small screens" tabindex="0"><Fragment set:html={rob.unstable} /></div>
+        </div>
+        <div class="pane">
+          <h3 class="sub-h">Does the score mean anything over time?</h3>
+          <p class="sub-note">Three exploratory checks. Spearman ρ is a rank correlation (1 is the same order, 0 is unrelated); the permutation p is how often randomly re-paired data correlates at least this strongly. With a few dozen companies these are descriptions, not proof.</p>
+          <div class="tbl-wrap" role="region" aria-label="Validity checks, scrolls horizontally on small screens" tabindex="0"><Fragment set:html={rob.validity} /></div>
+        </div>
+      </div>
+      <div class="prose" style="margin-top:1.5rem">
+        <h3>What the checks say</h3>
+        <ul>
+          <li><strong>The score is a snapshot, not a lasting trait.</strong> The FY2022 and FY2025 scores have a rank correlation of {r2(persist.rho)} across {persist.n} companies (p = {r2(persist.p)}): no detectable persistence over three years. Many of these companies changed a lot (from net debt to net cash, or the reverse), so today's band should not be read as a long-run property of the company.</li>
+          <li><strong>The two credit measures agree only moderately.</strong> The screen and the Altman Z″ score have a rank correlation of {r2(altm.rho)} across {altm.n} companies (p = {r2(altm.p)}). They share some information and disagree on the rest, which is why both are shown.</li>
+          <li><strong>No evidence that the score predicts what happens next.</strong> The FY2022 score and EBITDA growth to FY2025 have a rank correlation of {r2(fut.rho)} across {fut.n} companies (p = {r2(fut.p)}). With this few companies a real effect could be missed, so this is "no evidence found", not "no relationship".</li>
+          <li><strong>These tests use only companies scored on the full weights in the years compared.</strong> FY2022 debt is missing for several companies (the balance-sheet debt was read for FY2025 only), and a partial score is not comparable.</li>
+        </ul>
+      </div>
+    </section>
+
     <div class="band band-mint">
       <section class="wrap section" id="company" aria-labelledby="company-h">
         <div class="section-head"><h2 id="company-h">One company over four years</h2><p>The same ratios for FY2022 to FY2025, so you can see whether a score comes from a trend or from one year.</p></div>
@@ -142,7 +174,7 @@ const v = validation.totals;
           <li><strong>Scoring.</strong> Each ratio is mapped to 0 to 100 by straight lines through the anchors in the table above; net cash and no debt score 100 on the debt factors; negative EBITDA with net debt scores 0 on leverage. The weighted average is the score. A missing factor is dropped, the remaining weights are rescaled and the page says how much of the weight was used.</li>
           <li><strong>Stress.</strong> EBITDA and operating cash flow both fall by the chosen share of EBITDA (before tax, a simplification). If free cash flow turns negative, the cash burn is added to net debt for one year. Interest stays the same.</li>
           <li><strong>Room before a limit.</strong> The largest fall in EBITDA such that net debt to EBITDA stays at or below the limit and interest cover stays at or above the floor, in closed form. Net cash has no leverage limit; no interest means no cover limit.</li>
-          <li><strong>Checks.</strong> 14 unit tests cover the ratios, the scoring anchors, the weight rescaling, the band boundaries, the closed-form room calculation, the stress test and the Altman example.</li>
+          <li><strong>Checks.</strong> 19 unit tests cover the ratios, the scoring anchors, the weight rescaling, the band boundaries, the closed-form room calculation, the stress test, the Altman example, the weight-robustness and the permutation test.</li>
         </ul>
       </div>
     </section>

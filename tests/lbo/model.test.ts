@@ -104,3 +104,39 @@ test("the sensitivity grid agrees with a direct run and marks invalid cells", ()
   assert.ok(g2[0][0] !== null);
   assert.equal(g2[1][0], null);
 });
+
+import { monteCarlo, tornado } from "../../src/lib/lbo/model.ts";
+
+test("Monte Carlo is reproducible for a seed and collapses to the base case at zero spread", () => {
+  const a = monteCarlo(base(), { draws: 500, seed: 3 });
+  const b = monteCarlo(base(), { draws: 500, seed: 3 });
+  assert.equal(a.p50, b.p50);
+  const z = monteCarlo(base(), { draws: 50, seed: 3, scale: 0 });
+  close(z.p5, runLbo(base()).irr, 1e-9);
+  close(z.p95, runLbo(base()).irr, 1e-9);
+});
+
+test("Monte Carlo quantiles are ordered, the median is near the base case, and the histogram counts every draw", () => {
+  const m = monteCarlo(base(), { draws: 2000, seed: 1 });
+  assert.ok(m.p5 <= m.p25 && m.p25 <= m.p50 && m.p50 <= m.p75 && m.p75 <= m.p95);
+  assert.ok(Math.abs(m.p50 - runLbo(base()).irr) < 0.03);
+  assert.equal(m.hist.reduce((s, h) => s + h.count, 0), 2000);
+  assert.ok(m.probLoss >= 0 && m.probLoss <= 1);
+  assert.ok(m.p95 - m.p5 > 0.02);
+});
+
+test("a wider spread widens the distribution of returns", () => {
+  const narrow = monteCarlo(base(), { draws: 2000, seed: 5, scale: 0.5 });
+  const wide = monteCarlo(base(), { draws: 2000, seed: 5, scale: 1.5 });
+  assert.ok(wide.p95 - wide.p5 > narrow.p95 - narrow.p5);
+});
+
+test("tornado: sorted by swing, base unchanged, exit multiple moves the return in the expected direction", () => {
+  const t = tornado(base());
+  close(t.base, runLbo(base()).irr);
+  for (let i = 1; i < t.rows.length; i++) assert.ok(t.rows[i - 1].swing >= t.rows[i].swing);
+  const exit = t.rows.find((r) => r.driver === "Exit multiple")!;
+  close(exit.low as number, runLbo({ ...base(), exitMultiple: base().exitMultiple - 2 }).irr);
+  close(exit.high as number, runLbo({ ...base(), exitMultiple: base().exitMultiple + 2 }).irr);
+  assert.ok((exit.low as number) < t.base && (exit.high as number) > t.base);
+});
