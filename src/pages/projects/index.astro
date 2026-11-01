@@ -4,14 +4,14 @@ import ProjectHeader from "../../components/ProjectHeader.astro";
 import "../../styles/projects.css";
 import MiniBars from "../../components/MiniBars.astro";
 import { person } from "../../data/site";
-import { evalRows, lboRows, marginRows, top5Rows } from "../../lib/projectViz.ts";
+import { creditBandRows, evalRows, lboRows, marginRows, top5Rows } from "../../lib/projectViz.ts";
 ---
-<Base title="Projects | David Lindgreen" description="Four connected projects on public financial data: a pharma valuation explorer, an annual-report research assistant, an M&A screening workbench and an LBO model. Honest status for each.">
+<Base title="Projects | David Lindgreen" description="Five connected projects on public financial data: a pharma valuation explorer, an annual-report research assistant, an M&A screening workbench, an LBO model and a credit risk screen. Honest status for each.">
   <ProjectHeader current="projects" />
   <main id="main">
     <section class="wrap proj-hero">
       <h1>Projects</h1>
-      <p class="proj-lede">Four connected tools built on public financial data. Each has an identifiable user, a decision it supports, traceable inputs and a result that can be evaluated. Their status is stated plainly.</p>
+      <p class="proj-lede">Five connected tools built on public financial data. Each has an identifiable user, a decision it supports, traceable inputs and a result that can be evaluated. Their status is stated plainly.</p>
     </section>
 
     <section class="wrap" aria-label="Projects">
@@ -62,6 +62,18 @@ import { evalRows, lboRows, marginRows, top5Rows } from "../../lib/projectViz.ts
             <p class="use-line"><strong>Good for:</strong> seeing how a buyout works, where the return comes from and how fragile it is.</p>
             <p>A leveraged-buyout model on real SEC figures for the companies in the screen. Set the price and the debt; see sources and uses, a five-year debt schedule, MOIC and IRR, a value-creation bridge and two sensitivity grids. A downloadable Excel model with live formulas was recalculated in Excel and matches the web model. 13 unit tests. Hypothetical deal; not a bid or a valuation; not independently reviewed.</p>
             <p class="links"><a href="/projects/lbo-workbench/">Open the workbench</a><a href="/projects/lbo-workbench/#downloads">Download the Excel model</a></p>
+          </div>
+        </article>
+        <article class="proj-item">
+          <div>
+            <p class="status">First release · in development</p>
+            <h3 style="margin-top:1rem">Credit Risk Screen</h3>
+            <MiniBars title="Companies by strain band (of 28), default settings" rows={creditBandRows} note="Ratios under the author's thresholds. Not a credit rating." />
+          </div>
+          <div>
+            <p class="use-line"><strong>Good for:</strong> seeing which borrowers have the least room before a limit, and where two credit measures disagree.</p>
+            <p>Scores 28 US pharma and biotech companies on leverage, interest cover, cash flow and liquidity from their 10-K figures, stresses earnings, shows how far EBITDA can fall before a leverage or cover limit is hit, and cross-checks with the Altman Z″ score. 337 filing-text checks on the extra data, 14 unit tests. Not a rating; not independently reviewed.</p>
+            <p class="links"><a href="/projects/credit-risk-screen/">Open the screen</a><a href="/projects/credit-risk-screen/#evidence">See the evidence</a></p>
           </div>
         </article>
       </div>

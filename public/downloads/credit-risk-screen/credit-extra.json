@@ -1,0 +1,6157 @@
+{
+ "generated": "2026-11-01",
+ "units": "US dollars, millions",
+ "years": [
+  2022,
+  2023,
+  2024,
+  2025
+ ],
+ "companies": {
+  "JAZZ": {
+   "ticker": "JAZZ",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 32.8,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001232524-24-000015",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 270.671,
+      "tag": "InterestPaidNet",
+      "accn": "0001232524-25-000011",
+      "filed": "2025-02-26",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 29.046,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001232524-25-000011",
+      "filed": "2025-02-26",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 2606.14,
+      "tag": "AssetsCurrent",
+      "accn": "0001232524-24-000015",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 933.193,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001232524-24-000015",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": 3085.734,
+      "tag": "StockholdersEquity",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": 733.586,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001232524-24-000015",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 32.8,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001232524-24-000015",
+      "filed": "2024-02-28",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 333.112,
+      "tag": "InterestPaidNet",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 23.962,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 3435.428,
+      "tag": "AssetsCurrent",
+      "accn": "0001232524-25-000011",
+      "filed": "2025-02-26",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 1536.692,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001232524-25-000011",
+      "filed": "2025-02-26",
+      "end": "2023-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": 3736.997,
+      "tag": "StockholdersEquity",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": 878.656,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001232524-25-000011",
+      "filed": "2025-02-26",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 314.822,
+      "tag": "InterestPaidNet",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 38.07,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 4629.028,
+      "tag": "AssetsCurrent",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 1038.573,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": 4093.756,
+      "tag": "StockholdersEquity",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": 1127.347,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 248.553,
+      "tag": "InterestPaidNet",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 58.752,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 4166.043,
+      "tag": "AssetsCurrent",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 2242.521,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": 4318.584,
+      "tag": "StockholdersEquity",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": 646.176,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001232524-26-000013",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "SUPN": {
+   "ticker": "SUPN",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 2.542,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001356576-25-000017",
+      "filed": "2025-02-25",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 2.516,
+      "tag": "InterestPaidNet",
+      "accn": "0001356576-25-000017",
+      "filed": "2025-02-25",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 0.412,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001356576-25-000017",
+      "filed": "2025-02-25",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 734.151,
+      "tag": "AssetsCurrent",
+      "accn": "0001356576-23-000016",
+      "filed": "2023-03-09",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 687.958,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001356576-23-000016",
+      "filed": "2023-03-09",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 816.304,
+      "tag": "Liabilities",
+      "accn": "0001356576-23-000016",
+      "filed": "2023-03-09",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 886.204,
+      "tag": "StockholdersEquity",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": 481.245,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001356576-23-000016",
+      "filed": "2023-03-09",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 1.321,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 1.946,
+      "tag": "InterestPaidNet",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 0.551,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 493.113,
+      "tag": "AssetsCurrent",
+      "accn": "0001356576-25-000017",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 290.196,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001356576-25-000017",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 356.157,
+      "tag": "Liabilities",
+      "accn": "0001356576-25-000017",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 921.516,
+      "tag": "StockholdersEquity",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": 482.561,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001356576-25-000017",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 0,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 0,
+      "tag": "InterestPaidNet",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 0.725,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 686.07,
+      "tag": "AssetsCurrent",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 292.397,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 332.34,
+      "tag": "Liabilities",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 1035.733,
+      "tag": "StockholdersEquity",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": 556.426,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 0,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 0,
+      "tag": "InterestPaidNet",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 1.338,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 644.182,
+      "tag": "AssetsCurrent",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 338.171,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 390.934,
+      "tag": "Liabilities",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 1061.714,
+      "tag": "StockholdersEquity",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": 517.876,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001356576-26-000011",
+      "filed": "2026-03-02",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "CORT": {
+   "ticker": "CORT",
+   "years": {
+    "2022": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 0.413,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-25-008167",
+      "filed": "2025-02-26",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 499.253,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-24-005055",
+      "filed": "2024-02-15",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 72.491,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-24-005055",
+      "filed": "2024-02-15",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 81.588,
+      "tag": "Liabilities",
+      "accn": "0001628280-24-005055",
+      "filed": "2024-02-15",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 501.842,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": 296.386,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-24-005055",
+      "filed": "2024-02-15",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 0.139,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 458.636,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-25-008167",
+      "filed": "2025-02-26",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 104.505,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-25-008167",
+      "filed": "2025-02-26",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 114.812,
+      "tag": "Liabilities",
+      "accn": "0001628280-25-008167",
+      "filed": "2025-02-26",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 506.705,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": 402.526,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-25-008167",
+      "filed": "2025-02-26",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 2.172,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 471.602,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 140.773,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 160.964,
+      "tag": "Liabilities",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 679.589,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": 543.735,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 0.211,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 485.464,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 166.085,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 188.846,
+      "tag": "Liabilities",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 647.805,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": 643.387,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-26-011091",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "HALO": {
+   "ticker": "HALO",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 16.947,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001159036-25-000010",
+      "filed": "2025-02-18",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 6.107,
+      "tag": "InterestPaidNet",
+      "accn": "0001159036-25-000010",
+      "filed": "2025-02-18",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 4.81,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001159036-25-000010",
+      "filed": "2025-02-18",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 739.013,
+      "tag": "AssetsCurrent",
+      "accn": "0001159036-24-000008",
+      "filed": "2024-02-20",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 130.789,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001159036-24-000008",
+      "filed": "2024-02-20",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 1671.713,
+      "tag": "Liabilities",
+      "accn": "0001159036-24-000008",
+      "filed": "2024-02-20",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 169.798,
+      "tag": "StockholdersEquity",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": 143.217,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001159036-24-000008",
+      "filed": "2024-02-20",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 18.762,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 11.41,
+      "tag": "InterestPaidNet",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 15.294,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 746.424,
+      "tag": "AssetsCurrent",
+      "accn": "0001159036-25-000010",
+      "filed": "2025-02-18",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 112.494,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001159036-25-000010",
+      "filed": "2025-02-18",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 1649.462,
+      "tag": "Liabilities",
+      "accn": "0001159036-25-000010",
+      "filed": "2025-02-18",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 83.808,
+      "tag": "StockholdersEquity",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": 90.55,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001159036-25-000010",
+      "filed": "2025-02-18",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 18.095,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 10.565,
+      "tag": "InterestPaidNet",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 10.696,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 1085.34,
+      "tag": "AssetsCurrent",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 139.1,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 1699.656,
+      "tag": "Liabilities",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 363.821,
+      "tag": "StockholdersEquity",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": 359.869,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 18.126,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 11.429,
+      "tag": "InterestPaidNet",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 6.97,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 825.207,
+      "tag": "AssetsCurrent",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 177.092,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 2476.509,
+      "tag": "Liabilities",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 48.814,
+      "tag": "StockholdersEquity",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": 54.786,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001159036-26-000024",
+      "filed": "2026-02-17",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "IRWD": {
+   "ticker": "IRWD",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 7.598,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001558370-25-004072",
+      "filed": "2025-03-31",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 5.745,
+      "tag": "InterestPaidNet",
+      "accn": "0001558370-25-004072",
+      "filed": "2025-03-31",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 0.136,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001558370-25-004072",
+      "filed": "2025-03-31",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 780.626,
+      "tag": "AssetsCurrent",
+      "accn": "0001558370-24-001275",
+      "filed": "2024-02-16",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 25.525,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001558370-24-001275",
+      "filed": "2024-02-16",
+      "end": "2022-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": 652.378,
+      "tag": "StockholdersEquity",
+      "accn": "0001558370-24-001275",
+      "filed": "2024-02-16",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -696.376,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001558370-24-001275",
+      "filed": "2024-02-16",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 21.629,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001558370-25-004072",
+      "filed": "2025-03-31",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 13.552,
+      "tag": "InterestPaidNet",
+      "accn": "0001558370-25-004072",
+      "filed": "2025-03-31",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 0.273,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001558370-25-004072",
+      "filed": "2025-03-31",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 233.288,
+      "tag": "AssetsCurrent",
+      "accn": "0001558370-25-004072",
+      "filed": "2025-03-31",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 276.101,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001558370-25-004072",
+      "filed": "2025-03-31",
+      "end": "2023-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": -346.295,
+      "tag": "StockholdersEquity",
+      "accn": "0001558370-25-004072",
+      "filed": "2025-03-31",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -1698.615,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001558370-25-004072",
+      "filed": "2025-03-31",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 33.034,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001104659-26-020489",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 32.563,
+      "tag": "InterestPaidNet",
+      "accn": "0001104659-26-020489",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 0.142,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001104659-26-020489",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 182.368,
+      "tag": "AssetsCurrent",
+      "accn": "0001104659-26-020489",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 38.846,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001104659-26-020489",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": -301.335,
+      "tag": "StockholdersEquity",
+      "accn": "0001104659-26-020489",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -1697.735,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001104659-26-020489",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 32.746,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001104659-26-020489",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 30.333,
+      "tag": "InterestPaidNet",
+      "accn": "0001104659-26-020489",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 0.034,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001104659-26-020489",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 274.178,
+      "tag": "AssetsCurrent",
+      "accn": "0001104659-26-020489",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 242.218,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001104659-26-020489",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": -261.835,
+      "tag": "StockholdersEquity",
+      "accn": "0001104659-26-020489",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": -1673.718,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001104659-26-020489",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "AMPH": {
+   "ticker": "AMPH",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 1.846,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001297184-25-000008",
+      "filed": "2025-03-03",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 3.023,
+      "tag": "InterestPaidNet",
+      "accn": "0001297184-25-000008",
+      "filed": "2025-03-03",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 24.034,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001297184-25-000008",
+      "filed": "2025-03-03",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 378.319,
+      "tag": "AssetsCurrent",
+      "accn": "0001297184-24-000009",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 94.862,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001297184-24-000009",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 213.329,
+      "tag": "Liabilities",
+      "accn": "0001297184-24-000009",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 528.658,
+      "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": 271.723,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001297184-24-000009",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 27.158,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 17.573,
+      "tag": "InterestPaidNet",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 38.166,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 489.6,
+      "tag": "AssetsCurrent",
+      "accn": "0001297184-25-000008",
+      "filed": "2025-03-03",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 225.407,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001297184-25-000008",
+      "filed": "2025-03-03",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 873.491,
+      "tag": "Liabilities",
+      "accn": "0001297184-25-000008",
+      "filed": "2025-03-03",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 639.421,
+      "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": 409.268,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001297184-25-000008",
+      "filed": "2025-03-03",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 30.343,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 26.811,
+      "tag": "InterestPaidNet",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 41.041,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 534.071,
+      "tag": "AssetsCurrent",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 173.759,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 845.172,
+      "tag": "Liabilities",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 732.298,
+      "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": 568.787,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 25.481,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 23.218,
+      "tag": "InterestPaidNet",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 34.882,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 636.016,
+      "tag": "AssetsCurrent",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 158.156,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 840.494,
+      "tag": "Liabilities",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 788.805,
+      "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": 666.881,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001297184-26-000009",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "PCRX": {
+   "ticker": "PCRX",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 39.976,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001396814-25-000041",
+      "filed": "2025-02-27",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 33.295,
+      "tag": "InterestPaidNet",
+      "accn": "0001396814-25-000041",
+      "filed": "2025-02-27",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 30.076,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001396814-25-000041",
+      "filed": "2025-02-27",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 498.334,
+      "tag": "AssetsCurrent",
+      "accn": "0001396814-24-000030",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 147.774,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001396814-24-000030",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 906.19,
+      "tag": "Liabilities",
+      "accn": "0001396814-24-000030",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 775.01,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -148.751,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001396814-24-000030",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 20.306,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 27.635,
+      "tag": "InterestPaidNet",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 15.161,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 509.994,
+      "tag": "AssetsCurrent",
+      "accn": "0001396814-25-000041",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 97.383,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001396814-25-000041",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 704.256,
+      "tag": "Liabilities",
+      "accn": "0001396814-25-000041",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 870.13,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -106.796,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001396814-25-000041",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 16.569,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 15.418,
+      "tag": "InterestPaidNet",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 10.636,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 745.13,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 309.92,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 775.168,
+      "tag": "Liabilities",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 778.348,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -206.356,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 17.446,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 15.235,
+      "tag": "InterestPaidNet",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 15.333,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 547.974,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 120.59,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 571.806,
+      "tag": "Liabilities",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 693.111,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": -199.322,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-26-012297",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "COLL": {
+   "ticker": "COLL",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 63.213,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001558370-25-001801",
+      "filed": "2025-02-27",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 52.528,
+      "tag": "InterestPaidNet",
+      "accn": "0001558370-25-001801",
+      "filed": "2025-02-27",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 1.622,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001558370-25-001801",
+      "filed": "2025-02-27",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 419.989,
+      "tag": "AssetsCurrent",
+      "accn": "0001558370-24-001526",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 433.726,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001558370-24-001526",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 979.289,
+      "tag": "Liabilities",
+      "accn": "0001558370-24-001526",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 194.842,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -281.344,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001558370-24-001526",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 83.339,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 73.256,
+      "tag": "InterestPaidNet",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 0.461,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 537.6,
+      "tag": "AssetsCurrent",
+      "accn": "0001558370-25-001801",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 457.915,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001558370-25-001801",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 947.877,
+      "tag": "Liabilities",
+      "accn": "0001558370-25-001801",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 195.431,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -233.189,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001558370-25-001801",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 73.974,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 62.434,
+      "tag": "InterestPaidNet",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 1.652,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 482.257,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 509.51,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 1434.749,
+      "tag": "Liabilities",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 228.842,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -163.999,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 82.312,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 68.76,
+      "tag": "InterestPaidNet",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 1.74,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 691.411,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 440.028,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 1355.159,
+      "tag": "Liabilities",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 301.675,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": -101.129,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-26-011992",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "ANIP": {
+   "ticker": "ANIP",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 28.513,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001023024-25-000015",
+      "filed": "2025-02-28",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 21.477,
+      "tag": "InterestPaidNet",
+      "accn": "0001023024-25-000015",
+      "filed": "2025-02-28",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 8.876,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001023024-25-000015",
+      "filed": "2025-02-28",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 344.261,
+      "tag": "AssetsCurrent",
+      "accn": "0001023024-24-000026",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 99.439,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001023024-24-000026",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 421.547,
+      "tag": "Liabilities",
+      "accn": "0001023024-24-000026",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 313.69,
+      "tag": "StockholdersEquity",
+      "accn": "0001023024-24-000026",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -97.286,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001023024-24-000026",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 35.634,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 31.431,
+      "tag": "InterestPaidNet",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 8.868,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 519.816,
+      "tag": "AssetsCurrent",
+      "accn": "0001023024-25-000015",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 145.477,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001023024-25-000015",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 446.823,
+      "tag": "Liabilities",
+      "accn": "0001023024-25-000015",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 432.749,
+      "tag": "StockholdersEquity",
+      "accn": "0001023024-25-000015",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -80.132,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001023024-25-000015",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 33.628,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 24.379,
+      "tag": "InterestPaidNet",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 16.236,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 528.456,
+      "tag": "AssetsCurrent",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 194.452,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 855.939,
+      "tag": "Liabilities",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 403.68,
+      "tag": "StockholdersEquity",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -100.279,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 32.562,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 26.929,
+      "tag": "InterestPaidNet",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 13.835,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 753.117,
+      "tag": "AssetsCurrent",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 278.112,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 899.653,
+      "tag": "Liabilities",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 540.724,
+      "tag": "StockholdersEquity",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": -23.099,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001023024-26-000014",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "HRMY": {
+   "ticker": "HRMY",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 18.795,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001558370-25-001441",
+      "filed": "2025-02-25",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 16.364,
+      "tag": "InterestPaidNet",
+      "accn": "0001558370-25-001441",
+      "filed": "2025-02-25",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 0.172,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001558370-25-001441",
+      "filed": "2025-02-25",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 400.285,
+      "tag": "AssetsCurrent",
+      "accn": "0001558370-24-001466",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 78.884,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001558370-24-001466",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 271.032,
+      "tag": "Liabilities",
+      "accn": "0001558370-24-001466",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 402.838,
+      "tag": "StockholdersEquity",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -272.13,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001558370-24-001466",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 23.757,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 20.051,
+      "tag": "InterestPaidNet",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 0.312,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 451.07,
+      "tag": "AssetsCurrent",
+      "accn": "0001558370-25-001441",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 163.781,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001558370-25-001441",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 344.456,
+      "tag": "Liabilities",
+      "accn": "0001558370-25-001441",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 466.992,
+      "tag": "StockholdersEquity",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -143.277,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001558370-25-001441",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 17.496,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 17.317,
+      "tag": "InterestPaidNet",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 1.153,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 579.252,
+      "tag": "AssetsCurrent",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 175.082,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 340.045,
+      "tag": "Liabilities",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 659.155,
+      "tag": "StockholdersEquity",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": 2.216,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 14.649,
+      "tag": "InterestExpenseDebt",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 14.685,
+      "tag": "InterestPaidNet",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 0.31,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 907.014,
+      "tag": "AssetsCurrent",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 252.132,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 401.413,
+      "tag": "Liabilities",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 870.218,
+      "tag": "StockholdersEquity",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": 160.903,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001104659-26-018859",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "INVA": {
+   "ticker": "INVA",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 15.789,
+      "tag": "InterestExpense",
+      "accn": "0000950170-25-027864",
+      "filed": "2025-02-26",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 11.736,
+      "tag": "InterestPaidNet",
+      "accn": "0000950170-25-027864",
+      "filed": "2025-02-26",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 0.067,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0000950170-25-027864",
+      "filed": "2025-02-26",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 443.511,
+      "tag": "AssetsCurrent",
+      "accn": "0000950170-24-023237",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 134.968,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000950170-24-023237",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": 565.788,
+      "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -204.911,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000950170-24-023237",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 19.157,
+      "tag": "InterestExpense",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 11.381,
+      "tag": "InterestPaidNet",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 0.411,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 344.219,
+      "tag": "AssetsCurrent",
+      "accn": "0000950170-25-027864",
+      "filed": "2025-02-26",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 38.134,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000950170-25-027864",
+      "filed": "2025-02-26",
+      "end": "2023-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": 674.955,
+      "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -25.189,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000950170-25-027864",
+      "filed": "2025-02-26",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 22.209,
+      "tag": "InterestExpense",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 10.359,
+      "tag": "InterestPaidNet",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 0.27,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 554.306,
+      "tag": "AssetsCurrent",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 236.083,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2024-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": 691.159,
+      "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -1.797,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 16.698,
+      "tag": "InterestExpense",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 10.353,
+      "tag": "InterestPaidNet",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 1.131,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 727.515,
+      "tag": "AssetsCurrent",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 49.696,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2025-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": 1172.841,
+      "tag": "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": 269.368,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001193125-26-071776",
+      "filed": "2026-02-25",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "VNDA": {
+   "ticker": "VNDA",
+   "years": {
+    "2022": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 0.679,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-25-005761",
+      "filed": "2025-02-14",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 519.292,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-24-003785",
+      "filed": "2024-02-08",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 91.436,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-24-003785",
+      "filed": "2024-02-08",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 107.049,
+      "tag": "Liabilities",
+      "accn": "0001628280-24-003785",
+      "filed": "2024-02-08",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 527.198,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -157.901,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-24-003785",
+      "filed": "2024-02-08",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 0.383,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 432.946,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-25-005761",
+      "filed": "2025-02-14",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 87.697,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-25-005761",
+      "filed": "2025-02-14",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 103.53,
+      "tag": "Liabilities",
+      "accn": "0001628280-25-005761",
+      "filed": "2025-02-14",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 544.91,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -155.392,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-25-005761",
+      "filed": "2025-02-14",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 0.49,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 438.89,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 99.981,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 117.658,
+      "tag": "Liabilities",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 538.546,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -174.292,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 0.998,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 347.262,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 145.162,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 161.762,
+      "tag": "Liabilities",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 327.186,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": -394.766,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-26-007460",
+      "filed": "2026-02-12",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "LGND": {
+   "ticker": "LGND",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 1.799,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0000886163-25-000012",
+      "filed": "2025-02-28",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 1.428,
+      "tag": "InterestPaidNet",
+      "accn": "0000886163-25-000012",
+      "filed": "2025-02-28",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 17.923,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0000886163-25-000012",
+      "filed": "2025-02-28",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 263.601,
+      "tag": "AssetsCurrent",
+      "accn": "0000886163-24-000009",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 98.81,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000886163-24-000009",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 165.183,
+      "tag": "Liabilities",
+      "accn": "0000886163-24-000009",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 597.485,
+      "tag": "StockholdersEquity",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": 450.862,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000886163-24-000009",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 0.656,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 0.288,
+      "tag": "InterestPaidNet",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 3.521,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 237.429,
+      "tag": "AssetsCurrent",
+      "accn": "0000886163-25-000012",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 16.782,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000886163-25-000012",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 86.303,
+      "tag": "Liabilities",
+      "accn": "0000886163-25-000012",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 700.913,
+      "tag": "StockholdersEquity",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": 503.016,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000886163-25-000012",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 3.037,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 0.263,
+      "tag": "InterestPaidNet",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 1.821,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 331.559,
+      "tag": "AssetsCurrent",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 37.112,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 111.335,
+      "tag": "Liabilities",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 830.439,
+      "tag": "StockholdersEquity",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": 498.984,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 4.715,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 0.321,
+      "tag": "InterestPaidNet",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 0.452,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 832.271,
+      "tag": "AssetsCurrent",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 37.447,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 543.425,
+      "tag": "Liabilities",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 1017.212,
+      "tag": "StockholdersEquity",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": 608.088,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000886163-26-000006",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "AMRX": {
+   "ticker": "AMRX",
+   "years": {
+    "2022": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 142.722,
+      "tag": "InterestPaidNet",
+      "accn": "0001723128-25-000012",
+      "filed": "2025-02-28",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 46.407,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001723128-25-000012",
+      "filed": "2025-02-28",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 1411.818,
+      "tag": "AssetsCurrent",
+      "accn": "0001723128-24-000014",
+      "filed": "2024-03-14",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 752.8,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001723128-24-000014",
+      "filed": "2024-03-14",
+      "end": "2022-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": 298.421,
+      "tag": "StockholdersEquity",
+      "accn": "0001723128-24-000014",
+      "filed": "2024-03-14",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -406.183,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001723128-24-000014",
+      "filed": "2024-03-14",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 192.806,
+      "tag": "InterestPaidNet",
+      "accn": "0001723128-26-000011",
+      "filed": "2026-02-27",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 43.216,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001723128-26-000011",
+      "filed": "2026-02-27",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 1377.863,
+      "tag": "AssetsCurrent",
+      "accn": "0001723128-25-000012",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 846.595,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001723128-25-000012",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": 19.781,
+      "tag": "StockholdersEquity",
+      "accn": "0001723128-25-000012",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -490.176,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001723128-25-000012",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 263.518,
+      "tag": "InterestPaidNet",
+      "accn": "0001723128-26-000011",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 51.924,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001723128-26-000011",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 1587.806,
+      "tag": "AssetsCurrent",
+      "accn": "0001723128-26-000011",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 1129.771,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001723128-26-000011",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": -109.267,
+      "tag": "StockholdersEquity",
+      "accn": "0001723128-26-000011",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -607.062,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001723128-26-000011",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 197.848,
+      "tag": "InterestPaidNet",
+      "accn": "0001723128-26-000011",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 70.063,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001723128-26-000011",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 1911.181,
+      "tag": "AssetsCurrent",
+      "accn": "0001723128-26-000011",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 881.633,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001723128-26-000011",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": -70.794,
+      "tag": "StockholdersEquity",
+      "accn": "0001723128-26-000011",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": -535.005,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001723128-26-000011",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "ACAD": {
+   "ticker": "ACAD",
+   "years": {
+    "2022": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 0,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0000950170-25-029253",
+      "filed": "2025-02-27",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 507.937,
+      "tag": "AssetsCurrent",
+      "accn": "0000950170-24-021473",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 125.63,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000950170-24-021473",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 187.399,
+      "tag": "Liabilities",
+      "accn": "0000950170-24-021473",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 400.413,
+      "tag": "StockholdersEquity",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -2369.551,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000950170-24-021473",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 0.05,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 616.125,
+      "tag": "AssetsCurrent",
+      "accn": "0000950170-25-029253",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 254.254,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000950170-25-029253",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 317.201,
+      "tag": "Liabilities",
+      "accn": "0000950170-25-029253",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 431.755,
+      "tag": "StockholdersEquity",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -2430.837,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000950170-25-029253",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 0.523,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 938.318,
+      "tag": "AssetsCurrent",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 394.87,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 454.963,
+      "tag": "Liabilities",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 732.793,
+      "tag": "StockholdersEquity",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -2204.386,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 4.69,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 1062.113,
+      "tag": "AssetsCurrent",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 277.114,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 336.805,
+      "tag": "Liabilities",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 1227.39,
+      "tag": "StockholdersEquity",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": -1813.386,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001193125-26-072519",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "EXEL": {
+   "ticker": "EXEL",
+   "years": {
+    "2022": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 27.706,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0000939767-25-000019",
+      "filed": "2025-02-11",
+      "end": "2022-12-30"
+     },
+     "assets_current": {
+      "value": 1618.762,
+      "tag": "AssetsCurrent",
+      "accn": "0000939767-24-000028",
+      "filed": "2024-02-06",
+      "end": "2022-12-30"
+     },
+     "liabilities_current": {
+      "value": 324.359,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000939767-24-000028",
+      "filed": "2024-02-06",
+      "end": "2022-12-30"
+     },
+     "liabilities": {
+      "value": 583.062,
+      "tag": "Liabilities",
+      "accn": "0000939767-24-000028",
+      "filed": "2024-02-06",
+      "end": "2022-12-30"
+     },
+     "equity": {
+      "value": 2488.427,
+      "tag": "StockholdersEquity",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2022-12-30"
+     },
+     "retained_earnings": {
+      "value": -34.225,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000939767-24-000028",
+      "filed": "2024-02-06",
+      "end": "2022-12-30"
+     }
+    },
+    "2023": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 40.469,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2023-12-29"
+     },
+     "assets_current": {
+      "value": 1317.958,
+      "tag": "AssetsCurrent",
+      "accn": "0000939767-25-000019",
+      "filed": "2025-02-11",
+      "end": "2023-12-29"
+     },
+     "liabilities_current": {
+      "value": 394.277,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000939767-25-000019",
+      "filed": "2025-02-11",
+      "end": "2023-12-29"
+     },
+     "liabilities": {
+      "value": 678.445,
+      "tag": "Liabilities",
+      "accn": "0000939767-25-000019",
+      "filed": "2025-02-11",
+      "end": "2023-12-29"
+     },
+     "equity": {
+      "value": 2263.912,
+      "tag": "StockholdersEquity",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2023-12-29"
+     },
+     "retained_earnings": {
+      "value": -173.351,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000939767-25-000019",
+      "filed": "2025-02-11",
+      "end": "2023-12-29"
+     }
+    },
+    "2024": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 28.435,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2025-01-03"
+     },
+     "assets_current": {
+      "value": 1467.579,
+      "tag": "AssetsCurrent",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2025-01-03"
+     },
+     "liabilities_current": {
+      "value": 403.769,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2025-01-03"
+     },
+     "liabilities": {
+      "value": 703.487,
+      "tag": "Liabilities",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2025-01-03"
+     },
+     "equity": {
+      "value": 2244.203,
+      "tag": "StockholdersEquity",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2025-01-03"
+     },
+     "retained_earnings": {
+      "value": -98.647,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2025-01-03"
+     }
+    },
+    "2025": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 8.429,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2026-01-02"
+     },
+     "assets_current": {
+      "value": 1443.289,
+      "tag": "AssetsCurrent",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2026-01-02"
+     },
+     "liabilities_current": {
+      "value": 405.644,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2026-01-02"
+     },
+     "liabilities": {
+      "value": 683.104,
+      "tag": "Liabilities",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2026-01-02"
+     },
+     "equity": {
+      "value": 2161.319,
+      "tag": "StockholdersEquity",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2026-01-02"
+     },
+     "retained_earnings": {
+      "value": -76.83,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000939767-26-000021",
+      "filed": "2026-02-10",
+      "end": "2026-01-02"
+     }
+    }
+   }
+  },
+  "NBIX": {
+   "ticker": "NBIX",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 7.1,
+      "tag": "InterestExpense",
+      "accn": "0000914475-24-000054",
+      "filed": "2024-02-09",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 6.6,
+      "tag": "InterestPaidNet",
+      "accn": "0000914475-25-000037",
+      "filed": "2025-02-10",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 16.5,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0000914475-25-000037",
+      "filed": "2025-02-10",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 1453.5,
+      "tag": "AssetsCurrent",
+      "accn": "0000914475-24-000054",
+      "filed": "2024-02-09",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 537.7,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000914475-24-000054",
+      "filed": "2024-02-09",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 660.9,
+      "tag": "Liabilities",
+      "accn": "0000914475-24-000054",
+      "filed": "2024-02-09",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 1707.8,
+      "tag": "StockholdersEquity",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -406.8,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000914475-24-000054",
+      "filed": "2024-02-09",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 4.6,
+      "tag": "InterestExpense",
+      "accn": "0000914475-24-000054",
+      "filed": "2024-02-09",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 3.8,
+      "tag": "InterestPaidNet",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 28.3,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 1607,
+      "tag": "AssetsCurrent",
+      "accn": "0000914475-25-000037",
+      "filed": "2025-02-10",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 654.8,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000914475-25-000037",
+      "filed": "2025-02-10",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 1019.4,
+      "tag": "Liabilities",
+      "accn": "0000914475-25-000037",
+      "filed": "2025-02-10",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 2232,
+      "tag": "StockholdersEquity",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -157.1,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000914475-25-000037",
+      "filed": "2025-02-10",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 1.6,
+      "tag": "InterestPaidNet",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 38.2,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 1724.7,
+      "tag": "AssetsCurrent",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 507.7,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 1129,
+      "tag": "Liabilities",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 2589.7,
+      "tag": "StockholdersEquity",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": 29.2,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 0,
+      "tag": "InterestPaidNet",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 34,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 2522.7,
+      "tag": "AssetsCurrent",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 743.4,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 1378.4,
+      "tag": "Liabilities",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 3253.1,
+      "tag": "StockholdersEquity",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": 447.7,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0000914475-26-000007",
+      "filed": "2026-02-11",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "LNTH": {
+   "ticker": "LNTH",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 7.185,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001628280-25-007970",
+      "filed": "2025-02-26",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 5.064,
+      "tag": "InterestPaidNet",
+      "accn": "0001628280-25-007970",
+      "filed": "2025-02-26",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 260,
+      "tag": "PaymentsToAcquireProductiveAssets",
+      "accn": "0001628280-24-006158",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 677.616,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-24-006158",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 247.701,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-24-006158",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 874.111,
+      "tag": "Liabilities",
+      "accn": "0001628280-24-006158",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 447.147,
+      "tag": "StockholdersEquity",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -193.158,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-24-006158",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 20.019,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 15.387,
+      "tag": "InterestPaidNet",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 45.345,
+      "tag": "PaymentsToAcquireProductiveAssets",
+      "accn": "0001628280-24-006158",
+      "filed": "2024-02-22",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 1085.819,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-25-007970",
+      "filed": "2025-02-26",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 187.35,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-25-007970",
+      "filed": "2025-02-26",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 835.257,
+      "tag": "Liabilities",
+      "accn": "0001628280-25-007970",
+      "filed": "2025-02-26",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 815.892,
+      "tag": "StockholdersEquity",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": 133.503,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-25-007970",
+      "filed": "2025-02-26",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 19.669,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 15.094,
+      "tag": "InterestPaidNet",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "capex": null,
+     "assets_current": {
+      "value": 1326.633,
+      "tag": "AssetsCurrent",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 240.526,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 892.329,
+      "tag": "Liabilities",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 1088.011,
+      "tag": "StockholdersEquity",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": 445.945,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 19.749,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 15.094,
+      "tag": "InterestPaidNet",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "capex": null,
+     "assets_current": {
+      "value": 899.964,
+      "tag": "AssetsCurrent",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 333.419,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 1137.602,
+      "tag": "Liabilities",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 1089.797,
+      "tag": "StockholdersEquity",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": 679.504,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001193125-26-073498",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "ADMA": {
+   "ticker": "ADMA",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 19.279,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001140361-25-009257",
+      "filed": "2025-03-18",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 13.88,
+      "tag": "InterestPaidNet",
+      "accn": "0001140361-25-009257",
+      "filed": "2025-03-18",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 13.911,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001140361-25-009257",
+      "filed": "2025-03-18",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 270.402,
+      "tag": "AssetsCurrent",
+      "accn": "0001140361-24-010147",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 39.267,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001140361-24-010147",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 196.487,
+      "tag": "Liabilities",
+      "accn": "0001140361-24-010147",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 151.974,
+      "tag": "StockholdersEquity",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -478.017,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001140361-24-010147",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 25.027,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 18.051,
+      "tag": "InterestPaidNet",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 4.771,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 257.013,
+      "tag": "AssetsCurrent",
+      "accn": "0001140361-25-009257",
+      "filed": "2025-03-18",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 49.806,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001140361-25-009257",
+      "filed": "2025-03-18",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 193.976,
+      "tag": "Liabilities",
+      "accn": "0001140361-25-009257",
+      "filed": "2025-03-18",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 135.206,
+      "tag": "StockholdersEquity",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -506.256,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001140361-25-009257",
+      "filed": "2025-03-18",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 13.93,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 10.668,
+      "tag": "InterestPaidNet",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 8.226,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 331.41,
+      "tag": "AssetsCurrent",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 55.542,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 139.66,
+      "tag": "Liabilities",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 349.018,
+      "tag": "StockholdersEquity",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -308.583,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 7.11,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 9.078,
+      "tag": "InterestPaidNet",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 22.575,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 466.512,
+      "tag": "AssetsCurrent",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 69.541,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 146.922,
+      "tag": "Liabilities",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 477.32,
+      "tag": "StockholdersEquity",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": -161.653,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001140361-26-006815",
+      "filed": "2026-02-25",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "KNSA": {
+   "ticker": "KNSA",
+   "years": {
+    "2022": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 0.105,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001558370-25-001505",
+      "filed": "2025-02-25",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 243.06,
+      "tag": "AssetsCurrent",
+      "accn": "0001558370-24-002005",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 47.066,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001558370-24-002005",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 63.523,
+      "tag": "Liabilities",
+      "accn": "0001558370-24-002005",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 396.149,
+      "tag": "StockholdersEquity",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -492.034,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001558370-24-002005",
+      "filed": "2024-02-28",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 0.13,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 276.297,
+      "tag": "AssetsCurrent",
+      "accn": "0001558370-25-001505",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 63.666,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001558370-25-001505",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 87.483,
+      "tag": "Liabilities",
+      "accn": "0001558370-25-001505",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 438.839,
+      "tag": "StockholdersEquity",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -477.95,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001558370-25-001505",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 0.277,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 331.799,
+      "tag": "AssetsCurrent",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 100.621,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 142.117,
+      "tag": "Liabilities",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 438.436,
+      "tag": "StockholdersEquity",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -521.143,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": null,
+     "interest_paid": null,
+     "capex": {
+      "value": 1.568,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 527.177,
+      "tag": "AssetsCurrent",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 139.184,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 196.027,
+      "tag": "Liabilities",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 567.606,
+      "tag": "StockholdersEquity",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": -462.138,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001104659-26-019168",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "PTCT": {
+   "ticker": "PTCT",
+   "years": {
+    "2022": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 18.463,
+      "tag": "InterestPaidNet",
+      "accn": "0001070081-25-000012",
+      "filed": "2025-02-27",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 32.016,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001070081-25-000012",
+      "filed": "2025-02-27",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 693.785,
+      "tag": "AssetsCurrent",
+      "accn": "0001558370-24-002196",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 406.236,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001558370-24-002196",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 2052.705,
+      "tag": "Liabilities",
+      "accn": "0001558370-24-002196",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": -347.086,
+      "tag": "StockholdersEquity",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -2656.974,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001558370-24-002196",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 36.131,
+      "tag": "InterestPaidNet",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 28.438,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 1218.629,
+      "tag": "AssetsCurrent",
+      "accn": "0001070081-25-000012",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 603.1,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001070081-25-000012",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 2714.253,
+      "tag": "Liabilities",
+      "accn": "0001070081-25-000012",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": -818.555,
+      "tag": "StockholdersEquity",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -3283.578,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001070081-25-000012",
+      "filed": "2025-02-27",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 5.823,
+      "tag": "InterestPaidNet",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 6.502,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 1365.531,
+      "tag": "AssetsCurrent",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 580.981,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 2803.095,
+      "tag": "Liabilities",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": -1098.071,
+      "tag": "StockholdersEquity",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -3646.873,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 5.702,
+      "tag": "InterestPaidNet",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 8.86,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 2273.948,
+      "tag": "AssetsCurrent",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 968.427,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 3104.08,
+      "tag": "Liabilities",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": -205.313,
+      "tag": "StockholdersEquity",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": -2964.229,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001104659-26-017575",
+      "filed": "2026-02-19",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "TGTX": {
+   "ticker": "TGTX",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 10.191,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001437749-25-005908",
+      "filed": "2025-03-03",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 5.445,
+      "tag": "InterestPaidNet",
+      "accn": "0001437749-25-005908",
+      "filed": "2025-03-03",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 0.014,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001437749-25-005908",
+      "filed": "2025-03-03",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 168.274,
+      "tag": "AssetsCurrent",
+      "accn": "0001437749-24-006144",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 53.201,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001437749-24-006144",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 134.985,
+      "tag": "Liabilities",
+      "accn": "0001437749-24-006144",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 58.587,
+      "tag": "StockholdersEquity",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -1527.033,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001437749-24-006144",
+      "filed": "2024-02-29",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 12.615,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 8.771,
+      "tag": "InterestPaidNet",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 0,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 317.943,
+      "tag": "AssetsCurrent",
+      "accn": "0001437749-25-005908",
+      "filed": "2025-03-03",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 53.72,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001437749-25-005908",
+      "filed": "2025-03-03",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 169.085,
+      "tag": "Liabilities",
+      "accn": "0001437749-25-005908",
+      "filed": "2025-03-03",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 160.502,
+      "tag": "StockholdersEquity",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -1552.577,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001437749-25-005908",
+      "filed": "2025-03-03",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 24.028,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 18.47,
+      "tag": "InterestPaidNet",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 0.045,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 566.359,
+      "tag": "AssetsCurrent",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 90.679,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 355.326,
+      "tag": "Liabilities",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 222.364,
+      "tag": "StockholdersEquity",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -1529.194,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 26.727,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 24.249,
+      "tag": "InterestPaidNet",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 0.214,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 630.764,
+      "tag": "AssetsCurrent",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 153.76,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 415.233,
+      "tag": "Liabilities",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 648.02,
+      "tag": "StockholdersEquity",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": -1082.015,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001437749-26-006133",
+      "filed": "2026-02-27",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "RIGL": {
+   "ticker": "RIGL",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 3.707,
+      "tag": "InterestExpense",
+      "accn": "0001558370-25-002169",
+      "filed": "2025-03-04",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 2.495,
+      "tag": "InterestPaidNet",
+      "accn": "0001558370-25-002169",
+      "filed": "2025-03-04",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 0.45,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001558370-24-002475",
+      "filed": "2024-03-05",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 115.903,
+      "tag": "AssetsCurrent",
+      "accn": "0001558370-24-002475",
+      "filed": "2024-03-05",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 65.211,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001558370-24-002475",
+      "filed": "2024-03-05",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 147.895,
+      "tag": "Liabilities",
+      "accn": "0001558370-24-002475",
+      "filed": "2024-03-05",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": -13.616,
+      "tag": "StockholdersEquity",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -1382.459,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001558370-24-002475",
+      "filed": "2024-03-05",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 6.872,
+      "tag": "InterestExpense",
+      "accn": "0001558370-25-002169",
+      "filed": "2025-03-04",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 5.848,
+      "tag": "InterestPaidNet",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2023-12-31"
+     },
+     "capex": null,
+     "assets_current": {
+      "value": 99.266,
+      "tag": "AssetsCurrent",
+      "accn": "0001558370-25-002169",
+      "filed": "2025-03-04",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 53.267,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001558370-25-002169",
+      "filed": "2025-03-04",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 145.869,
+      "tag": "Liabilities",
+      "accn": "0001558370-25-002169",
+      "filed": "2025-03-04",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": -28.644,
+      "tag": "StockholdersEquity",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -1407.55,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001558370-25-002169",
+      "filed": "2025-03-04",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 7.918,
+      "tag": "InterestExpense",
+      "accn": "0001558370-25-002169",
+      "filed": "2025-03-04",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 7.039,
+      "tag": "InterestPaidNet",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2024-12-31"
+     },
+     "capex": null,
+     "assets_current": {
+      "value": 135.103,
+      "tag": "AssetsCurrent",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 63.299,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 160.688,
+      "tag": "Liabilities",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 3.288,
+      "tag": "StockholdersEquity",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -1390.065,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 7.32,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2025-12-31",
+      "note": "different tag used for FY2025"
+     },
+     "interest_paid": {
+      "value": 6.573,
+      "tag": "InterestPaidNet",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2025-12-31"
+     },
+     "capex": null,
+     "assets_current": {
+      "value": 240.166,
+      "tag": "AssetsCurrent",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 99.237,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 122.114,
+      "tag": "Liabilities",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 391.48,
+      "tag": "StockholdersEquity",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": -1023.041,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001034842-26-000015",
+      "filed": "2026-03-03",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "ARDX": {
+   "ticker": "ARDX",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 3.4,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001628280-25-006653",
+      "filed": "2025-02-20",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 2.901,
+      "tag": "InterestPaidNet",
+      "accn": "0001628280-25-006653",
+      "filed": "2025-02-20",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 0.055,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-25-006653",
+      "filed": "2025-02-20",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 153.603,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-24-006393",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 65.603,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-24-006393",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 91.737,
+      "tag": "Liabilities",
+      "accn": "0001628280-24-006393",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 98.329,
+      "tag": "StockholdersEquity",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -780.137,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-24-006393",
+      "filed": "2024-02-22",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 4.95,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 4.24,
+      "tag": "InterestPaidNet",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 0.344,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 246.111,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-25-006653",
+      "filed": "2025-02-20",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 50.393,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-25-006653",
+      "filed": "2025-02-20",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 130.763,
+      "tag": "Liabilities",
+      "accn": "0001628280-25-006653",
+      "filed": "2025-02-20",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 166.816,
+      "tag": "StockholdersEquity",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -846.204,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-25-006653",
+      "filed": "2025-02-20",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 13.006,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 11.408,
+      "tag": "InterestPaidNet",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 1.011,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 356.452,
+      "tag": "AssetsCurrent",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 77.83,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 262.465,
+      "tag": "Liabilities",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 173.289,
+      "tag": "StockholdersEquity",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -885.34,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 20.102,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 15.717,
+      "tag": "InterestPaidNet",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 1.492,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 382.317,
+      "tag": "AssetsCurrent",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 88.605,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 334.655,
+      "tag": "Liabilities",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 166.949,
+      "tag": "StockholdersEquity",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": -946.939,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001437402-26-000013",
+      "filed": "2026-02-19",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "BCRX": {
+   "ticker": "BCRX",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 99.092,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001628280-25-007715",
+      "filed": "2025-02-25",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 0,
+      "tag": "InterestPaidNet",
+      "accn": "0001628280-25-007715",
+      "filed": "2025-02-25",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 1.351,
+      "tag": "PaymentsToAcquireProductiveAssets",
+      "accn": "0001628280-25-007715",
+      "filed": "2025-02-25",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 516.5,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-24-007205",
+      "filed": "2024-02-27",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 105.514,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-24-007205",
+      "filed": "2024-02-27",
+      "end": "2022-12-31"
+     },
+     "liabilities": null,
+     "equity": {
+      "value": -294.597,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -1454.62,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-24-007205",
+      "filed": "2024-02-27",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 108.239,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 22.139,
+      "tag": "InterestPaidNet",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 2.168,
+      "tag": "PaymentsToAcquireProductiveAssets",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 495.966,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-25-007715",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 149.988,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-25-007715",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 972.488,
+      "tag": "Liabilities",
+      "accn": "0001628280-25-007715",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": -455.528,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -1681.159,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-25-007715",
+      "filed": "2025-02-25",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 98.516,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 30.383,
+      "tag": "InterestPaidNet",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 1.124,
+      "tag": "PaymentsToAcquireProductiveAssets",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 421.968,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 160.384,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 966.354,
+      "tag": "Liabilities",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": -475.934,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -1770.04,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 78.872,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 23.735,
+      "tag": "InterestPaidNet",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 2.468,
+      "tag": "PaymentsToAcquireProductiveAssets",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 404.346,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 196.066,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 633.311,
+      "tag": "Liabilities",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": -119.153,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": -1506.179,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-26-012240",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "OGN": {
+   "ticker": "OGN",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 422,
+      "tag": "InterestExpense",
+      "accn": "0001821825-25-000006",
+      "filed": "2025-02-28",
+      "end": "2022-12-31"
+     },
+     "interest_paid": null,
+     "capex": {
+      "value": 196,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001821825-25-000006",
+      "filed": "2025-02-28",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 3931,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-24-006733",
+      "filed": "2024-02-26",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 2512,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-24-006733",
+      "filed": "2024-02-26",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 11847,
+      "tag": "Liabilities",
+      "accn": "0001628280-24-006733",
+      "filed": "2024-02-26",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": -892,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -331,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-24-006733",
+      "filed": "2024-02-26",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 527,
+      "tag": "InterestExpense",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2023-12-31"
+     },
+     "interest_paid": null,
+     "capex": {
+      "value": 251,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 4508,
+      "tag": "AssetsCurrent",
+      "accn": "0001821825-25-000006",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 2918,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001821825-25-000006",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 12128,
+      "tag": "Liabilities",
+      "accn": "0001821825-25-000006",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": -70,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": 443,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001821825-25-000006",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 520,
+      "tag": "InterestExpense",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "interest_paid": null,
+     "capex": {
+      "value": 175,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 4348,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 2718,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 12629,
+      "tag": "Liabilities",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 472,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": 1010,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 504,
+      "tag": "InterestExpense",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "interest_paid": null,
+     "capex": {
+      "value": 162,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 4352,
+      "tag": "AssetsCurrent",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 2390,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 12115,
+      "tag": "Liabilities",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 752,
+      "tag": "StockholdersEquity",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": 1109,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001628280-26-011125",
+      "filed": "2026-02-24",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "PRGO": {
+   "ticker": "PRGO",
+   "years": {
+    "2022": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 217,
+      "tag": "InterestPaidNet",
+      "accn": "0001585364-25-000014",
+      "filed": "2025-02-28",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 96.4,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001585364-25-000014",
+      "filed": "2025-02-28",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 2719.9,
+      "tag": "AssetsCurrent",
+      "accn": "0001585364-24-000009",
+      "filed": "2024-02-27",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 1113.6,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001585364-24-000009",
+      "filed": "2024-02-27",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 6175.2,
+      "tag": "Liabilities",
+      "accn": "0001585364-24-000009",
+      "filed": "2024-02-27",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 4842.1,
+      "tag": "StockholdersEquity",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -2067.6,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001585364-24-000009",
+      "filed": "2024-02-27",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 276.9,
+      "tag": "InterestPaidNet",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 101.7,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 2832.9,
+      "tag": "AssetsCurrent",
+      "accn": "0001585364-25-000014",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 1586.3,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001585364-25-000014",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 6041.2,
+      "tag": "Liabilities",
+      "accn": "0001585364-25-000014",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 4767.9,
+      "tag": "StockholdersEquity",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -2080.3,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001585364-25-000014",
+      "filed": "2025-02-28",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 251.4,
+      "tag": "InterestPaidNet",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 118.3,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 2481.9,
+      "tag": "AssetsCurrent",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 1044.2,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 5328.3,
+      "tag": "Liabilities",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 4319.4,
+      "tag": "StockholdersEquity",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -2252.1,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": null,
+     "interest_paid": {
+      "value": 202,
+      "tag": "InterestPaidNet",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 93.4,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 2797.4,
+      "tag": "AssetsCurrent",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 1012.9,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 5599.7,
+      "tag": "Liabilities",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 2935.5,
+      "tag": "StockholdersEquity",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": -3677.5,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001585364-26-000009",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  },
+  "BMRN": {
+   "ticker": "BMRN",
+   "years": {
+    "2022": {
+     "interest_expense": {
+      "value": 15.97,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001048477-25-000007",
+      "filed": "2025-02-24",
+      "end": "2022-12-31"
+     },
+     "interest_paid": {
+      "value": 10.281,
+      "tag": "InterestPaidNet",
+      "accn": "0001048477-25-000007",
+      "filed": "2025-02-24",
+      "end": "2022-12-31"
+     },
+     "capex": {
+      "value": 120.959,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001048477-25-000007",
+      "filed": "2025-02-24",
+      "end": "2022-12-31"
+     },
+     "assets_current": {
+      "value": 2751.457,
+      "tag": "AssetsCurrent",
+      "accn": "0001048477-24-000016",
+      "filed": "2024-02-26",
+      "end": "2022-12-31"
+     },
+     "liabilities_current": {
+      "value": 588.884,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001048477-24-000016",
+      "filed": "2024-02-26",
+      "end": "2022-12-31"
+     },
+     "liabilities": {
+      "value": 1771.918,
+      "tag": "Liabilities",
+      "accn": "0001048477-24-000016",
+      "filed": "2024-02-26",
+      "end": "2022-12-31"
+     },
+     "equity": {
+      "value": 4603.156,
+      "tag": "StockholdersEquity",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2022-12-31"
+     },
+     "retained_earnings": {
+      "value": -789.199,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001048477-24-000016",
+      "filed": "2024-02-26",
+      "end": "2022-12-31"
+     }
+    },
+    "2023": {
+     "interest_expense": {
+      "value": 17.335,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "interest_paid": {
+      "value": 10.303,
+      "tag": "InterestPaidNet",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "capex": {
+      "value": 96.691,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "assets_current": {
+      "value": 2956.088,
+      "tag": "AssetsCurrent",
+      "accn": "0001048477-25-000007",
+      "filed": "2025-02-24",
+      "end": "2023-12-31"
+     },
+     "liabilities_current": {
+      "value": 1177.024,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001048477-25-000007",
+      "filed": "2025-02-24",
+      "end": "2023-12-31"
+     },
+     "liabilities": {
+      "value": 1890.054,
+      "tag": "Liabilities",
+      "accn": "0001048477-25-000007",
+      "filed": "2025-02-24",
+      "end": "2023-12-31"
+     },
+     "equity": {
+      "value": 4951.549,
+      "tag": "StockholdersEquity",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2023-12-31"
+     },
+     "retained_earnings": {
+      "value": -621.554,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001048477-25-000007",
+      "filed": "2025-02-24",
+      "end": "2023-12-31"
+     }
+    },
+    "2024": {
+     "interest_expense": {
+      "value": 12.666,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "interest_paid": {
+      "value": 10.361,
+      "tag": "InterestPaidNet",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "capex": {
+      "value": 85.424,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "assets_current": {
+      "value": 3232.427,
+      "tag": "AssetsCurrent",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities_current": {
+      "value": 606.988,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "liabilities": {
+      "value": 1330.95,
+      "tag": "Liabilities",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "equity": {
+      "value": 5657.99,
+      "tag": "StockholdersEquity",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     },
+     "retained_earnings": {
+      "value": -194.695,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2024-12-31"
+     }
+    },
+    "2025": {
+     "interest_expense": {
+      "value": 10.899,
+      "tag": "InterestExpenseNonoperating",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "interest_paid": {
+      "value": 7.245,
+      "tag": "InterestPaidNet",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "capex": {
+      "value": 103.038,
+      "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "assets_current": {
+      "value": 3953.49,
+      "tag": "AssetsCurrent",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities_current": {
+      "value": 759.031,
+      "tag": "LiabilitiesCurrent",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "liabilities": {
+      "value": 1507.023,
+      "tag": "Liabilities",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "equity": {
+      "value": 6086.999,
+      "tag": "StockholdersEquity",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     },
+     "retained_earnings": {
+      "value": 154.206,
+      "tag": "RetainedEarningsAccumulatedDeficit",
+      "accn": "0001048477-26-000004",
+      "filed": "2026-02-26",
+      "end": "2025-12-31"
+     }
+    }
+   }
+  }
+ }
+}

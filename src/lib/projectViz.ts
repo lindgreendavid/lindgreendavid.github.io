@@ -6,6 +6,10 @@ import { comparable } from "./pharma/model.ts";
 import type { Dataset as PharmaData } from "./pharma/model.ts";
 import { run } from "./ma/screen.ts";
 import { buildTargets, defaultTarget } from "./lbo/targets.ts";
+import creditExtra from "../data/credit/extra.json";
+import { BUCKETS, DEFAULT_OPTIONS as CREDIT_OPTIONS, buildRows as creditRowsFor } from "./credit/model.ts";
+import type { Extra as CreditExtra } from "./credit/model.ts";
+import type { Company as MaCompany } from "./ma/screen.ts";
 import { inputsFor, irrGrid } from "./lbo/model.ts";
 import type { Dataset as MaData } from "./ma/screen.ts";
 
@@ -37,3 +41,10 @@ const lboInputs = inputsFor(defaultTarget(lboData, buildTargets(lboData)));
 const lboExits = [-2, -1, 0, 1, 2].map((d) => lboInputs.exitMultiple + d);
 const lboIrr = irrGrid(lboInputs, "entryMultiple", [lboInputs.entryMultiple], "exitMultiple", lboExits)[0];
 export const lboRows: BarRow[] = lboExits.map((m, k) => ({ label: `Exit at ${m.toFixed(0)}x`, share: Math.max(0, (lboIrr[k] ?? 0) / 0.3), text: lboIrr[k] === null ? "n/a" : `${((lboIrr[k] as number) * 100).toFixed(0)}%` }));
+
+// Credit screen: how many of the 28 companies fall in each strain band under the default settings.
+const creditRows = creditRowsFor(Object.values((ma as unknown as MaData).companies) as MaCompany[], creditExtra as unknown as CreditExtra, CREDIT_OPTIONS);
+export const creditBandRows: BarRow[] = BUCKETS.map((b) => {
+  const n = creditRows.filter((r) => r.bucket === b.name).length;
+  return { label: b.name.replace(" strain", ""), share: n / creditRows.length, text: String(n) };
+});

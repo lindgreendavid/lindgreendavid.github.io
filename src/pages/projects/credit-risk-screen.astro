@@ -1,0 +1,217 @@
+---
+import Base from "../../layouts/Base.astro";
+import ProjectHeader from "../../components/ProjectHeader.astro";
+import ProjectFlow from "../../components/ProjectFlow.astro";
+import ProjectUses from "../../components/ProjectUses.astro";
+import "../../styles/projects.css";
+import ds from "../../data/ma/dataset.json";
+import extra from "../../data/credit/extra.json";
+import validation from "../../data/credit/validation.json";
+import { BUCKETS, DEFAULT_OPTIONS, FACTORS, FACTOR_INFO, compact } from "../../lib/credit/model.ts";
+import type { Extra } from "../../lib/credit/model.ts";
+import type { Company, Dataset } from "../../lib/ma/screen.ts";
+import { display, renderAll } from "../../lib/credit/ui.ts";
+
+const data = ds as unknown as Dataset;
+const ex = extra as unknown as Extra;
+const ks = Object.values(data.companies).map((c) => compact(c as Company, ex.companies[c.ticker]));
+const x = renderAll(ks, DEFAULT_OPTIONS);
+const names = [...ks].sort((a, b) => display(a.name).localeCompare(display(b.name)));
+const first = x.rows[0].ticker;
+const v = validation.totals;
+---
+<Base title="Credit Risk Screen | David Lindgreen" description="A transparent first-pass credit screen of 28 US pharma and biotech companies from their 10-K figures: leverage, interest cover, cash flow and liquidity, an EBITDA stress test and an Altman cross-check. Not a rating. First release.">
+  <ProjectHeader current="projects" />
+  <main id="main">
+    <section class="wrap proj-hero">
+      <h1>Credit Risk Screen</h1>
+      <p class="proj-lede">How much financial strain could each company take? Score 28 US pharma and biotech companies on leverage, interest cover, cash flow and liquidity, shock their earnings, and see who runs out of room first. The rules are written down and you can change the limits.</p>
+      <p class="status">First release · not a credit rating · built with AI assistance · not independently reviewed</p>
+      <div class="brief">
+        <div><h2>Who it is for</h2><p>A credit or finance analyst who needs a quick, explainable first look at a group of borrowers, and a student learning how credit ratios are read.</p></div>
+        <div><h2>The problem</h2><p>One ratio never tells the story. A company can have low debt and weak earnings, or high debt and strong cash flow. A screen should show each measure, a stress case and where the measures disagree.</p></div>
+        <div><h2>What it supports</h2><p>Deciding which borrowers deserve a closer look, and how much earnings could fall before a limit is breached. It is not a rating, a default forecast or investment advice.</p></div>
+      </div>
+      <nav class="jump" aria-label="On this page"><a href="#built">How it is built</a><a href="#screen">Screen</a><a href="#altman">Altman check</a><a href="#company">One company</a><a href="#method">Method</a><a href="#evidence">Evidence</a><a href="#uses">Uses</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a></nav>
+    </section>
+
+    <section class="wrap" aria-label="Disclosures">
+      <p class="callout"><strong>This is not a credit rating and not a view on any company.</strong> The bands describe how the reported ratios score under rules and thresholds the author chose; a company can land in a high-strain band because of a one-off year, a data gap or a business model the ratios fit badly. Always read the data flags. Data is public (SEC XBRL, Forms 10-K, FY2022 to FY2025). The author works at Sanofi; no Sanofi or other employer information is used. Built with AI assistance; the author is responsible for checking it. Educational only.</p>
+    </section>
+
+    <ProjectFlow id="built" heading="How it is built" intro="Five steps from a filing to a ranked list with a stress case." steps={[
+      { title: "10-K figures", detail: "Revenue, EBITDA, debt, cash, interest, capex and balance-sheet lines for 28 companies, each with its source tag and filing." },
+      { title: "Ratios", detail: "Net debt to EBITDA, interest cover, cash flow to debt, liquidity and margin, with explicit handling of net cash, no debt and negative earnings." },
+      { title: "Scorecard", detail: "Each ratio is scored 0 to 100 against fixed anchors and combined with stated weights. Missing factors are flagged and the weights rescaled." },
+      { title: "Stress test", detail: "Earnings fall by a set percentage; the score, the band and the room before a leverage or cover limit is hit are recomputed." },
+      { title: "What you get", detail: "A ranked table, a today-versus-stressed chart, an Altman cross-check and a four-year view of any one company." },
+    ]} />
+
+    <div class="band band-mint">
+      <section class="wrap section" id="screen" aria-labelledby="screen-h">
+        <div class="section-head"><h2 id="screen-h">Screen 28 companies</h2><p>Set the limits and the size of the earnings shock. Everything below updates. Higher scores mean less strain; the bands are Low, Moderate, Elevated and High strain.</p></div>
+        <div class="cols-2" style="align-items: start">
+          <form id="credit-form" class="pane stack" action="#" aria-label="Screen settings" onsubmit="return false">
+            <div>
+              <h3 class="sub-h">Limits and stress</h3>
+              <p class="sub-note">The limits work like loan covenants: the screen reports how far EBITDA can fall before a limit is breached.</p>
+            </div>
+            <div class="fields">
+              <div class="field"><label for="lev">Net debt / EBITDA limit (x)</label><input id="lev" name="lev" type="number" inputmode="decimal" step="0.5" value={DEFAULT_OPTIONS.leverageLimit} /></div>
+              <div class="field"><label for="cov">Interest-cover floor (x)</label><input id="cov" name="cov" type="number" inputmode="decimal" step="0.5" value={DEFAULT_OPTIONS.coverageFloor} /></div>
+            </div>
+            <div class="field">
+              <label for="shock">Fall in EBITDA for the stress case: <output id="shock-label" for="shock">{DEFAULT_OPTIONS.shock * 100}%</output></label>
+              <div class="shock-row"><input id="shock" name="shock" type="range" min="0" max="80" step="5" value={DEFAULT_OPTIONS.shock * 100} /></div>
+            </div>
+            <label class="switch"><input type="checkbox" id="royalty" name="royalty" checked /> <span>Count sold-royalty obligations as debt</span></label>
+            <button type="button" id="credit-reset" class="btn-quiet">Reset the settings</button>
+          </form>
+          <div class="pane stack" aria-live="polite">
+            <h3 class="sub-h">How many companies in each band</h3>
+            <p id="credit-error" class="error" role="alert" hidden></p>
+            <div id="credit-counts"><Fragment set:html={x.counts} /></div>
+            <p class="muted">The set was chosen by the author as profitable, commercial-stage US pharma and biotech companies, so most land in the lower-strain bands. The bands describe this set, not the industry.</p>
+          </div>
+        </div>
+
+        <div class="pane" style="margin-top: 1.25rem">
+          <h3 class="sub-h">Score today and after the fall in earnings</h3>
+          <p class="sub-note">Filled dot: today. Outlined dot: after the shock. The shaded bands are the strain bands (High below 35, Elevated 35 to 55, Moderate 55 to 75, Low 75 and above). Ranked from the strongest score.</p>
+          <div id="credit-range"><Fragment set:html={x.range} /></div>
+        </div>
+
+        <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
+          <div class="pane">
+            <h3 class="sub-h">How much room before a limit</h3>
+            <p class="sub-note">The fall in EBITDA each company can absorb before net debt to EBITDA exceeds the limit or interest cover drops below the floor. Tightest first.</p>
+            <div id="credit-headroom"><Fragment set:html={x.headroom} /></div>
+          </div>
+          <div class="pane">
+            <h3 class="sub-h">How the score is built</h3>
+            <div class="tbl-wrap" role="region" aria-label="Scoring factors, scrolls horizontally on small screens" tabindex="0">
+              <table class="tbl">
+                <caption class="sr">Scoring factors, measures, anchors and weights</caption>
+                <thead><tr><th scope="col">Factor</th><th scope="col">Anchors</th><th scope="col">Weight</th></tr></thead>
+                <tbody>{FACTORS.map((f) => <tr><th scope="row">{FACTOR_INFO[f].label}<br /><span class="muted">{FACTOR_INFO[f].measure}</span></th><td style="white-space:normal;text-align:left">{FACTOR_INFO[f].anchors}</td><td class="num">{FACTOR_INFO[f].weight}</td></tr>)}</tbody>
+              </table>
+            </div>
+            <p class="muted" style="margin-top:0.75rem">Bands: {BUCKETS.map((b) => b.min === -Infinity ? `${b.name} below 35` : `${b.name} from ${b.min}`).join("; ")}. Anchors and weights are the author's choices, written before the results were looked at; they are not an agency methodology.</p>
+          </div>
+        </div>
+
+        <div class="pane" style="margin-top: 1.25rem">
+          <h3 class="sub-h">The full table</h3>
+          <div id="credit-table" class="tbl-wrap" role="region" aria-label="Credit screen table, scrolls horizontally on small screens" tabindex="0"><Fragment set:html={x.table} /></div>
+          <p class="muted" style="margin-top:0.75rem">"No debt" means debt below $0.5m. "n/m" means not meaningful (earnings are not positive). "n/a" means a needed figure was not found.</p>
+        </div>
+      </section>
+    </div>
+
+    <section class="wrap section" id="altman" aria-labelledby="altman-h">
+      <div class="section-head"><h2 id="altman-h">A second opinion: the Altman Z″ score</h2><p>The Altman Z″ score is a classic distress model built from five balance-sheet and earnings ratios. It asks a different question from this screen, so where they disagree is worth reading.</p></div>
+      <div id="credit-disagree" class="pane"><Fragment set:html={x.disagree} /></div>
+      <div class="prose" style="margin-top:1.5rem">
+        <p>Z″ = 6.56 × working capital / assets + 3.26 × retained earnings / assets + 6.72 × EBIT / assets + 1.05 × book equity / total liabilities. As commonly cited, above 2.6 is the "safe" zone, 1.1 to 2.6 is grey and below 1.1 is "distress". The model was fitted to a sample of firms decades ago and is not designed for companies that have never been profitable: a large accumulated deficit pulls the score down even when a company has no debt. That is why a debt-free, cash-rich company can score as "distress" here. Both views are shown because the disagreement is informative, not because either is right.</p>
+      </div>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="company" aria-labelledby="company-h">
+        <div class="section-head"><h2 id="company-h">One company over four years</h2><p>The same ratios for FY2022 to FY2025, so you can see whether a score comes from a trend or from one year.</p></div>
+        <div class="pane">
+          <div class="field" style="max-width:26rem">
+            <label for="drill-company">Company</label>
+            <select id="drill-company" name="drill-company">
+              {names.map((k) => <option value={k.ticker} selected={k.ticker === first}>{display(k.name)} ({k.ticker})</option>)}
+            </select>
+          </div>
+          <div id="credit-drill" class="tbl-wrap" style="margin-top:1rem" role="region" aria-label="Four-year credit ratios, scrolls horizontally on small screens" tabindex="0"></div>
+          <noscript><p class="callout">This view needs JavaScript. The ranked table above does not.</p></noscript>
+        </div>
+      </section>
+    </div>
+
+    <section class="wrap section" id="method" aria-labelledby="method-h">
+      <div class="section-head"><h2 id="method-h">Method</h2></div>
+      <div class="prose">
+        <ul>
+          <li><strong>Data.</strong> The M&amp;A project's 10-K dataset (revenue, operating income, depreciation and amortisation, operating cash flow, cash, short-term investments, debt, assets) plus eight extra lines read from the same SEC XBRL feed: interest expense (or cash interest paid when expense is not tagged), capex, current assets and liabilities, total liabilities, equity and retained earnings. Latest filing wins; each value keeps its tag, accession and date; nothing missing is filled.</li>
+          <li><strong>EBITDA</strong> is operating income plus depreciation and amortisation as reported, with no adjustments. <strong>Net debt</strong> is debt less cash and short-term investments. Sold-royalty obligations count as debt unless you switch that off (FY2025 only).</li>
+          <li><strong>Free cash flow</strong> is operating cash flow less capex; where capex is not tagged it equals operating cash flow, and that is flagged.</li>
+          <li><strong>Scoring.</strong> Each ratio is mapped to 0 to 100 by straight lines through the anchors in the table above; net cash and no debt score 100 on the debt factors; negative EBITDA with net debt scores 0 on leverage. The weighted average is the score. A missing factor is dropped, the remaining weights are rescaled and the page says how much of the weight was used.</li>
+          <li><strong>Stress.</strong> EBITDA and operating cash flow both fall by the chosen share of EBITDA (before tax, a simplification). If free cash flow turns negative, the cash burn is added to net debt for one year. Interest stays the same.</li>
+          <li><strong>Room before a limit.</strong> The largest fall in EBITDA such that net debt to EBITDA stays at or below the limit and interest cover stays at or above the floor, in closed form. Net cash has no leverage limit; no interest means no cover limit.</li>
+          <li><strong>Checks.</strong> 14 unit tests cover the ratios, the scoring anchors, the weight rescaling, the band boundaries, the closed-form room calculation, the stress test and the Altman example.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="evidence" aria-labelledby="ev-h">
+        <div class="section-head"><h2 id="ev-h">Evidence</h2></div>
+        <div class="pane prose">
+          <p><strong>{v.checks} automated checks on the extra data, {v.passed} pass.</strong> Each FY2025 figure was searched for, as printed, in the company's 10-K text; current assets do not exceed total assets; liabilities plus equity is within 3% of assets; interest and capex are not negative; all FY2025 extra figures share one period end. {v.unchecked} company ({validation.unchecked.join(", ")}) is unchecked because its 10-K was not downloaded. The core figures (revenue, operating income, cash flow, cash and debt) were validated in the <a href="/projects/ma-screening/#evidence">M&amp;A project</a>.</p>
+          <p>These checks show that a figure is in the filing and was not mis-scaled. They do not prove the right line was chosen, and they are the author's own checks, not an audit.</p>
+        </div>
+      </section>
+    </div>
+
+    <ProjectUses id="uses" heading="What it is for, and what it taught" intro="Credit work asks how much trouble a borrower can take before it cannot pay. The method is the same whether the borrower is a company, a supplier or a customer."
+      uses={[
+        { where: "Credit analysis and leveraged finance", how: "Analysts screen borrowers on leverage, cover and cash flow, and test how far earnings can fall before a covenant is breached. The room-before-a-limit measure is that test." },
+        { where: "Bank credit-risk and early warning", how: "Portfolio teams watch a few ratios across many borrowers and flag those that move toward a limit, which is the idea behind a ranked screen with a stress column." },
+        { where: "Corporate finance and treasury", how: "Companies assess the strength of suppliers, customers and counterparties before extending credit or signing long contracts." },
+        { where: "M&A and buyouts", how: "Debt capacity decides what can be paid. The same ratios size the loan in the LBO Workbench." },
+      ]}
+      learned={[
+        { lesson: "Two reasonable measures can disagree.", evidence: "The Altman score flags several debt-free, cash-rich companies as distressed because of accumulated deficits, while the debt-based screen rates them low strain. Showing both is more honest than picking one." },
+        { lesson: "Data gaps decide what you can say.", evidence: "Interest expense is tagged for only 18 of the 28 companies. Where it is missing the screen uses cash interest paid, or leaves the factor out and says so." },
+        { lesson: "Distance to a limit is more useful than a level.", evidence: "A company at 3x leverage with thin cover can be closer to a breach than one at 4x with strong cover. The room-before-a-limit measure shows that." },
+        { lesson: "A one-year ratio can mislead.", evidence: "An impairment-hit year makes EBITDA negative, so leverage is not meaningful. The four-year view and the flags show when that is the cause." },
+      ]} />
+
+    <section class="wrap section" id="limits" aria-labelledby="lim-h">
+      <div class="section-head"><h2 id="lim-h">Limits</h2></div>
+      <div class="prose">
+        <ul>
+          <li><strong>Not a rating and not a forecast.</strong> The bands are descriptions of reported ratios under the author's thresholds. They do not predict default, and a "high strain" band is not a statement about any company's ability to pay.</li>
+          <li><strong>The thresholds are choices.</strong> The anchors, weights and band edges are the author's, not an agency's or a bank's. A different set of thresholds would move companies between bands.</li>
+          <li><strong>One year of reported figures.</strong> EBITDA is as reported, including one-offs, impairments and stock compensation. Debt is the balance-sheet amount at year end; maturities, covenants, undrawn facilities and refinancing risk are not in the data.</li>
+          <li><strong>The universe is a convenience sample</strong> of 28 US-listed pharma and biotech 10-K filers chosen by the author, mostly profitable and commercial-stage. Bands are relative to this set only.</li>
+          <li><strong>The stress test is simple.</strong> One shock to EBITDA, before tax, with interest unchanged and no change in working capital or financing. It shows sensitivity, not a forecast.</li>
+          <li><strong>Altman Z″ is old and was not built for pharma.</strong> It is shown as a cross-check, with the caveat above.</li>
+          <li><strong>Not independently reviewed.</strong> Built with AI assistance and checked by tests and filing-text checks. Educational use only; not investment advice.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="downloads" aria-labelledby="dl-h">
+        <div class="section-head"><h2 id="dl-h">Downloads</h2><p>Every input with its XBRL tag, filing accession and date.</p></div>
+        <ul class="downloads">
+          <li><a href="/downloads/credit-risk-screen/credit-inputs.csv" download>Credit inputs with sources (csv)</a></li>
+          <li><a href="/downloads/credit-risk-screen/credit-extra.json" download>Extra SEC figures (json)</a></li>
+          <li><a href="/downloads/credit-risk-screen/credit-validation.json" download>Validation results (json)</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <footer class="wrap proj-foot"><p><a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p></footer>
+  </main>
+
+  <script type="application/json" id="credit-data" set:html={JSON.stringify(ks)}></script>
+  <script>
+    import { drill, initCredit, readOptions } from "../../lib/credit/ui.ts";
+    const el = document.getElementById("credit-data");
+    if (el) {
+      const ks = JSON.parse(el.textContent ?? "[]");
+      initCredit(ks);
+      const form = document.getElementById("credit-form") as HTMLFormElement;
+      const sel = document.getElementById("drill-company") as HTMLSelectElement;
+      const o = readOptions(form);
+      const k = ks.find((c: { ticker: string }) => c.ticker === sel.value);
+      if (typeof o !== "string" && k) document.getElementById("credit-drill")!.innerHTML = drill(k, o);
+    }
+  </script>
+</Base>

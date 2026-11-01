@@ -1,0 +1,2037 @@
+{
+ "generated": "2026-11-01",
+ "totals": {
+  "checks": 337,
+  "passed": 337,
+  "failed": 0,
+  "unchecked": 1
+ },
+ "unchecked": [
+  "BMRN"
+ ],
+ "failed": [],
+ "checks": [
+  {
+   "company": "JAZZ",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "248.553m via InterestPaidNet"
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "58.752m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "4166.043m via AssetsCurrent"
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "2242.521m via LiabilitiesCurrent"
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "4318.584m via StockholdersEquity"
+  },
+  {
+   "company": "JAZZ",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "646.176m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "JAZZ",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "JAZZ",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "JAZZ",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "JAZZ",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "1.338m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "644.182m via AssetsCurrent"
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "338.171m via LiabilitiesCurrent"
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "390.934m via Liabilities"
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "1061.714m via StockholdersEquity"
+  },
+  {
+   "company": "SUPN",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "517.876m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "SUPN",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "SUPN",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "SUPN",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "SUPN",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "SUPN",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "SUPN",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "CORT",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "0.211m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "CORT",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "485.464m via AssetsCurrent"
+  },
+  {
+   "company": "CORT",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "166.085m via LiabilitiesCurrent"
+  },
+  {
+   "company": "CORT",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "188.846m via Liabilities"
+  },
+  {
+   "company": "CORT",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "647.805m via StockholdersEquity"
+  },
+  {
+   "company": "CORT",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "643.387m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "CORT",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "CORT",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "CORT",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "CORT",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "18.126m via InterestExpenseNonoperating"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "11.429m via InterestPaidNet"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "6.970m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "825.207m via AssetsCurrent"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "177.092m via LiabilitiesCurrent"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "2476.509m via Liabilities"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "48.814m via StockholdersEquity"
+  },
+  {
+   "company": "HALO",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "54.786m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "HALO",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HALO",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "HALO",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HALO",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HALO",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HALO",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "IRWD",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "32.746m via InterestExpenseNonoperating"
+  },
+  {
+   "company": "IRWD",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "30.333m via InterestPaidNet"
+  },
+  {
+   "company": "IRWD",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "0.034m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "IRWD",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "274.178m via AssetsCurrent"
+  },
+  {
+   "company": "IRWD",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "242.218m via LiabilitiesCurrent"
+  },
+  {
+   "company": "IRWD",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "-261.835m via StockholdersEquity"
+  },
+  {
+   "company": "IRWD",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-1673.718m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "IRWD",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "IRWD",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "IRWD",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "IRWD",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "IRWD",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "25.481m via InterestExpenseNonoperating"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "23.218m via InterestPaidNet"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "34.882m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "636.016m via AssetsCurrent"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "158.156m via LiabilitiesCurrent"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "840.494m via Liabilities"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "788.805m via StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"
+  },
+  {
+   "company": "AMPH",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "666.881m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "AMPH",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMPH",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "AMPH",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMPH",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMPH",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMPH",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "17.446m via InterestExpenseDebt"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "15.235m via InterestPaidNet"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "15.333m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "547.974m via AssetsCurrent"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "120.590m via LiabilitiesCurrent"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "571.806m via Liabilities"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "693.111m via StockholdersEquity"
+  },
+  {
+   "company": "PCRX",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-199.322m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "PCRX",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PCRX",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "PCRX",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PCRX",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PCRX",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PCRX",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "COLL",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "82.312m via InterestExpenseNonoperating"
+  },
+  {
+   "company": "COLL",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "68.760m via InterestPaidNet"
+  },
+  {
+   "company": "COLL",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "1.740m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "COLL",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "691.411m via AssetsCurrent"
+  },
+  {
+   "company": "COLL",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "440.028m via LiabilitiesCurrent"
+  },
+  {
+   "company": "COLL",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "1355.159m via Liabilities"
+  },
+  {
+   "company": "COLL",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "301.675m via StockholdersEquity"
+  },
+  {
+   "company": "COLL",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-101.129m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "COLL",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "COLL",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "COLL",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "COLL",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "COLL",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "COLL",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "32.562m via InterestExpenseDebt"
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "26.929m via InterestPaidNet"
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "13.835m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "753.117m via AssetsCurrent"
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "278.112m via LiabilitiesCurrent"
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "899.653m via Liabilities"
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "540.724m via StockholdersEquity"
+  },
+  {
+   "company": "ANIP",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-23.099m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "ANIP",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ANIP",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "ANIP",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ANIP",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ANIP",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ANIP",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "14.649m via InterestExpenseDebt"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "14.685m via InterestPaidNet"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "0.310m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "907.014m via AssetsCurrent"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "252.132m via LiabilitiesCurrent"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "401.413m via Liabilities"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "870.218m via StockholdersEquity"
+  },
+  {
+   "company": "HRMY",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "160.903m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "HRMY",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HRMY",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "HRMY",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HRMY",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HRMY",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "HRMY",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "16.698m via InterestExpense"
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "10.353m via InterestPaidNet"
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "1.131m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "727.515m via AssetsCurrent"
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "49.696m via LiabilitiesCurrent"
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "1172.841m via StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"
+  },
+  {
+   "company": "INVA",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "269.368m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "INVA",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "INVA",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "INVA",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "INVA",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "INVA",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "0.998m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "347.262m via AssetsCurrent"
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "145.162m via LiabilitiesCurrent"
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "161.762m via Liabilities"
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "327.186m via StockholdersEquity"
+  },
+  {
+   "company": "VNDA",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-394.766m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "VNDA",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "VNDA",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "VNDA",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "VNDA",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "LGND",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "4.715m via InterestExpenseNonoperating"
+  },
+  {
+   "company": "LGND",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "0.321m via InterestPaidNet"
+  },
+  {
+   "company": "LGND",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "0.452m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "LGND",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "832.271m via AssetsCurrent"
+  },
+  {
+   "company": "LGND",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "37.447m via LiabilitiesCurrent"
+  },
+  {
+   "company": "LGND",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "543.425m via Liabilities"
+  },
+  {
+   "company": "LGND",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "1017.212m via StockholdersEquity"
+  },
+  {
+   "company": "LGND",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "608.088m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "LGND",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LGND",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "LGND",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LGND",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LGND",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LGND",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "197.848m via InterestPaidNet"
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "70.063m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "1911.181m via AssetsCurrent"
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "881.633m via LiabilitiesCurrent"
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "-70.794m via StockholdersEquity"
+  },
+  {
+   "company": "AMRX",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-535.005m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "AMRX",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMRX",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMRX",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "AMRX",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "4.690m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "1062.113m via AssetsCurrent"
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "277.114m via LiabilitiesCurrent"
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "336.805m via Liabilities"
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "1227.390m via StockholdersEquity"
+  },
+  {
+   "company": "ACAD",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-1813.386m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "ACAD",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ACAD",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "ACAD",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ACAD",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "EXEL",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "8.429m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "EXEL",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "1443.289m via AssetsCurrent"
+  },
+  {
+   "company": "EXEL",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "405.644m via LiabilitiesCurrent"
+  },
+  {
+   "company": "EXEL",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "683.104m via Liabilities"
+  },
+  {
+   "company": "EXEL",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "2161.319m via StockholdersEquity"
+  },
+  {
+   "company": "EXEL",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-76.830m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "EXEL",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "EXEL",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "EXEL",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "EXEL",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2026-01-02"
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "34.000m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "2522.700m via AssetsCurrent"
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "743.400m via LiabilitiesCurrent"
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "1378.400m via Liabilities"
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "3253.100m via StockholdersEquity"
+  },
+  {
+   "company": "NBIX",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "447.700m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "NBIX",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "NBIX",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "NBIX",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "NBIX",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "NBIX",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "19.749m via InterestExpenseNonoperating"
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "15.094m via InterestPaidNet"
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "899.964m via AssetsCurrent"
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "333.419m via LiabilitiesCurrent"
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "1137.602m via Liabilities"
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "1089.797m via StockholdersEquity"
+  },
+  {
+   "company": "LNTH",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "679.504m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "LNTH",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LNTH",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "LNTH",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LNTH",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "LNTH",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "7.110m via InterestExpenseNonoperating"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "9.078m via InterestPaidNet"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "22.575m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "466.512m via AssetsCurrent"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "69.541m via LiabilitiesCurrent"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "146.922m via Liabilities"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "477.320m via StockholdersEquity"
+  },
+  {
+   "company": "ADMA",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-161.653m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "ADMA",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ADMA",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "ADMA",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ADMA",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ADMA",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ADMA",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "KNSA",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "1.568m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "KNSA",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "527.177m via AssetsCurrent"
+  },
+  {
+   "company": "KNSA",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "139.184m via LiabilitiesCurrent"
+  },
+  {
+   "company": "KNSA",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "196.027m via Liabilities"
+  },
+  {
+   "company": "KNSA",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "567.606m via StockholdersEquity"
+  },
+  {
+   "company": "KNSA",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-462.138m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "KNSA",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "KNSA",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "KNSA",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "KNSA",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "5.702m via InterestPaidNet"
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "8.860m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "2273.948m via AssetsCurrent"
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "968.427m via LiabilitiesCurrent"
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "3104.080m via Liabilities"
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "-205.313m via StockholdersEquity"
+  },
+  {
+   "company": "PTCT",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-2964.229m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "PTCT",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PTCT",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "PTCT",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PTCT",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PTCT",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "26.727m via InterestExpenseNonoperating"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "24.249m via InterestPaidNet"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "0.214m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "630.764m via AssetsCurrent"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "153.760m via LiabilitiesCurrent"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "415.233m via Liabilities"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "648.020m via StockholdersEquity"
+  },
+  {
+   "company": "TGTX",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-1082.015m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "TGTX",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "TGTX",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "TGTX",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "TGTX",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "TGTX",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "TGTX",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "7.320m via InterestExpenseNonoperating"
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "6.573m via InterestPaidNet"
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "240.166m via AssetsCurrent"
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "99.237m via LiabilitiesCurrent"
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "122.114m via Liabilities"
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "391.480m via StockholdersEquity"
+  },
+  {
+   "company": "RIGL",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-1023.041m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "RIGL",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "RIGL",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "RIGL",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "RIGL",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "RIGL",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "20.102m via InterestExpenseNonoperating"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "15.717m via InterestPaidNet"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "1.492m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "382.317m via AssetsCurrent"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "88.605m via LiabilitiesCurrent"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "334.655m via Liabilities"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "166.949m via StockholdersEquity"
+  },
+  {
+   "company": "ARDX",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-946.939m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "ARDX",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ARDX",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "ARDX",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ARDX",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ARDX",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "ARDX",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "78.872m via InterestExpenseNonoperating"
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "23.735m via InterestPaidNet"
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "2.468m via PaymentsToAcquireProductiveAssets"
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "404.346m via AssetsCurrent"
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "196.066m via LiabilitiesCurrent"
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "633.311m via Liabilities"
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "-119.153m via StockholdersEquity"
+  },
+  {
+   "company": "BCRX",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-1506.179m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "BCRX",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BCRX",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "BCRX",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BCRX",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BCRX",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BCRX",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "OGN",
+   "check": "FY2025 interest_expense appears in the 10-K text",
+   "ok": true,
+   "detail": "504.000m via InterestExpense"
+  },
+  {
+   "company": "OGN",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "162.000m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "OGN",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "4352.000m via AssetsCurrent"
+  },
+  {
+   "company": "OGN",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "2390.000m via LiabilitiesCurrent"
+  },
+  {
+   "company": "OGN",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "12115.000m via Liabilities"
+  },
+  {
+   "company": "OGN",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "752.000m via StockholdersEquity"
+  },
+  {
+   "company": "OGN",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "1109.000m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "OGN",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "OGN",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "OGN",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "OGN",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "OGN",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 interest_paid appears in the 10-K text",
+   "ok": true,
+   "detail": "202.000m via InterestPaidNet"
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 capex appears in the 10-K text",
+   "ok": true,
+   "detail": "93.400m via PaymentsToAcquirePropertyPlantAndEquipment"
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 assets_current appears in the 10-K text",
+   "ok": true,
+   "detail": "2797.400m via AssetsCurrent"
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 liabilities_current appears in the 10-K text",
+   "ok": true,
+   "detail": "1012.900m via LiabilitiesCurrent"
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 liabilities appears in the 10-K text",
+   "ok": true,
+   "detail": "5599.700m via Liabilities"
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 equity appears in the 10-K text",
+   "ok": true,
+   "detail": "2935.500m via StockholdersEquity"
+  },
+  {
+   "company": "PRGO",
+   "check": "FY2025 retained_earnings appears in the 10-K text",
+   "ok": true,
+   "detail": "-3677.500m via RetainedEarningsAccumulatedDeficit"
+  },
+  {
+   "company": "PRGO",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PRGO",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "PRGO",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PRGO",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "PRGO",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  },
+  {
+   "company": "BMRN",
+   "check": "Current assets do not exceed total assets",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BMRN",
+   "check": "Liabilities + equity is within 3% of total assets",
+   "ok": true,
+   "detail": "0.00% gap (a larger gap can be mezzanine equity or non-controlling interests)"
+  },
+  {
+   "company": "BMRN",
+   "check": "interest_expense is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BMRN",
+   "check": "interest_paid is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BMRN",
+   "check": "capex is not negative",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "company": "BMRN",
+   "check": "All FY2025 extra figures share one period end",
+   "ok": true,
+   "detail": "2025-12-31"
+  }
+ ]
+}

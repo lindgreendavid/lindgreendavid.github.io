@@ -770,7 +770,7 @@ h2.big,
   }
 }
 
-/* ---- finance projects on the home page: two columns of type with a data picture each, no surfaces ---- */
+/* ---- finance projects on the home page: columns of type with a data picture each, no surfaces ---- */
 .proj-trio {
   display: grid;
   gap: 3rem 3.5rem;
@@ -805,7 +805,7 @@ h2.big,
 }
 @media (min-width: 900px) {
   .proj-trio {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
