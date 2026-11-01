@@ -5,6 +5,8 @@ import summary from "../data/research/eval-summary.json";
 import { comparable } from "./pharma/model.ts";
 import type { Dataset as PharmaData } from "./pharma/model.ts";
 import { run } from "./ma/screen.ts";
+import { buildTargets, defaultTarget } from "./lbo/targets.ts";
+import { inputsFor, irrGrid } from "./lbo/model.ts";
 import type { Dataset as MaData } from "./ma/screen.ts";
 
 export type BarRow = { label: string; share: number; text: string };
@@ -16,11 +18,8 @@ export const marginRows: BarRow[] = (Object.keys(names) as (keyof typeof names)[
   return { label: names[c], share: v / 0.5, text: `${(v * 100).toFixed(1)}%` };
 });
 
-// The dataset's names contain non-breaking spaces, so match any whitespace.
-const nice = (n: string) => {
-  const t = n.replace(/,?\s+(Inc|Corp|Corporation|plc|Ltd)\.?$/i, "").replace(/\s+Holdings$/i, "").replace(/\s+(Pharmaceuticals|Pharma|Therapeutics)$/i, "");
-  return t.split(/\s+/).map((w, k) => (k === 0 && w.length <= 3 ? w.toUpperCase() : w.charAt(0) + w.slice(1).toLowerCase())).join(" ");
-};
+import { nice } from "./names.ts";
+export { nice };
 
 export const top5Rows: BarRow[] = run(ma as unknown as MaData)
   .ranked.slice(0, 5)
@@ -31,3 +30,10 @@ export const evalRows: BarRow[] = summary.sets.map((x) => {
   const [k, n] = x.v21.overall.split("/").map(Number);
   return { label: shortName(x.name), share: k / n, text: x.v21.overall };
 });
+
+// IRR of the default LBO case at five exit multiples, entry multiple held at the default.
+const lboData = ma as unknown as MaData;
+const lboInputs = inputsFor(defaultTarget(lboData, buildTargets(lboData)));
+const lboExits = [-2, -1, 0, 1, 2].map((d) => lboInputs.exitMultiple + d);
+const lboIrr = irrGrid(lboInputs, "entryMultiple", [lboInputs.entryMultiple], "exitMultiple", lboExits)[0];
+export const lboRows: BarRow[] = lboExits.map((m, k) => ({ label: `Exit at ${m.toFixed(0)}x`, share: Math.max(0, (lboIrr[k] ?? 0) / 0.3), text: lboIrr[k] === null ? "n/a" : `${((lboIrr[k] as number) * 100).toFixed(0)}%` }));

@@ -4,14 +4,14 @@ import ProjectHeader from "../../components/ProjectHeader.astro";
 import "../../styles/projects.css";
 import MiniBars from "../../components/MiniBars.astro";
 import { person } from "../../data/site";
-import { evalRows, marginRows, top5Rows } from "../../lib/projectViz.ts";
+import { evalRows, lboRows, marginRows, top5Rows } from "../../lib/projectViz.ts";
 ---
-<Base title="Projects | David Lindgreen" description="Three connected projects on public financial data: a pharma valuation explorer, an annual-report research assistant and an M&A screening workbench. Honest status for each.">
+<Base title="Projects | David Lindgreen" description="Four connected projects on public financial data: a pharma valuation explorer, an annual-report research assistant, an M&A screening workbench and an LBO model. Honest status for each.">
   <ProjectHeader current="projects" />
   <main id="main">
     <section class="wrap proj-hero">
       <h1>Projects</h1>
-      <p class="proj-lede">Three connected tools built on public financial data. Each has an identifiable user, a decision it supports, traceable inputs and a result that can be evaluated. Their status is stated plainly.</p>
+      <p class="proj-lede">Four connected tools built on public financial data. Each has an identifiable user, a decision it supports, traceable inputs and a result that can be evaluated. Their status is stated plainly.</p>
     </section>
 
     <section class="wrap" aria-label="Projects">
@@ -50,6 +50,18 @@ import { evalRows, marginRows, top5Rows } from "../../lib/projectViz.ts";
             <p class="use-line"><strong>Good for:</strong> turning a long list into a defensible short list, and showing how fragile a ranking is.</p>
             <p>An explainable preliminary shortlist for a clearly labelled hypothetical buyer brief, over 28 US-listed pharma and biotech companies from SEC filings. Adjustable criterion weights, missing-data flags, ranking sensitivity and a generated screening memo. It supports initial screening only; it makes no worth or deal-feasibility claim. Optional valuation and deal-size criteria run only on share prices you paste in. Figures checked against the filing text and balance sheets; not independently reviewed.</p>
             <p class="links"><a href="/projects/ma-screening/">Open the workbench</a><a href="/projects/ma-screening/#evidence">See the evidence</a></p>
+          </div>
+        </article>
+        <article class="proj-item">
+          <div>
+            <p class="status">First release · in development</p>
+            <h3 style="margin-top:1rem">LBO Workbench</h3>
+            <MiniBars title="Return to a hypothetical buyer by exit multiple (IRR)" rows={lboRows} note="Default company, entry multiple held fixed. Illustrative inputs, not a bid." />
+          </div>
+          <div>
+            <p class="use-line"><strong>Good for:</strong> seeing how a buyout works, where the return comes from and how fragile it is.</p>
+            <p>A leveraged-buyout model on real SEC figures for the companies in the screen. Set the price and the debt; see sources and uses, a five-year debt schedule, MOIC and IRR, a value-creation bridge and two sensitivity grids. A downloadable Excel model with live formulas was recalculated in Excel and matches the web model. 13 unit tests. Hypothetical deal; not a bid or a valuation; not independently reviewed.</p>
+            <p class="links"><a href="/projects/lbo-workbench/">Open the workbench</a><a href="/projects/lbo-workbench/#downloads">Download the Excel model</a></p>
           </div>
         </article>
       </div>

@@ -336,6 +336,7 @@ details.sources summary {
   display: grid;
   gap: 1rem 1.25rem;
   grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  align-items: start;
 }
 .field {
   display: grid;
@@ -930,4 +931,28 @@ details.sources + details.sources {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* LBO charts: waterfall and stacked debt */
+.wf-total {
+  fill: var(--ink-2);
+}
+.wf-up {
+  fill: var(--accent);
+}
+.wf-down {
+  fill: var(--ink-3);
+  opacity: 0.55;
+}
+.pc-zero {
+  stroke: var(--ink-3);
+  stroke-width: 1.5;
+}
+.st-0 {
+  fill: var(--accent);
+  opacity: 0.65;
+}
+.st-1 {
+  fill: var(--accent);
+  opacity: 0.3;
 }

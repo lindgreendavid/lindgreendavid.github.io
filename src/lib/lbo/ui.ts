@@ -1,0 +1,172 @@
+// Rendering and interaction for the LBO Workbench. The render functions return HTML strings, so the first view is produced on the
+// server and the same code re-renders in the browser when someone changes an assumption. Nothing the visitor enters leaves the page.
+import { HOLD_YEARS, LboInputError, inputsFor, irrGrid, runLbo, validateLbo } from "./model.ts";
+import type { LboInputs, LboResult } from "./model.ts";
+import { stacked, waterfall } from "./charts.ts";
+import { heatmap, fmtM, fmtPct, fmtX } from "../pharma/ui.ts";
+
+export type Target = { ticker: string; name: string; revenue: number; ebitda: number; da: number; netDebt: number; flags: string[] };
+
+const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const money = (n: number) => `$${fmtM(n)}m`;
+const signed = (n: number) => `${n >= 0 ? "+" : "−"}$${fmtM(Math.abs(n))}m`;
+
+export function renderLbo(i: LboInputs, r: LboResult) {
+  const exitYear = r.years[HOLD_YEARS - 1];
+  const summary = `<table class="tbl"><caption class="sr">Returns to the sponsor</caption><tbody>
+    <tr><th scope="row">Sponsor equity at close</th><td class="num">${money(r.sponsorEquity)}</td></tr>
+    <tr><th scope="row">Equity value at exit, year ${HOLD_YEARS}</th><td class="num">${money(r.exitEquity)}</td></tr>
+    <tr class="sum"><th scope="row">Money multiple (MOIC)</th><td class="num">${r.moic.toFixed(2)}x</td></tr>
+    <tr class="sum"><th scope="row">Annual return (IRR)</th><td class="num">${fmtPct(r.irr)}</td></tr>
+    <tr><th scope="row">Equity share of funding</th><td class="num">${fmtPct(r.equityShare, 0)}</td></tr>
+    <tr><th scope="row">Net debt / EBITDA at close → at exit</th><td class="num">${fmtX((r.senior0 + r.sub0) / i.ebitda0)} → ${exitYear.leverage === null ? "n/a" : fmtX(Math.max(0, exitYear.leverage))}</td></tr>
+  </tbody></table>`;
+
+  const su = `<table class="tbl"><caption class="sr">Sources and uses of funds at close</caption><thead><tr><th scope="col">Sources</th><th scope="col">$m</th><th scope="col">x EBITDA</th></tr></thead><tbody>
+    <tr><th scope="row">Senior debt</th><td class="num">${fmtM(r.senior0)}</td><td class="num">${fmtX(i.seniorX)}</td></tr>
+    <tr><th scope="row">Subordinated debt</th><td class="num">${fmtM(r.sub0)}</td><td class="num">${fmtX(i.subX)}</td></tr>
+    <tr><th scope="row">Sponsor equity</th><td class="num">${fmtM(r.sponsorEquity)}</td><td class="num">${fmtX(r.sponsorEquity / i.ebitda0)}</td></tr>
+    <tr class="sum"><th scope="row">Total sources</th><td class="num">${fmtM(r.uses)}</td><td class="num">${fmtX(r.uses / i.ebitda0)}</td></tr>
+  </tbody><thead><tr><th scope="col">Uses</th><th scope="col">$m</th><th scope="col">x EBITDA</th></tr></thead><tbody>
+    <tr><th scope="row">Equity purchase price (enterprise value less existing net debt)</th><td class="num">${fmtM(r.equityPurchase)}</td><td class="num">${fmtX(r.equityPurchase / i.ebitda0)}</td></tr>
+    <tr><th scope="row">${i.netDebt0 < 0 ? "Existing net cash (acquired with the company)" : "Refinance existing net debt"}</th><td class="num">${fmtM(i.netDebt0)}</td><td class="num">${fmtX(i.netDebt0 / i.ebitda0)}</td></tr>
+    <tr><th scope="row">Fees</th><td class="num">${fmtM(r.fees)}</td><td class="num">${fmtX(r.fees / i.ebitda0)}</td></tr>
+    <tr class="sum"><th scope="row">Total uses</th><td class="num">${fmtM(r.uses)}</td><td class="num">${fmtX(r.uses / i.ebitda0)}</td></tr>
+  </tbody></table>`;
+
+  const row = (label: string, f: (y: (typeof r.years)[number]) => string, first = "") => `<tr><th scope="row">${label}</th><td class="num">${first}</td>${r.years.map((y) => `<td class="num">${f(y)}</td>`).join("")}</tr>`;
+  const years = `<table class="tbl"><caption class="sr">Projection and debt schedule, $m</caption><thead><tr><th scope="col">$m</th><th scope="col">Close</th>${r.years.map((y) => `<th scope="col">Year ${y.year}</th>`).join("")}</tr></thead><tbody>
+    ${row("Revenue", (y) => fmtM(y.revenue), fmtM(i.revenue0))}
+    ${row("EBITDA", (y) => fmtM(y.ebitda), fmtM(i.ebitda0))}
+    ${row("EBITDA margin", (y) => fmtPct(y.margin), fmtPct(i.ebitda0 / i.revenue0))}
+    ${row("Cash interest", (y) => fmtM(y.interest))}
+    ${row("Cash tax", (y) => fmtM(y.tax))}
+    ${row("Capex", (y) => fmtM(y.capex))}
+    ${row("Working-capital investment", (y) => fmtM(y.nwc))}
+    <tr class="sum"><th scope="row">Free cash flow before debt repayment</th><td class="num"></td>${r.years.map((y) => `<td class="num">${fmtM(y.fcf)}</td>`).join("")}</tr>
+    ${row("Mandatory repayment", (y) => fmtM(y.mandatory))}
+    ${row("Cash sweep", (y) => fmtM(y.sweep))}
+    ${row("Senior debt", (y) => fmtM(y.senior), fmtM(r.senior0))}
+    ${row("Subordinated debt", (y) => fmtM(y.sub), fmtM(r.sub0))}
+    ${row("Cash", (y) => fmtM(y.cash), "0")}
+    <tr class="sum"><th scope="row">Net debt / EBITDA</th><td class="num">${fmtX((r.senior0 + r.sub0) / i.ebitda0)}</td>${r.years.map((y) => `<td class="num">${y.leverage === null ? "n/a" : fmtX(Math.max(0, y.leverage))}</td>`).join("")}</tr>
+    ${row("EBITDA / cash interest", (y) => (y.coverage === null ? "n/a" : fmtX(y.coverage)))}
+  </tbody></table>`;
+
+  const b = r.bridge;
+  const bridge = waterfall({
+    steps: [
+      { label: "Equity invested", value: r.sponsorEquity, kind: "total" },
+      { label: "EBITDA growth", value: b.ebitdaGrowth, kind: "delta" },
+      { label: "Multiple change", value: b.multiple, kind: "delta" },
+      { label: "Debt paid down", value: b.deleveraging, kind: "delta" },
+      { label: "Fees", value: b.fees, kind: "delta" },
+      { label: "Equity at exit", value: r.exitEquity, kind: "total" },
+    ],
+    format: (n) => fmtM(n),
+    label: `Value creation bridge, $m: equity invested ${money(r.sponsorEquity)}, growth ${signed(b.ebitdaGrowth)}, multiple ${signed(b.multiple)}, debt paydown ${signed(b.deleveraging)}, fees ${signed(b.fees)}, equity at exit ${money(r.exitEquity)}`,
+  });
+
+  const debt = stacked({
+    columns: [{ label: "Close", parts: [r.senior0, r.sub0], note: fmtX((r.senior0 + r.sub0) / i.ebitda0) }, ...r.years.map((y) => ({ label: `Year ${y.year}`, parts: [y.senior, y.sub], note: y.leverage === null ? "n/a" : fmtX(Math.max(0, y.leverage)) }))],
+    partNames: ["Senior debt", "Subordinated debt"],
+    format: (n) => fmtM(n),
+    label: "Debt outstanding by year, $m, with net debt to EBITDA above each column",
+  });
+
+  const off = [-2, -1, 0, 1, 2];
+  const rows1 = off.map((d) => i.entryMultiple + d).filter((x) => x > 0);
+  const cols1 = off.map((d) => i.exitMultiple + d).filter((x) => x > 0);
+  const g1 = { rows: rows1, cols: cols1, values: irrGrid(i, "entryMultiple", rows1, "exitMultiple", cols1).map((rw) => rw.map((v) => (v === null ? Number.NaN : v))) };
+  const rows2 = off.map((d) => Math.max(0, i.seniorX + d * 0.75));
+  const cols2 = [-0.04, -0.02, 0, 0.02, 0.04].map((d) => Math.min(0.95, Math.max(0.02, i.marginTarget + d)));
+  const g2 = { rows: rows2, cols: cols2, values: irrGrid(i, "seniorX", rows2, "marginTarget", cols2).map((rw) => rw.map((v) => (v === null ? Number.NaN : v))) };
+  const sens1 = heatmap(g1, { corner: "Entry \\ exit", rowFmt: (n) => fmtX(n), colFmt: (n) => fmtX(n), valFmt: (n) => fmtPct(n), current: [rows1.indexOf(i.entryMultiple), cols1.indexOf(i.exitMultiple)], caption: "IRR by entry multiple (rows) and exit multiple (columns)" });
+  const sens2 = heatmap(g2, { corner: "Debt \\ margin", rowFmt: (n) => fmtX(n), colFmt: (n) => fmtPct(n), valFmt: (n) => fmtPct(n), current: [rows2.findIndex((x) => Math.abs(x - i.seniorX) < 1e-9), cols2.findIndex((x) => Math.abs(x - i.marginTarget) < 1e-9)], caption: "IRR by senior debt multiple (rows) and year-5 EBITDA margin (columns)" });
+ 
+
+  const flags = r.flags.length ? `<ul class="uses-list">${r.flags.map((f) => `<li><span>${esc(f)}</span></li>`).join("")}</ul>` : `<p class="muted">No warnings for these inputs. That does not mean the deal is realistic.</p>`;
+  return { summary, su, years, bridge, debt, sens1, sens2, flags };
+}
+
+type Field = "entry" | "exit" | "senior" | "sub" | "srate" | "brate" | "amort" | "sweep" | "fee" | "g1" | "g2" | "g3" | "g4" | "g5" | "margin" | "capex" | "nwc" | "tax";
+const FIELDS: Field[] = ["entry", "exit", "senior", "sub", "srate", "brate", "amort", "sweep", "fee", "g1", "g2", "g3", "g4", "g5", "margin", "capex", "nwc", "tax"];
+// Multiples are entered as plain numbers; everything else as percentages.
+const PLAIN: Field[] = ["entry", "exit", "senior", "sub"];
+
+export function toFormValues(i: LboInputs): Record<Field, number> {
+  return { entry: i.entryMultiple, exit: i.exitMultiple, senior: i.seniorX, sub: i.subX, srate: i.seniorRate * 100, brate: i.subRate * 100, amort: i.seniorAmortPct * 100, sweep: i.sweepPct * 100, fee: i.feePct * 100, g1: i.growth[0] * 100, g2: i.growth[1] * 100, g3: i.growth[2] * 100, g4: i.growth[3] * 100, g5: i.growth[4] * 100, margin: i.marginTarget * 100, capex: i.capexPct * 100, nwc: i.nwcPct * 100, tax: i.taxRate * 100 };
+}
+
+export function initLbo(targets: Target[]) {
+  const form = document.getElementById("lbo-form") as HTMLFormElement | null;
+  if (!form) return;
+  const out = (id: string) => document.getElementById(id)!;
+  const sel = form.elements.namedItem("target") as HTMLSelectElement;
+  const get = (f: Field) => form.elements.namedItem(f) as HTMLInputElement;
+  const current = () => targets.find((t) => t.ticker === sel.value) ?? targets[0];
+
+  const setForm = () => {
+    const t = current();
+    const v = toFormValues(inputsFor(t));
+    for (const f of FIELDS) get(f).value = String(Math.round(v[f] * 100) / 100);
+    out("lbo-target").innerHTML = describe(t);
+  };
+
+  const read = (): LboInputs | string => {
+    const t = current();
+    const n = (f: Field) => parseFloat(get(f).value) / (PLAIN.includes(f) ? 1 : 100);
+    if (FIELDS.some((f) => !Number.isFinite(n(f)))) return "Every assumption needs a number.";
+    const i: LboInputs = { revenue0: t.revenue, ebitda0: t.ebitda, daPct: t.da / t.revenue, netDebt0: t.netDebt, entryMultiple: n("entry"), exitMultiple: n("exit"), seniorX: n("senior"), subX: n("sub"), seniorRate: n("srate"), subRate: n("brate"), seniorAmortPct: n("amort"), sweepPct: n("sweep"), feePct: n("fee"), growth: [n("g1"), n("g2"), n("g3"), n("g4"), n("g5")], marginTarget: n("margin"), capexPct: n("capex"), nwcPct: n("nwc"), taxRate: n("tax") };
+    try {
+      validateLbo(i);
+    } catch (e) {
+      return e instanceof LboInputError ? e.message : "These inputs cannot be run.";
+    }
+    return i;
+  };
+
+  const ids = ["lbo-summary", "lbo-su", "lbo-years", "lbo-bridge", "lbo-debt", "sens1", "sens2", "lbo-flags"];
+  const renderAll = () => {
+    const i = read();
+    const err = out("lbo-error");
+    if (typeof i === "string") {
+      err.textContent = i;
+      err.hidden = false;
+      ids.forEach((id) => (out(id).innerHTML = ""));
+      return;
+    }
+    err.hidden = true;
+    const x = renderLbo(i, runLbo(i));
+    out("lbo-summary").innerHTML = x.summary;
+    out("lbo-su").innerHTML = x.su;
+    out("lbo-years").innerHTML = x.years;
+    out("lbo-bridge").innerHTML = x.bridge;
+    out("lbo-debt").innerHTML = x.debt;
+    out("sens1").innerHTML = x.sens1;
+    out("sens2").innerHTML = x.sens2;
+    out("lbo-flags").innerHTML = x.flags;
+  };
+
+  let timer: number | undefined;
+  const later = () => {
+    window.clearTimeout(timer);
+    timer = window.setTimeout(renderAll, 120);
+  };
+  sel.addEventListener("change", () => {
+    setForm();
+    renderAll();
+  });
+  for (const f of FIELDS) get(f).addEventListener("input", later);
+  document.getElementById("lbo-reset")?.addEventListener("click", () => {
+    setForm();
+    renderAll();
+  });
+  setForm();
+  renderAll();
+}
+
+export function describe(t: Target): string {
+  const flags = t.flags.length ? `<details class="flags"><summary>${t.flags.length} data flag${t.flags.length > 1 ? "s" : ""} for this company</summary><ul>${t.flags.map((f) => `<li>${esc(f)}</li>`).join("")}</ul></details>` : "";
+  return `<p class="muted">FY2025 from the company's 10-K: revenue ${money(t.revenue)}, EBITDA ${money(t.ebitda)} (operating income plus depreciation and amortisation), D&amp;A ${fmtPct(t.da / t.revenue)} of revenue, ${t.netDebt < 0 ? `net cash ${money(-t.netDebt)}` : `net debt ${money(t.netDebt)}`}.</p>${flags}`;
+}

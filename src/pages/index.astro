@@ -4,7 +4,7 @@ import RateChart from "../components/RateChart.astro";
 import LegalLinks from "../components/LegalLinks.astro";
 import MiniBars from "../components/MiniBars.astro";
 import { person, notes, roles, next } from "../data/site";
-import { evalRows, marginRows, top5Rows } from "../lib/projectViz.ts";
+import { evalRows, lboRows, marginRows, top5Rows } from "../lib/projectViz.ts";
 
 const [lead, second, third] = notes;
 const more = notes.slice(3);
@@ -76,7 +76,7 @@ const education = roles.filter((r) => !work.includes(r) && r.role !== "Teaching 
     <section class="wrap section section-tight" id="projects" aria-labelledby="projects-h">
       <div class="section-head" data-rv>
         <h2 id="projects-h">Finance projects on public filings</h2>
-        <p>Three connected tools, each drawn from real data and checked against the source. First releases, built with AI assistance, not independently reviewed.</p>
+        <p>Four connected tools, each drawn from real data and checked against the source. First releases, built with AI assistance, not independently reviewed.</p>
       </div>
       <div class="proj-trio" data-rv data-stagger>
         <div>
@@ -96,6 +96,12 @@ const education = roles.filter((r) => !work.includes(r) && r.role !== "Teaching 
           <p class="trio-for">Ranks 28 pharma and biotech companies for a hypothetical buyer and shows how fragile the order is.</p>
           <MiniBars title="Top five, score 0 to 100" rows={top5Rows} />
           <p class="links"><a href="/projects/ma-screening/">Open the workbench<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d={arrow} /></svg></a></p>
+        </div>
+        <div>
+          <h3>LBO Workbench</h3>
+          <p class="trio-for">Models a leveraged buyout on real filing figures and shows where the return comes from and how fragile it is.</p>
+          <MiniBars title="IRR by exit multiple" rows={lboRows} />
+          <p class="links"><a href="/projects/lbo-workbench/">Open the workbench<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d={arrow} /></svg></a></p>
         </div>
       </div>
     </section>

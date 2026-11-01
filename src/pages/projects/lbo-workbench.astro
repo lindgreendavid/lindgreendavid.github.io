@@ -1,0 +1,194 @@
+---
+import Base from "../../layouts/Base.astro";
+import ProjectHeader from "../../components/ProjectHeader.astro";
+import ProjectFlow from "../../components/ProjectFlow.astro";
+import ProjectUses from "../../components/ProjectUses.astro";
+import "../../styles/projects.css";
+import ds from "../../data/ma/dataset.json";
+import type { Dataset } from "../../lib/ma/screen.ts";
+import { buildTargets, defaultTarget } from "../../lib/lbo/targets.ts";
+import { inputsFor, runLbo } from "../../lib/lbo/model.ts";
+import { renderLbo, toFormValues } from "../../lib/lbo/ui.ts";
+
+const data = ds as unknown as Dataset;
+// Targets: every company in the screening dataset with the figures an LBO needs. Figures come from the 10-K data (see the M&A project).
+const targets = buildTargets(data);
+const def = defaultTarget(data, targets);
+const inputs = inputsFor(def);
+const result = runLbo(inputs);
+const x = renderLbo(inputs, result);
+const fv = toFormValues(inputs);
+const fld = (v: number) => String(Math.round(v * 100) / 100);
+const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
+---
+<Base title="LBO Workbench | David Lindgreen" description="A transparent leveraged-buyout model on real SEC figures: sources and uses, a debt schedule, returns, a value-creation bridge and sensitivity grids. Hypothetical deal, educational, first release.">
+  <ProjectHeader current="projects" />
+  <main id="main">
+    <section class="wrap proj-hero">
+      <h1>LBO Workbench</h1>
+      <p class="proj-lede">Pick a listed pharma or biotech company, set the price and the debt, and see what a financial buyer could earn after five years and where the return comes from. Every step is visible, and the same model is in an Excel file with live formulas.</p>
+      <p class="status">First release · hypothetical deal · built with AI assistance · not independently reviewed</p>
+      <div class="brief">
+        <div><h2>Who it is for</h2><p>An analyst or student who wants to see how a buyout works, not just the result: how much debt, how fast it is repaid and what drives the return.</p></div>
+        <div><h2>The problem</h2><p>Buyout returns depend on a handful of assumptions, and a single IRR hides which one matters. A good model shows the funding, the debt schedule and the sensitivities.</p></div>
+        <div><h2>What it supports</h2><p>Understanding the mechanics of an LBO and testing how fragile a return is. It is not a bid, a valuation or a view on any company.</p></div>
+      </div>
+      <nav class="jump" aria-label="On this page"><a href="#built">How it is built</a><a href="#model">Run a buyout</a><a href="#read">How to read it</a><a href="#method">Method</a><a href="#uses">Uses</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a></nav>
+    </section>
+
+    <section class="wrap" aria-label="Disclosures">
+      <p class="callout"><strong>Hypothetical, for learning.</strong> No company here is for sale, and nothing is a bid, a price target or advice. The company only supplies real starting figures from its 10-K (the same data as the <a href="/projects/ma-screening/">M&amp;A screening project</a>). The price, debt terms and operating assumptions are your inputs, not market data. The author works at Sanofi; no Sanofi or other employer information is used. Built with AI assistance; the author is responsible for checking it.</p>
+    </section>
+
+    <ProjectFlow id="built" heading="How it is built" intro="The same five steps a first-pass LBO follows, each one shown on this page." steps={[
+      { title: "Starting figures", detail: "Revenue, EBITDA, depreciation and net debt for FY2025, from the company's 10-K via SEC XBRL data." },
+      { title: "Deal", detail: "You set the entry multiple and the debt. The equity cheque is whatever is left to fund the price and the fees." },
+      { title: "Five-year plan", detail: "Growth, margin, capex, working capital and tax produce the cash flow that is left after interest." },
+      { title: "Debt schedule", detail: "Mandatory repayment, then a cash sweep. Interest is charged on opening balances." },
+      { title: "Exit and return", detail: "Sell at an exit multiple, repay what is owed, and the rest is the sponsor's equity: MOIC and IRR." },
+    ]} />
+
+    <div class="band band-mint">
+      <section class="wrap section" id="model" aria-labelledby="model-h">
+        <div class="section-head"><h2 id="model-h">Run a buyout</h2><p>Choose a company and change anything. Results, charts and sensitivities update as you type. Amounts are US dollars, millions; percentages are entered as numbers.</p></div>
+        <div class="cols-2" style="align-items: start">
+          <form id="lbo-form" class="pane stack" action="#" aria-label="Buyout assumptions" onsubmit="return false">
+            <div>
+              <h3 class="sub-h">Target and deal</h3>
+              <div class="field">
+                <label for="target">Company (real figures, hypothetical deal)</label>
+                <select id="target" name="target">
+                  {targets.map((t) => <option value={t.ticker} selected={t.ticker === def.ticker}>{t.name} ({t.ticker})</option>)}
+                </select>
+              </div>
+              <div id="lbo-target" style="margin-top:0.75rem"><p class="muted">FY2025 from the company's 10-K: revenue ${fmtM(def.revenue)}m, EBITDA ${fmtM(def.ebitda)}m (operating income plus depreciation and amortisation), D&amp;A {((def.da / def.revenue) * 100).toFixed(1)}% of revenue, {def.netDebt < 0 ? `net cash $${fmtM(-def.netDebt)}m` : `net debt $${fmtM(def.netDebt)}m`}.</p>{def.flags.length > 0 && <details class="flags"><summary>{def.flags.length} data flag{def.flags.length > 1 ? "s" : ""} for this company</summary><ul>{def.flags.map((f) => <li>{f}</li>)}</ul></details>}</div>
+            </div>
+            <div class="fields">
+              <div class="field"><label for="entry">Entry multiple (EV / EBITDA)</label><input id="entry" name="entry" type="number" inputmode="decimal" step="0.1" value={fld(fv.entry)} /><span class="hint">Your assumption, not a market price</span></div>
+              <div class="field"><label for="exit">Exit multiple</label><input id="exit" name="exit" type="number" inputmode="decimal" step="0.1" value={fld(fv.exit)} /></div>
+              <div class="field"><label for="senior">Senior debt (x EBITDA)</label><input id="senior" name="senior" type="number" inputmode="decimal" step="0.1" value={fld(fv.senior)} /></div>
+              <div class="field"><label for="sub">Subordinated debt (x EBITDA)</label><input id="sub" name="sub" type="number" inputmode="decimal" step="0.1" value={fld(fv.sub)} /></div>
+              <div class="field"><label for="srate">Senior interest rate (%)</label><input id="srate" name="srate" type="number" inputmode="decimal" step="0.1" value={fld(fv.srate)} /></div>
+              <div class="field"><label for="brate">Subordinated interest rate (%)</label><input id="brate" name="brate" type="number" inputmode="decimal" step="0.1" value={fld(fv.brate)} /></div>
+              <div class="field"><label for="amort">Mandatory repayment (% of senior a year)</label><input id="amort" name="amort" type="number" inputmode="decimal" step="0.1" value={fld(fv.amort)} /></div>
+              <div class="field"><label for="sweep">Cash sweep (% of excess cash)</label><input id="sweep" name="sweep" type="number" inputmode="decimal" step="1" value={fld(fv.sweep)} /></div>
+              <div class="field"><label for="fee">Fees (% of enterprise value)</label><input id="fee" name="fee" type="number" inputmode="decimal" step="0.1" value={fld(fv.fee)} /></div>
+            </div>
+            <fieldset style="border:0;margin:0;padding:0">
+              <legend class="sub-note" style="margin-bottom:0.5rem">Revenue growth, years 1 to 5 (%)</legend>
+              <div class="fields">
+                {[1, 2, 3, 4, 5].map((n) => (
+                  <div class="field"><label for={`g${n}`}>Year {n}</label><input id={`g${n}`} name={`g${n}`} type="number" inputmode="decimal" step="0.1" value={fld(fv[`g${n}` as "g1"])} /></div>
+                ))}
+              </div>
+            </fieldset>
+            <div class="fields">
+              <div class="field"><label for="margin">EBITDA margin in year 5 (%)</label><input id="margin" name="margin" type="number" inputmode="decimal" step="0.1" value={fld(fv.margin)} /><span class="hint">Moves in a straight line from today's</span></div>
+              <div class="field"><label for="capex">Capex (% of revenue)</label><input id="capex" name="capex" type="number" inputmode="decimal" step="0.1" value={fld(fv.capex)} /></div>
+              <div class="field"><label for="nwc">Working capital (% of revenue growth)</label><input id="nwc" name="nwc" type="number" inputmode="decimal" step="1" value={fld(fv.nwc)} /></div>
+              <div class="field"><label for="tax">Tax rate (%)</label><input id="tax" name="tax" type="number" inputmode="decimal" step="0.1" value={fld(fv.tax)} /><span class="hint">Federal statutory rate; no state tax</span></div>
+            </div>
+            <button type="button" id="lbo-reset" class="btn-quiet">Reset to the defaults for this company</button>
+          </form>
+          <div class="pane stack" aria-live="polite">
+            <h3 class="sub-h">Result</h3>
+            <p id="lbo-error" class="error" role="alert" hidden></p>
+            <div id="lbo-summary"><Fragment set:html={x.summary} /></div>
+            <h3 class="sub-h" style="margin-top:1.5rem">Warnings</h3>
+            <div id="lbo-flags"><Fragment set:html={x.flags} /></div>
+          </div>
+        </div>
+
+        <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
+          <div class="pane"><h3 class="sub-h">Sources and uses</h3><div id="lbo-su" class="tbl-wrap" role="region" aria-label="Sources and uses, scrolls horizontally on small screens" tabindex="0"><Fragment set:html={x.su} /></div></div>
+          <div class="stack">
+            <div class="pane"><h3 class="sub-h">Where the return comes from</h3><p class="sub-note">Equity invested, plus what each driver added, equals equity at exit. Dollars, millions.</p><div id="lbo-bridge"><Fragment set:html={x.bridge} /></div></div>
+            <div class="pane"><h3 class="sub-h">Debt by year</h3><p class="sub-note">Senior and subordinated debt outstanding. The figure above each column is net debt divided by EBITDA.</p>
+              <div class="legend" aria-hidden="true"><span class="y1">Senior</span><span class="y0">Subordinated</span></div>
+              <div id="lbo-debt"><Fragment set:html={x.debt} /></div></div>
+          </div>
+        </div>
+        <div class="pane" style="margin-top: 1.25rem"><h3 class="sub-h">Projection and debt schedule</h3><div id="lbo-years" class="tbl-wrap" role="region" aria-label="Projection and debt schedule, scrolls horizontally on small screens" tabindex="0"><Fragment set:html={x.years} /></div></div>
+        <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
+          <div class="pane"><div id="sens1" class="tbl-wrap"><Fragment set:html={x.sens1} /></div></div>
+          <div class="pane"><div id="sens2" class="tbl-wrap"><Fragment set:html={x.sens2} /></div></div>
+        </div>
+        <p class="muted" style="margin-top: 0.75rem">The outlined cell marks the current inputs. A cell reads n/a where the inputs are not valid, for example when the debt is larger than the price.</p>
+      </section>
+    </div>
+
+    <section class="wrap section" id="read" aria-labelledby="read-h">
+      <div class="section-head"><h2 id="read-h">How to read it</h2></div>
+      <div class="prose">
+        <h3>Three sources of return</h3>
+        <p>A buyout earns money in only three ways. The company's earnings grow, so the same multiple is applied to more EBITDA. The multiple changes between entry and exit. Or cash flow pays down debt, so a larger share of the enterprise value belongs to the equity. The waterfall shows how much each contributed in the case you set, plus the fees that were paid to do the deal.</p>
+        <h3>Why leverage cuts both ways</h3>
+        <p>Borrowing more shrinks the equity cheque, which raises the return if the business earns more than the debt costs. The second grid shows the other side: with high debt and a weaker margin, the return falls faster, and in the worst cells the equity is worth nothing. Interest cover in the schedule shows how close to the edge a case is.</p>
+        <h3>The exit multiple does a lot of work</h3>
+        <p>Setting the exit multiple equal to the entry multiple is the conventional, cautious choice. The first grid shows how much a turn of multiple matters. If most of a return comes from a higher exit multiple, that is a bet on the market, not on the business.</p>
+      </div>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="method" aria-labelledby="method-h">
+        <div class="section-head"><h2 id="method-h">Method</h2></div>
+        <div class="prose">
+          <ul>
+            <li><strong>Starting figures.</strong> FY2025 revenue, operating income, depreciation and amortisation, debt, cash and short-term investments from the company's 10-K (SEC XBRL, plus balance-sheet debt read from the filing for a few companies; see the <a href="/projects/ma-screening/#evidence">M&amp;A evidence</a>). EBITDA is operating income plus depreciation and amortisation, as reported, with no adjustments. Royalty-financing obligations count as debt, as in the screen.</li>
+            <li><strong>Funding.</strong> Enterprise value is the entry multiple times EBITDA. Uses are the enterprise value plus fees. Sources are the senior and subordinated debt you set, as multiples of EBITDA, and the sponsor equity is the remainder. The company's existing net debt is repaid out of the enterprise value, so it does not change the price, but it sets the equity purchase price shown in the table.</li>
+            <li><strong>Plan.</strong> Revenue grows at the rates you set. EBITDA margin moves in a straight line to the year-5 margin. D&amp;A is the company's FY2025 share of revenue. Capex is a share of revenue and working-capital investment is a share of the growth in revenue. Tax is charged on EBIT less interest, never below zero.</li>
+            <li><strong>Debt.</strong> Interest is charged on opening balances, which avoids a circular calculation. The senior debt has a mandatory repayment (a share of the original amount) and a cash sweep of the excess; the subordinated debt is repaid at exit. Cash that is not swept builds up on the balance sheet and counts at exit.</li>
+            <li><strong>Return.</strong> Exit enterprise value is the exit multiple times year-5 EBITDA. Equity at exit is that less net debt. MOIC is exit equity divided by the equity invested; IRR is MOIC to the power of one fifth, less one, because there are no interim payments.</li>
+            <li><strong>Checks.</strong> {" "}13 unit tests cover the funding identity, a closed-form case, the bridge identity, the debt schedule, validation and the sensitivity grids. The Excel file is recalculated in Excel and compared with this page.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <ProjectUses id="uses" heading="What it is for, and what it taught" intro="The LBO is the standard test of whether someone understands how value, debt and cash flow fit together."
+      uses={[
+        { where: "Private equity", how: "Funds use an LBO to test what price they can pay for a target and still reach their return, and how much debt the business can carry." },
+        { where: "Investment banking", how: "Sell-side and leveraged-finance teams build the same model to show a buyer's ability to pay and to size the debt a deal can support." },
+        { where: "Corporate finance and credit", how: "Lenders look at the same schedule: leverage, interest cover and how fast debt is repaid under a downside case." },
+        { where: "Learning finance", how: "Changing one input at a time shows which assumptions matter and which are noise, which is the point of a sensitivity grid." },
+      ]}
+      learned={[
+        { lesson: "The returns come from three places, and one of them is a bet.", evidence: "The bridge separates earnings growth, multiple change and debt paydown, so a return that depends on a higher exit multiple is visible as such." },
+        { lesson: "Debt makes outcomes wider, not better.", evidence: "More leverage raised the return in the base case and wiped out the equity in a weak case, which the second grid shows side by side." },
+        { lesson: "A model should explain itself.", evidence: "Sources equal uses, the bridge adds up to the gain, and the tests prove both, so a wrong number cannot hide in a total." },
+        { lesson: "Public data stops short of a real LBO.", evidence: "There is no capex or loan terms in the data used, so those are stated assumptions, not facts." },
+      ]} />
+
+    <section class="wrap section" id="limits" aria-labelledby="lim-h">
+      <div class="section-head"><h2 id="lim-h">Limits</h2></div>
+      <div class="prose">
+        <ul>
+          <li><strong>It is hypothetical.</strong> The entry price, exit multiple, loan terms and operating assumptions are yours or illustrative defaults. They are not market data, and the defaults are not a view on what any company is worth.</li>
+          <li><strong>The starting EBITDA is as reported.</strong> It includes one-offs, stock compensation and acquisition effects unless the data flags say otherwise; a real model would adjust it. The default company is chosen because it has no identified one-offs, not because it is a good target.</li>
+          <li><strong>The financing is simplified.</strong> One senior tranche, one subordinated tranche, no revolver, no minimum cash, no interest-deductibility limit, no fees amortised, no management equity, no dividends, no purchase-price accounting and no transaction-specific tax structure.</li>
+          <li><strong>Capex and loan terms are assumptions.</strong> The filings supply neither as inputs for this model, so capex is a share of revenue you set. Interest rates are illustrative, and rates change with the market.</li>
+          <li><strong>Pharma and biotech are not typical buyout targets.</strong> Patent expiries, pipeline risk and regulation make cash flows less predictable than the model assumes, which is a reason to read the sensitivity grids rather than the single IRR.</li>
+          <li><strong>Not independently reviewed.</strong> It was built with AI assistance, checked by tests and an Excel recalculation, and has not been reviewed by a finance professional. Educational use only; not investment advice.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="band band-mint">
+      <section class="wrap section" id="downloads" aria-labelledby="dl-h">
+        <div class="section-head"><h2 id="dl-h">Downloads</h2><p>The Excel model uses live formulas for the funding, projection, debt schedule and returns, with a checks sheet. It is set up for the default company above.</p></div>
+        <ul class="downloads">
+          <li><a href="/downloads/lbo-workbench/lbo-model.xlsx" download>LBO model with live formulas (xlsx)</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <footer class="wrap proj-foot"><p><a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p></footer>
+  </main>
+
+  <script>
+    import { initLbo } from "../../lib/lbo/ui.ts";
+    const el = document.getElementById("lbo-targets");
+    if (el) initLbo(JSON.parse(el.textContent ?? "[]"));
+  </script>
+  <script type="application/json" id="lbo-targets" set:html={JSON.stringify(targets)}></script>
+</Base>
