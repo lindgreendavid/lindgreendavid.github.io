@@ -240,8 +240,8 @@ function lbo(): Note {
     method: [
       "Funding: enterprise value is the entry multiple times EBITDA; uses are enterprise value plus fees; sources are senior and subordinated debt (multiples of EBITDA) and sponsor equity as the remainder.",
       "Operations and debt: revenue grows at the inputs; EBITDA margin moves in a straight line to the year-5 margin; interest is charged on opening balances (no circular calculation); the senior debt has a mandatory repayment and a cash sweep; the subordinated debt is repaid at exit; tax is charged on EBIT less interest, never below zero.",
-      "Return: exit enterprise value is the exit multiple times year-5 EBITDA; equity at exit is that less net debt; MOIC is exit equity over equity invested and IRR is MOIC to the power of one fifth, less one. The bridge splits the equity gain exactly into EBITDA growth, multiple change, debt paid down and fees.",
-      "Uncertainty: a Monte Carlo of 3,000 cases (fixed seed) varies a common revenue-growth shift (normal, standard deviation 3 points) plus year noise (2 points), the year-5 margin (normal, 3 points), the exit multiple (triangular, within 2 turns) and the senior rate (normal, 1 point). A tornado moves one input at a time by a stated amount. The spreads are illustrative choices, not estimates from data.",
+      "Return: exit enterprise value is the exit multiple times year-5 EBITDA; equity at exit is that less net debt. The sponsor receives that amount but never less than zero (limited liability; no further support is modelled), so MOIC is sponsor proceeds over equity invested and IRR is MOIC to the power of one fifth, less one (minus 100% if the equity is wiped out). The bridge splits the equity gain exactly into EBITDA growth, multiple change, debt paid down and fees, plus a line for any loss borne by the lenders.",
+      "Uncertainty: a Monte Carlo of 3,000 cases (fixed seed) varies a common revenue-growth shift (normal, standard deviation 3 points) plus year noise (2 points), the year-5 margin (normal, 3 points), the exit multiple (triangular, within 2 turns) and the senior rate (normal, 1 point). A tornado moves one input at a time by a stated amount. The spreads are illustrative choices, not estimates from data. A case in which cash goes negative (no revolver is modelled) is a funding gap: its return assumes the shortfall is financed at no cost, so the simulation reports the share of such cases separately and leaves them out of the return figures.",
     ],
     results: [
       `For the default company (chosen as the highest-ranked in the default screen with no identified one-offs; not a recommendation) the base case gives sponsor equity of ${Math.round(r.sponsorEquity)} million dollars, MOIC ${r.moic.toFixed(2)}x and IRR ${pc(r.irr, 1)}.`,
@@ -249,11 +249,12 @@ function lbo(): Note {
       "More leverage raises the base-case return and widens the downside, which the second sensitivity grid shows side by side.",
     ],
     validation: [
-      "17 unit tests cover the funding identity, a closed-form case (no debt, no growth, no tax), the bridge identity, the debt schedule, validation, the sensitivity grids, the reproducibility of the simulation and the tornado.",
+      "20 unit tests cover the funding identity, a closed-form case (no debt, no growth, no tax), the bridge identity (including a wipe-out), the debt schedule, validation, the sensitivity grids, the funding-gap marking, the reproducibility of the simulation, its zero-spread identity for margins, exit multiples and growth outside the usual clamps, and the tornado.",
       "The Excel workbook uses live formulas and was recalculated in Microsoft Excel: all seven checks are TRUE and equity, MOIC, IRR, the bridge and each year's EBITDA, senior debt and cash match the web model to six decimals. The sensitivity sheet holds pasted values.",
     ],
     threats: [
       "Hypothetical: the entry price, exit multiple, loan terms and operating assumptions are inputs. The defaults are not a view on any company.",
+      "A funding gap is flagged, not financed: with no revolver, a year of negative cash carries no interest cost and no sponsor injection, so a return reported with that flag is conditional.",
       "No revolver, minimum cash, interest-deductibility limit, fee amortisation, management equity, dividends or purchase-price accounting.",
       "Reported EBITDA includes one-offs; pharma and biotech cash flows are less predictable than the model assumes.",
       "The Monte Carlo spreads are chosen, not measured, and the draws are treated as independent apart from the common growth shock.",
@@ -272,6 +273,7 @@ function lbo(): Note {
       "Saltelli, A., Ratto, M., Andres, T., Campolongo, F., Cariboni, J., Gatelli, D., Saisana, M. and Tarantola, S. (2008). Global Sensitivity Analysis: The Primer. Wiley.",
     ],
     changelog: [
+      { version: "1.0.1", date: "2026-11-02", change: "Corrections after an AI-assisted technical review: sponsor proceeds floored at zero (MOIC was negative when the equity was wiped out); funding-gap cases marked, flagged as conditional and reported separately in the simulation; zero-spread simulation now reproduces the base case for margins, exit multiples and growth outside the clamps. Tests 17 to 20. The Excel workbook was rebuilt for the floor and recalculated again in Excel: its seven checks are TRUE and equity, MOIC, IRR and the bridge match the web model." },
       { version: "1.0", date: DATE, change: "Monte Carlo and tornado added; method note." },
       { version: "0.1", date: "2026-11-01", change: "First release: model, page, Excel workbook, 13 unit tests." },
     ],
@@ -300,7 +302,7 @@ function credit(): Note {
     method: [
       "Ratios: net debt over EBITDA, EBITDA over interest, (operating cash flow less capex) over debt, (cash plus short-term investments) over debt, and EBITDA margin, with explicit rules for net cash, no debt and non-positive EBITDA.",
       "Scoring: each ratio is mapped to 0 to 100 by straight lines through the author's anchors; weights are 30, 25, 20, 15 and 10; a missing factor is dropped and the weights are rescaled. Bands are Low, Moderate, Elevated and High strain at 75, 55 and 35. These thresholds are choices, written down before the results were examined, not an agency methodology.",
-      "Stress and headroom: EBITDA and operating cash flow fall by a set share of EBITDA (before tax); cash burn is added to net debt; interest is unchanged. Headroom is the largest EBITDA fall such that net leverage stays at or below a limit and interest cover at or above a floor, computed in closed form.",
+      "Stress and headroom: EBITDA and operating cash flow fall by a set share of EBITDA (before tax); cash burn is added to net debt; interest is unchanged. Headroom is the largest EBITDA fall such that net leverage stays at or below a limit and interest cover at or above a floor, computed in closed form under the same convention as the stress (so the cash burn counts, and a company with net cash can still end above the limit).",
       "Cross-check: Altman Z-double-prime (6.56 x working capital / assets + 3.26 x retained earnings / assets + 6.72 x EBIT / assets + 1.05 x book equity / liabilities), with the commonly cited zones.",
       "Robustness: 1,000 random re-weightings (each weight times exp(0.5 Z)) give each company's rank range and the share of draws in the same band. Exploratory validity checks use Spearman rank correlation with a two-sided permutation p-value (5,000 shuffles, fixed seed), on companies scored on the full weights in the years compared.",
     ],
@@ -313,7 +315,7 @@ function credit(): Note {
     ],
     validation: [
       "337 automated checks on the extra data all pass (each FY2025 figure found as printed in the 10-K text; current assets not above total assets; liabilities plus equity within 3% of assets; no negative interest or capex; one period end). BioMarin is unchecked because its 10-K was not downloaded.",
-      "19 unit tests cover the ratios, the scoring anchors, the weight rescaling, the band boundaries, the closed-form headroom (stressing by exactly the headroom lands on the limit), the stress test, the Altman worked example, the weight robustness and the permutation test.",
+      "21 unit tests cover the ratios, the scoring anchors, the weight rescaling, the band boundaries, the closed-form headroom (stressing by exactly the headroom lands on the limit, including with cash burn and net cash turning into net debt), the stress test, the Altman worked example, the weight robustness and the permutation test.",
     ],
     threats: [
       "The anchors, weights and band edges are the author's choices and a different set would move companies between bands.",
@@ -338,6 +340,7 @@ function credit(): Note {
       "Good, P. (2005). Permutation, Parametric, and Bootstrap Tests of Hypotheses, 3rd ed. Springer.",
     ],
     changelog: [
+      { version: "1.0.1", date: "2026-11-02", change: "Correction after an AI-assisted technical review: headroom now uses the stress test's cash-burn convention. Before, stressing a company by its reported headroom could leave it above the leverage limit (two companies in the data, ADMA and PTCT, by the reviewer's reproduction). Two tests added." },
       { version: "1.0", date: DATE, change: "Weight robustness and exploratory validity checks added; method note." },
       { version: "0.1", date: DATE, change: "First release: extra SEC data, scorecard, stress test, headroom, Altman cross-check, 14 unit tests." },
     ],

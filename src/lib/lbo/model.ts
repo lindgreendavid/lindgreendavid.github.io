@@ -2,7 +2,7 @@
 // Units: US dollars, millions. Five-year hold, annual periods. Educational; every rate and multiple is an input, not a market quote.
 //
 // Simplifications (stated on the page): interest is charged on opening balances (no circularity); one senior tranche with a cash sweep and one
-// subordinated bullet tranche; no revolver (a funding gap is flagged instead); no minimum cash; no interest-deductibility limit; no management
+// subordinated bullet tranche; no revolver (a funding gap is flagged, and its return is conditional on unmodelled financing); sponsor proceeds are floored at zero (limited liability); no minimum cash; no interest-deductibility limit; no management
 // equity, dividends or purchase-price accounting; fees are expensed at close and not amortised.
 
 export const HOLD_YEARS = 5;
@@ -67,10 +67,12 @@ export type LboResult = {
   years: Year[];
   exitEv: number;
   exitNetDebt: number;
-  exitEquity: number;
+  exitEquity: number; // exit enterprise value less net debt; negative when the lenders are not repaid in full
+  sponsorProceeds: number; // what the sponsor receives: exit equity, but never below zero (limited liability, no further support modelled)
+  fundingGap: boolean; // cash goes negative in some year: an unspecified, uncosted source of funds is being assumed
   moic: number;
   irr: number;
-  bridge: { ebitdaGrowth: number; multiple: number; deleveraging: number; fees: number; total: number };
+  bridge: { ebitdaGrowth: number; multiple: number; deleveraging: number; fees: number; limitedLiability: number; total: number };
   flags: string[];
 };
 
@@ -140,27 +142,29 @@ export function runLbo(i: LboInputs): LboResult {
   const exitEv = i.exitMultiple * last.ebitda;
   const exitNetDebt = last.netDebt;
   const exitEquity = exitEv - exitNetDebt;
-  const moic = exitEquity / sponsorEquity;
+  const sponsorProceeds = Math.max(0, exitEquity);
+  const moic = sponsorProceeds / sponsorEquity;
   const irr = moic > 0 ? Math.pow(moic, 1 / HOLD_YEARS) - 1 : -1;
   const bridge = {
     ebitdaGrowth: i.entryMultiple * (last.ebitda - i.ebitda0),
     multiple: (i.exitMultiple - i.entryMultiple) * last.ebitda,
     deleveraging: senior0 + sub0 - exitNetDebt,
     fees: -fees,
-    total: exitEquity - sponsorEquity,
+    limitedLiability: sponsorProceeds - exitEquity, // zero unless the equity is wiped out and the lenders bear the loss
+    total: sponsorProceeds - sponsorEquity,
   };
 
   const totalX = i.seniorX + i.subX;
   if (totalX > 6) flags.push(`Total debt of ${totalX.toFixed(1)}x EBITDA is very high; lenders may not provide it for a company of this kind`);
   if (sponsorEquity / uses < 0.3) flags.push(`The equity cheque is only ${((sponsorEquity / uses) * 100).toFixed(0)}% of the total funding`);
   if (years[0].coverage !== null && years[0].coverage < 2) flags.push(`Year-1 EBITDA covers cash interest only ${years[0].coverage.toFixed(1)} times, which leaves little room for a bad year`);
-  if (gap) flags.push("Cash flow after interest does not cover the mandatory repayments in at least one year: the model has no revolver, so this is a funding gap");
+  if (gap) flags.push("Cash flow after interest does not cover the mandatory repayments in at least one year: the model has no revolver, so this is a funding gap. The return shown assumes the shortfall is financed at no cost, so treat it as conditional, not as an outcome");
   if (ev0 - i.netDebt0 <= 0) flags.push("The entry price is below the company's existing net debt, so the equity purchase price would be zero or negative");
   if (exitEquity <= 0) flags.push("The sponsor equity is wiped out in this case");
   if (i.exitMultiple > i.entryMultiple) flags.push("The exit multiple is above the entry multiple: part of the return comes from selling at a higher multiple than was paid");
   if (last.cash > 0.5 * last.ebitda) flags.push("The senior debt is fully repaid and cash is building up unused; a real sponsor would pay a dividend or refinance");
 
-  return { ev0, fees, uses, senior0, sub0, sponsorEquity, equityPurchase: ev0 - i.netDebt0, equityShare: sponsorEquity / uses, years, exitEv, exitNetDebt, exitEquity, moic, irr, bridge, flags };
+  return { ev0, fees, uses, senior0, sub0, sponsorEquity, equityPurchase: ev0 - i.netDebt0, equityShare: sponsorEquity / uses, years, exitEv, exitNetDebt, exitEquity, sponsorProceeds, fundingGap: gap, moic, irr, bridge, flags };
 }
 
 /** IRR for a grid of two inputs. A cell is null where the inputs are not valid (for example no equity cheque). */
@@ -212,7 +216,7 @@ import { quantile, sampler } from "../stats.ts";
 
 export const MC_SPREAD = { growthShift: 0.03, growthYearNoise: 0.02, marginSd: 0.03, exitHalfRange: 2, rateSd: 0.01 };
 
-export type McResult = { draws: number; seed: number; p5: number; p25: number; p50: number; p75: number; p95: number; probLoss: number; probBelow10: number; probAbove20: number; moicMedian: number; hist: { lo: number; hi: number; count: number }[] };
+export type McResult = { draws: number; fundedDraws: number; probGap: number; seed: number; p5: number; p25: number; p50: number; p75: number; p95: number; probLoss: number; probBelow10: number; probAbove20: number; moicMedian: number; hist: { lo: number; hi: number; count: number }[] };
 
 /** Monte Carlo of the IRR. Revenue growth shifts together (common shock plus year noise), the year-5 margin, the exit multiple (triangular) and the senior rate vary. `scale` 0 gives the base case on every draw. */
 export function monteCarlo(base: LboInputs, o: { draws?: number; seed?: number; scale?: number } = {}): McResult {
@@ -220,19 +224,37 @@ export function monteCarlo(base: LboInputs, o: { draws?: number; seed?: number; 
   const seed = o.seed ?? 1;
   const k = o.scale ?? 1;
   const s = sampler(seed);
+  const all: number[] = [];
   const irrs: number[] = [];
   const moics: number[] = [];
+  let gaps = 0;
+  // The clamps keep draws in a plausible range but never exclude the base value itself, so zero spread reproduces the base case for any valid input.
+  const gLo = Math.min(-0.5, ...base.growth);
+  const mLo = Math.min(0.02, base.marginTarget);
+  const mHi = Math.max(0.95, base.marginTarget);
+  const xLo = Math.min(1, base.exitMultiple);
   for (let d = 0; d < draws; d++) {
     const shift = k * MC_SPREAD.growthShift * s.normal();
-    const growth = base.growth.map((g) => Math.max(-0.5, g + shift + k * MC_SPREAD.growthYearNoise * s.normal()));
-    const margin = Math.min(0.95, Math.max(0.02, base.marginTarget + k * MC_SPREAD.marginSd * s.normal()));
+    const growth = base.growth.map((g) => Math.max(Math.min(-0.5, g), g + shift + k * MC_SPREAD.growthYearNoise * s.normal()));
+    const margin = Math.min(mHi, Math.max(mLo, base.marginTarget + k * MC_SPREAD.marginSd * s.normal()));
     const r = k * MC_SPREAD.exitHalfRange;
-    const exit = r === 0 ? base.exitMultiple : Math.max(1, s.triangular(base.exitMultiple - r, base.exitMultiple, base.exitMultiple + r));
+    const exit = r === 0 ? base.exitMultiple : Math.max(xLo, s.triangular(base.exitMultiple - r, base.exitMultiple, base.exitMultiple + r));
     const rate = Math.max(0, base.seniorRate + k * MC_SPREAD.rateSd * s.normal());
     const res = runLbo({ ...base, growth, marginTarget: margin, exitMultiple: exit, seniorRate: rate });
-    irrs.push(res.irr);
-    moics.push(res.moic);
+    all.push(res.irr);
+    if (res.fundingGap) gaps++;
+    else {
+      irrs.push(res.irr);
+      moics.push(res.moic);
+    }
   }
+  // Cases with a funding gap are reported separately: their return depends on financing the model does not specify. If every case has one, the summary falls back to all of them.
+  const funded = irrs.length;
+  if (funded === 0) {
+    irrs.push(...all);
+    moics.push(...all.map(() => Number.NaN));
+  }
+  const n = irrs.length;
   const sorted = [...irrs].sort((a, b) => a - b);
   const ms = [...moics].sort((a, b) => a - b);
   const lo = Math.max(-1, Math.floor(quantile(sorted, 0.01) * 50) / 50);
@@ -241,8 +263,8 @@ export function monteCarlo(base: LboInputs, o: { draws?: number; seed?: number; 
   const w = (hi - lo) / bins || 0.01;
   const hist = Array.from({ length: bins }, (_, i) => ({ lo: lo + i * w, hi: lo + (i + 1) * w, count: 0 }));
   for (const v of irrs) hist[Math.min(bins - 1, Math.max(0, Math.floor((v - lo) / w)))].count++;
-  const frac = (f: (x: number) => boolean) => irrs.filter(f).length / draws;
-  return { draws, seed, p5: quantile(sorted, 0.05), p25: quantile(sorted, 0.25), p50: quantile(sorted, 0.5), p75: quantile(sorted, 0.75), p95: quantile(sorted, 0.95), probLoss: frac((x) => x < 0), probBelow10: frac((x) => x < 0.1), probAbove20: frac((x) => x >= 0.2), moicMedian: quantile(ms, 0.5), hist };
+  const frac = (f: (x: number) => boolean) => irrs.filter(f).length / n;
+  return { draws, fundedDraws: funded, probGap: gaps / draws, seed, p5: quantile(sorted, 0.05), p25: quantile(sorted, 0.25), p50: quantile(sorted, 0.5), p75: quantile(sorted, 0.75), p95: quantile(sorted, 0.95), probLoss: frac((x) => x < 0), probBelow10: frac((x) => x < 0.1), probAbove20: frac((x) => x >= 0.2), moicMedian: funded === 0 ? Number.NaN : quantile(ms, 0.5), hist };
 }
 
 export type TornadoRow = { driver: string; low: number | null; high: number | null; lowLabel: string; highLabel: string; swing: number };
@@ -259,8 +281,8 @@ export function tornado(base: LboInputs): { base: number; rows: TornadoRow[] } {
   const b = runLbo(base).irr;
   const pp = (x: number) => `${x >= 0 ? "+" : "−"}${Math.abs(x * 100).toFixed(0)} pts`;
   const defs: { driver: string; lowLabel: string; highLabel: string; low: Partial<LboInputs>; high: Partial<LboInputs> }[] = [
-    { driver: "Exit multiple", lowLabel: "−2x", highLabel: "+2x", low: { exitMultiple: Math.max(1, base.exitMultiple - 2) }, high: { exitMultiple: base.exitMultiple + 2 } },
-    { driver: "Year-5 EBITDA margin", lowLabel: pp(-0.03), highLabel: pp(0.03), low: { marginTarget: Math.max(0.02, base.marginTarget - 0.03) }, high: { marginTarget: Math.min(0.95, base.marginTarget + 0.03) } },
+    { driver: "Exit multiple", lowLabel: "−2x", highLabel: "+2x", low: { exitMultiple: Math.max(Math.min(1, base.exitMultiple), base.exitMultiple - 2) }, high: { exitMultiple: base.exitMultiple + 2 } },
+    { driver: "Year-5 EBITDA margin", lowLabel: pp(-0.03), highLabel: pp(0.03), low: { marginTarget: Math.max(Math.min(0.02, base.marginTarget), base.marginTarget - 0.03) }, high: { marginTarget: Math.min(Math.max(0.95, base.marginTarget), base.marginTarget + 0.03) } },
     { driver: "Revenue growth, every year", lowLabel: pp(-0.03), highLabel: pp(0.03), low: { growth: base.growth.map((g) => g - 0.03) }, high: { growth: base.growth.map((g) => g + 0.03) } },
     { driver: "Senior debt multiple", lowLabel: "−1x", highLabel: "+1x", low: { seniorX: Math.max(0, base.seniorX - 1) }, high: { seniorX: base.seniorX + 1 } },
     { driver: "Senior interest rate", lowLabel: pp(-0.02), highLabel: pp(0.02), low: { seniorRate: Math.max(0, base.seniorRate - 0.02) }, high: { seniorRate: base.seniorRate + 0.02 } },

@@ -33,7 +33,7 @@ const v = validation.totals;
     <section class="wrap proj-hero">
       <h1>Credit Risk Screen</h1>
       <p class="proj-lede">How much financial strain could each company take? Score 28 US pharma and biotech companies on leverage, interest cover, cash flow and liquidity, shock their earnings, and see who runs out of room first. The rules are written down and you can change the limits.</p>
-      <p class="status">Version 1.0 · not a credit rating · method note · built with AI assistance · not independently reviewed</p>
+      <p class="status">Version 1.0.1 · not a credit rating · method note · built with AI assistance · not independently reviewed</p>
       <div class="brief">
         <div><h2>Who it is for</h2><p>A credit or finance analyst who needs a quick, explainable first look at a group of borrowers, and a student learning how credit ratios are read.</p></div>
         <div><h2>The problem</h2><p>One ratio never tells the story. A company can have low debt and weak earnings, or high debt and strong cash flow. A screen should show each measure, a stress case and where the measures disagree.</p></div>
@@ -173,8 +173,8 @@ const v = validation.totals;
           <li><strong>Free cash flow</strong> is operating cash flow less capex; where capex is not tagged it equals operating cash flow, and that is flagged.</li>
           <li><strong>Scoring.</strong> Each ratio is mapped to 0 to 100 by straight lines through the anchors in the table above; net cash and no debt score 100 on the debt factors; negative EBITDA with net debt scores 0 on leverage. The weighted average is the score. A missing factor is dropped, the remaining weights are rescaled and the page says how much of the weight was used.</li>
           <li><strong>Stress.</strong> EBITDA and operating cash flow both fall by the chosen share of EBITDA (before tax, a simplification). If free cash flow turns negative, the cash burn is added to net debt for one year. Interest stays the same.</li>
-          <li><strong>Room before a limit.</strong> The largest fall in EBITDA such that net debt to EBITDA stays at or below the limit and interest cover stays at or above the floor, in closed form. Net cash has no leverage limit; no interest means no cover limit.</li>
-          <li><strong>Checks.</strong> 19 unit tests cover the ratios, the scoring anchors, the weight rescaling, the band boundaries, the closed-form room calculation, the stress test, the Altman example, the weight-robustness and the permutation test.</li>
+          <li><strong>Room before a limit.</strong> The largest fall in EBITDA such that net debt to EBITDA stays at or below the limit and interest cover stays at or above the floor, in closed form. This uses the same cash-burn rule as the stress, so a company with net cash can still breach the leverage limit if it burns enough cash. No interest means no cover limit.</li>
+          <li><strong>Checks.</strong> 21 unit tests cover the ratios, the scoring anchors, the weight rescaling, the band boundaries, the closed-form room calculation, the stress test, the Altman example, the weight-robustness and the permutation test.</li>
         </ul>
       </div>
     </section>

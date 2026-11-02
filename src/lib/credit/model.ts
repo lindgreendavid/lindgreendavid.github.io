@@ -106,7 +106,11 @@ export function totalScore(s: Record<Factor, number | null>): { score: number; u
   return w === 0 ? null : { score: acc / w, used: w };
 }
 
-/** Largest fall in EBITDA the company can take before net leverage exceeds the limit or interest cover drops below the floor. */
+/**
+ * Largest fall in EBITDA the company can take before net leverage exceeds the limit or interest cover drops below the floor.
+ * Uses the same convention as `stress()`: operating cash flow falls with EBITDA, and any resulting cash burn is added to net debt
+ * (so a company with net cash can still end up above the limit). Stressing by exactly this share lands on the limit.
+ */
 export function headroom(r: Raw, leverageLimit: number, coverageFloor: number): { value: number; binding: "leverage" | "coverage" | "none" | "already" } | null {
   if (r.ebitda === null || r.debt === null || r.cash === null) return null;
   const netDebt = r.debt - r.cash;
@@ -114,7 +118,14 @@ export function headroom(r: Raw, leverageLimit: number, coverageFloor: number): 
   const interest = r.debt < NO_DEBT ? 0 : r.interest;
   if (interest === null) return null;
   if (e <= 0 && (netDebt > 0 || interest > 0)) return { value: 0, binding: "already" };
-  const levRoom = netDebt > 0 ? 1 - netDebt / (leverageLimit * e) : Infinity;
+  // Stressed net debt at shock s is netDebt + max(0, s*e - fcf0); the limit holds while that is at most L*e*(1-s). Left side rises with s, right side falls.
+  const fcf0 = r.cfo === null ? Infinity : r.cfo - (r.capex ?? 0);
+  let levRoom: number;
+  if (e <= 0 || netDebt + Math.max(0, e - fcf0) <= 0) levRoom = Infinity; // never ends above zero net debt, even with EBITDA at zero
+  else {
+    const noBurn = 1 - netDebt / (leverageLimit * e); // root while the shock is still covered by free cash flow
+    levRoom = noBurn * e <= fcf0 ? noBurn : (leverageLimit * e + fcf0 - netDebt) / (e * (1 + leverageLimit));
+  }
   const covRoom = interest > 0 ? 1 - (coverageFloor * interest) / e : Infinity;
   const room = Math.min(levRoom, covRoom);
   if (room === Infinity) return { value: 1, binding: "none" };

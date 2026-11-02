@@ -179,3 +179,30 @@ test("validity checks run on the real data and stay inside valid ranges", () => 
     assert.ok(x.p !== null && x.p > 0 && x.p <= 1);
   }
 });
+
+test("headroom uses the same cash-burn convention as the stress test", () => {
+  // Reviewer's case: EBITDA 100, debt 250, cash 50, CFO 10, capex 10, interest 1, limit 4x. A 50% shock burns the cash and ends at 5x, so headroom must be 40%.
+  const r = raw({ ebitda: 100, debt: 250, cash: 50, cfo: 10, capex: 10, interest: 1 });
+  const h = headroom(r, 4, 3)!;
+  assert.equal(h.binding, "leverage");
+  close(h.value, 0.4);
+  close(ratiosFrom(stress(r, h.value)).leverage as number, 4, 1e-9);
+  assert.ok((ratiosFrom(stress(r, h.value + 0.01)).leverage as number) > 4);
+});
+
+test("headroom: net cash can become net debt once cash burn is counted; stressing by the headroom lands on the limit", () => {
+  const cases: Partial<Raw>[] = [
+    { debt: 100, cash: 300, cfo: -50, capex: 0 }, // net cash, burning cash
+    { debt: 100, cash: 150, cfo: 20, capex: 10 }, // net cash, small free cash flow
+    { debt: 300, cash: 100, cfo: 80, capex: 10 }, // free cash flow absorbs part of the shock
+    { debt: 300, cash: 100, cfo: null, capex: null }, // no cash flow data: no burn
+  ];
+  for (const c of cases) {
+    const r = raw({ interest: 0.5, ...c });
+    const h = headroom(r, 4, 3)!;
+    if (h.binding !== "leverage") continue;
+    close(ratiosFrom(stress(r, h.value)).leverage as number, 4, 1e-9);
+  }
+  // net cash that survives a total loss of EBITDA: no leverage limit applies
+  assert.equal(headroom(raw({ debt: 10, cash: 900, cfo: 80, capex: 10, interest: 0.5 }), 4, 3)!.binding, "coverage");
+});

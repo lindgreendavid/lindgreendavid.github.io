@@ -2,7 +2,7 @@
 import Base from "../../../layouts/Base.astro";
 import ProjectHeader from "../../../components/ProjectHeader.astro";
 import "../../../styles/projects.css";
-import { AUTHOR, BUILT_WITH, DATE, VERSION, noteBuilders, slugs } from "../../../lib/methodNotes.ts";
+import { AUTHOR, BUILT_WITH, noteBuilders, slugs } from "../../../lib/methodNotes.ts";
 
 export function getStaticPaths() {
   return slugs.map((slug) => ({ params: { slug } }));
@@ -10,7 +10,8 @@ export function getStaticPaths() {
 const { slug } = Astro.params;
 const n = noteBuilders[slug as string]();
 const url = `https://lindgreendavid.com${n.projectPath}method/`;
-const cite = `${AUTHOR} (${DATE.slice(0, 4)}). ${n.title}, version ${VERSION}. ${url}`;
+const latest = n.changelog[0]; // newest entry first: it sets the version and date shown
+const cite = `${AUTHOR} (${latest.date.slice(0, 4)}). ${n.title}, version ${latest.version}. ${url}`;
 const sections: { id: string; h: string; items: string[] }[] = [
   { id: "data", h: "Data", items: n.data },
   { id: "method", h: "Method", items: n.method },
@@ -25,7 +26,7 @@ const sections: { id: string; h: string; items: string[] }[] = [
   <main id="main" class="note">
     <section class="wrap proj-hero">
       <h1>{n.title}</h1>
-      <p class="status">Version {VERSION} · {DATE} · not independently reviewed</p>
+      <p class="status">Version {latest.version} · {latest.date} · not independently reviewed</p>
       <p class="proj-lede">{n.abstract}</p>
       <nav class="jump" aria-label="On this page">
         <a href={n.projectPath}>The project</a>

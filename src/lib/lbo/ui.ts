@@ -16,8 +16,9 @@ export function renderLbo(i: LboInputs, r: LboResult) {
   const summary = `<table class="tbl"><caption class="sr">Returns to the sponsor</caption><tbody>
     <tr><th scope="row">Sponsor equity at close</th><td class="num">${money(r.sponsorEquity)}</td></tr>
     <tr><th scope="row">Equity value at exit, year ${HOLD_YEARS}</th><td class="num">${money(r.exitEquity)}</td></tr>
+    ${r.exitEquity < 0 ? `<tr><th scope="row">Proceeds to the sponsor (cannot be below zero)</th><td class="num">${money(r.sponsorProceeds)}</td></tr>` : ""}
     <tr class="sum"><th scope="row">Money multiple (MOIC)</th><td class="num">${r.moic.toFixed(2)}x</td></tr>
-    <tr class="sum"><th scope="row">Annual return (IRR)</th><td class="num">${fmtPct(r.irr)}</td></tr>
+    <tr class="sum"><th scope="row">${r.fundingGap ? "Annual return (IRR), conditional on unmodelled funding" : "Annual return (IRR)"}</th><td class="num">${fmtPct(r.irr)}</td></tr>
     <tr><th scope="row">Equity share of funding</th><td class="num">${fmtPct(r.equityShare, 0)}</td></tr>
     <tr><th scope="row">Net debt / EBITDA at close → at exit</th><td class="num">${fmtX((r.senior0 + r.sub0) / i.ebitda0)} → ${exitYear.leverage === null ? "n/a" : fmtX(Math.max(0, exitYear.leverage))}</td></tr>
   </tbody></table>`;
@@ -61,10 +62,11 @@ export function renderLbo(i: LboInputs, r: LboResult) {
       { label: "Multiple change", value: b.multiple, kind: "delta" },
       { label: "Debt paid down", value: b.deleveraging, kind: "delta" },
       { label: "Fees", value: b.fees, kind: "delta" },
-      { label: "Equity at exit", value: r.exitEquity, kind: "total" },
+      ...(b.limitedLiability > 0 ? [{ label: "Loss borne by lenders", value: b.limitedLiability, kind: "delta" as const }] : []),
+      { label: "Equity at exit", value: r.sponsorProceeds, kind: "total" },
     ],
     format: (n) => fmtM(n),
-    label: `Value creation bridge, $m: equity invested ${money(r.sponsorEquity)}, growth ${signed(b.ebitdaGrowth)}, multiple ${signed(b.multiple)}, debt paydown ${signed(b.deleveraging)}, fees ${signed(b.fees)}, equity at exit ${money(r.exitEquity)}`,
+    label: `Value creation bridge, $m: equity invested ${money(r.sponsorEquity)}, growth ${signed(b.ebitdaGrowth)}, multiple ${signed(b.multiple)}, debt paydown ${signed(b.deleveraging)}, fees ${signed(b.fees)}${b.limitedLiability > 0 ? `, loss borne by lenders ${signed(b.limitedLiability)}` : ""}, equity at exit ${money(r.sponsorProceeds)}`,
   });
 
   const debt = stacked({
@@ -97,8 +99,8 @@ export function renderMonteCarlo(i: LboInputs): string {
   const bin = (x: number) => fmtPct(x, 0).replace("-0%", "0%");
   const m = monteCarlo(i, { draws: MC_DRAWS, seed: 1 });
   const max = Math.max(...m.hist.map((h) => h.count), 1);
-  const bins = m.hist.map((h) => `<li><span class="mb-label">${bin(h.lo)} to ${bin(h.hi)}</span><span class="mb-track" aria-hidden="true"><span class="mb-fill" style="--w:${((h.count / max) * 100).toFixed(1)}%"></span></span><span class="mb-val">${((h.count / m.draws) * 100).toFixed(0)}%</span></li>`).join("");
-  return `<table class="tbl"><caption class="sr">Distribution of the annual return across ${m.draws} simulated cases</caption><tbody>
+  const bins = m.hist.map((h) => `<li><span class="mb-label">${bin(h.lo)} to ${bin(h.hi)}</span><span class="mb-track" aria-hidden="true"><span class="mb-fill" style="--w:${((h.count / max) * 100).toFixed(1)}%"></span></span><span class="mb-val">${((h.count / (m.fundedDraws || m.draws)) * 100).toFixed(0)}%</span></li>`).join("");
+  return `<table class="tbl"><caption class="sr">Distribution of the annual return across ${m.fundedDraws || m.draws} simulated cases</caption><tbody>
     <tr><th scope="row">5th percentile</th><td class="num">${fmtPct(m.p5)}</td></tr>
     <tr><th scope="row">25th percentile</th><td class="num">${fmtPct(m.p25)}</td></tr>
     <tr class="sum"><th scope="row">Median</th><td class="num">${fmtPct(m.p50)}</td></tr>
@@ -107,7 +109,9 @@ export function renderMonteCarlo(i: LboInputs): string {
     <tr><th scope="row">Share of cases with a loss (IRR below 0%)</th><td class="num">${fmtPct(m.probLoss, 1)}</td></tr>
     <tr><th scope="row">Share below 10% a year</th><td class="num">${fmtPct(m.probBelow10, 0)}</td></tr>
     <tr><th scope="row">Share at or above 20% a year</th><td class="num">${fmtPct(m.probAbove20, 0)}</td></tr>
+    <tr><th scope="row">Simulated cases with a funding gap (left out of the figures above)</th><td class="num">${fmtPct(m.probGap, 1)}</td></tr>
   </tbody></table>
+  ${m.fundedDraws === 0 ? `<p class="muted">Every simulated case had a funding gap, so the figures above include them and are conditional on financing the model does not specify.</p>` : ""}
   <figure class="mb mb-w" style="margin-top:1.25rem"><figcaption>Share of simulated cases by annual return</figcaption><ul>${bins}</ul></figure>`;
 }
 

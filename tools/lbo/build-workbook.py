@@ -203,20 +203,21 @@ deal_rows = [
     (9, "Equity purchase price (enterprise value less existing net debt)", "=B3-Inputs!B7", "#,##0.0"),
     (12, "Exit enterprise value (exit multiple x year-5 EBITDA)", "=Inputs!B12*Model!G6", "#,##0.0"),
     (13, "Net debt at exit", "=Model!G24", "#,##0.0"),
-    (14, "Equity value at exit", "=B12-B13", "#,##0.0"),
-    (15, "Money multiple (MOIC)", "=B14/B8", '0.00"x"'),
+    (14, "Equity value at exit (negative if the lenders are not repaid in full)", "=B12-B13", "#,##0.0"),
+    (15, "Money multiple (MOIC); sponsor proceeds are floored at zero", "=MAX(0,B14)/B8", '0.00"x"'),
     (16, "Annual return (IRR)", "=IF(B15>0,B15^(1/5)-1,-1)", "0.0%"),
     (19, "Bridge: EBITDA growth (entry multiple x change in EBITDA)", "=Inputs!B11*(Model!G6-Model!B6)", "#,##0.0"),
     (20, "Bridge: multiple change ((exit - entry) x year-5 EBITDA)", "=(Inputs!B12-Inputs!B11)*Model!G6", "#,##0.0"),
     (21, "Bridge: debt paid down (debt at close - net debt at exit)", "=B6+B7-B13", "#,##0.0"),
     (22, "Bridge: fees", "=-B4", "#,##0.0"),
-    (23, "Bridge total = equity gain", "=SUM(B19:B22)", "#,##0.0"),
+    (23, "Bridge: loss borne by lenders (equity cannot be below zero)", "=MAX(0,B14)-B14", "#,##0.0"),
+    (24, "Bridge total = equity gain (sponsor proceeds less equity invested)", "=SUM(B19:B23)", "#,##0.0"),
 ]
 for r, label, f, fmt in deal_rows:
     wd[f"A{r}"].value = label
     wd[f"B{r}"].value = f
     wd[f"B{r}"].number_format = fmt
-for r in (5, 8, 15, 16, 23):
+for r in (5, 8, 15, 16, 24):
     wd[f"A{r}"].font = BOLD
 wd["A11"].value = "Exit and returns"
 wd["A11"].font = BOLD
@@ -260,7 +261,7 @@ for c in (wc["A1"], wc["B1"]):
     c.font = BOLD
 checks = [
     ("Sources equal uses", "=ABS(Deal!B6+Deal!B7+Deal!B8-Deal!B5)<0.000001"),
-    ("The value bridge adds up to the equity gain", "=ABS(Deal!B23-(Deal!B14-Deal!B8))<0.000001"),
+    ("The value bridge adds up to the equity gain", "=ABS(Deal!B24-(MAX(0,Deal!B14)-Deal!B8))<0.000001"),
     ("No debt balance is negative", "=MIN(Model!B21:G22)>=-0.000001"),
     ("Cash is never negative (no funding gap)", "=MIN(Model!B23:G23)>=-0.000001"),
     ("Sponsor equity is positive", "=Deal!B8>0"),

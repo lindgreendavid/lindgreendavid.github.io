@@ -16,12 +16,12 @@ test("sources equal uses and the equity cheque is the plug", () => {
 });
 
 test("the value bridge adds up to the equity gain, in several cases", () => {
-  const cases: Partial<LboInputs>[] = [{}, { exitMultiple: 12 }, { exitMultiple: 7, seniorX: 5 }, { marginTarget: 0.28, growth: [0.1, 0.08, 0.06, 0.04, 0.02] }, { sweepPct: 0 }];
+  const cases: Partial<LboInputs>[] = [{}, { exitMultiple: 12 }, { exitMultiple: 7, seniorX: 5 }, { marginTarget: 0.28, growth: [0.1, 0.08, 0.06, 0.04, 0.02] }, { sweepPct: 0 }, { seniorX: 5, subX: 1, marginTarget: 0.03, exitMultiple: 5 }];
   for (const c of cases) {
     const r = runLbo({ ...base(), ...c });
     const b = r.bridge;
-    close(b.ebitdaGrowth + b.multiple + b.deleveraging + b.fees, b.total, 1e-6);
-    close(b.total, r.exitEquity - r.sponsorEquity, 1e-6);
+    close(b.ebitdaGrowth + b.multiple + b.deleveraging + b.fees + b.limitedLiability, b.total, 1e-6);
+    close(b.total, r.sponsorProceeds - r.sponsorEquity, 1e-6);
   }
 });
 
@@ -78,6 +78,9 @@ test("a margin collapse can wipe out the equity and the IRR is reported as -100%
   const r = runLbo({ ...base(), seniorX: 5, subX: 1, marginTarget: 0.03, exitMultiple: 5 });
   assert.ok(r.exitEquity <= 0);
   close(r.irr, -1);
+  close(r.sponsorProceeds, 0); // limited liability: the sponsor cannot receive a negative amount
+  close(r.moic, 0);
+  assert.ok(r.bridge.limitedLiability > 0);
   assert.ok(r.flags.some((f) => f.includes("wiped out")));
 });
 
@@ -139,4 +142,29 @@ test("tornado: sorted by swing, base unchanged, exit multiple moves the return i
   close(exit.low as number, runLbo({ ...base(), exitMultiple: base().exitMultiple - 2 }).irr);
   close(exit.high as number, runLbo({ ...base(), exitMultiple: base().exitMultiple + 2 }).irr);
   assert.ok((exit.low as number) < t.base && (exit.high as number) > t.base);
+});
+
+test("a funding gap is flagged, marked on the result and the flag says the return is conditional", () => {
+  const gap = runLbo({ ...base(), seniorX: 5, subX: 1, capexPct: 0.1, marginTarget: 0.35, growth: [-0.5, 0.5, 0.5, 0.3, 0.2] });
+  assert.equal(gap.fundingGap, true);
+  assert.ok(gap.years.some((y) => y.cash < 0));
+  assert.ok(gap.flags.some((f) => f.includes("conditional")));
+  assert.equal(runLbo(base()).fundingGap, false);
+});
+
+test("Monte Carlo at zero spread reproduces the base case for valid inputs outside the usual clamps", () => {
+  for (const o of [{ marginTarget: 0.01 }, { marginTarget: 0.97 }, { exitMultiple: 0.5 }, { growth: [-0.7, 0, 0, 0, 0] }]) {
+    const i = { ...base(), seniorX: 0, subX: 0, ...o };
+    const z = monteCarlo(i, { draws: 10, scale: 0 });
+    close(z.p50, runLbo(i).irr, 1e-9);
+  }
+});
+
+test("Monte Carlo reports funding-gap cases separately and leaves them out of the return figures", () => {
+  const i = { ...base(), seniorX: 5, subX: 1, capexPct: 0.1, marginTarget: 0.2, growth: [-0.1, 0.1, 0.1, 0.1, 0.1] };
+  const m = monteCarlo(i, { draws: 1500, seed: 2 });
+  assert.ok(m.probGap > 0 && m.probGap < 1, `gap share ${m.probGap}`);
+  assert.equal(m.fundedDraws, Math.round(m.draws * (1 - m.probGap)));
+  assert.equal(m.hist.reduce((s, h) => s + h.count, 0), m.fundedDraws);
+  assert.equal(monteCarlo(base(), { draws: 300, seed: 1 }).probGap, 0);
 });

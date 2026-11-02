@@ -29,7 +29,7 @@ const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
     <section class="wrap proj-hero">
       <h1>LBO Workbench</h1>
       <p class="proj-lede">Pick a listed pharma or biotech company, set the price and the debt, and see what a financial buyer could earn after five years and where the return comes from. Every step is visible, and the same model is in an Excel file with live formulas.</p>
-      <p class="status">Version 1.0 · hypothetical deal · method note · built with AI assistance · not independently reviewed</p>
+      <p class="status">Version 1.0.1 · hypothetical deal · method note · built with AI assistance · not independently reviewed</p>
       <div class="brief">
         <div><h2>Who it is for</h2><p>An analyst or student who wants to see how a buyout works, not just the result: how much debt, how fast it is repaid and what drives the return.</p></div>
         <div><h2>The problem</h2><p>Buyout returns depend on a handful of assumptions, and a single IRR hides which one matters. A good model shows the funding, the debt schedule and the sensitivities.</p></div>
@@ -146,7 +146,7 @@ const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
             <li><strong>Debt.</strong> Interest is charged on opening balances, which avoids a circular calculation. The senior debt has a mandatory repayment (a share of the original amount) and a cash sweep of the excess; the subordinated debt is repaid at exit. Cash that is not swept builds up on the balance sheet and counts at exit.</li>
             <li><strong>Return.</strong> Exit enterprise value is the exit multiple times year-5 EBITDA. Equity at exit is that less net debt. MOIC is exit equity divided by the equity invested; IRR is MOIC to the power of one fifth, less one, because there are no interim payments.</li>
             <li><strong>Uncertainty.</strong> A Monte Carlo of 3,000 cases with a fixed seed: revenue growth shifts by a common amount (normal, standard deviation 3 points) plus year noise (2 points), the year-5 margin varies (normal, 3 points), the exit multiple is triangular within 2 turns of your input and the senior rate varies (normal, 1 point). The price, debt multiples and fees are deal terms and stay fixed. The spreads are my illustrative choices, so the output shows how wide the outcomes can be, not their true probabilities. The tornado moves one input at a time by a stated amount.</li>
-            <li><strong>Checks.</strong> {" "}17 unit tests cover the funding identity, a closed-form case, the bridge identity, the debt schedule, validation, the sensitivity grids, the reproducibility of the simulation and the tornado. The Excel file is recalculated in Excel and compared with this page.</li>
+            <li><strong>Checks.</strong> {" "}20 unit tests cover the funding identity, a closed-form case, the bridge identity, the debt schedule, validation, the sensitivity grids, the reproducibility of the simulation and the tornado. The Excel file is recalculated in Excel and compared with this page.</li>
           </ul>
         </div>
       </section>
@@ -173,6 +173,7 @@ const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
           <li><strong>It is hypothetical.</strong> The entry price, exit multiple, loan terms and operating assumptions are yours or illustrative defaults. They are not market data, and the defaults are not a view on what any company is worth.</li>
           <li><strong>The starting EBITDA is as reported.</strong> It includes one-offs, stock compensation and acquisition effects unless the data flags say otherwise; a real model would adjust it. The default company is chosen because it has no identified one-offs, not because it is a good target.</li>
           <li><strong>The financing is simplified.</strong> One senior tranche, one subordinated tranche, no revolver, no minimum cash, no interest-deductibility limit, no fees amortised, no management equity, no dividends, no purchase-price accounting and no transaction-specific tax structure.</li>
+          <li><strong>A funding gap is flagged, not financed.</strong> If cash goes negative in a year, nothing pays for the shortfall in the model, so the return shown with that warning is conditional on financing that is not modelled. The simulation reports those cases separately. If the equity is wiped out, the sponsor receives zero, not a negative amount.</li>
           <li><strong>Capex and loan terms are assumptions.</strong> The filings supply neither as inputs for this model, so capex is a share of revenue you set. Interest rates are illustrative, and rates change with the market.</li>
           <li><strong>Pharma and biotech are not typical buyout targets.</strong> Patent expiries, pipeline risk and regulation make cash flows less predictable than the model assumes, which is a reason to read the sensitivity grids rather than the single IRR.</li>
           <li><strong>Not independently reviewed.</strong> It was built with AI assistance, checked by tests and an Excel recalculation, and has not been reviewed by a finance professional. Educational use only; not investment advice.</li>
