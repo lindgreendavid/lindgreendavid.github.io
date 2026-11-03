@@ -1,0 +1,12 @@
+---
+// The tab bar for a workbench page. Panels are written by hand as <div class="tab-panel" id="panel-ID" role="tabpanel" aria-labelledby="tab-ID">.
+interface Props {
+  tabs: { id: string; label: string }[];
+}
+const { tabs } = Astro.props;
+---
+<section class="wrap" style="padding-top: clamp(2.5rem, 6vw, 4.5rem)" aria-label="Sections" hidden>
+  <div class="tabs" role="tablist" aria-label="Sections" hidden>
+    {tabs.map((t, i) => <button type="button" role="tab" id={`tab-${t.id}`} aria-controls={`panel-${t.id}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1}>{t.label}</button>)}
+  </div>
+</section>

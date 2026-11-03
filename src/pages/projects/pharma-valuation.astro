@@ -2,6 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import ProjectHeader from "../../components/ProjectHeader.astro";
 import ProjectFlow from "../../components/ProjectFlow.astro";
+import TabBar from "../../components/TabBar.astro";
 import ProjectUses from "../../components/ProjectUses.astro";
 import "../../styles/projects.css";
 import ds from "../../data/pharma/dataset.json";
@@ -100,23 +101,7 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
       <h1>Pharma Valuation Explorer</h1>
       <p class="proj-lede">Compare Novartis, AstraZeneca and GSK on one consistent basis, then explore a transparent DCF of AstraZeneca. Every figure links back to a public filing.</p>
       <p class="status">Version 1.0 · method note, tests and Excel model · not independently reviewed</p>
-      <div class="brief">
-        <div>
-          <h2>Who it is for</h2>
-          <p>An analyst comparing large pharmaceutical companies who needs to see the evidence and the assumptions, not just a number.</p>
-        </div>
-        <div>
-          <h2>The problem</h2>
-          <p>Figures are scattered across filings, and comparisons break when currencies, fiscal periods, one-off items and definitions differ.</p>
-        </div>
-        <div>
-          <h2>What it supports</h2>
-          <p>Judging which company is more cash-generative on a like-for-like basis, and which assumptions a DCF value depends on. It is not a buy or sell signal.</p>
-        </div>
-      </div>
-      <nav class="jump" aria-label="On this page"><a href="/projects/pharma-valuation/method/">Method note</a>
-        <a href="#compare">Compare</a><a href="#valuation">Valuation</a><a href="#wacc-sources">WACC from sources</a><a href="#evidence">Evidence</a><a href="#method">Method</a><a href="#uses">Uses</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a>
-      </nav>
+      <p class="actions-line"><a class="btn btn-primary" href="#valuation">Run the valuation</a><a class="text-link" href="/projects/pharma-valuation/method/">Read the method note</a></p>
     </section>
 
     <section class="wrap" aria-label="Disclosures">
@@ -132,14 +117,92 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
       </p>
     </section>
 
-    <ProjectFlow id="built" heading="How it is built" intro="From a public filing to a number you can check. Each step has its own tests." steps={[
-      { title: "Public filings", detail: "Forms 20-F for Novartis, AstraZeneca and GSK from the SEC, plus ECB reference exchange rates." },
-      { title: "Read and reconcile", detail: "Figures are read from the filings' XBRL tags, then compared with the SEC's rendered statement pages. Differences are listed." },
-      { title: "Automated checks", detail: "Accounting identities, units, currency bands and completeness are tested on every build." },
-      { title: "Model", detail: "Comparable metrics, then a DCF with scenarios, sensitivity grids and a discount rate built from sourced inputs." },
-      { title: "What you get", detail: "A comparison, charts with data tables and an Excel workbook with live formulas that matches the page." },
-    ]} />
+    <TabBar tabs={[{ id: "try", label: "Try it" }, { id: "details", label: "Details" }, { id: "about", label: "About and method" }]} />
 
+    <div class="tab-panel" id="panel-try" role="tabpanel" aria-labelledby="tab-try">
+    <section class="wrap section" id="valuation" aria-labelledby="val-h">
+      <div class="section-head">
+        <h2 id="val-h">A DCF of AstraZeneca</h2>
+        <p>AstraZeneca is used for the DCF because it reports in US dollars and tags the depreciation, pension and associate lines the bridge needs. The base year is FY2025 and the valuation date is the 31 December 2025 balance sheet. The assumptions are illustrative and anchored to the history below; they are not forecasts or company guidance.</p>
+      </div>
+
+      <div class="pane">
+        <h3 class="sub-h">Historical anchors</h3>
+        <div class="tbl-wrap" role="region" aria-label="AstraZeneca historical ratios" tabindex="0">
+          <table class="tbl">
+            <thead><tr><th scope="col">AstraZeneca</th>{YEARS.map((y) => <th scope="col">FY{y}</th>)}</tr></thead>
+            <tbody>
+              <tr><th scope="row">Revenue growth</th>{YEARS.map((y) => <td>{y === 2023 ? "n/a" : fmtPct(az(y).c.revenueGrowth!)}</td>)}</tr>
+              <tr><th scope="row">Operating margin</th>{YEARS.map((y) => <td>{fmtPct(az(y).c.operatingMargin)}</td>)}</tr>
+              <tr><th scope="row">Effective tax rate</th>{YEARS.map((y) => <td>{fmtPct(az(y).c.effectiveTaxRate)}</td>)}</tr>
+              <tr><th scope="row">D&amp;A (excl. impairment) as % of revenue</th>{YEARS.map((y) => <td>{fmtPct(az(y).da / az(y).c.revenue)}</td>)}</tr>
+              <tr><th scope="row">Capex incl. intangibles as % of revenue</th>{YEARS.map((y) => <td>{fmtPct(az(y).capexPct)}</td>)}</tr>
+              <tr><th scope="row">Operating cash flow / profit</th>{YEARS.map((y) => <td>{fmtX(az(y).c.cashConversion)}</td>)}</tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="muted" style="margin-top: 0.75rem">The jump in operating margin between FY2024 and FY2025 may include one-off items; this tool does not separate them.</p>
+      </div>
+
+      <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
+        <form id="dcf-form" class="pane stack" onsubmit="return false" aria-label="DCF assumptions">
+          <div>
+            <h3 class="sub-h">Assumptions</h3>
+            <p class="sub-note">Enter percentages. Changing any value switches the scenario to Custom.</p>
+          </div>
+          <div class="field">
+            <label for="scenario">Scenario</label>
+            <select id="scenario" name="scenario">
+              <option value="low">Low</option>
+              <option value="base" selected>Base</option>
+              <option value="high">High</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+          <fieldset style="border:0;margin:0;padding:0">
+            <legend class="sub-note" style="margin-bottom:0.5rem">Revenue growth, FY2026 to FY2030 (%)</legend>
+            <div class="fields">
+              {[1, 2, 3, 4, 5].map((n) => (
+                <div class="field"><label for={`g${n}`}>FY{2025 + n}</label><input id={`g${n}`} name={`g${n}`} type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.growth[n - 1] * 100).toFixed(1)} /></div>
+              ))}
+            </div>
+          </fieldset>
+          <div class="fields">
+            <div class="field"><label for="target">Operating margin in FY2030 (%)</label><input id="target" name="target" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.targetMargin * 100).toFixed(1)} /></div>
+            <div class="field"><label for="tax">Tax rate on operating profit (%)</label><input id="tax" name="tax" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.taxRate * 100).toFixed(1)} /></div>
+            <div class="field"><label for="da">D&amp;A, % of revenue</label><input id="da" name="da" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.daPct * 100).toFixed(1)} /></div>
+            <div class="field"><label for="capex">Capex incl. intangibles, % of revenue</label><input id="capex" name="capex" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.capexPct * 100).toFixed(1)} /></div>
+            <div class="field"><label for="nwc">Working-capital investment, % of revenue</label><input id="nwc" name="nwc" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.nwcPct * 100).toFixed(1)} /></div>
+            <div class="field"><label for="wacc">WACC (%)</label><input id="wacc" name="wacc" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.wacc * 100).toFixed(1)} /><span class="hint">Discount rate, entered directly</span></div>
+            <div class="field"><label for="tg">Terminal growth (%)</label><input id="tg" name="tg" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.terminalGrowth * 100).toFixed(1)} /></div>
+          </div>
+          <button type="button" id="dcf-reset" class="btn-quiet">Reset to Base</button>
+        </form>
+        <div class="pane stack" aria-live="polite">
+          <h3 class="sub-h">Result</h3>
+          <p id="dcf-error" class="error" role="alert" hidden></p>
+          <div id="dcf-summary"><Fragment set:html={initial.summary} /></div>
+          <p class="muted">Per-share value is per ordinary share. Share counts and ADS ratios differ by listing, so compare it with the price of one ordinary share only after checking how your source quotes it.</p>
+        </div>
+      </div>
+
+      <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
+        <div class="pane"><div id="dcf-bridge" class="tbl-wrap"><Fragment set:html={initial.bridge} /></div>
+          <p class="muted" style="margin-top: 0.75rem"><strong>This bridge is partial.</strong> It omits contingent consideration, litigation and other provisions, deferred tax, other investments (such as equity holdings at fair value) and dividends declared. Pension deficit is shown before tax; non-controlling interests and associates are at book value.</p>
+        </div>
+        <div class="pane"><div id="dcf-years" class="tbl-wrap" role="region" aria-label="Forecast cash flows, scrolls horizontally on small screens" tabindex="0"><Fragment set:html={initial.years} /></div></div>
+      </div>
+
+      <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
+        <div class="pane"><div id="sens1" class="tbl-wrap"><Fragment set:html={initial.sens1} /></div></div>
+        <div class="pane"><div id="sens2" class="tbl-wrap"><Fragment set:html={initial.sens2} /></div></div>
+      </div>
+      <p class="muted" style="margin-top: 0.75rem">In the base case the terminal value is {fmtPct(initial.r.terminalShareOfEv, 0)} of enterprise value, so the result is mostly a statement about long-run assumptions. The outlined cell marks the current assumptions.</p>
+    </section>
+
+    </div>
+
+    <div class="tab-panel" id="panel-details" role="tabpanel" aria-labelledby="tab-details">
     <div class="band band-mint">
       <section class="wrap section" id="compare" aria-labelledby="compare-h">
         <div class="section-head">
@@ -231,86 +294,6 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
       </section>
     </div>
 
-    <section class="wrap section" id="valuation" aria-labelledby="val-h">
-      <div class="section-head">
-        <h2 id="val-h">A DCF of AstraZeneca</h2>
-        <p>AstraZeneca is used for the DCF because it reports in US dollars and tags the depreciation, pension and associate lines the bridge needs. The base year is FY2025 and the valuation date is the 31 December 2025 balance sheet. The assumptions are illustrative and anchored to the history below; they are not forecasts or company guidance.</p>
-      </div>
-
-      <div class="pane">
-        <h3 class="sub-h">Historical anchors</h3>
-        <div class="tbl-wrap" role="region" aria-label="AstraZeneca historical ratios" tabindex="0">
-          <table class="tbl">
-            <thead><tr><th scope="col">AstraZeneca</th>{YEARS.map((y) => <th scope="col">FY{y}</th>)}</tr></thead>
-            <tbody>
-              <tr><th scope="row">Revenue growth</th>{YEARS.map((y) => <td>{y === 2023 ? "n/a" : fmtPct(az(y).c.revenueGrowth!)}</td>)}</tr>
-              <tr><th scope="row">Operating margin</th>{YEARS.map((y) => <td>{fmtPct(az(y).c.operatingMargin)}</td>)}</tr>
-              <tr><th scope="row">Effective tax rate</th>{YEARS.map((y) => <td>{fmtPct(az(y).c.effectiveTaxRate)}</td>)}</tr>
-              <tr><th scope="row">D&amp;A (excl. impairment) as % of revenue</th>{YEARS.map((y) => <td>{fmtPct(az(y).da / az(y).c.revenue)}</td>)}</tr>
-              <tr><th scope="row">Capex incl. intangibles as % of revenue</th>{YEARS.map((y) => <td>{fmtPct(az(y).capexPct)}</td>)}</tr>
-              <tr><th scope="row">Operating cash flow / profit</th>{YEARS.map((y) => <td>{fmtX(az(y).c.cashConversion)}</td>)}</tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="muted" style="margin-top: 0.75rem">The jump in operating margin between FY2024 and FY2025 may include one-off items; this tool does not separate them.</p>
-      </div>
-
-      <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
-        <form id="dcf-form" class="pane stack" onsubmit="return false" aria-label="DCF assumptions">
-          <div>
-            <h3 class="sub-h">Assumptions</h3>
-            <p class="sub-note">Enter percentages. Changing any value switches the scenario to Custom.</p>
-          </div>
-          <div class="field">
-            <label for="scenario">Scenario</label>
-            <select id="scenario" name="scenario">
-              <option value="low">Low</option>
-              <option value="base" selected>Base</option>
-              <option value="high">High</option>
-              <option value="custom">Custom</option>
-            </select>
-          </div>
-          <fieldset style="border:0;margin:0;padding:0">
-            <legend class="sub-note" style="margin-bottom:0.5rem">Revenue growth, FY2026 to FY2030 (%)</legend>
-            <div class="fields">
-              {[1, 2, 3, 4, 5].map((n) => (
-                <div class="field"><label for={`g${n}`}>FY{2025 + n}</label><input id={`g${n}`} name={`g${n}`} type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.growth[n - 1] * 100).toFixed(1)} /></div>
-              ))}
-            </div>
-          </fieldset>
-          <div class="fields">
-            <div class="field"><label for="target">Operating margin in FY2030 (%)</label><input id="target" name="target" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.targetMargin * 100).toFixed(1)} /></div>
-            <div class="field"><label for="tax">Tax rate on operating profit (%)</label><input id="tax" name="tax" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.taxRate * 100).toFixed(1)} /></div>
-            <div class="field"><label for="da">D&amp;A, % of revenue</label><input id="da" name="da" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.daPct * 100).toFixed(1)} /></div>
-            <div class="field"><label for="capex">Capex incl. intangibles, % of revenue</label><input id="capex" name="capex" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.capexPct * 100).toFixed(1)} /></div>
-            <div class="field"><label for="nwc">Working-capital investment, % of revenue</label><input id="nwc" name="nwc" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.nwcPct * 100).toFixed(1)} /></div>
-            <div class="field"><label for="wacc">WACC (%)</label><input id="wacc" name="wacc" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.wacc * 100).toFixed(1)} /><span class="hint">Discount rate, entered directly</span></div>
-            <div class="field"><label for="tg">Terminal growth (%)</label><input id="tg" name="tg" type="number" inputmode="decimal" step="0.1" value={(SCENARIOS.base.terminalGrowth * 100).toFixed(1)} /></div>
-          </div>
-          <button type="button" id="dcf-reset" class="btn-quiet">Reset to Base</button>
-        </form>
-        <div class="pane stack" aria-live="polite">
-          <h3 class="sub-h">Result</h3>
-          <p id="dcf-error" class="error" role="alert" hidden></p>
-          <div id="dcf-summary"><Fragment set:html={initial.summary} /></div>
-          <p class="muted">Per-share value is per ordinary share. Share counts and ADS ratios differ by listing, so compare it with the price of one ordinary share only after checking how your source quotes it.</p>
-        </div>
-      </div>
-
-      <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
-        <div class="pane"><div id="dcf-bridge" class="tbl-wrap"><Fragment set:html={initial.bridge} /></div>
-          <p class="muted" style="margin-top: 0.75rem"><strong>This bridge is partial.</strong> It omits contingent consideration, litigation and other provisions, deferred tax, other investments (such as equity holdings at fair value) and dividends declared. Pension deficit is shown before tax; non-controlling interests and associates are at book value.</p>
-        </div>
-        <div class="pane"><div id="dcf-years" class="tbl-wrap" role="region" aria-label="Forecast cash flows, scrolls horizontally on small screens" tabindex="0"><Fragment set:html={initial.years} /></div></div>
-      </div>
-
-      <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
-        <div class="pane"><div id="sens1" class="tbl-wrap"><Fragment set:html={initial.sens1} /></div></div>
-        <div class="pane"><div id="sens2" class="tbl-wrap"><Fragment set:html={initial.sens2} /></div></div>
-      </div>
-      <p class="muted" style="margin-top: 0.75rem">In the base case the terminal value is {fmtPct(initial.r.terminalShareOfEv, 0)} of enterprise value, so the result is mostly a statement about long-run assumptions. The outlined cell marks the current assumptions.</p>
-    </section>
-
     <section class="wrap section" id="wacc-sources" aria-labelledby="wacc-h">
       <div class="section-head"><h2 id="wacc-h">A WACC built from sources (a scenario, not a correction)</h2><p>The scenarios above use a typed-in discount rate. Here the same cash flows are discounted at a rate built from dated public inputs, so you can see how much the answer depends on that choice.</p></div>
       <div class="pane">
@@ -390,6 +373,34 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
       </section>
     </div>
 
+    </div>
+
+    <div class="tab-panel" id="panel-about" role="tabpanel" aria-labelledby="tab-about">
+      <section class="wrap section" aria-labelledby="about-h">
+        <div class="section-head"><h2 id="about-h">About and method</h2><p>What this is, how it is built and what it cannot tell you. The short version: <a href="/projects/pharma-valuation/method/">the method note</a>.</p></div>
+        <div class="brief">
+        <div>
+          <h2>Who it is for</h2>
+          <p>An analyst comparing large pharmaceutical companies who needs to see the evidence and the assumptions, not just a number.</p>
+        </div>
+        <div>
+          <h2>The problem</h2>
+          <p>Figures are scattered across filings, and comparisons break when currencies, fiscal periods, one-off items and definitions differ.</p>
+        </div>
+        <div>
+          <h2>What it supports</h2>
+          <p>Judging which company is more cash-generative on a like-for-like basis, and which assumptions a DCF value depends on. It is not a buy or sell signal.</p>
+        </div>
+      </div>
+      </section>
+    <ProjectFlow id="built" heading="How it is built" intro="From a public filing to a number you can check. Each step has its own tests." steps={[
+      { title: "Public filings", detail: "Forms 20-F for Novartis, AstraZeneca and GSK from the SEC, plus ECB reference exchange rates." },
+      { title: "Read and reconcile", detail: "Figures are read from the filings' XBRL tags, then compared with the SEC's rendered statement pages. Differences are listed." },
+      { title: "Automated checks", detail: "Accounting identities, units, currency bands and completeness are tested on every build." },
+      { title: "Model", detail: "Comparable metrics, then a DCF with scenarios, sensitivity grids and a discount rate built from sourced inputs." },
+      { title: "What you get", detail: "A comparison, charts with data tables and an Excel workbook with live formulas that matches the page." },
+    ]} />
+
     <section class="wrap section" id="method" aria-labelledby="method-h">
       <div class="section-head"><h2 id="method-h">Method and definitions</h2></div>
       <div class="prose">
@@ -467,15 +478,19 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
       </ul>
     </section>
 
+    </div>
+
     <footer class="wrap proj-foot">
       <p><a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p>
     </footer>
   </main>
 
   <script>
+    import { initTabs } from "../../lib/tabs.ts";
     import ds from "../../data/pharma/dataset.json";
     import { initPharma } from "../../lib/pharma/ui.ts";
     const names = Object.fromEntries(Object.entries(ds.companies).map(([k, v]) => [k, (v as { name: string }).name]));
     initPharma(ds as never, names);
+      initTabs();
   </script>
 </Base>

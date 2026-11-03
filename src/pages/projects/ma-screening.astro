@@ -2,6 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import ProjectHeader from "../../components/ProjectHeader.astro";
 import ProjectFlow from "../../components/ProjectFlow.astro";
+import TabBar from "../../components/TabBar.astro";
 import ProjectUses from "../../components/ProjectUses.astro";
 import "../../styles/projects.css";
 import ds from "../../data/ma/dataset.json";
@@ -25,26 +26,16 @@ const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true 
       <h1>Strategic M&amp;A Screening Workbench</h1>
       <p class="proj-lede">Build a first shortlist of acquisition candidates for a hypothetical buyer, see which choices drive the ranking, and read what the screen does not know. It narrows a list. It does not say what a company is worth or that a deal can happen.</p>
       <p class="status">Version 1.0 · hypothetical brief · method note · not independently reviewed</p>
-      <div class="brief">
-        <div><h2>Who it is for</h2><p>An analyst or corporate-development associate who needs a defensible first cut of a universe before deeper work.</p></div>
-        <div><h2>The problem</h2><p>A long list is easy to rank by gut feel. A screen should state its criteria, show its gaps and show how fragile the order is.</p></div>
-        <div><h2>What it supports</h2><p>Deciding which handful of companies deserve a proper look. It is not a valuation model, a fairness view or a recommendation.</p></div>
-      </div>
-      <nav class="jump" aria-label="On this page"><a href="/projects/ma-screening/method/">Method note</a><a href="#brief">Brief</a><a href="#screen">Screen</a><a href="#briefs">Briefs</a><a href="#memo">Memo</a><a href="#evidence">Evidence</a><a href="#method">Method</a><a href="#uses">Uses</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a></nav>
+      <p class="actions-line"><a class="btn btn-primary" href="#screen">Run the screen</a><a class="text-link" href="/projects/ma-screening/method/">Read the method note</a></p>
     </section>
 
     <section class="wrap" aria-label="Disclosures">
-      <p class="callout"><strong>The buyer is hypothetical.</strong> "BuyerCo" below is invented for this exercise; it is not a real client, mandate or employer. Data is public (SEC XBRL for Forms 10-K). The author works at Sanofi; no Sanofi or other employer information is used. Built with AI assistance; the author is responsible for checking it. Educational only, not investment advice.</p>
+      <div class="callout"><p><strong>The buyer is hypothetical.</strong> "BuyerCo" below is invented for this exercise; it is not a real client, mandate or employer.</p><details class="callout-more"><summary>Full disclosure</summary><p>Data is public (SEC XBRL for Forms 10-K). The author works at Sanofi; no Sanofi or other employer information is used. Built with AI assistance; the author is responsible for checking it. Educational only, not investment advice.</p></details></div>
     </section>
 
-    <ProjectFlow id="built" heading="How it is built" intro="A screen is only as good as its data and its stated rules. Both are visible here." steps={[
-      { title: "28 filers", detail: "US-listed pharma and biotech companies. Every figure comes from SEC XBRL data and keeps its tag, filing and date." },
-      { title: "Filters", detail: "A revenue range, positive operating income and complete core data. Excluded companies are listed with the reason." },
-      { title: "Score", detail: "Criteria are scored against fixed anchors from the brief, with weights you can change and a policy for missing data." },
-      { title: "Stress test", detail: "1,000 random re-weightings and three different briefs show how fragile the order is." },
-      { title: "What you get", detail: "A ranked shortlist and a generated memo that always lists what was not assessed." },
-    ]} />
+    <TabBar tabs={[{ id: "try", label: "Try it" }, { id: "details", label: "Details" }, { id: "about", label: "About and method" }]} />
 
+    <div class="tab-panel" id="panel-try" role="tabpanel" aria-labelledby="tab-try">
     <div class="band band-mint">
       <section class="wrap section" id="brief" aria-labelledby="brief-h">
         <div class="section-head"><h2 id="brief-h">The hypothetical brief</h2><p>BuyerCo, a fictional European specialty-pharma platform with a US commercial presence, wants a profitable, growing, US-listed commercial-stage company in the revenue range of $150m to $3bn that it could realistically absorb. Illustrative criteria, not a view of what any real buyer wants.</p></div>
@@ -117,6 +108,9 @@ const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true 
       </div>
     </section>
 
+    </div>
+
+    <div class="tab-panel" id="panel-details" role="tabpanel" aria-labelledby="tab-details">
     <section class="wrap section" id="briefs" aria-labelledby="briefs-h">
       <div class="section-head"><h2 id="briefs-h">Does the shortlist survive a different brief?</h2><p>The same data scored under three hypothetical briefs. A company that stays in the top five under all of them does not owe its place to one set of weights.</p></div>
       <div class="pane">
@@ -168,6 +162,25 @@ const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true 
         </div>
       </div>
     </section>
+
+    </div>
+
+    <div class="tab-panel" id="panel-about" role="tabpanel" aria-labelledby="tab-about">
+      <section class="wrap section" aria-labelledby="about-h">
+        <div class="section-head"><h2 id="about-h">About and method</h2><p>What this is, how it is built and what it cannot tell you. The short version: <a href="/projects/ma-screening/method/">the method note</a>.</p></div>
+        <div class="brief">
+        <div><h2>Who it is for</h2><p>An analyst or corporate-development associate who needs a defensible first cut of a universe before deeper work.</p></div>
+        <div><h2>The problem</h2><p>A long list is easy to rank by gut feel. A screen should state its criteria, show its gaps and show how fragile the order is.</p></div>
+        <div><h2>What it supports</h2><p>Deciding which handful of companies deserve a proper look. It is not a valuation model, a fairness view or a recommendation.</p></div>
+      </div>
+      </section>
+    <ProjectFlow id="built" heading="How it is built" intro="A screen is only as good as its data and its stated rules. Both are visible here." steps={[
+      { title: "28 filers", detail: "US-listed pharma and biotech companies. Every figure comes from SEC XBRL data and keeps its tag, filing and date." },
+      { title: "Filters", detail: "A revenue range, positive operating income and complete core data. Excluded companies are listed with the reason." },
+      { title: "Score", detail: "Criteria are scored against fixed anchors from the brief, with weights you can change and a policy for missing data." },
+      { title: "Stress test", detail: "1,000 random re-weightings and three different briefs show how fragile the order is." },
+      { title: "What you get", detail: "A ranked shortlist and a generated memo that always lists what was not assessed." },
+    ]} />
 
     <div class="band band-mint">
       <section class="wrap section" id="method" aria-labelledby="method-h">
@@ -241,12 +254,16 @@ const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true 
       </section>
     </div>
 
+    </div>
+
     <footer class="wrap proj-foot"><p><a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p></footer>
   </main>
 
   <script>
+    import { initTabs } from "../../lib/tabs.ts";
     import ds from "../../data/ma/dataset.json";
     import { initScreen } from "../../lib/ma/ui.ts";
     initScreen(ds as never, Object.keys(ds.companies).length);
+      initTabs();
   </script>
 </Base>

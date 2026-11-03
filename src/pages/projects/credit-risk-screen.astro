@@ -2,6 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import ProjectHeader from "../../components/ProjectHeader.astro";
 import ProjectFlow from "../../components/ProjectFlow.astro";
+import TabBar from "../../components/TabBar.astro";
 import ProjectUses from "../../components/ProjectUses.astro";
 import "../../styles/projects.css";
 import ds from "../../data/ma/dataset.json";
@@ -32,31 +33,21 @@ const v = validation.totals;
   <main id="main">
     <section class="wrap proj-hero">
       <h1>Credit Risk Screen</h1>
-      <p class="proj-lede">How much financial strain could each company take? Score 28 US pharma and biotech companies on leverage, interest cover, cash flow and liquidity, shock their earnings, and see who runs out of room first. The rules are written down and you can change the limits.</p>
-      <p class="status">Version 1.0.1 · not a credit rating · method note · built with AI assistance · not independently reviewed</p>
-      <div class="brief">
-        <div><h2>Who it is for</h2><p>A credit or finance analyst who needs a quick, explainable first look at a group of borrowers, and a student learning how credit ratios are read.</p></div>
-        <div><h2>The problem</h2><p>One ratio never tells the story. A company can have low debt and weak earnings, or high debt and strong cash flow. A screen should show each measure, a stress case and where the measures disagree.</p></div>
-        <div><h2>What it supports</h2><p>Deciding which borrowers deserve a closer look, and how much earnings could fall before a limit is breached. It is not a rating, a default forecast or investment advice.</p></div>
-      </div>
-      <nav class="jump" aria-label="On this page"><a href="/projects/credit-risk-screen/method/">Method note</a><a href="#built">How it is built</a><a href="#screen">Screen</a><a href="#altman">Altman check</a><a href="#robust">Robustness</a><a href="#company">One company</a><a href="#method">Method</a><a href="#evidence">Evidence</a><a href="#uses">Uses</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a></nav>
+      <p class="proj-lede">How much financial strain could each of 28 US pharma and biotech companies take? Shock their earnings and see who runs out of room first. The rules are written down and you can change the limits.</p>
+      <p class="status">Version 1.0.1 · not a credit rating · built with AI assistance · not independently reviewed</p>
+      <p class="actions-line"><a class="btn btn-primary" href="#screen">Run the screen</a><a class="text-link" href="/projects/credit-risk-screen/method/">Read the method note</a></p>
     </section>
 
     <section class="wrap" aria-label="Disclosures">
-      <p class="callout"><strong>This is not a credit rating and not a view on any company.</strong> The bands describe how the reported ratios score under rules and thresholds the author chose; a company can land in a high-strain band because of a one-off year, a data gap or a business model the ratios fit badly. Always read the data flags. Data is public (SEC XBRL, Forms 10-K, FY2022 to FY2025). The author works at Sanofi; no Sanofi or other employer information is used. Built with AI assistance; the author is responsible for checking it. Educational only.</p>
+      <div class="callout"><p><strong>This is not a credit rating and not a view on any company.</strong> The bands describe how reported ratios score under thresholds the author chose. Educational only.</p><details class="callout-more"><summary>Full disclosure</summary><p>A company can land in a high-strain band because of a one-off year, a data gap or a business model the ratios fit badly. Always read the data flags. Data is public (SEC XBRL, Forms 10-K, FY2022 to FY2025). The author works at Sanofi; no Sanofi or other employer information is used. Built with AI assistance; the author is responsible for checking it.</p></details></div>
     </section>
 
-    <ProjectFlow id="built" heading="How it is built" intro="Five steps from a filing to a ranked list with a stress case." steps={[
-      { title: "10-K figures", detail: "Revenue, EBITDA, debt, cash, interest, capex and balance-sheet lines for 28 companies, each with its source tag and filing." },
-      { title: "Ratios", detail: "Net debt to EBITDA, interest cover, cash flow to debt, liquidity and margin, with explicit handling of net cash, no debt and negative earnings." },
-      { title: "Scorecard", detail: "Each ratio is scored 0 to 100 against fixed anchors and combined with stated weights. Missing factors are flagged and the weights rescaled." },
-      { title: "Stress test", detail: "Earnings fall by a set percentage; the score, the band and the room before a leverage or cover limit is hit are recomputed." },
-      { title: "What you get", detail: "A ranked table, a today-versus-stressed chart, an Altman cross-check and a four-year view of any one company." },
-    ]} />
+    <div class="band band-mint" id="screen">
+      <TabBar tabs={[{ id: "try", label: "Try it" }, { id: "details", label: "Companies" }, { id: "risk", label: "How robust is it" }, { id: "about", label: "About and method" }]} />
 
-    <div class="band band-mint">
-      <section class="wrap section" id="screen" aria-labelledby="screen-h">
-        <div class="section-head"><h2 id="screen-h">Screen 28 companies</h2><p>Set the limits and the size of the earnings shock. Everything below updates. Higher scores mean less strain; the bands are Low, Moderate, Elevated and High strain.</p></div>
+      <div class="tab-panel" id="panel-try" role="tabpanel" aria-labelledby="tab-try">
+        <section class="wrap section" aria-labelledby="screen-h">
+          <div class="section-head"><h2 id="screen-h">Screen 28 companies</h2><p>Set the limits and the size of the earnings shock. Everything updates. Higher scores mean less strain; the bands are Low, Moderate, Elevated and High strain.</p></div>
         <div class="cols-2" style="align-items: start">
           <form id="credit-form" class="pane stack" action="#" aria-label="Screen settings" onsubmit="return false">
             <div>
@@ -88,6 +79,12 @@ const v = validation.totals;
           <div id="credit-range"><Fragment set:html={x.range} /></div>
         </div>
 
+        </section>
+      </div>
+
+      <div class="tab-panel" id="panel-details" role="tabpanel" aria-labelledby="tab-details">
+        <section class="wrap section" aria-labelledby="details-h">
+          <div class="section-head"><h2 id="details-h">Companies</h2><p>The room each company has before a limit, how the score is built and the full ranked table.</p></div>
         <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
           <div class="pane">
             <h3 class="sub-h">How much room before a limit</h3>
@@ -112,9 +109,20 @@ const v = validation.totals;
           <div id="credit-table" class="tbl-wrap" role="region" aria-label="Credit screen table, scrolls horizontally on small screens" tabindex="0"><Fragment set:html={x.table} /></div>
           <p class="muted" style="margin-top:0.75rem">"No debt" means debt below $0.5m. "n/m" means not meaningful (earnings are not positive). "n/a" means a needed figure was not found.</p>
         </div>
-      </section>
-    </div>
-
+        </section>
+        <section class="wrap section" aria-labelledby="company-h">
+        <div class="section-head"><h2 id="company-h">One company over four years</h2><p>The same ratios for FY2022 to FY2025, so you can see whether a score comes from a trend or from one year.</p></div>
+        <div class="pane">
+          <div class="field" style="max-width:26rem">
+            <label for="drill-company">Company</label>
+            <select id="drill-company" name="drill-company">
+              {names.map((k) => <option value={k.ticker} selected={k.ticker === first}>{display(k.name)} ({k.ticker})</option>)}
+            </select>
+          </div>
+          <div id="credit-drill" class="tbl-wrap" style="margin-top:1rem" role="region" aria-label="Four-year credit ratios, scrolls horizontally on small screens" tabindex="0"></div>
+          <noscript><p class="callout">This view needs JavaScript. The ranked table above does not.</p></noscript>
+        </div>
+        </section>
     <section class="wrap section" id="altman" aria-labelledby="altman-h">
       <div class="section-head"><h2 id="altman-h">A second opinion: the Altman Z″ score</h2><p>The Altman Z″ score is a classic distress model built from five balance-sheet and earnings ratios. It asks a different question from this screen, so where they disagree is worth reading.</p></div>
       <div id="credit-disagree" class="pane"><Fragment set:html={x.disagree} /></div>
@@ -123,6 +131,9 @@ const v = validation.totals;
       </div>
     </section>
 
+      </div>
+
+      <div class="tab-panel" id="panel-risk" role="tabpanel" aria-labelledby="tab-risk">
     <section class="wrap section" id="robust" aria-labelledby="robust-h">
       <div class="section-head"><h2 id="robust-h">How robust is the screen?</h2><p>A scorecard is only useful if it does not fall apart when the choices behind it change. Two tests, both at the default settings.</p></div>
       <div class="stack">
@@ -148,21 +159,25 @@ const v = validation.totals;
       </div>
     </section>
 
-    <div class="band band-mint">
-      <section class="wrap section" id="company" aria-labelledby="company-h">
-        <div class="section-head"><h2 id="company-h">One company over four years</h2><p>The same ratios for FY2022 to FY2025, so you can see whether a score comes from a trend or from one year.</p></div>
-        <div class="pane">
-          <div class="field" style="max-width:26rem">
-            <label for="drill-company">Company</label>
-            <select id="drill-company" name="drill-company">
-              {names.map((k) => <option value={k.ticker} selected={k.ticker === first}>{display(k.name)} ({k.ticker})</option>)}
-            </select>
-          </div>
-          <div id="credit-drill" class="tbl-wrap" style="margin-top:1rem" role="region" aria-label="Four-year credit ratios, scrolls horizontally on small screens" tabindex="0"></div>
-          <noscript><p class="callout">This view needs JavaScript. The ranked table above does not.</p></noscript>
-        </div>
-      </section>
+      </div>
     </div>
+
+    <div class="tab-panel" id="panel-about" role="tabpanel" aria-labelledby="tab-about">
+      <section class="wrap section" aria-labelledby="about-h">
+        <div class="section-head"><h2 id="about-h">About and method</h2><p>What this is, how it is built and what it cannot tell you. The short version: <a href="/projects/credit-risk-screen/method/">the method note</a>.</p></div>
+      <div class="brief">
+        <div><h2>Who it is for</h2><p>A credit or finance analyst who needs a quick, explainable first look at a group of borrowers, and a student learning how credit ratios are read.</p></div>
+        <div><h2>The problem</h2><p>One ratio never tells the story. A company can have low debt and weak earnings, or high debt and strong cash flow. A screen should show each measure, a stress case and where the measures disagree.</p></div>
+        <div><h2>What it supports</h2><p>Deciding which borrowers deserve a closer look, and how much earnings could fall before a limit is breached. It is not a rating, a default forecast or investment advice.</p></div>
+      </div>
+      </section>
+    <ProjectFlow id="built" heading="How it is built" intro="Five steps from a filing to a ranked list with a stress case." steps={[
+      { title: "10-K figures", detail: "Revenue, EBITDA, debt, cash, interest, capex and balance-sheet lines for 28 companies, each with its source tag and filing." },
+      { title: "Ratios", detail: "Net debt to EBITDA, interest cover, cash flow to debt, liquidity and margin, with explicit handling of net cash, no debt and negative earnings." },
+      { title: "Scorecard", detail: "Each ratio is scored 0 to 100 against fixed anchors and combined with stated weights. Missing factors are flagged and the weights rescaled." },
+      { title: "Stress test", detail: "Earnings fall by a set percentage; the score, the band and the room before a leverage or cover limit is hit are recomputed." },
+      { title: "What you get", detail: "A ranked table, a today-versus-stressed chart, an Altman cross-check and a four-year view of any one company." },
+    ]} />
 
     <section class="wrap section" id="method" aria-labelledby="method-h">
       <div class="section-head"><h2 id="method-h">Method</h2></div>
@@ -229,12 +244,16 @@ const v = validation.totals;
       </section>
     </div>
 
+    </div>
+
     <footer class="wrap proj-foot"><p><a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p></footer>
   </main>
 
   <script type="application/json" id="credit-data" set:html={JSON.stringify(ks)}></script>
   <script>
+    import { initTabs } from "../../lib/tabs.ts";
     import { drill, initCredit, readOptions } from "../../lib/credit/ui.ts";
+    initTabs();
     const el = document.getElementById("credit-data");
     if (el) {
       const ks = JSON.parse(el.textContent ?? "[]");

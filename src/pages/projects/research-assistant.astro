@@ -2,6 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import ProjectHeader from "../../components/ProjectHeader.astro";
 import ProjectFlow from "../../components/ProjectFlow.astro";
+import TabBar from "../../components/TabBar.astro";
 import ProjectUses from "../../components/ProjectUses.astro";
 import "../../styles/projects.css";
 import ds from "../../data/pharma/dataset.json";
@@ -26,18 +27,16 @@ const ci = (r: string) => {
       <h1>Annual-Report Research Assistant</h1>
       <p class="proj-lede">Ask a question about the FY2025 annual reports of Novartis, AstraZeneca and GSK. You get the source passage with a link into the filing, a calculation shown step by step, or a clear refusal. It does not write answers.</p>
       <p class="status">Version 1.0 · evaluated on 142 questions with intervals · not independently reviewed</p>
-      <div class="brief">
-        <div><h2>Who it is for</h2><p>An analyst who needs to find what a filing says, quickly, and to check it against the original.</p></div>
-        <div><h2>The problem</h2><p>Annual reports run to hundreds of pages. Search finds words, not the right passage, and chat tools can answer fluently without a source.</p></div>
-        <div><h2>What it supports</h2><p>Locating evidence and checking figures, with every answer traceable. It is not a buy or sell signal.</p></div>
-      </div>
-      <nav class="jump" aria-label="On this page"><a href="/projects/research-assistant/method/">Method note</a><a href="#ask">Ask</a><a href="#how">How it works</a><a href="#evaluation">Evaluation</a><a href="#documents">Documents</a><a href="#uses">Uses</a><a href="#limits">Limits</a></nav>
+      <p class="actions-line"><a class="btn btn-primary" href="#ask">Ask a question</a><a class="text-link" href="/projects/research-assistant/method/">Read the method note</a></p>
     </section>
 
     <section class="wrap" aria-label="Disclosures">
-      <p class="callout"><strong>Public documents only.</strong> The corpus is three Forms 20-F from the SEC. No Sanofi or other employer material is used. This was built with AI assistance and the author is responsible for checking it. It is an educational tool, not investment advice. There is no language model in this version: it is a keyword search plus a calculator.</p>
+      <div class="callout"><p><strong>Public documents only.</strong> The corpus is three Forms 20-F from the SEC.</p><details class="callout-more"><summary>Full disclosure</summary><p>No Sanofi or other employer material is used. This was built with AI assistance and the author is responsible for checking it. It is an educational tool, not investment advice. There is no language model in this version: it is a keyword search plus a calculator.</p></details></div>
     </section>
 
+    <TabBar tabs={[{ id: "try", label: "Try it" }, { id: "details", label: "Details" }, { id: "about", label: "About and method" }]} />
+
+    <div class="tab-panel" id="panel-try" role="tabpanel" aria-labelledby="tab-try">
     <div class="band band-mint">
       <section class="wrap section" id="ask" aria-labelledby="ask-h">
         <div class="section-head"><h2 id="ask-h">Ask the reports</h2><p>Try a lookup, a calculation, a comparison, or something the reports cannot answer.</p></div>
@@ -58,22 +57,9 @@ const ci = (r: string) => {
       </section>
     </div>
 
-    <ProjectFlow id="path" heading="From question to answer" intro="Every question takes one of three routes. None of them writes text." steps={[
-      { title: "Your question", detail: "Typed in plain English. Nothing is sent anywhere; the search runs in your browser." },
-      { title: "Scope guard", detail: "Advice, live prices, forecasts and companies outside the corpus are refused, with the reason." },
-      { title: "Calculator or search", detail: `Numbers are computed by code from the reconciled dataset. Everything else is searched across ${fmt(Object.values(filings).reduce((a, f) => a + f.passages, 0))} passages cut from the filings.` },
-      { title: "What you get", detail: "A quoted passage with a link into the filing, a calculation with its formula, or a clear refusal." },
-    ]} />
+    </div>
 
-    <section class="wrap section" id="how" aria-labelledby="how-h">
-      <div class="section-head"><h2 id="how-h">How it works</h2><p>Three separate stages. Each can be tested on its own, and none of them generates text.</p></div>
-      <div class="cols-3">
-        <div class="pane prose"><h3 style="margin-top:0">1. Scope guard</h3><p>Refuses what annual reports cannot support: investment advice, live prices, forecasts and companies that are not in the corpus. A refusal says why.</p></div>
-        <div class="pane prose"><h3 style="margin-top:0">2. Calculation</h3><p>Numerical questions (margins, cash flow, net debt, tax rate, growth, comparisons) are answered by code from the reconciled dataset of the <a href="/projects/pharma-valuation/">valuation project</a>, with the formula shown. Questions about a product or region are not guessed at; they go to search.</p></div>
-        <div class="pane prose"><h3 style="margin-top:0">3. Retrieval</h3><p>Everything else is a keyword search over {fmt(Object.values(filings).reduce((a, f) => a + f.passages, 0))} passages cut from the filings. Version 2 stems words (Porter), treats close synonyms from a small hand-written thesaurus and corpus-derived neighbours as the same idea at a discount, and rewards question words that sit together. The top passages are shown as quoted, with a link to that place in the filing. If the best passage lacks the question's key ideas, it refuses and shows the nearest passages so you can judge.</p></div>
-      </div>
-    </section>
-
+    <div class="tab-panel" id="panel-details" role="tabpanel" aria-labelledby="tab-details">
     <div class="band band-mint">
       <section class="wrap section" id="evaluation" aria-labelledby="eval-h">
         <div class="section-head"><h2 id="eval-h">Evaluation</h2><p>{totalQuestions} hand-written questions in five sets, each run on three versions of the engine. Failures are listed, not hidden.</p></div>
@@ -136,6 +122,33 @@ const ci = (r: string) => {
       </div>
     </section>
 
+    </div>
+
+    <div class="tab-panel" id="panel-about" role="tabpanel" aria-labelledby="tab-about">
+      <section class="wrap section" aria-labelledby="about-h">
+        <div class="section-head"><h2 id="about-h">About and method</h2><p>What this is, how it is built and what it cannot tell you. The short version: <a href="/projects/research-assistant/method/">the method note</a>.</p></div>
+        <div class="brief">
+        <div><h2>Who it is for</h2><p>An analyst who needs to find what a filing says, quickly, and to check it against the original.</p></div>
+        <div><h2>The problem</h2><p>Annual reports run to hundreds of pages. Search finds words, not the right passage, and chat tools can answer fluently without a source.</p></div>
+        <div><h2>What it supports</h2><p>Locating evidence and checking figures, with every answer traceable. It is not a buy or sell signal.</p></div>
+      </div>
+      </section>
+    <ProjectFlow id="path" heading="From question to answer" intro="Every question takes one of three routes. None of them writes text." steps={[
+      { title: "Your question", detail: "Typed in plain English. Nothing is sent anywhere; the search runs in your browser." },
+      { title: "Scope guard", detail: "Advice, live prices, forecasts and companies outside the corpus are refused, with the reason." },
+      { title: "Calculator or search", detail: `Numbers are computed by code from the reconciled dataset. Everything else is searched across ${fmt(Object.values(filings).reduce((a, f) => a + f.passages, 0))} passages cut from the filings.` },
+      { title: "What you get", detail: "A quoted passage with a link into the filing, a calculation with its formula, or a clear refusal." },
+    ]} />
+
+    <section class="wrap section" id="how" aria-labelledby="how-h">
+      <div class="section-head"><h2 id="how-h">How it works</h2><p>Three separate stages. Each can be tested on its own, and none of them generates text.</p></div>
+      <div class="cols-3">
+        <div class="pane prose"><h3 style="margin-top:0">1. Scope guard</h3><p>Refuses what annual reports cannot support: investment advice, live prices, forecasts and companies that are not in the corpus. A refusal says why.</p></div>
+        <div class="pane prose"><h3 style="margin-top:0">2. Calculation</h3><p>Numerical questions (margins, cash flow, net debt, tax rate, growth, comparisons) are answered by code from the reconciled dataset of the <a href="/projects/pharma-valuation/">valuation project</a>, with the formula shown. Questions about a product or region are not guessed at; they go to search.</p></div>
+        <div class="pane prose"><h3 style="margin-top:0">3. Retrieval</h3><p>Everything else is a keyword search over {fmt(Object.values(filings).reduce((a, f) => a + f.passages, 0))} passages cut from the filings. Version 2 stems words (Porter), treats close synonyms from a small hand-written thesaurus and corpus-derived neighbours as the same idea at a discount, and rewards question words that sit together. The top passages are shown as quoted, with a link to that place in the filing. If the best passage lacks the question's key ideas, it refuses and shows the nearest passages so you can judge.</p></div>
+      </div>
+    </section>
+
     <ProjectUses id="uses" heading="What it is for, and what it taught" intro="The same design, with a guard, a calculator and a retriever that cites its source, fits any task where an answer must be traceable."
       uses={[
         { where: "Equity research, credit and ESG analysis", how: "Finding where a filing discloses litigation, segment sales or a risk, and jumping to the source to read it in context." },
@@ -189,13 +202,17 @@ const ci = (r: string) => {
       </ul>
     </section>
 
+    </div>
+
     <footer class="wrap proj-foot"><p><a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p></footer>
   </main>
 
   <script>
+    import { initTabs } from "../../lib/tabs.ts";
     import ds from "../../data/pharma/dataset.json";
     import filings from "../../data/research/filings.json";
     import { initResearch } from "../../lib/research/ui.ts";
     initResearch(ds as never, filings as never);
+      initTabs();
   </script>
 </Base>
