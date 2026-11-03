@@ -169,6 +169,11 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
         <div class="pane"><div id="sens1" class="tbl-wrap"><Fragment set:html={initial.sens1} /></div></div>
         <div class="pane"><div id="sens2" class="tbl-wrap"><Fragment set:html={initial.sens2} /></div></div>
       </div>
+      <div class="pane" style="margin-top: 1.25rem">
+        <h3 class="sub-h">How much the answer depends on two guesses</h3>
+        <p class="sub-note">Each line is one terminal growth rate. Read across a line: a higher discount rate means a lower value. Compare the lines: more long-run growth means a higher value.</p>
+        <div id="dcf-lines"><Fragment set:html={initial.lines} /></div>
+      </div>
       <p class="muted" style="margin-top: 0.75rem">In the base case the terminal value is {fmtPct(initial.r.terminalShareOfEv, 0)} of enterprise value, so the result is mostly a statement about long-run assumptions. The outlined cell marks the current assumptions.</p>
     </section>
 

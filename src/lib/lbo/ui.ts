@@ -4,6 +4,7 @@ import { HOLD_YEARS, LboInputError, inputsFor, irrGrid, monteCarlo, runLbo, torn
 import type { LboInputs, LboResult } from "./model.ts";
 import { stacked, waterfall } from "./charts.ts";
 import { heatmap, fmtM, fmtPct, fmtX } from "../pharma/ui.ts";
+import { lineChart } from "../lineChart.ts";
 
 export type Target = { ticker: string; name: string; revenue: number; ebitda: number; da: number; netDebt: number; flags: string[] };
 
@@ -96,9 +97,42 @@ export function renderLbo(i: LboInputs, r: LboResult) {
 
   const flagList = `<ul class="uses-list">${r.flags.map((f) => `<li><span>${esc(f)}</span></li>`).join("")}</ul>`;
   const flags = r.flags.length > 1 ? `<details class="more-fields"><summary>${r.flags.length} warnings for these inputs</summary>${flagList}</details>` : r.flags.length ? flagList : `<p class="muted">No warnings for these inputs. That does not mean the deal is realistic.</p>`;
-  return { big, summary, su, years, bridge, debt, sens1, sens2, flags };
+  return { big, summary, su, years, bridge, debt, sens1, sens2, flags, lines: lboLines(i) };
 }
 
+
+/** The return against the exit multiple, one line per entry price: the plainest picture of what the deal depends on. */
+export function lboLines(i: LboInputs): string {
+  const irr = (entry: number, exit: number) => {
+    try {
+      return Math.max(-30, runLbo({ ...i, entryMultiple: entry, exitMultiple: exit }).irr * 100);
+    } catch {
+      return null;
+    }
+  };
+  const exits = Array.from({ length: 13 }, (_, k) => i.exitMultiple - 3 + k * 0.5).filter((x) => x > 0.5);
+  const entries = [i.entryMultiple - 1, i.entryMultiple, i.entryMultiple + 1].filter((x) => x > 0.5);
+  const now = irr(i.entryMultiple, i.exitMultiple);
+  if (now === null) return "";
+  const svg = lineChart({
+    lines: entries.map((e) => ({ label: `Pay ${fmtX(e)}`, emphasis: e === i.entryMultiple, points: exits.map((x): [number, number | null] => [x, irr(e, x)]) })),
+    xFmt: (x) => `${x.toFixed(0)}x`,
+    yFmt: (y) => `${y.toFixed(0)}%`,
+    xTitle: "Price you sell at (exit multiple of EBITDA)",
+    yTitle: "Annual return (IRR)",
+    xTicks: exits.filter((x) => Math.abs(x - Math.round(x)) < 1e-9),
+    marker: { x: i.exitMultiple, y: now, label: `Your inputs: ${now.toFixed(1)}%` },
+    zero: { y: 0, label: "0%: you only get your money back" },
+    label: `Annual return by exit multiple for three entry prices. At your inputs, paying ${fmtX(i.entryMultiple)} and selling at ${fmtX(i.exitMultiple)}, the return is ${now.toFixed(1)} percent.`,
+  });
+  const up = irr(i.entryMultiple, i.exitMultiple + 1);
+  const down = irr(i.entryMultiple + 1, i.exitMultiple);
+  const read =
+    up !== null && down !== null
+      ? `<p class="lc-read">Selling one turn higher adds about ${Math.abs(up - now).toFixed(1)} points of return. Paying one turn more takes away about ${Math.abs(now - down).toFixed(1)} points. The dot is your inputs.</p>`
+      : "";
+  return svg + read;
+}
 
 export const MC_DRAWS = 3000;
 
@@ -177,7 +211,7 @@ export function initLbo(targets: Target[]) {
     return i;
   };
 
-  const ids = ["lbo-big", "lbo-summary", "lbo-su", "lbo-years", "lbo-bridge", "lbo-debt", "sens1", "sens2", "lbo-flags", "lbo-mc", "lbo-tornado"];
+  const ids = ["lbo-lines", "lbo-big", "lbo-summary", "lbo-su", "lbo-years", "lbo-bridge", "lbo-debt", "sens1", "sens2", "lbo-flags", "lbo-mc", "lbo-tornado"];
   const renderAll = () => {
     const i = read();
     const err = out("lbo-error");
@@ -189,6 +223,7 @@ export function initLbo(targets: Target[]) {
     }
     err.hidden = true;
     const x = renderLbo(i, runLbo(i));
+    out("lbo-lines").innerHTML = x.lines;
     out("lbo-big").innerHTML = x.big;
     out("lbo-summary").innerHTML = x.summary;
     out("lbo-su").innerHTML = x.su;

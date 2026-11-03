@@ -1297,3 +1297,100 @@ details.sources + details.sources {
     text-align: center;
   }
 }
+
+/* ---- explanatory line charts (lineChart.ts) ---- */
+.lc {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  margin-top: 0.75rem;
+}
+.lc-grid {
+  stroke: var(--tone);
+  stroke-width: 1;
+}
+.lc-zero {
+  stroke: var(--ink-3);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 5;
+}
+.lc-tick,
+.lc-note {
+  fill: var(--ink-3);
+  font-size: 12px;
+}
+.lc-title {
+  fill: var(--ink-2);
+  font-size: 13px;
+  font-weight: 500;
+}
+.lc .s {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.lc .s-dim {
+  stroke: var(--ink-3);
+  stroke-width: 1.75;
+}
+.lc .s-emph {
+  stroke: var(--accent);
+  stroke-width: 3.5;
+}
+.lc-lbl {
+  fill: var(--ink-2);
+  font-size: 13px;
+  font-weight: 500;
+}
+.lc-lbl-emph {
+  fill: var(--accent);
+  font-weight: 600;
+}
+.lc-mark {
+  fill: var(--ground);
+  stroke: var(--accent);
+  stroke-width: 3.5;
+}
+.lc-mark-lbl {
+  fill: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  stroke: var(--panel);
+  stroke-width: 5px;
+  paint-order: stroke;
+}
+.lc-read {
+  margin-top: 0.75rem;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready .in .lc .s {
+    animation: lc-draw 1200ms var(--out) 150ms backwards;
+  }
+  [data-settled] .lc .s {
+    animation: none !important;
+  }
+  @keyframes lc-draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+  }
+}
+@media (max-width: 560px) {
+  .lc-tick,
+  .lc-note,
+  .lc-lbl,
+  .lc-mark-lbl,
+  .lc-title {
+    font-size: 15px;
+  }
+}
+
+/* ---- the sections around the tab bar: room under a disclosure, so nothing sits on the edge of the next band ---- */
+section[aria-label="Disclosures"] {
+  padding-bottom: clamp(2rem, 5vw, 3.5rem);
+}

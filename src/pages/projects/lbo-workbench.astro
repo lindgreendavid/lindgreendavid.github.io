@@ -101,6 +101,11 @@ const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
             <div class="pane"><h3 class="sub-h">Where the return comes from</h3><p class="sub-note">Equity invested, plus what each driver added, equals equity at exit. Dollars, millions.</p><div id="lbo-bridge"><Fragment set:html={x.bridge} /></div></div>
             </div>
           </div>
+          <div class="pane" style="margin-top: 1.25rem">
+            <h3 class="sub-h">What the price you pay and the price you sell at do to the return</h3>
+            <p class="sub-note">Each line is one entry price. Read across a line: selling for more raises the return. Compare the lines: paying more lowers it.</p>
+            <div id="lbo-lines"><Fragment set:html={x.lines} /></div>
+          </div>
         </section>
       </div>
 

@@ -1492,7 +1492,7 @@ details > summary {
   color: var(--ink-3);
   font-size: 0.85rem;
 }
-@media (max-width: 560px) {
+@media (min-width: 0px) {
   .split b {
     display: none;
   }

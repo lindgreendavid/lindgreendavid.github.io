@@ -1,6 +1,7 @@
 // Rendering and interaction for the Credit Risk Screen. The render functions return HTML strings, so the first view is produced on the server
 // and the same code re-renders in the browser when someone changes a limit. Nothing the visitor enters leaves the page.
-import { BUCKETS, FACTORS, FACTOR_INFO, rankRows, rowFor } from "./model.ts";
+import { BUCKETS, FACTORS, FACTOR_INFO, headroom, rankRows, rowFor } from "./model.ts";
+import { lineChart } from "../lineChart.ts";
 import type { BucketName, Compact, Options, Robustness, Row, Validity } from "./model.ts";
 import { fmtM, fmtPct, fmtX } from "../pharma/ui.ts";
 
@@ -105,7 +106,43 @@ export function renderRobustness(rb: Robustness, rows: Row[], validity: Validity
 
 export function renderAll(ks: Compact[], opts: Options) {
   const rows = rankRows(ks.map((k) => rowFor(k, 2025, opts)));
-  return { rows, range: scoreRange(rows, opts.shock), headroom: headroomList(rows), table: rankTable(rows, opts), disagree: disagreements(rows), counts: bucketCounts(rows) };
+  return { rows, lines: breachLines(ks, opts), range: scoreRange(rows, opts.shock), headroom: headroomList(rows), table: rankTable(rows, opts), disagree: disagreements(rows), counts: bucketCounts(rows) };
+}
+
+/** How many companies would breach a limit as earnings fall, split by which limit it is: leverage, interest cover, or either. */
+export function breachLines(ks: Compact[], o: Options): string {
+  const rows = ks.map((k) => rowFor(k, 2025, o)).filter((r) => r.headroom !== null);
+  const falls = Array.from({ length: 17 }, (_, k) => k * 0.05);
+  const count = (s: number, lev: number, cov: number) =>
+    rows.reduce((n, r) => {
+      const h = headroom(r.raw, lev, cov);
+      return n + (h && (h.binding === "already" || (h.binding !== "none" && h.value < s)) ? 1 : 0);
+    }, 0);
+  const NO_LEV = 1e9; // a limit nobody can reach, so only the other test counts
+  const either = (s: number) => count(s, o.leverageLimit, o.coverageFloor);
+  const levOnly = (s: number) => count(s, o.leverageLimit, 0);
+  const covOnly = (s: number) => count(s, NO_LEV, o.coverageFloor);
+  const now = either(o.shock);
+  const today = either(0);
+  const pct = `${(o.shock * 100).toFixed(0)}%`;
+  const svg = lineChart({
+    lines: [
+      { label: "Leverage", points: falls.map((s): [number, number | null] => [s, levOnly(s)]) },
+      { label: "Cover", points: falls.map((s): [number, number | null] => [s, covOnly(s)]) },
+      { label: "Either", emphasis: true, points: falls.map((s): [number, number | null] => [s, either(s)]) },
+    ],
+    xFmt: (x) => `${(x * 100).toFixed(0)}%`,
+    yFmt: (y) => `${y.toFixed(0)}`,
+    xTitle: "Fall in EBITDA",
+    yTitle: `Companies in breach (of ${rows.length})`,
+    xTicks: [0, 0.2, 0.4, 0.6, 0.8],
+    yMin: 0,
+    yMax: rows.length,
+    marker: { x: o.shock, y: now, label: `${now} of ${rows.length} at a ${pct} fall` },
+    label: `Number of companies in breach as EBITDA falls, split into the leverage limit of ${o.leverageLimit} times and the interest-cover floor of ${o.coverageFloor} times. At a ${pct} fall, ${now} of ${rows.length} companies are in breach of either.`,
+  });
+  const read = `<p class="lc-read">${today} of ${rows.length} companies are already over a limit before any fall. At a ${pct} fall that becomes ${now}: ${levOnly(o.shock)} on leverage and ${covOnly(o.shock)} on interest cover (some are on both). Leverage means net debt over EBITDA above ${o.leverageLimit}x; cover means EBITDA over interest below ${o.coverageFloor}x.</p>`;
+  return svg + read;
 }
 
 export function bucketCounts(rows: Row[]): string {
@@ -144,6 +181,7 @@ export function initCredit(ks: Compact[]) {
     err.hidden = true;
     const x = renderAll(ks, o);
     out("credit-range").innerHTML = x.range;
+    out("credit-lines").innerHTML = x.lines;
     out("credit-headroom").innerHTML = x.headroom;
     out("credit-table").innerHTML = x.table;
     out("credit-disagree").innerHTML = x.disagree;

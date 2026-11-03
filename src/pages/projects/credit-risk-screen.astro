@@ -79,6 +79,11 @@ const v = validation.totals;
           <div id="credit-range"><Fragment set:html={x.range} /></div>
         </div>
 
+          <div class="pane" style="margin-top: 1.25rem">
+            <h3 class="sub-h">How many companies are in trouble as earnings fall</h3>
+            <p class="sub-note">The vertical axis counts companies that would break a limit as earnings fall. The thin lines show each test on its own, the thick line counts a company if it fails either. It tells you which test bites first.</p>
+            <div id="credit-lines"><Fragment set:html={x.lines} /></div>
+          </div>
         </section>
       </div>
 

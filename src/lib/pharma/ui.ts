@@ -2,6 +2,7 @@
 // is produced on the server and the same code re-renders in the browser when someone changes an assumption.
 import { dcfInputsFor, multiples, runDcf, SCENARIOS, sensitivity, sensitivityOperating, validateDcfInputs } from "./model.ts";
 import type { Dataset, DcfInputs, Grid } from "./model.ts";
+import { lineChart } from "../lineChart.ts";
 
 const nf0 = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 0 });
 const nf1 = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 1, minimumFractionDigits: 1 });
@@ -37,6 +38,42 @@ export const GROWTHS = [0.01, 0.015, 0.02, 0.025, 0.03];
 export const SHIFTS = [-0.02, -0.01, 0, 0.01, 0.02];
 export const MARGINS = [0.21, 0.23, 0.25, 0.27, 0.29];
 
+/** Value per share against the discount rate, one line per terminal growth rate. */
+export function dcfLines(i: DcfInputs): string {
+  const val = (wacc: number, tg: number) => {
+    if (wacc <= tg + 0.005) return null;
+    try {
+      const v = runDcf({ ...i, wacc, terminalGrowth: tg }).valuePerShare;
+      return Number.isFinite(v) ? v : null;
+    } catch {
+      return null;
+    }
+  };
+  const waccs = Array.from({ length: 11 }, (_, k) => 0.06 + k * 0.005);
+  const g0 = i.terminalGrowth;
+  const growths = [g0 - 0.01, g0, g0 + 0.01].filter((g) => g >= 0);
+  const now = val(i.wacc, g0);
+  if (now === null) return "";
+  const svg = lineChart({
+    lines: growths.map((g) => ({ label: `Growth ${fmtPct(g)}`, emphasis: Math.abs(g - g0) < 1e-9, points: waccs.map((w): [number, number | null] => [w, val(w, g)]) })),
+    xFmt: (x) => `${(x * 100).toFixed(0)}%`,
+    yFmt: (y) => `$${nf0.format(y)}`,
+    xTitle: "Discount rate (WACC)",
+    yTitle: "Value per ordinary share",
+    xTicks: [0.06, 0.07, 0.08, 0.09, 0.1, 0.11],
+    yMin: 0,
+    marker: i.wacc >= 0.06 && i.wacc <= 0.11 ? { x: i.wacc, y: now, label: `Your inputs: $${nf0.format(now)}` } : undefined,
+    label: `Value per share by discount rate for three terminal growth rates. At your inputs, a discount rate of ${fmtPct(i.wacc)} and growth of ${fmtPct(g0)}, the value is ${fmtUsd(now)}.`,
+  });
+  const hiW = val(i.wacc + 0.01, g0);
+  const hiG = val(i.wacc, g0 + 0.01);
+  const read =
+    hiW !== null && hiG !== null
+      ? `<p class="lc-read">A discount rate one point higher lowers the value by about ${fmtUsd(now - hiW)} (${(((now - hiW) / now) * 100).toFixed(0)}%). Terminal growth one point higher raises it by about ${fmtUsd(hiG - now)}. Neither is known; that is why the result is a range, not a number.</p>`
+      : "";
+  return svg + read;
+}
+
 export function renderDcf(i: DcfInputs, marketCapUsdM?: number) {
   const r = runDcf(i);
   const g1 = sensitivity(i, WACCS, GROWTHS);
@@ -58,7 +95,7 @@ export function renderDcf(i: DcfInputs, marketCapUsdM?: number) {
       <span class="split-a" style="--w:${((1 - r.terminalShareOfEv) * 100).toFixed(1)}%"><b>Forecast years </b>${fmtPct(1 - r.terminalShareOfEv, 0)}</span>
       <span class="split-b" style="--w:${(r.terminalShareOfEv * 100).toFixed(1)}%"><b>After year 5 </b>${fmtPct(r.terminalShareOfEv, 0)}</span>
     </div>
-    <p class="split-cap">Share of enterprise value: the forecast years against everything after year 5.</p>`;
+    <p class="split-cap">Share of enterprise value. Left: the five forecast years. Right: everything after year 5, the terminal value.</p>`;
   const years = `<table class="tbl"><caption>Free cash flow to the firm, USD millions</caption><thead><tr><th scope="col"></th>${r.years.map((y) => `<th scope="col">FY${y.year}</th>`).join("")}</tr></thead><tbody>
     ${[
       ["Revenue", (y: (typeof r.years)[number]) => fmtM(y.revenue)],
@@ -80,7 +117,7 @@ export function renderDcf(i: DcfInputs, marketCapUsdM?: number) {
   const cur2: [number, number] = [nearest(SHIFTS, 0), nearest(MARGINS, i.targetMargin)];
   const sens1 = heatmap(g1, { corner: "WACC \\ growth", rowFmt: (n) => fmtPct(n), colFmt: (n) => fmtPct(n), valFmt: (n) => `$${nf0.format(n)}`, current: cur1, caption: "Value per ordinary share (USD): discount rate (rows) against terminal growth (columns)" });
   const sens2 = heatmap(g2, { corner: "Growth shift \\ margin", rowFmt: (n) => `${n > 0 ? "+" : ""}${(n * 100).toFixed(0)} pts`, colFmt: (n) => fmtPct(n, 0), valFmt: (n) => `$${nf0.format(n)}`, current: cur2, caption: "Value per ordinary share (USD): change in yearly revenue growth (rows) against final-year operating margin (columns)" });
-  return { r, summary, years, bridge, sens1, sens2 };
+  return { r, summary, years, bridge, sens1, sens2, lines: dcfLines(i) };
 }
 
 export function renderMultiples(ds: Dataset, caps: Record<string, number | undefined>, names: Record<string, string>): string {
@@ -129,7 +166,7 @@ export function initPharma(ds: Dataset, names: Record<string, string>) {
     if (typeof i === "string") {
       err.textContent = i;
       err.hidden = false;
-      ["dcf-summary", "dcf-years", "dcf-bridge", "sens1", "sens2"].forEach((id) => (out(id).innerHTML = ""));
+      ["dcf-summary", "dcf-years", "dcf-bridge", "sens1", "sens2", "dcf-lines"].forEach((id) => (out(id).innerHTML = ""));
     } else {
       err.hidden = true;
       const x = renderDcf(i, capOf("astrazeneca"));
@@ -138,6 +175,7 @@ export function initPharma(ds: Dataset, names: Record<string, string>) {
       out("dcf-bridge").innerHTML = x.bridge;
       out("sens1").innerHTML = x.sens1;
       out("sens2").innerHTML = x.sens2;
+      out("dcf-lines").innerHTML = x.lines;
     }
     const caps = Object.fromEntries(Object.keys(names).map((c) => [c, capOf(c)]));
     out("mult-out").innerHTML = renderMultiples(ds, caps, names);
