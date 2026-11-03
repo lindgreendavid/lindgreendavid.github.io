@@ -101,12 +101,6 @@ const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
             <div class="pane"><h3 class="sub-h">Where the return comes from</h3><p class="sub-note">Equity invested, plus what each driver added, equals equity at exit. Dollars, millions.</p><div id="lbo-bridge"><Fragment set:html={x.bridge} /></div></div>
             </div>
           </div>
-        <div class="pane surf3d-pane" id="lbo-3d" hidden style="margin-top: 1.25rem">
-          <h3 class="sub-h">The return as a landscape</h3>
-          <p class="sub-note">The same grid as the first table, wider and smoother: sponsor IRR for every entry and exit multiple around your inputs. A high ridge is where the return is large; the slope shows how fast it falls when the price paid goes up or the price at sale goes down. Drag to turn it.</p>
-          <canvas class="surf3d" tabindex="0" role="img" aria-label="3D surface of the sponsor IRR by entry multiple and exit multiple."></canvas>
-          <p class="surf3d-hint"><span>Drag or use the arrow keys to rotate.</span><button type="button" data-reset3d>Reset view</button></p>
-        </div>
         </section>
       </div>
 

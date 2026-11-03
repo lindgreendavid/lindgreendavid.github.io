@@ -2,7 +2,6 @@
 // is produced on the server and the same code re-renders in the browser when someone changes an assumption.
 import { dcfInputsFor, multiples, runDcf, SCENARIOS, sensitivity, sensitivityOperating, validateDcfInputs } from "./model.ts";
 import type { Dataset, DcfInputs, Grid } from "./model.ts";
-import { densify, mountSurface } from "../surfaceView.ts";
 
 const nf0 = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 0 });
 const nf1 = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 1, minimumFractionDigits: 1 });
@@ -37,26 +36,6 @@ export const WACCS = [0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09];
 export const GROWTHS = [0.01, 0.015, 0.02, 0.025, 0.03];
 export const SHIFTS = [-0.02, -0.01, 0, 0.01, 0.02];
 export const MARGINS = [0.21, 0.23, 0.25, 0.27, 0.29];
-
-/** Value per share over a wider grid of discount rates and terminal growth rates, as data for the 3D view. */
-export function dcfSurface(i: DcfInputs) {
-  const waccs = Array.from({ length: 11 }, (_, k) => 0.06 + k * 0.005);
-  const growths = Array.from({ length: 8 }, (_, k) => k * 0.005);
-  const g = sensitivity(i, waccs, growths);
-  const flat = g.values.flat().filter((v) => Number.isFinite(v));
-  const lo = Math.min(...flat);
-  const hi = Math.max(...flat);
-  const z = g.values.map((row) => row.map((v) => (Number.isFinite(v) ? v : lo)));
-  return {
-    z: densify(z, 3),
-    min: lo,
-    max: hi,
-    xLabels: [`Growth ${fmtPct(growths[0])}`, `Growth ${fmtPct(growths[growths.length - 1])}`] as [string, string],
-    yLabels: [`WACC ${fmtPct(waccs[0])}`, `WACC ${fmtPct(waccs[waccs.length - 1])}`] as [string, string],
-    unit: "",
-    prefix: "$",
-  };
-}
 
 export function renderDcf(i: DcfInputs, marketCapUsdM?: number) {
   const r = runDcf(i);
@@ -128,8 +107,6 @@ export function initPharma(ds: Dataset, names: Record<string, string>) {
   const mform = document.getElementById("mult-form") as HTMLFormElement | null;
   if (!form || !mform) return;
   const out = (id: string) => document.getElementById(id)!;
-  const host = document.getElementById("dcf-3d");
-  const view = host ? mountSurface(host) : null;
   const capOf = (c: string) => {
     const v = parseFloat((mform.elements.namedItem(`cap-${c}`) as HTMLInputElement).value);
     return Number.isFinite(v) && v > 0 ? v * 1000 : undefined; // entered in USD billions
@@ -161,8 +138,6 @@ export function initPharma(ds: Dataset, names: Record<string, string>) {
       out("dcf-bridge").innerHTML = x.bridge;
       out("sens1").innerHTML = x.sens1;
       out("sens2").innerHTML = x.sens2;
-      const sv = dcfSurface(i);
-      view?.set(sv, `3D surface of value per ordinary share by discount rate and terminal growth, from $${sv.min.toFixed(0)} to $${sv.max.toFixed(0)}.`);
     }
     const caps = Object.fromEntries(Object.keys(names).map((c) => [c, capOf(c)]));
     out("mult-out").innerHTML = renderMultiples(ds, caps, names);

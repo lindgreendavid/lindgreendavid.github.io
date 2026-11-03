@@ -55,8 +55,8 @@ const chapters = [
       const x = p * n;
       chapters.forEach((el, i) => {
         const d = x - i; // 0 to 1 while this chapter is the current one
-        const enter = ease(d / 0.28);
-        const exit = ease((1 - d) / 0.2);
+        const enter = i === 0 ? 1 : ease((d + 0.1) / 0.3); // starts just before the previous chapter ends, so they cross-fade; the first is on screen before any scrolling
+        const exit = i === n - 1 ? 1 : ease((1 - d) / 0.2); // the last one stays until the story ends
         const a = Math.min(enter, exit);
         el.style.opacity = String(a);
         el.style.transform = `translate3d(0, ${(1 - enter) * 90 - (1 - exit) * 70}px, 0)`;
@@ -72,7 +72,7 @@ const chapters = [
     surface.show();
 
     // Smoothed follow of the scroll position, so the scene eases rather than snapping with the wheel.
-    const follow = gsap.quickTo(state, "p", { duration: 0.7, ease: "power3.out", onUpdate: () => apply(state.p) });
+    const follow = gsap.quickTo(state, "p", { duration: 0.25, ease: "power2.out", onUpdate: () => apply(state.p) }); // Lenis already smooths the scroll, so this only softens it a little
     ScrollTrigger.create({ trigger: root, start: "top top", end: "bottom bottom", onUpdate: (self) => follow(self.progress) });
     document.fonts?.ready.then(() => ScrollTrigger.refresh());
   };

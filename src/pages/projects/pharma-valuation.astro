@@ -169,12 +169,6 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
         <div class="pane"><div id="sens1" class="tbl-wrap"><Fragment set:html={initial.sens1} /></div></div>
         <div class="pane"><div id="sens2" class="tbl-wrap"><Fragment set:html={initial.sens2} /></div></div>
       </div>
-      <div class="pane surf3d-pane" id="dcf-3d" hidden style="margin-top: 1.25rem">
-        <h3 class="sub-h">The value as a landscape</h3>
-        <p class="sub-note">Value per share for every discount rate and terminal growth rate in a wider range. The surface is steep on the left, where a low discount rate and high growth push the value up fast: that is how much of a DCF is the long-run assumption. Drag to turn it.</p>
-        <canvas class="surf3d" tabindex="0" role="img" aria-label="3D surface of value per ordinary share by discount rate and terminal growth."></canvas>
-        <p class="surf3d-hint"><span>Drag or use the arrow keys to rotate.</span><button type="button" data-reset3d>Reset view</button></p>
-      </div>
       <p class="muted" style="margin-top: 0.75rem">In the base case the terminal value is {fmtPct(initial.r.terminalShareOfEv, 0)} of enterprise value, so the result is mostly a statement about long-run assumptions. The outlined cell marks the current assumptions.</p>
     </section>
 
