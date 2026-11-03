@@ -76,9 +76,10 @@ export function renderDcf(i: DcfInputs, marketCapUsdM?: number) {
       }
     </dl>
     <div class="split" role="img" aria-label="Share of enterprise value: forecast years ${fmtPct(1 - r.terminalShareOfEv, 0)}, terminal value ${fmtPct(r.terminalShareOfEv, 0)}">
-      <span class="split-a" style="--w:${((1 - r.terminalShareOfEv) * 100).toFixed(1)}%">Forecast years ${fmtPct(1 - r.terminalShareOfEv, 0)}</span>
-      <span class="split-b" style="--w:${(r.terminalShareOfEv * 100).toFixed(1)}%">After year 5 ${fmtPct(r.terminalShareOfEv, 0)}</span>
-    </div>`;
+      <span class="split-a" style="--w:${((1 - r.terminalShareOfEv) * 100).toFixed(1)}%"><b>Forecast years </b>${fmtPct(1 - r.terminalShareOfEv, 0)}</span>
+      <span class="split-b" style="--w:${(r.terminalShareOfEv * 100).toFixed(1)}%"><b>After year 5 </b>${fmtPct(r.terminalShareOfEv, 0)}</span>
+    </div>
+    <p class="split-cap">Share of enterprise value: the forecast years against everything after year 5.</p>`;
   const years = `<table class="tbl"><caption>Free cash flow to the firm, USD millions</caption><thead><tr><th scope="col"></th>${r.years.map((y) => `<th scope="col">FY${y.year}</th>`).join("")}</tr></thead><tbody>
     ${[
       ["Revenue", (y: (typeof r.years)[number]) => fmtM(y.revenue)],

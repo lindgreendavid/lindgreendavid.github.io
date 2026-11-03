@@ -330,7 +330,7 @@ button {
 }
 .rate-range button {
   min-width: 44px;
-  min-height: 36px;
+  min-height: 44px;
   padding: 0 0.7rem;
   background: transparent;
   border: 0;
@@ -1026,6 +1026,9 @@ h2.big,
   margin-top: 1.5rem;
 }
 .contact-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: var(--on-ink);
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -1472,5 +1475,28 @@ html.lenis {
       opacity: 0;
       transform: translateY(14px);
     }
+  }
+}
+
+/* ---- phone widths: touch targets of at least 44px, and the split bar keeps its words short ---- */
+input[type="range"] {
+  min-height: 44px;
+}
+details > summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.split-cap {
+  margin-top: 0.5rem;
+  color: var(--ink-3);
+  font-size: 0.85rem;
+}
+@media (max-width: 560px) {
+  .split b {
+    display: none;
+  }
+  .split span {
+    text-align: center;
   }
 }

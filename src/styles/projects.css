@@ -60,6 +60,8 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
+  min-width: 44px;
+  justify-content: center;
   color: var(--accent);
   font-weight: 500;
   text-decoration: none;
@@ -1300,4 +1302,35 @@ details.sources + details.sources {
   color: var(--accent);
   font-weight: 500;
   cursor: pointer;
+}
+
+/* a command block scrolls inside its pane instead of widening the page */
+.cmd {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.pane {
+  min-width: 0;
+}
+/* long unbroken strings (URLs in a citation) wrap instead of widening the page */
+.pane p,
+.prose p,
+.prose li {
+  overflow-wrap: anywhere;
+}
+/* on phones the tabs form an even two-by-two grid instead of wrapping unevenly */
+@media (max-width: 560px) {
+  .tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    border-radius: 28px;
+  }
+  .tabs[hidden] {
+    display: none;
+  }
+  .tabs [role="tab"] {
+    padding: 0 0.5rem;
+    text-align: center;
+  }
 }
