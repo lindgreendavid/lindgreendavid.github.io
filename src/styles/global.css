@@ -1518,3 +1518,8 @@ html:not(.js) .theme,
 html:not(.js) .more-foot button {
   display: none;
 }
+
+/* a section that receives focus from a link (skip link, anchor) needs no ring of its own */
+[tabindex="-1"]:focus {
+  outline: none;
+}

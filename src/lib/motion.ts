@@ -21,6 +21,10 @@ if (lenis) {
     if (!target) return;
     e.preventDefault();
     lenis.scrollTo(target as HTMLElement, { offset: -72 });
+    // Move keyboard focus to the target as a normal anchor would, so the next Tab continues from there (skip links depend on it).
+    const el = target as HTMLElement;
+    if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
+    el.focus({ preventScroll: true });
   });
 }
 
