@@ -64,6 +64,12 @@ const { title, description, lang = "en" } = Astro.props;
     </script>
     <script>
       // Entrances: each marked block rises and fades in once, staggered. Content stays visible if this never runs.
+      // Project and note pages mark nothing by hand: their headings, panes, pipelines and uses lists get the same entrance.
+      document.querySelectorAll<HTMLElement>("main .section-head, main .pane, main .uses").forEach((el) => el.setAttribute("data-rv", ""));
+      document.querySelectorAll<HTMLElement>("main .flow, main .proj-hero").forEach((el) => {
+        el.setAttribute("data-rv", "");
+        el.setAttribute("data-stagger", "");
+      });
       const els = Array.from(document.querySelectorAll<HTMLElement>("[data-rv]"));
       if ("IntersectionObserver" in window && els.length) {
         els.forEach((el) => {

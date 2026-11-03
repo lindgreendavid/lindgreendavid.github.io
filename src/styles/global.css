@@ -25,20 +25,20 @@
 
 /* Dark theme: soft brown ground, beige ink. "Ink" surfaces (lead panel, contact band) invert to beige with dark text. */
 :root[data-theme="dark"] {
-  --ground: #1a1612;
-  --paper: #251f19;
-  --panel: #362d24;
-  --mint: #2a231c;
-  --ink: #efe6d6;
-  --ink-2: #cdc1ae;
-  --ink-3: #a59885;
-  --tone: #31291f;
-  --accent: #e2b673;
-  --accent-deep: #f0cb92;
-  --on-ink: #1a1612;
-  --on-ink-2: #594d40;
-  --bright: #6a3f12;
-  --wordmark: #e3d7c3;
+  --ground: #0d1210;
+  --paper: #141b17;
+  --panel: #1a231e;
+  --mint: #111815;
+  --ink: #e8efeb;
+  --ink-2: #b6c3bb;
+  --ink-3: #8e9c94;
+  --tone: #1b2420;
+  --accent: #62e3b0;
+  --accent-deep: #8cf0c8;
+  --on-ink: #0d1210;
+  --on-ink-2: #3d4a43;
+  --bright: #0b6b4b;
+  --wordmark: #d6e1db;
   color-scheme: dark;
 }
 
@@ -1142,6 +1142,51 @@ h2.big,
   from {
     opacity: 0;
     transform: perspective(1400px) rotateX(10deg) translateY(28px);
+  }
+}
+
+/* ---- project pages and hero: panes tip in, pipeline steps arrive in order, the hero eases back as you scroll ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready .pane[data-rv].in:not([data-stagger]) {
+    transform-origin: 50% 0;
+    animation-name: reveal-3d;
+    animation-duration: 850ms;
+  }
+  .reveal-ready .flow[data-stagger].in > * {
+    transform-origin: 0 50%;
+    animation-name: reveal-step;
+    animation-duration: 800ms;
+    animation-delay: calc(var(--d, 0) * 110ms);
+  }
+  @keyframes reveal-step {
+    from {
+      opacity: 0;
+      transform: perspective(900px) rotateY(-16deg) translateX(-18px);
+    }
+  }
+  @supports (animation-timeline: scroll()) {
+    .hero-row {
+      animation: hero-away linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 80vh;
+      transform-origin: 50% 100%;
+    }
+    .hero h1 {
+      animation: hero-drift linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 80vh;
+    }
+    @keyframes hero-away {
+      to {
+        transform: perspective(1400px) translateY(-36px) rotateX(5deg) scale(0.97);
+        opacity: 0.6;
+      }
+    }
+    @keyframes hero-drift {
+      to {
+        transform: translateY(-48px);
+      }
+    }
   }
 }
 
