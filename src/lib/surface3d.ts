@@ -23,12 +23,13 @@ const token = (name: string) => getComputedStyle(document.documentElement).getPr
 const lerp = (a: number[], b: number[], t: number) => a.map((v, i) => v + (b[i] - v) * t);
 const css = (c: number[], k = 1) => `rgb(${c.map((v) => Math.max(0, Math.min(255, Math.round(v * k)))).join(",")})`;
 
-export function createSurface(canvas: HTMLCanvasElement, data: SurfaceData, reduced: boolean) {
+export function createSurface(canvas: HTMLCanvasElement, initial: SurfaceData, reduced: boolean) {
+  let data = initial;
   const ctx = canvas.getContext("2d");
   if (!ctx) return null;
-  const rows = data.z.length;
-  const cols = data.z[0].length;
-  const span = data.max - data.min || 1;
+  let rows = data.z.length;
+  let cols = data.z[0].length;
+  let span = data.max - data.min || 1;
   const home = { yaw: -0.62, pitch: 0.66 };
   let yaw = home.yaw;
   let pitch = home.pitch;
@@ -38,19 +39,26 @@ export function createSurface(canvas: HTMLCanvasElement, data: SurfaceData, redu
   // Lit shading, computed once: a fixed light from the upper left makes the shading change as the scene turns.
   const light = [-0.45, -0.55, 0.7];
   const ll = Math.hypot(...light);
-  const shade: number[][] = [];
-  for (let j = 0; j < rows - 1; j++) {
-    shade.push([]);
-    for (let i = 0; i < cols - 1; i++) {
-      const z = data.z;
-      const dx = ((z[j][i + 1] + z[j + 1][i + 1] - z[j][i] - z[j + 1][i]) / 2 / span) * SH / (SX / (cols - 1));
-      const dy = ((z[j + 1][i] + z[j + 1][i + 1] - z[j][i] - z[j][i + 1]) / 2 / span) * SH / (SY / (rows - 1));
-      const n = [-dx * 0.22, -dy * 0.22, 1];
-      const nl = Math.hypot(...n);
-      const lam = Math.max(0, (n[0] * light[0] + n[1] * light[1] + n[2] * light[2]) / (nl * ll));
-      shade[j].push(0.74 + 0.3 * lam);
+  let shade: number[][] = [];
+  const prepare = () => {
+    rows = data.z.length;
+    cols = data.z[0].length;
+    span = data.max - data.min || 1;
+    shade = [];
+    for (let j = 0; j < rows - 1; j++) {
+      shade.push([]);
+      for (let i = 0; i < cols - 1; i++) {
+        const z = data.z;
+        const dx = ((z[j][i + 1] + z[j + 1][i + 1] - z[j][i] - z[j + 1][i]) / 2 / span) * SH / (SX / (cols - 1));
+        const dy = ((z[j + 1][i] + z[j + 1][i + 1] - z[j][i] - z[j][i + 1]) / 2 / span) * SH / (SY / (rows - 1));
+        const n = [-dx * 0.22, -dy * 0.22, 1];
+        const nl = Math.hypot(...n);
+        const lam = Math.max(0, (n[0] * light[0] + n[1] * light[1] + n[2] * light[2]) / (nl * ll));
+        shade[j].push(0.74 + 0.3 * lam);
+      }
     }
-  }
+  };
+  prepare();
 
   const project = (X: number, Y: number, H: number, w: number, h: number) => {
     const a = yaw + bias;
@@ -257,5 +265,11 @@ export function createSurface(canvas: HTMLCanvasElement, data: SurfaceData, redu
       redraw();
     },
     redraw,
+    /** Replace the data (same drawing, new grid) without rebuilding the canvas or its listeners. */
+    update: (d: SurfaceData) => {
+      data = d;
+      prepare();
+      redraw();
+    },
   };
 }

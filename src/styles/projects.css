@@ -1148,3 +1148,41 @@ details.sources + details.sources {
 .note .band .section {
   padding-top: clamp(40px, 5vw, 72px);
 }
+
+/* ---- 3D surface view (return and value landscapes) ---- */
+.surf3d {
+  display: block;
+  width: 100%;
+  height: clamp(300px, 46vw, 460px);
+  margin-top: 0.75rem;
+  background: var(--tone);
+  border-radius: 20px;
+  cursor: grab;
+  touch-action: pan-y;
+}
+.surf3d:active {
+  cursor: grabbing;
+}
+.surf3d:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.surf3d-hint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 1rem;
+  margin-top: 0.5rem;
+  color: var(--ink-3);
+  font-size: 0.85rem;
+}
+.surf3d-hint button {
+  min-height: 44px;
+  padding: 0 0.5rem;
+  background: transparent;
+  border: 0;
+  color: var(--accent);
+  font-weight: 500;
+  cursor: pointer;
+}

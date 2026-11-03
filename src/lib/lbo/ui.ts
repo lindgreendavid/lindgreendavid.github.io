@@ -4,6 +4,7 @@ import { HOLD_YEARS, LboInputError, inputsFor, irrGrid, monteCarlo, runLbo, torn
 import type { LboInputs, LboResult } from "./model.ts";
 import { stacked, waterfall } from "./charts.ts";
 import { heatmap, fmtM, fmtPct, fmtX } from "../pharma/ui.ts";
+import { densify, mountSurface } from "../surfaceView.ts";
 
 export type Target = { ticker: string; name: string; revenue: number; ebitda: number; da: number; netDebt: number; flags: string[] };
 
@@ -94,6 +95,26 @@ export function renderLbo(i: LboInputs, r: LboResult) {
 
 export const MC_DRAWS = 3000;
 
+/** IRR over a wider grid of entry and exit multiples, as data for the 3D view. A cell that cannot be run takes the lowest value. */
+export function irrSurface(i: LboInputs) {
+  const steps = Array.from({ length: 13 }, (_, k) => -3 + k * 0.5);
+  const entry = steps.map((d) => i.entryMultiple + d).filter((x) => x > 0.5);
+  const exit = steps.map((d) => i.exitMultiple + d).filter((x) => x > 0.5);
+  const g = irrGrid(i, "entryMultiple", entry, "exitMultiple", exit);
+  const flat = g.flat().filter((v): v is number => v !== null);
+  const lo = Math.min(...flat);
+  const hi = Math.max(...flat);
+  const pct = g.map((row) => row.map((v) => (v === null ? lo : v) * 100));
+  return {
+    z: densify(pct, 3),
+    min: lo * 100,
+    max: hi * 100,
+    xLabels: [`Exit ${exit[0].toFixed(1)}x`, `Exit ${exit[exit.length - 1].toFixed(1)}x`] as [string, string],
+    yLabels: [`Entry ${entry[0].toFixed(1)}x`, `Entry ${entry[entry.length - 1].toFixed(1)}x`] as [string, string],
+    unit: "%",
+  };
+}
+
 /** Distribution of the IRR from the Monte Carlo, as a table of bins plus the headline quantiles. */
 export function renderMonteCarlo(i: LboInputs): string {
   const bin = (x: number) => fmtPct(x, 0).replace("-0%", "0%");
@@ -169,6 +190,8 @@ export function initLbo(targets: Target[]) {
     return i;
   };
 
+  const host = document.getElementById("lbo-3d");
+  const view = host ? mountSurface(host) : null;
   const ids = ["lbo-summary", "lbo-su", "lbo-years", "lbo-bridge", "lbo-debt", "sens1", "sens2", "lbo-flags", "lbo-mc", "lbo-tornado"];
   const renderAll = () => {
     const i = read();
@@ -191,6 +214,8 @@ export function initLbo(targets: Target[]) {
     out("lbo-flags").innerHTML = x.flags;
     out("lbo-mc").innerHTML = renderMonteCarlo(i);
     out("lbo-tornado").innerHTML = renderTornado(i);
+    const sv = irrSurface(i);
+    view?.set(sv, `3D surface of the sponsor IRR by entry multiple and exit multiple, from ${sv.min.toFixed(0)} to ${sv.max.toFixed(0)} percent a year.`);
   };
 
   let timer: number | undefined;

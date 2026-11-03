@@ -1,14 +1,15 @@
 ---
 // Real data: ECB euro foreign exchange reference rate, USD per EUR, fetched at build time.
-// If the request fails the component renders nothing and the hero stays without a chart.
+// If the request fails or times out, the last stored copy of the series (src/data/eurusd-fallback.json) is used.
 import { layout, fmtDate, pct, W, H, PAD, type Pt } from "../lib/chart";
+import fallback from "../data/eurusd-fallback.json";
 
 const url =
   "https://data-api.ecb.europa.eu/service/data/EXR/D.USD.EUR.SP00.A?format=csvdata&detail=dataonly&lastNObservations=260";
 
 let pts: Pt[] = [];
 try {
-  const res = await fetch(url);
+  const res = await fetch(url, { signal: AbortSignal.timeout(12000) });
   if (res.ok) {
     const [head, ...lines] = (await res.text()).trim().split(/\r?\n/);
     const cols = head.split(",");
@@ -23,6 +24,8 @@ try {
   pts = [];
 }
 
+// The ECB service is sometimes slow or unavailable at build time: fall back to the last stored copy of the same series.
+if (pts.length <= 60) pts = fallback as Pt[];
 const ok = pts.length > 60;
 const L = ok ? layout(pts) : null;
 const first = ok ? pts[0] : null;
@@ -90,9 +93,11 @@ const last = ok ? pts[pts.length - 1] : null;
     const sub = root.querySelector(".rate-sub")!;
     const subLine = sub.textContent;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let surface: ReturnType<typeof import("../lib/surface3d").createSurface> = null;
+    let surface: import("../lib/surfaceAuto").Surface | null = null;
+    let surfacePromise: Promise<import("../lib/surfaceAuto").Surface | null> | null = null; // one creation, even if the view is entered twice while it loads
     let vol: ReturnType<typeof volSurface> | null = null;
-    if (!canvas.getContext || !canvas.getContext("2d")) surfBtn.hidden = true;
+    // Test on a throwaway canvas: asking the real one for a 2D context would stop it from ever getting a WebGL context.
+    if (!document.createElement("canvas").getContext?.("2d")) surfBtn.hidden = true;
     const all: Pt[] = JSON.parse(root.dataset.pts!);
     const $ = <T extends Element>(s: string) => root.querySelector<T>(s)!;
     const svg = $<SVGSVGElement>("svg");
@@ -138,8 +143,8 @@ const last = ok ? pts[pts.length - 1] : null;
         `3D surface of EUR/USD annualised realised volatility by lookback window (5 to 60 days) and date. Latest 20-day value ${now.toFixed(1)} percent, range ${lo.toFixed(1)} to ${hi.toFixed(1)} percent. Use the arrow keys to rotate and Home to reset.`
       );
       if (!surface) {
-        const { createSurface } = await import("../lib/surface3d");
-        surface = createSurface(
+        const { createSurfaceAuto } = await import("../lib/surfaceAuto");
+        surfacePromise ??= createSurfaceAuto(
           canvas,
           {
             z: vol.z,
@@ -151,6 +156,7 @@ const last = ok ? pts[pts.length - 1] : null;
           },
           reduced
         );
+        surface = await surfacePromise;
       }
       surface?.show();
     };
