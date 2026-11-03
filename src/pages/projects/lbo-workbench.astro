@@ -1,7 +1,10 @@
 ---
+import { seoFor } from "../../lib/seo.ts";
+const seo = seoFor("lbo-workbench");
 import Base from "../../layouts/Base.astro";
 import ProjectHeader from "../../components/ProjectHeader.astro";
 import ProjectFlow from "../../components/ProjectFlow.astro";
+import RelatedProjects from "../../components/RelatedProjects.astro";
 import ProjectUses from "../../components/ProjectUses.astro";
 import "../../styles/projects.css";
 import ds from "../../data/ma/dataset.json";
@@ -23,7 +26,7 @@ const fv = toFormValues(inputs);
 const fld = (v: number) => String(Math.round(v * 100) / 100);
 const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
 ---
-<Base title="LBO Workbench | David Lindgreen" description="A transparent leveraged-buyout model on real SEC figures. Pick a company, set the price and the debt, see the return. Hypothetical deal, educational, not independently reviewed.">
+<Base {...seo}>
   <ProjectHeader current="projects" />
   <main id="main">
     <section class="wrap proj-hero">
@@ -227,6 +230,8 @@ const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
     </div>
 
     </div>
+
+    <RelatedProjects current="lbo-workbench" />
 
     <footer class="wrap proj-foot"><p><a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p></footer>
   </main>

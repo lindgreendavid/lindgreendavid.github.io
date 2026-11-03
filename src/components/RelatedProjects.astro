@@ -1,0 +1,23 @@
+---
+// Links to the other projects at the bottom of a project page: better for visitors, and the internal links tell search and answer engines how the work connects.
+import { PAGES } from "../lib/seo.ts";
+
+interface Props {
+  current: string;
+}
+const { current } = Astro.props;
+const blurbs: Record<string, string> = {
+  "pharma-valuation": "A DCF of AstraZeneca against Novartis and GSK.",
+  "lbo-workbench": "A leveraged buyout: price, debt and return.",
+  "credit-risk-screen": "How much strain 28 companies could take.",
+  "ma-screening": "A first shortlist for a hypothetical buyer.",
+  "research-assistant": "Questions answered from annual reports, with sources.",
+};
+const others = Object.keys(blurbs).filter((k) => k !== current);
+---
+<section class="wrap section" aria-labelledby="related-h">
+  <div class="section-head"><h2 id="related-h">Related projects</h2><p>The five projects share one dataset of public filings, so each builds on the others.</p></div>
+  <ul class="related">
+    {others.map((k) => <li><a href={PAGES[k].path}><strong>{PAGES[k].name}</strong><span>{blurbs[k]}</span></a></li>)}
+  </ul>
+</section>

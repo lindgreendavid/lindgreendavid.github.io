@@ -1,4 +1,6 @@
 ---
+import { seoFor } from "../lib/seo.ts";
+const seo = seoFor("home");
 import Base from "../layouts/Base.astro";
 import RateChart from "../components/RateChart.astro";
 import Story from "../components/Story.astro";
@@ -14,10 +16,7 @@ const arrow = "M3 8h9M8.5 4l4 4-4 4";
 const work = roles.filter((r) => r.org === "Sanofi" || (r.org === "Le Wagon" && r.role.startsWith("Lead")));
 const education = roles.filter((r) => !work.includes(r) && r.role !== "Teaching assistant");
 ---
-<Base
-  title="David Lindgreen: data and AI, building towards finance"
-  description="David Lindgreen is a data and AI analyst in Frankfurt, working with large operational datasets at Sanofi and publishing analyses with their limits stated. Building towards finance."
->
+<Base {...seo}>
   <a class="skip" href="#work">Skip to the work</a>
 
   <header class="bar">

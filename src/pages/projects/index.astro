@@ -1,4 +1,6 @@
 ---
+import { seoFor } from "../../lib/seo.ts";
+const seo = seoFor("projects");
 import Base from "../../layouts/Base.astro";
 import ProjectHeader from "../../components/ProjectHeader.astro";
 import "../../styles/projects.css";
@@ -6,7 +8,7 @@ import MiniBars from "../../components/MiniBars.astro";
 import { person } from "../../data/site";
 import { creditBandRows, evalRows, lboRows, marginRows, top5Rows } from "../../lib/projectViz.ts";
 ---
-<Base title="Projects | David Lindgreen" description="Five connected projects on public financial data: a pharma valuation explorer, an annual-report research assistant, an M&A screening workbench, an LBO model and a credit risk screen. Honest status for each.">
+<Base {...seo}>
   <ProjectHeader current="projects" />
   <main id="main">
     <section class="wrap proj-hero">

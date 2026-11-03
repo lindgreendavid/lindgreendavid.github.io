@@ -1,0 +1,15 @@
+---
+import Base from "../layouts/Base.astro";
+import ProjectHeader from "../components/ProjectHeader.astro";
+import "../styles/projects.css";
+---
+<Base title="Page not found | David Lindgreen" description="This page does not exist. Go to the home page or the finance projects." noindex={true}>
+  <ProjectHeader current="projects" />
+  <main id="main">
+    <section class="wrap proj-hero">
+      <h1>Page not found</h1>
+      <p class="proj-lede">There is nothing at this address. It may have moved, or the link may be wrong.</p>
+      <p class="actions-line"><a class="btn btn-primary" href="/projects/">See the projects</a><a class="text-link" href="/">Home</a></p>
+    </section>
+  </main>
+</Base>

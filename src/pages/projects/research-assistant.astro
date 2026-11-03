@@ -1,7 +1,10 @@
 ---
+import { seoFor } from "../../lib/seo.ts";
+const seo = seoFor("research-assistant");
 import Base from "../../layouts/Base.astro";
 import ProjectHeader from "../../components/ProjectHeader.astro";
 import ProjectFlow from "../../components/ProjectFlow.astro";
+import RelatedProjects from "../../components/RelatedProjects.astro";
 import TabBar from "../../components/TabBar.astro";
 import ProjectUses from "../../components/ProjectUses.astro";
 import "../../styles/projects.css";
@@ -20,7 +23,7 @@ const ci = (r: string) => {
   return `${(w.lo * 100).toFixed(0)} to ${(w.hi * 100).toFixed(0)}%`;
 };
 ---
-<Base title="Annual-Report Research Assistant | David Lindgreen" description="Ask questions across the FY2025 Form 20-F reports of Novartis, AstraZeneca and GSK. Answers are source passages with links, deterministic calculations or an explicit refusal. First release, evaluated on 142 hand-written questions.">
+<Base {...seo}>
   <ProjectHeader current="projects" />
   <main id="main">
     <section class="wrap proj-hero">
@@ -203,6 +206,8 @@ const ci = (r: string) => {
     </section>
 
     </div>
+
+    <RelatedProjects current="research-assistant" />
 
     <footer class="wrap proj-foot"><p><a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p></footer>
   </main>

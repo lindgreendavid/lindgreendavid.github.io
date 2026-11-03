@@ -1409,3 +1409,38 @@ section[aria-label="Disclosures"] {
     font-size: 0.85rem;
   }
 }
+
+/* ---- related projects ---- */
+.related {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+  list-style: none;
+}
+.related a {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 44px;
+  padding: 1.25rem 1.4rem;
+  background: var(--paper);
+  border-radius: 20px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 140ms ease, transform 140ms var(--out);
+}
+.related a:active {
+  transform: scale(0.98);
+}
+.related strong {
+  font-weight: 600;
+}
+.related span {
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+@media (hover: hover) and (pointer: fine) {
+  .related a:hover {
+    background: var(--tone);
+  }
+}

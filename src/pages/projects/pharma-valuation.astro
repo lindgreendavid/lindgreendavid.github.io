@@ -1,7 +1,10 @@
 ---
+import { seoFor } from "../../lib/seo.ts";
+const seo = seoFor("pharma-valuation");
 import Base from "../../layouts/Base.astro";
 import ProjectHeader from "../../components/ProjectHeader.astro";
 import ProjectFlow from "../../components/ProjectFlow.astro";
+import RelatedProjects from "../../components/RelatedProjects.astro";
 import TabBar from "../../components/TabBar.astro";
 import ProjectUses from "../../components/ProjectUses.astro";
 import "../../styles/projects.css";
@@ -94,7 +97,7 @@ const waccCases = [
 ];
 const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
 ---
-<Base title="Pharma Valuation Explorer | David Lindgreen" description="A transparent comparison of Novartis, AstraZeneca and GSK from public filings, with a DCF of AstraZeneca, sensitivity analysis and a downloadable model. First release, in development.">
+<Base {...seo}>
   <ProjectHeader current="projects" />
   <main id="main">
     <section class="wrap proj-hero">
@@ -491,6 +494,8 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
     </section>
 
     </div>
+
+    <RelatedProjects current="pharma-valuation" />
 
     <footer class="wrap proj-foot">
       <p><a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p>

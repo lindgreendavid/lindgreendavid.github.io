@@ -2,6 +2,7 @@
 import Base from "../../../layouts/Base.astro";
 import ProjectHeader from "../../../components/ProjectHeader.astro";
 import "../../../styles/projects.css";
+import { methodSeo } from "../../../lib/seo.ts";
 import { AUTHOR, BUILT_WITH, noteBuilders, slugs } from "../../../lib/methodNotes.ts";
 
 export function getStaticPaths() {
@@ -9,6 +10,7 @@ export function getStaticPaths() {
 }
 const { slug } = Astro.params;
 const n = noteBuilders[slug as string]();
+const seo = methodSeo(n, slug as string);
 const url = `https://lindgreendavid.com${n.projectPath}method/`;
 const latest = n.changelog[0]; // newest entry first: it sets the version and date shown
 const cite = `${AUTHOR} (${latest.date.slice(0, 4)}). ${n.title}, version ${latest.version}. ${url}`;
@@ -21,7 +23,7 @@ const sections: { id: string; h: string; items: string[] }[] = [
   { id: "not-checked", h: "What was not checked", items: n.notChecked },
 ];
 ---
-<Base title={`${n.title} | David Lindgreen`} description={n.abstract.slice(0, 200)}>
+<Base {...seo}>
   <ProjectHeader current="projects" />
   <main id="main" class="note">
     <section class="wrap proj-hero">

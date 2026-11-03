@@ -1,7 +1,10 @@
 ---
+import { seoFor } from "../../lib/seo.ts";
+const seo = seoFor("ma-screening");
 import Base from "../../layouts/Base.astro";
 import ProjectHeader from "../../components/ProjectHeader.astro";
 import ProjectFlow from "../../components/ProjectFlow.astro";
+import RelatedProjects from "../../components/RelatedProjects.astro";
 import TabBar from "../../components/TabBar.astro";
 import ProjectUses from "../../components/ProjectUses.astro";
 import "../../styles/projects.css";
@@ -19,7 +22,7 @@ const v = validation;
 const cmp = compareBriefs(data);
 const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true });
 ---
-<Base title="M&A Screening Workbench | David Lindgreen" description="A preliminary screening of US-listed pharma and biotech companies against a hypothetical buyer brief, with adjustable weights, data-gap flags, ranking sensitivity and a screening memo. Screening only; first release.">
+<Base {...seo}>
   <ProjectHeader current="projects" />
   <main id="main">
     <section class="wrap proj-hero">
@@ -259,6 +262,8 @@ const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true 
     </div>
 
     </div>
+
+    <RelatedProjects current="ma-screening" />
 
     <footer class="wrap proj-foot"><p><a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p></footer>
   </main>

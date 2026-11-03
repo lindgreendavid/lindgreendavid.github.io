@@ -1,0 +1,28 @@
+# David Lindgreen
+
+> David Lindgreen is a data and AI analyst in Frankfurt, Germany, building towards finance. This site holds five finance projects built on public SEC and ECB data, each with a method note, tests and stated limits. They are educational: not investment advice, not credit ratings, not valuations of any company, and not independently reviewed. They were built with AI assistance (Claude); David Lindgreen designed and directed them and is responsible for checking them.
+
+## Projects
+
+- [Pharma Valuation Explorer](https://lindgreendavid.com/projects/pharma-valuation/): compares Novartis, AstraZeneca and GSK on one basis and runs a discounted cash flow valuation of AstraZeneca, with sensitivities and an Excel model.
+- [LBO Workbench](https://lindgreendavid.com/projects/lbo-workbench/): a leveraged buyout model on SEC 10-K figures with sources and uses, debt schedule, IRR, MOIC, a value bridge and an Excel file. The deal is hypothetical.
+- [Credit Risk Screen](https://lindgreendavid.com/projects/credit-risk-screen/): scores 28 US pharma and biotech companies on leverage, interest cover, cash flow and liquidity, with an earnings stress test and an Altman Z-double-prime cross-check.
+- [M&A Screening Workbench](https://lindgreendavid.com/projects/ma-screening/): screens the same companies against a hypothetical buyer brief with adjustable weights and data-gap flags.
+- [Annual-Report Research Assistant](https://lindgreendavid.com/projects/research-assistant/): answers questions about the FY2025 20-F reports of Novartis, AstraZeneca and GSK with source passages, calculations or refusals. It generates no text.
+
+## Method notes
+
+Each project has a method note with the question, data, method, results, validation, threats to validity, what was not checked, reproduction steps and references.
+
+- [Pharma Valuation method note](https://lindgreendavid.com/projects/pharma-valuation/method/)
+- [LBO Workbench method note](https://lindgreendavid.com/projects/lbo-workbench/method/)
+- [Credit Risk Screen method note](https://lindgreendavid.com/projects/credit-risk-screen/method/)
+- [M&A Screening method note](https://lindgreendavid.com/projects/ma-screening/method/)
+- [Research Assistant method note](https://lindgreendavid.com/projects/research-assistant/method/)
+
+## Other
+
+- [All projects](https://lindgreendavid.com/projects/)
+- [Lab Notes](https://notes.lindgreendavid.com/): twelve public analyses with code, data and stated limits.
+- [GitHub](https://github.com/lindgreendavid)
+- [LinkedIn](https://www.linkedin.com/in/david-lindgreen-625868303/)

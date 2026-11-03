@@ -1,7 +1,10 @@
 ---
+import { seoFor } from "../../lib/seo.ts";
+const seo = seoFor("credit-risk-screen");
 import Base from "../../layouts/Base.astro";
 import ProjectHeader from "../../components/ProjectHeader.astro";
 import ProjectFlow from "../../components/ProjectFlow.astro";
+import RelatedProjects from "../../components/RelatedProjects.astro";
 import TabBar from "../../components/TabBar.astro";
 import ProjectUses from "../../components/ProjectUses.astro";
 import "../../styles/projects.css";
@@ -28,7 +31,7 @@ const fut = vc[2];
 const r2 = (n: number | null) => (n === null ? "n/a" : n.toFixed(2));
 const v = validation.totals;
 ---
-<Base title="Credit Risk Screen | David Lindgreen" description="A transparent first-pass credit screen of 28 US pharma and biotech companies from their 10-K figures: leverage, interest cover, cash flow and liquidity, an EBITDA stress test and an Altman cross-check. Not a rating. First release.">
+<Base {...seo}>
   <ProjectHeader current="projects" />
   <main id="main">
     <section class="wrap proj-hero">
@@ -251,6 +254,8 @@ const v = validation.totals;
     </div>
 
     </div>
+
+    <RelatedProjects current="credit-risk-screen" />
 
     <footer class="wrap proj-foot"><p><a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p></footer>
   </main>
