@@ -1366,3 +1366,55 @@ html.lenis {
     font-size: clamp(2.8rem, 15vw, 4.5rem);
   }
 }
+
+/* ---- headline word masks (motion.ts) and chart entrances: bars rise from their baseline, score segments draw ---- */
+.sw {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0.1em 0.04em 0.14em;
+  margin: -0.1em -0.04em -0.14em;
+}
+.sw > span {
+  display: inline-block;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready .in .pc rect {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: bar-up 900ms var(--out) backwards;
+  }
+  .reveal-ready .in .pc rect:nth-of-type(2) { animation-delay: 70ms; }
+  .reveal-ready .in .pc rect:nth-of-type(3) { animation-delay: 140ms; }
+  .reveal-ready .in .pc rect:nth-of-type(4) { animation-delay: 210ms; }
+  .reveal-ready .in .pc rect:nth-of-type(5) { animation-delay: 280ms; }
+  .reveal-ready .in .pc rect:nth-of-type(6) { animation-delay: 350ms; }
+  .reveal-ready .in .pc rect:nth-of-type(7) { animation-delay: 420ms; }
+  .reveal-ready .in .pc .pc-val {
+    animation: soft-in 600ms ease 500ms backwards;
+  }
+  .reveal-ready .in .dl-seg {
+    transform-origin: 0 50%;
+    animation: seg-draw 900ms var(--out) 200ms backwards;
+  }
+  [data-settled] .pc rect,
+  [data-settled] .pc .pc-val,
+  [data-settled] .dl-seg {
+    animation: none !important;
+  }
+  @keyframes bar-up {
+    from {
+      transform: scaleY(0);
+    }
+  }
+  @keyframes seg-draw {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @keyframes soft-in {
+    from {
+      opacity: 0;
+    }
+  }
+}

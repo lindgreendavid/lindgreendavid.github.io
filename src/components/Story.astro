@@ -27,9 +27,7 @@ const chapters = [
 </section>
 
 <script>
-  import gsap from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import Lenis from "lenis";
+  import { gsap, ScrollTrigger } from "../lib/motion";
   import { volSurface } from "../lib/vol";
   import { createSurfaceGL } from "../lib/surfaceGL";
 
@@ -45,21 +43,6 @@ const chapters = [
     if (!surface) return;
 
     root.classList.add("story-live");
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Smooth scrolling for the whole page, driven by GSAP's clock so the pinned story and the scroll stay in step.
-    const lenis = new Lenis({ lerp: 0.1 });
-    lenis.on("scroll", ScrollTrigger.update);
-    gsap.ticker.add((t) => lenis.raf(t * 1000));
-    gsap.ticker.lagSmoothing(0);
-    document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
-      a.addEventListener("click", (e) => {
-        const target = a.hash.length > 1 ? document.querySelector(a.hash) : null;
-        if (!target) return;
-        e.preventDefault();
-        lenis.scrollTo(target as HTMLElement, { offset: -72 });
-      });
-    });
 
     const chapters = Array.from(root.querySelectorAll<HTMLElement>(".story-chapter"));
     const n = chapters.length;

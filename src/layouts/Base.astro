@@ -63,6 +63,9 @@ const { title, description, lang = "en" } = Astro.props;
       }
     </script>
     <script>
+      import "../lib/motion";
+    </script>
+    <script>
       // Entrances: each marked block rises and fades in once, staggered. Content stays visible if this never runs.
       // Project and note pages mark nothing by hand: their headings, panes, pipelines and uses lists get the same entrance.
       document.querySelectorAll<HTMLElement>("main .section-head, main .pane, main .uses").forEach((el) => el.setAttribute("data-rv", ""));

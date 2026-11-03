@@ -20,7 +20,7 @@ const { title, note, rows } = Astro.props;
       <li>
         <span class="mb-label">{r.label}</span>
         <span class="mb-track" aria-hidden="true"><span class="mb-fill" style={`--w:${Math.max(0, Math.min(1, r.share)) * 100}%`}></span></span>
-        <span class="mb-val">{r.text}</span>
+        <span class="mb-val" data-count>{r.text}</span>
       </li>
     ))}
   </ul>
