@@ -1500,3 +1500,21 @@ details > summary {
     text-align: center;
   }
 }
+
+/* ---- narrow phones (320px): targets of 44px, lists that fit their panel ---- */
+.theme {
+  min-width: 44px;
+}
+.more-foot a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* ---- without JavaScript: hide controls that would do nothing ---- */
+html:not(.js) .rate-range,
+html:not(.js) [data-surface],
+html:not(.js) .theme,
+html:not(.js) .more-foot button {
+  display: none;
+}

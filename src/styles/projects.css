@@ -1394,3 +1394,18 @@ details.sources + details.sources {
 section[aria-label="Disclosures"] {
   padding-bottom: clamp(2rem, 5vw, 3.5rem);
 }
+@media (max-width: 600px) {
+  .flags ul {
+    min-width: 0;
+  }
+}
+#credit-counts {
+  overflow-x: auto;
+}
+@media (max-width: 380px) {
+  #credit-counts .tbl th,
+  #credit-counts .tbl td {
+    padding-inline: 0.4rem;
+    font-size: 0.85rem;
+  }
+}
