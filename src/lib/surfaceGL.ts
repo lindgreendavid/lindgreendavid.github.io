@@ -31,7 +31,7 @@ const FONT = '500 26px "Geist Variable", system-ui, sans-serif';
 
 const token = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
-export function createSurfaceGL(canvas: HTMLCanvasElement, initial: SurfaceData, reduced: boolean) {
+export function createSurfaceGL(canvas: HTMLCanvasElement, initial: SurfaceData, reduced: boolean, opts: { bare?: boolean } = {}) {
   let renderer: WebGLRenderer;
   try {
     renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "low-power" });
@@ -58,6 +58,8 @@ export function createSurfaceGL(canvas: HTMLCanvasElement, initial: SurfaceData,
   let yaw = home.yaw;
   let pitch = home.pitch;
   let bias = 0;
+  let amp = 1; // vertical scale of the surface
+  let zoom = 1; // camera distance factor
   let frame = 0;
 
   let mesh: Mesh | null = null;
@@ -180,13 +182,17 @@ export function createSurfaceGL(canvas: HTMLCanvasElement, initial: SurfaceData,
     for (const f of [0, 0.5, 1]) ap.push(ax, SH * f, az, ax - 0.04, SH * f, az);
     axis.geometry.setAttribute("position", new BufferAttribute(new Float32Array(ap), 3));
 
-    // Labels.
+    // Labels (left out in the bare mode used behind the scroll story).
+    grid.visible = !opts.bare;
+    axis.visible = !opts.bare;
+    floor.visible = !opts.bare;
     while (labels.children.length) {
       const s = labels.children[0] as Sprite;
       (s.material as SpriteMaterial).map?.dispose();
       s.material.dispose();
       labels.remove(s);
     }
+    if (opts.bare) return;
     const span = data.max - data.min;
     for (const f of [0, 0.5, 1]) text(`${(data.min + span * f).toFixed(0)}${data.unit}`, c.ink, ax - 0.07, SH * f, az, "right");
     text(data.xLabels[0], c.ink, -SX / 2 + 0.2, 0, hy + 0.16);
@@ -203,12 +209,14 @@ export function createSurfaceGL(canvas: HTMLCanvasElement, initial: SurfaceData,
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     // Pull the camera back on narrow, tall frames so the whole surface and its labels stay in view.
-    const dist = 2.9 * Math.max(1, 1.8 / camera.aspect);
+    const dist = 2.9 * Math.max(1, 1.8 / camera.aspect) * zoom;
     const e = pitch;
     camera.position.set(0, 0.15 + Math.sin(e) * dist, Math.cos(e) * dist);
     camera.lookAt(0, 0.18, 0);
     camera.updateProjectionMatrix();
     world.rotation.y = yaw + bias;
+    if (mesh) mesh.scale.y = amp;
+    if (wire) wire.scale.y = amp;
     return true;
   };
   const draw = () => {
@@ -290,6 +298,14 @@ export function createSurfaceGL(canvas: HTMLCanvasElement, initial: SurfaceData,
       redraw();
     },
     redraw,
+    /** Drive the scene directly (used by the scroll story): extra turn, tilt, height scale and camera distance. */
+    view: (v: { turn?: number; pitch?: number; amp?: number; zoom?: number }) => {
+      if (v.turn !== undefined) bias = v.turn;
+      if (v.pitch !== undefined) pitch = v.pitch;
+      if (v.amp !== undefined) amp = v.amp;
+      if (v.zoom !== undefined) zoom = v.zoom;
+      redraw();
+    },
     update: (d: SurfaceData) => {
       data = d;
       build();

@@ -1,0 +1,97 @@
+---
+// A pinned scroll story: one 3D scene (the ECB volatility surface) stays on screen while four chapters scrub past and turn,
+// tilt and stretch it. Every sentence describes work that exists on this site. Without JavaScript, WebGL or with reduced motion it is
+// a plain list of the four chapters.
+const chapters = [
+  { title: "Real filings.", text: "Figures from SEC 10-K filings and ECB data, checked against the source before anything is built on them." },
+  { title: "Models.", text: "A DCF, a leveraged buyout and a credit scorecard, with every rule and assumption written down." },
+  { title: "Stress.", text: "Shock earnings, move the price, change the weights, and see how much of the answer survives." },
+  { title: "Limits.", text: "Each project says what it cannot tell you, and none of them is independently reviewed yet." },
+];
+---
+<section class="story" aria-label="How the work is built" data-story>
+  <div class="story-stage">
+    <canvas class="story-canvas" aria-hidden="true"></canvas>
+    <div class="wrap story-copy">
+      <ol class="story-chapters">
+        {chapters.map((c) => (
+          <li class="story-chapter">
+            <h2>{c.title}</h2>
+            <p>{c.text}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="story-hint" aria-hidden="true">Keep scrolling</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import Lenis from "lenis";
+  import { volSurface } from "../lib/vol";
+  import { createSurfaceGL } from "../lib/surfaceGL";
+
+  const root = document.querySelector<HTMLElement>("[data-story]");
+  const rate = document.querySelector<HTMLElement>("[data-rate]");
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const start = () => {
+    if (!root || !rate?.dataset.pts || reduced) return;
+    const canvas = root.querySelector<HTMLCanvasElement>(".story-canvas")!;
+    const vol = volSurface(JSON.parse(rate.dataset.pts));
+    const surface = createSurfaceGL(canvas, { z: vol.z, min: vol.min, max: vol.max, xLabels: ["", ""], yLabels: ["", ""], unit: "%" }, false, { bare: true });
+    if (!surface) return;
+
+    root.classList.add("story-live");
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Smooth scrolling for the whole page, driven by GSAP's clock so the pinned story and the scroll stay in step.
+    const lenis = new Lenis({ lerp: 0.1 });
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((t) => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+    document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
+      a.addEventListener("click", (e) => {
+        const target = a.hash.length > 1 ? document.querySelector(a.hash) : null;
+        if (!target) return;
+        e.preventDefault();
+        lenis.scrollTo(target as HTMLElement, { offset: -72 });
+      });
+    });
+
+    const chapters = Array.from(root.querySelectorAll<HTMLElement>(".story-chapter"));
+    const n = chapters.length;
+    const clamp = (v: number) => Math.min(1, Math.max(0, v));
+    const ease = (v: number) => 1 - Math.pow(1 - clamp(v), 3);
+    const hint = root.querySelector<HTMLElement>(".story-hint");
+    const state = { p: 0 };
+
+    const apply = (p: number) => {
+      const x = p * n;
+      chapters.forEach((el, i) => {
+        const d = x - i; // 0 to 1 while this chapter is the current one
+        const enter = ease(d / 0.28);
+        const exit = ease((1 - d) / 0.2);
+        const a = Math.min(enter, exit);
+        el.style.opacity = String(a);
+        el.style.transform = `translate3d(0, ${(1 - enter) * 90 - (1 - exit) * 70}px, 0)`;
+        el.style.pointerEvents = a > 0.5 ? "auto" : "none";
+        el.toggleAttribute("data-active", a > 0.5);
+      });
+      // The scene: a slow turn all the way through, a tilt that opens and closes, and the surface stretches during "Stress".
+      const stress = Math.max(0, 1 - Math.abs(x - 2.5) / 0.9);
+      surface.view({ turn: -0.7 + p * 3.4, pitch: 0.42 + 0.32 * Math.sin(p * Math.PI), amp: 0.75 + 1.2 * stress + 0.15 * p, zoom: 1.12 - 0.15 * p - 0.08 * stress });
+      if (hint) hint.style.opacity = String(1 - clamp(p / 0.08));
+    };
+    apply(0);
+    surface.show();
+
+    // Smoothed follow of the scroll position, so the scene eases rather than snapping with the wheel.
+    const follow = gsap.quickTo(state, "p", { duration: 0.7, ease: "power3.out", onUpdate: () => apply(state.p) });
+    ScrollTrigger.create({ trigger: root, start: "top top", end: "bottom bottom", onUpdate: (self) => follow(self.progress) });
+    document.fonts?.ready.then(() => ScrollTrigger.refresh());
+  };
+  start();
+</script>

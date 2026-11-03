@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import RateChart from "../components/RateChart.astro";
+import Story from "../components/Story.astro";
 import LegalLinks from "../components/LegalLinks.astro";
 import MiniBars from "../components/MiniBars.astro";
 import { person, notes, roles, next } from "../data/site";
@@ -57,6 +58,8 @@ const education = roles.filter((r) => !work.includes(r) && r.role !== "Teaching 
         </div>
       </div>
     </section>
+
+    <Story />
 
     <section class="wrap pillars" aria-label="What I do" data-rv data-stagger>
       <div>
