@@ -1,6 +1,7 @@
 // Rendering and interaction for the Credit Risk Screen. The render functions return HTML strings, so the first view is produced on the server
 // and the same code re-renders in the browser when someone changes a limit. Nothing the visitor enters leaves the page.
-import { BUCKETS, FACTORS, FACTOR_INFO, rankRows, rowFor } from "./model.ts";
+import { BUCKETS, FACTORS, FACTOR_INFO, headroom, rankRows, rowFor } from "./model.ts";
+import { densify, mountSurface } from "../surfaceView.ts";
 import type { BucketName, Compact, Options, Robustness, Row, Validity } from "./model.ts";
 import { fmtM, fmtPct, fmtX } from "../pharma/ui.ts";
 
@@ -108,6 +109,23 @@ export function renderAll(ks: Compact[], opts: Options) {
   return { rows, range: scoreRange(rows, opts.shock), headroom: headroomList(rows), table: rankTable(rows, opts), disagree: disagreements(rows), counts: bucketCounts(rows) };
 }
 
+/** How many companies would breach a limit, for every size of earnings fall and every leverage limit, as data for the 3D view. */
+export function breachSurface(ks: Compact[], opts: Options) {
+  const rows = ks.map((k) => rowFor(k, 2025, opts)).filter((r) => r.headroom !== null);
+  const shocks = Array.from({ length: 17 }, (_, k) => k * 0.05);
+  const limits = Array.from({ length: 13 }, (_, k) => 2 + k * 0.5);
+  const z = shocks.map((s) =>
+    limits.map((l) =>
+      rows.reduce((n, r) => {
+        const h = headroom(r.raw, l, opts.coverageFloor);
+        return n + (h && (h.binding === "already" || (h.binding !== "none" && h.value < s)) ? 1 : 0);
+      }, 0)
+    )
+  );
+  const flat = z.flat();
+  return { z: densify(z, 3), min: Math.min(...flat), max: Math.max(...flat), xLabels: ["Limit 2x", "Limit 8x"] as [string, string], yLabels: ["Fall 0%", "Fall 80%"] as [string, string], unit: "", total: rows.length };
+}
+
 export function bucketCounts(rows: Row[]): string {
   const n = (b: BucketName) => rows.filter((r) => r.bucket === b).length;
   const s = (b: BucketName) => rows.filter((r) => r.stressedBucket === b).length;
@@ -133,6 +151,14 @@ export function initCredit(ks: Compact[]) {
   if (!form) return;
   const out = (id: string) => document.getElementById(id)!;
   const sel = document.getElementById("drill-company") as HTMLSelectElement;
+  const host = document.getElementById("credit-3d");
+  const view = host ? mountSurface(host) : null;
+  const draw3d = (o: Options) => {
+    const bs = breachSurface(ks, o);
+    view?.set(bs, `3D surface of how many of ${bs.total} companies would breach a limit, by the fall in EBITDA and the leverage limit, from ${bs.min} to ${bs.max} companies.`);
+  };
+  const first = readOptions(form);
+  if (typeof first !== "string") draw3d(first);
   const render = () => {
     const o = readOptions(form);
     const err = out("credit-error");
@@ -150,6 +176,7 @@ export function initCredit(ks: Compact[]) {
     out("credit-counts").innerHTML = x.counts;
     const k = ks.find((c) => c.ticker === sel.value);
     if (k) out("credit-drill").innerHTML = drill(k, o);
+    draw3d(o);
     out("shock-label").textContent = `${(o.shock * 100).toFixed(0)}%`;
   };
   let t: number | undefined;

@@ -8,6 +8,7 @@ export type SurfaceData = {
   xLabels: [string, string];
   yLabels: [string, string];
   unit: string;
+  prefix?: string; // shown before the number on the height axis, for example $
 };
 
 const FONT = '500 12.5px "Geist Variable", system-ui, sans-serif';

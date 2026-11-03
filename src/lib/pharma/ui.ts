@@ -2,6 +2,7 @@
 // is produced on the server and the same code re-renders in the browser when someone changes an assumption.
 import { dcfInputsFor, multiples, runDcf, SCENARIOS, sensitivity, sensitivityOperating, validateDcfInputs } from "./model.ts";
 import type { Dataset, DcfInputs, Grid } from "./model.ts";
+import { densify, mountSurface } from "../surfaceView.ts";
 
 const nf0 = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 0 });
 const nf1 = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 1, minimumFractionDigits: 1 });
@@ -37,6 +38,26 @@ export const GROWTHS = [0.01, 0.015, 0.02, 0.025, 0.03];
 export const SHIFTS = [-0.02, -0.01, 0, 0.01, 0.02];
 export const MARGINS = [0.21, 0.23, 0.25, 0.27, 0.29];
 
+/** Value per share over a wider grid of discount rates and terminal growth rates, as data for the 3D view. */
+export function dcfSurface(i: DcfInputs) {
+  const waccs = Array.from({ length: 11 }, (_, k) => 0.06 + k * 0.005);
+  const growths = Array.from({ length: 8 }, (_, k) => k * 0.005);
+  const g = sensitivity(i, waccs, growths);
+  const flat = g.values.flat().filter((v) => Number.isFinite(v));
+  const lo = Math.min(...flat);
+  const hi = Math.max(...flat);
+  const z = g.values.map((row) => row.map((v) => (Number.isFinite(v) ? v : lo)));
+  return {
+    z: densify(z, 3),
+    min: lo,
+    max: hi,
+    xLabels: [`Growth ${fmtPct(growths[0])}`, `Growth ${fmtPct(growths[growths.length - 1])}`] as [string, string],
+    yLabels: [`WACC ${fmtPct(waccs[0])}`, `WACC ${fmtPct(waccs[waccs.length - 1])}`] as [string, string],
+    unit: "",
+    prefix: "$",
+  };
+}
+
 export function renderDcf(i: DcfInputs, marketCapUsdM?: number) {
   const r = runDcf(i);
   const g1 = sensitivity(i, WACCS, GROWTHS);
@@ -53,7 +74,11 @@ export function renderDcf(i: DcfInputs, marketCapUsdM?: number) {
           ? `<div><dt>Your market capitalisation vs this equity value</dt><dd>${fmtPct(marketCapUsdM / r.equityValue - 1, 0)} ${marketCapUsdM > r.equityValue ? "above" : "below"}</dd></div>`
           : ""
       }
-    </dl>`;
+    </dl>
+    <div class="split" role="img" aria-label="Share of enterprise value: forecast years ${fmtPct(1 - r.terminalShareOfEv, 0)}, terminal value ${fmtPct(r.terminalShareOfEv, 0)}">
+      <span class="split-a" style="--w:${((1 - r.terminalShareOfEv) * 100).toFixed(1)}%">Forecast years ${fmtPct(1 - r.terminalShareOfEv, 0)}</span>
+      <span class="split-b" style="--w:${(r.terminalShareOfEv * 100).toFixed(1)}%">After year 5 ${fmtPct(r.terminalShareOfEv, 0)}</span>
+    </div>`;
   const years = `<table class="tbl"><caption>Free cash flow to the firm, USD millions</caption><thead><tr><th scope="col"></th>${r.years.map((y) => `<th scope="col">FY${y.year}</th>`).join("")}</tr></thead><tbody>
     ${[
       ["Revenue", (y: (typeof r.years)[number]) => fmtM(y.revenue)],
@@ -102,6 +127,8 @@ export function initPharma(ds: Dataset, names: Record<string, string>) {
   const mform = document.getElementById("mult-form") as HTMLFormElement | null;
   if (!form || !mform) return;
   const out = (id: string) => document.getElementById(id)!;
+  const host = document.getElementById("dcf-3d");
+  const view = host ? mountSurface(host) : null;
   const capOf = (c: string) => {
     const v = parseFloat((mform.elements.namedItem(`cap-${c}`) as HTMLInputElement).value);
     return Number.isFinite(v) && v > 0 ? v * 1000 : undefined; // entered in USD billions
@@ -133,6 +160,8 @@ export function initPharma(ds: Dataset, names: Record<string, string>) {
       out("dcf-bridge").innerHTML = x.bridge;
       out("sens1").innerHTML = x.sens1;
       out("sens2").innerHTML = x.sens2;
+      const sv = dcfSurface(i);
+      view?.set(sv, `3D surface of value per ordinary share by discount rate and terminal growth, from $${sv.min.toFixed(0)} to $${sv.max.toFixed(0)}.`);
     }
     const caps = Object.fromEntries(Object.keys(names).map((c) => [c, capOf(c)]));
     out("mult-out").innerHTML = renderMultiples(ds, caps, names);

@@ -1418,3 +1418,59 @@ html.lenis {
     }
   }
 }
+
+/* ---- topic-fitting entrances: the terminal value swells in a DCF, score bars fill in a screen, answers rise in the assistant ---- */
+.split {
+  display: flex;
+  margin-top: 1rem;
+  border-radius: 999px;
+  overflow: hidden;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.split span {
+  flex: 0 0 var(--w);
+  min-width: 0;
+  padding: 0.55rem 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.split-a {
+  background: var(--tone);
+  color: var(--ink-2);
+}
+.split-b {
+  background: var(--accent);
+  color: var(--on-ink);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready .in .split-a {
+    animation: split-reveal 700ms var(--out) 200ms backwards;
+  }
+  .reveal-ready .in .split-b {
+    animation: split-reveal 1100ms var(--out) 700ms backwards;
+  }
+  .reveal-ready .in .sbar > * {
+    transform-origin: 0 50%;
+    animation: seg-draw 800ms var(--out) 150ms backwards;
+  }
+  [data-settled] .split span,
+  [data-settled] .sbar > * {
+    animation: none !important;
+  }
+  .answer {
+    animation: answer-in 520ms var(--out) backwards;
+  }
+  @keyframes split-reveal {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+  }
+  @keyframes answer-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+}

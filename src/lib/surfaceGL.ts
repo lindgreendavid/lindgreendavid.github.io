@@ -194,7 +194,7 @@ export function createSurfaceGL(canvas: HTMLCanvasElement, initial: SurfaceData,
     }
     if (opts.bare) return;
     const span = data.max - data.min;
-    for (const f of [0, 0.5, 1]) text(`${(data.min + span * f).toFixed(0)}${data.unit}`, c.ink, ax - 0.07, SH * f, az, "right");
+    for (const f of [0, 0.5, 1]) text(`${data.prefix ?? ""}${(data.min + span * f).toFixed(0)}${data.unit}`, c.ink, ax - 0.07, SH * f, az, "right");
     text(data.xLabels[0], c.ink, -SX / 2 + 0.2, 0, hy + 0.16);
     text(data.xLabels[1], c.ink, SX / 2 - 0.2, 0, hy + 0.16);
     text(data.yLabels[0], c.ink, SX / 2 + 0.2, 0, -hy * 0.8, "left");
