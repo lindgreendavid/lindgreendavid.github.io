@@ -211,7 +211,12 @@ const last = ok ? pts[pts.length - 1] : null;
     root.querySelector("[data-reset3d]")?.addEventListener("click", () => surface?.reset());
 
     // The 3D surface is the default view; the line chart stays one tap away (and is the no-JavaScript view).
-    if (!surfBtn.hidden) enterSurface();
+    // Loaded when the browser is idle, so the 130 KB 3D code never competes with the first paint.
+    if (!surfBtn.hidden) {
+      const idle = (window as unknown as { requestIdleCallback?: (f: () => void, o?: { timeout: number }) => void }).requestIdleCallback;
+      if (idle) idle(() => enterSurface(), { timeout: 1500 });
+      else window.setTimeout(enterSurface, 400);
+    }
 
     // Scroll-driven turn: the surface rotates a little as the page scrolls past it. Off for reduced motion.
     if (!reduced) {
