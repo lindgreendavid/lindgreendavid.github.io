@@ -36,21 +36,6 @@ const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true 
     <TabBar tabs={[{ id: "try", label: "Try it" }, { id: "details", label: "Details" }, { id: "about", label: "About and method" }]} />
 
     <div class="tab-panel" id="panel-try" role="tabpanel" aria-labelledby="tab-try">
-    <div class="band band-mint">
-      <section class="wrap section" id="brief" aria-labelledby="brief-h">
-        <div class="section-head"><h2 id="brief-h">The hypothetical brief</h2><p>BuyerCo, a fictional European specialty-pharma platform with a US commercial presence, wants a profitable, growing, US-listed commercial-stage company in the revenue range of $150m to $3bn that it could realistically absorb. Illustrative criteria, not a view of what any real buyer wants.</p></div>
-        <div class="pane">
-          <div class="tbl-wrap" role="region" aria-label="Criteria, scrolls horizontally on small screens" tabindex="0">
-            <table class="tbl">
-              <caption class="sr">Scored criteria and how each is scored</caption>
-              <thead><tr><th scope="col">Criterion</th><th scope="col">Measure</th><th scope="col">Score from 0 to 100</th><th scope="col">Default weight</th></tr></thead>
-              <tbody>{CRITERIA.map((c) => <tr><th scope="row">{CRITERION_INFO[c].label}</th><td>{CRITERION_INFO[c].measure}</td><td>{CRITERION_INFO[c].anchors}</td><td class="num">{DEFAULT_WEIGHTS[c]}</td></tr>)}</tbody>
-            </table>
-          </div>
-          <p class="muted" style="margin-top:0.75rem">Hard filters come first: revenue range ({DEFAULT_FILTERS.minRevenue} to {DEFAULT_FILTERS.maxRevenue} $m), positive operating income, and complete core data. Scores use fixed anchors from the brief, not the other companies, so a company's score does not move when the universe changes.</p>
-        </div>
-      </section>
-    </div>
 
     <section class="wrap section" id="screen" aria-labelledby="screen-h">
       <div class="section-head"><h2 id="screen-h">Screen {n} companies</h2><p>Change the weights and filters; the ranking, the data flags and the memo update. Weights are relative and are rescaled to total 100.</p></div>
@@ -66,6 +51,8 @@ const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true 
               </div>
             ))}
           </div>
+          <details class="more-fields">
+            <summary>Filters, data options and your own prices</summary>
           <h3 class="sub-h">Filters</h3>
           <div class="fields">
             <div class="field"><label for="min-rev">Minimum revenue, $m</label><input id="min-rev" name="min-rev" type="number" inputmode="decimal" min="0" step="any" value={DEFAULT_FILTERS.minRevenue} /></div>
@@ -83,11 +70,12 @@ const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true 
           <div class="field"><label for="prices">Prices, one per line</label><textarea id="prices" name="prices" rows="5" spellcheck="false" placeholder="BCRX 7.25&#10;HALO 62.10"></textarea></div>
           <div class="field"><label for="price-date">Date of your prices</label><input id="price-date" name="price-date" type="text" placeholder="e.g. 2026-10-21" /></div>
           <p id="price-msg" class="muted" role="status"></p>
+          </details>
           <div><button type="button" id="screen-reset" class="btn-quiet">Reset to the brief</button></div>
           <p id="screen-error" class="error callout" role="alert" hidden></p>
         </form>
-        <div class="pane prose" style="align-self: stretch">
-          <h3 style="margin-top:0">How to read the result</h3>
+        <details class="pane prose how-read" style="align-self: start">
+          <summary>How to read the result</summary>
           <ul>
             <li><strong>Score</strong> is a weighted average of the criterion scores (0 to 100).</li>
             <li><strong>Rank range</strong> and <strong>in top 5</strong> come from 1,000 random re-weightings in which each weight is multiplied by a lognormal factor exp(0.5 Z), where Z is standard normal (about 68% lie between 0.61 and 1.65; these are not bounds). A narrow range and a high share mean the position does not depend on the exact weights.</li>
@@ -96,7 +84,7 @@ const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true 
             <li><strong>Net debt</strong> includes royalty-financing obligations (sold future royalties) by default, because they are debt-like. Switch that off to see the effect: PTC Therapeutics carries $2.3bn of them.</li>
             <li><strong>Valuation and deal size</strong> appear only if you enter prices. They are your prices, not data this site vouches for.</li>
           </ul>
-        </div>
+        </details>
       </div>
 
       <div class="pane" style="margin-top: 1.25rem">
@@ -111,6 +99,21 @@ const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true 
     </div>
 
     <div class="tab-panel" id="panel-details" role="tabpanel" aria-labelledby="tab-details">
+    <div class="band band-mint">
+      <section class="wrap section" id="brief" aria-labelledby="brief-h">
+        <div class="section-head"><h2 id="brief-h">The hypothetical brief</h2><p>BuyerCo, a fictional European specialty-pharma platform with a US commercial presence, wants a profitable, growing, US-listed commercial-stage company in the revenue range of $150m to $3bn that it could realistically absorb. Illustrative criteria, not a view of what any real buyer wants.</p></div>
+        <div class="pane">
+          <div class="tbl-wrap" role="region" aria-label="Criteria, scrolls horizontally on small screens" tabindex="0">
+            <table class="tbl">
+              <caption class="sr">Scored criteria and how each is scored</caption>
+              <thead><tr><th scope="col">Criterion</th><th scope="col">Measure</th><th scope="col">Score from 0 to 100</th><th scope="col">Default weight</th></tr></thead>
+              <tbody>{CRITERIA.map((c) => <tr><th scope="row">{CRITERION_INFO[c].label}</th><td>{CRITERION_INFO[c].measure}</td><td>{CRITERION_INFO[c].anchors}</td><td class="num">{DEFAULT_WEIGHTS[c]}</td></tr>)}</tbody>
+            </table>
+          </div>
+          <p class="muted" style="margin-top:0.75rem">Hard filters come first: revenue range ({DEFAULT_FILTERS.minRevenue} to {DEFAULT_FILTERS.maxRevenue} $m), positive operating income, and complete core data. Scores use fixed anchors from the brief, not the other companies, so a company's score does not move when the universe changes.</p>
+        </div>
+      </section>
+    </div>
     <section class="wrap section" id="briefs" aria-labelledby="briefs-h">
       <div class="section-head"><h2 id="briefs-h">Does the shortlist survive a different brief?</h2><p>The same data scored under three hypothetical briefs. A company that stays in the top five under all of them does not owe its place to one set of weights.</p></div>
       <div class="pane">
