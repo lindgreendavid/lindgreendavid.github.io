@@ -23,39 +23,36 @@ const fv = toFormValues(inputs);
 const fld = (v: number) => String(Math.round(v * 100) / 100);
 const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
 ---
-<Base title="LBO Workbench | David Lindgreen" description="A transparent leveraged-buyout model on real SEC figures: sources and uses, a debt schedule, returns, a value-creation bridge and sensitivity grids. Hypothetical deal, educational, first release.">
+<Base title="LBO Workbench | David Lindgreen" description="A transparent leveraged-buyout model on real SEC figures. Pick a company, set the price and the debt, see the return. Hypothetical deal, educational, not independently reviewed.">
   <ProjectHeader current="projects" />
   <main id="main">
     <section class="wrap proj-hero">
       <h1>LBO Workbench</h1>
-      <p class="proj-lede">Pick a listed pharma or biotech company, set the price and the debt, and see what a financial buyer could earn after five years and where the return comes from. Every step is visible, and the same model is in an Excel file with live formulas.</p>
-      <p class="status">Version 1.0.1 · hypothetical deal · method note · built with AI assistance · not independently reviewed</p>
-      <div class="brief">
-        <div><h2>Who it is for</h2><p>An analyst or student who wants to see how a buyout works, not just the result: how much debt, how fast it is repaid and what drives the return.</p></div>
-        <div><h2>The problem</h2><p>Buyout returns depend on a handful of assumptions, and a single IRR hides which one matters. A good model shows the funding, the debt schedule and the sensitivities.</p></div>
-        <div><h2>What it supports</h2><p>Understanding the mechanics of an LBO and testing how fragile a return is. It is not a bid, a valuation or a view on any company.</p></div>
-      </div>
-      <nav class="jump" aria-label="On this page"><a href="/projects/lbo-workbench/method/">Method note</a><a href="#built">How it is built</a><a href="#model">Run a buyout</a><a href="#read">How to read it</a><a href="#method">Method</a><a href="#uses">Uses</a><a href="#limits">Limits</a><a href="#downloads">Downloads</a></nav>
+      <p class="proj-lede">What could a buyer earn on a listed pharma or biotech company after five years, and where would the return come from? Pick a company, set the price and the debt, and watch the answer move.</p>
+      <p class="status">Version 1.0.1 · hypothetical deal · built with AI assistance · not independently reviewed</p>
+      <p class="actions-line"><a class="btn btn-primary" href="#model">Run a buyout</a><a class="text-link" href="/projects/lbo-workbench/method/">Read the method note</a></p>
     </section>
 
     <section class="wrap" aria-label="Disclosures">
-      <p class="callout"><strong>Hypothetical, for learning.</strong> No company here is for sale, and nothing is a bid, a price target or advice. The company only supplies real starting figures from its 10-K (the same data as the <a href="/projects/ma-screening/">M&amp;A screening project</a>). The price, debt terms and operating assumptions are your inputs, not market data. The author works at Sanofi; no Sanofi or other employer information is used. Built with AI assistance; the author is responsible for checking it.</p>
+      <div class="callout"><p><strong>Hypothetical, for learning.</strong> No company here is for sale, and nothing is a bid, a price target or advice.</p><details class="callout-more"><summary>Full disclosure</summary><p>The company only supplies real starting figures from its 10-K (the same data as the <a href="/projects/ma-screening/">M&amp;A screening project</a>). The price, debt terms and operating assumptions are your inputs, not market data. The author works at Sanofi; no Sanofi or other employer information is used. Built with AI assistance; the author is responsible for checking it.</p></details></div>
     </section>
 
-    <ProjectFlow id="built" heading="How it is built" intro="The same five steps a first-pass LBO follows, each one shown on this page." steps={[
-      { title: "Starting figures", detail: "Revenue, EBITDA, depreciation and net debt for FY2025, from the company's 10-K via SEC XBRL data." },
-      { title: "Deal", detail: "You set the entry multiple and the debt. The equity cheque is whatever is left to fund the price and the fees." },
-      { title: "Five-year plan", detail: "Growth, margin, capex, working capital and tax produce the cash flow that is left after interest." },
-      { title: "Debt schedule", detail: "Mandatory repayment, then a cash sweep. Interest is charged on opening balances." },
-      { title: "Exit and return", detail: "Sell at an exit multiple, repay what is owed, and the rest is the sponsor's equity: MOIC and IRR." },
-    ]} />
+    <div class="band band-mint" id="model">
+      <section class="wrap" style="padding-top: clamp(2.5rem, 6vw, 4.5rem)" aria-label="Workbench" hidden>
+        <div class="tabs" role="tablist" aria-label="Workbench sections" hidden>
+          <button type="button" role="tab" id="tab-try" aria-controls="panel-try" aria-selected="true">Try it</button>
+          <button type="button" role="tab" id="tab-details" aria-controls="panel-details" aria-selected="false" tabindex="-1">Details</button>
+          <button type="button" role="tab" id="tab-risk" aria-controls="panel-risk" aria-selected="false" tabindex="-1">How sure is it</button>
+          <button type="button" role="tab" id="tab-about" aria-controls="panel-about" aria-selected="false" tabindex="-1">About and method</button>
+        </div>
+      </section>
 
-    <div class="band band-mint">
-      <section class="wrap section" id="model" aria-labelledby="model-h">
-        <div class="section-head"><h2 id="model-h">Run a buyout</h2><p>Choose a company and change anything. Results, charts and sensitivities update as you type. Amounts are US dollars, millions; percentages are entered as numbers.</p></div>
-        <div class="cols-2" style="align-items: start">
-          <form id="lbo-form" class="pane stack" action="#" aria-label="Buyout assumptions" onsubmit="return false">
-            <div>
+      <div class="tab-panel" id="panel-try" role="tabpanel" aria-labelledby="tab-try">
+        <section class="wrap section" aria-labelledby="try-h">
+          <div class="section-head"><h2 id="try-h">Run a buyout</h2><p>Pick a company and change the five main assumptions. Everything updates as you type. Amounts are US dollars, millions.</p></div>
+          <div class="cols-2" style="align-items: start">
+            <form id="lbo-form" class="pane stack" action="#" aria-label="Buyout assumptions" onsubmit="return false">
+              <div>
               <h3 class="sub-h">Target and deal</h3>
               <div class="field">
                 <label for="target">Company (real figures, hypothetical deal)</label>
@@ -65,69 +62,102 @@ const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
               </div>
               <div id="lbo-target" style="margin-top:0.75rem"><p class="muted">FY2025 from the company's 10-K: revenue ${fmtM(def.revenue)}m, EBITDA ${fmtM(def.ebitda)}m (operating income plus depreciation and amortisation), D&amp;A {((def.da / def.revenue) * 100).toFixed(1)}% of revenue, {def.netDebt < 0 ? `net cash $${fmtM(-def.netDebt)}m` : `net debt $${fmtM(def.netDebt)}m`}.</p>{def.flags.length > 0 && <details class="flags"><summary>{def.flags.length} data flag{def.flags.length > 1 ? "s" : ""} for this company</summary><ul>{def.flags.map((f) => <li>{f}</li>)}</ul></details>}</div>
             </div>
-            <div class="fields">
-              <div class="field"><label for="entry">Entry multiple (EV / EBITDA)</label><input id="entry" name="entry" type="number" inputmode="decimal" step="0.1" value={fld(fv.entry)} /><span class="hint">Your assumption, not a market price</span></div>
-              <div class="field"><label for="exit">Exit multiple</label><input id="exit" name="exit" type="number" inputmode="decimal" step="0.1" value={fld(fv.exit)} /></div>
-              <div class="field"><label for="senior">Senior debt (x EBITDA)</label><input id="senior" name="senior" type="number" inputmode="decimal" step="0.1" value={fld(fv.senior)} /></div>
-              <div class="field"><label for="sub">Subordinated debt (x EBITDA)</label><input id="sub" name="sub" type="number" inputmode="decimal" step="0.1" value={fld(fv.sub)} /></div>
-              <div class="field"><label for="srate">Senior interest rate (%)</label><input id="srate" name="srate" type="number" inputmode="decimal" step="0.1" value={fld(fv.srate)} /></div>
-              <div class="field"><label for="brate">Subordinated interest rate (%)</label><input id="brate" name="brate" type="number" inputmode="decimal" step="0.1" value={fld(fv.brate)} /></div>
-              <div class="field"><label for="amort">Mandatory repayment (% of senior a year)</label><input id="amort" name="amort" type="number" inputmode="decimal" step="0.1" value={fld(fv.amort)} /></div>
-              <div class="field"><label for="sweep">Cash sweep (% of excess cash)</label><input id="sweep" name="sweep" type="number" inputmode="decimal" step="1" value={fld(fv.sweep)} /></div>
-              <div class="field"><label for="fee">Fees (% of enterprise value)</label><input id="fee" name="fee" type="number" inputmode="decimal" step="0.1" value={fld(fv.fee)} /></div>
-            </div>
-            <fieldset style="border:0;margin:0;padding:0">
-              <legend class="sub-note" style="margin-bottom:0.5rem">Revenue growth, years 1 to 5 (%)</legend>
               <div class="fields">
-                {[1, 2, 3, 4, 5].map((n) => (
-                  <div class="field"><label for={`g${n}`}>Year {n}</label><input id={`g${n}`} name={`g${n}`} type="number" inputmode="decimal" step="0.1" value={fld(fv[`g${n}` as "g1"])} /></div>
-                ))}
+                <div class="field"><label for="entry">Entry multiple (EV / EBITDA)</label><input id="entry" name="entry" type="number" inputmode="decimal" step="0.1" value={fld(fv.entry)} /><span class="hint">Your assumption, not a market price</span></div>
+                <div class="field"><label for="exit">Exit multiple</label><input id="exit" name="exit" type="number" inputmode="decimal" step="0.1" value={fld(fv.exit)} /></div>
+                <div class="field"><label for="senior">Senior debt (x EBITDA)</label><input id="senior" name="senior" type="number" inputmode="decimal" step="0.1" value={fld(fv.senior)} /></div>
+                <div class="field"><label for="margin">EBITDA margin in year 5 (%)</label><input id="margin" name="margin" type="number" inputmode="decimal" step="0.1" value={fld(fv.margin)} /><span class="hint">Moves in a straight line from today's</span></div>
               </div>
-            </fieldset>
-            <div class="fields">
-              <div class="field"><label for="margin">EBITDA margin in year 5 (%)</label><input id="margin" name="margin" type="number" inputmode="decimal" step="0.1" value={fld(fv.margin)} /><span class="hint">Moves in a straight line from today's</span></div>
-              <div class="field"><label for="capex">Capex (% of revenue)</label><input id="capex" name="capex" type="number" inputmode="decimal" step="0.1" value={fld(fv.capex)} /></div>
-              <div class="field"><label for="nwc">Working capital (% of revenue growth)</label><input id="nwc" name="nwc" type="number" inputmode="decimal" step="1" value={fld(fv.nwc)} /></div>
-              <div class="field"><label for="tax">Tax rate (%)</label><input id="tax" name="tax" type="number" inputmode="decimal" step="0.1" value={fld(fv.tax)} /><span class="hint">Federal statutory rate; no state tax</span></div>
-            </div>
-            <button type="button" id="lbo-reset" class="btn-quiet">Reset to the defaults for this company</button>
-          </form>
-          <div class="pane stack" aria-live="polite">
-            <h3 class="sub-h">Result</h3>
-            <p id="lbo-error" class="error" role="alert" hidden></p>
-            <div id="lbo-summary"><Fragment set:html={x.summary} /></div>
-            <h3 class="sub-h" style="margin-top:1.5rem">Warnings</h3>
-            <div id="lbo-flags"><Fragment set:html={x.flags} /></div>
-          </div>
-        </div>
-
-        <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
-          <div class="pane"><h3 class="sub-h">Sources and uses</h3><div id="lbo-su" class="tbl-wrap" role="region" aria-label="Sources and uses, scrolls horizontally on small screens" tabindex="0"><Fragment set:html={x.su} /></div></div>
-          <div class="stack">
+              <details class="more-fields">
+                <summary>All other assumptions</summary>
+                <div class="fields">
+                  <div class="field"><label for="sub">Subordinated debt (x EBITDA)</label><input id="sub" name="sub" type="number" inputmode="decimal" step="0.1" value={fld(fv.sub)} /></div>
+                  <div class="field"><label for="srate">Senior interest rate (%)</label><input id="srate" name="srate" type="number" inputmode="decimal" step="0.1" value={fld(fv.srate)} /></div>
+                  <div class="field"><label for="brate">Subordinated interest rate (%)</label><input id="brate" name="brate" type="number" inputmode="decimal" step="0.1" value={fld(fv.brate)} /></div>
+                  <div class="field"><label for="amort">Mandatory repayment (% of senior a year)</label><input id="amort" name="amort" type="number" inputmode="decimal" step="0.1" value={fld(fv.amort)} /></div>
+                  <div class="field"><label for="sweep">Cash sweep (% of excess cash)</label><input id="sweep" name="sweep" type="number" inputmode="decimal" step="1" value={fld(fv.sweep)} /></div>
+                  <div class="field"><label for="fee">Fees (% of enterprise value)</label><input id="fee" name="fee" type="number" inputmode="decimal" step="0.1" value={fld(fv.fee)} /></div>
+                  <div class="field"><label for="capex">Capex (% of revenue)</label><input id="capex" name="capex" type="number" inputmode="decimal" step="0.1" value={fld(fv.capex)} /></div>
+                  <div class="field"><label for="nwc">Working capital (% of revenue growth)</label><input id="nwc" name="nwc" type="number" inputmode="decimal" step="1" value={fld(fv.nwc)} /></div>
+                  <div class="field"><label for="tax">Tax rate (%)</label><input id="tax" name="tax" type="number" inputmode="decimal" step="0.1" value={fld(fv.tax)} /><span class="hint">Federal statutory rate; no state tax</span></div>
+                </div>
+                <fieldset style="border:0;margin:1rem 0 0;padding:0">
+                  <legend class="sub-note" style="margin-bottom:0.5rem">Revenue growth, years 1 to 5 (%)</legend>
+                  <div class="fields">
+                    {[1, 2, 3, 4, 5].map((n) => (
+                      <div class="field"><label for={`g${n}`}>Year {n}</label><input id={`g${n}`} name={`g${n}`} type="number" inputmode="decimal" step="0.1" value={fld(fv[`g${n}` as "g1"])} /></div>
+                    ))}
+                  </div>
+                </fieldset>
+              </details>
+              <button type="button" id="lbo-reset" class="btn-quiet">Reset to the defaults for this company</button>
+            </form>
+            <div class="stack" aria-live="polite">
+              <div class="pane">
+                <p id="lbo-error" class="error" role="alert" hidden></p>
+                <div id="lbo-big"><Fragment set:html={x.big} /></div>
+                <div id="lbo-flags" style="margin-top: 1rem"><Fragment set:html={x.flags} /></div>
+              </div>
             <div class="pane"><h3 class="sub-h">Where the return comes from</h3><p class="sub-note">Equity invested, plus what each driver added, equals equity at exit. Dollars, millions.</p><div id="lbo-bridge"><Fragment set:html={x.bridge} /></div></div>
-            <div class="pane"><h3 class="sub-h">Debt by year</h3><p class="sub-note">Senior and subordinated debt outstanding. The figure above each column is net debt divided by EBITDA.</p>
-              <div class="legend" aria-hidden="true"><span class="y1">Senior</span><span class="y0">Subordinated</span></div>
-              <div id="lbo-debt"><Fragment set:html={x.debt} /></div></div>
+            </div>
           </div>
-        </div>
-        <div class="pane" style="margin-top: 1.25rem"><h3 class="sub-h">Projection and debt schedule</h3><div id="lbo-years" class="tbl-wrap" role="region" aria-label="Projection and debt schedule, scrolls horizontally on small screens" tabindex="0"><Fragment set:html={x.years} /></div></div>
-        <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
-          <div class="pane"><div id="sens1" class="tbl-wrap"><Fragment set:html={x.sens1} /></div></div>
-          <div class="pane"><div id="sens2" class="tbl-wrap"><Fragment set:html={x.sens2} /></div></div>
-        </div>
         <div class="pane surf3d-pane" id="lbo-3d" hidden style="margin-top: 1.25rem">
           <h3 class="sub-h">The return as a landscape</h3>
           <p class="sub-note">The same grid as the first table, wider and smoother: sponsor IRR for every entry and exit multiple around your inputs. A high ridge is where the return is large; the slope shows how fast it falls when the price paid goes up or the price at sale goes down. Drag to turn it.</p>
           <canvas class="surf3d" tabindex="0" role="img" aria-label="3D surface of the sponsor IRR by entry multiple and exit multiple."></canvas>
           <p class="surf3d-hint"><span>Drag or use the arrow keys to rotate.</span><button type="button" data-reset3d>Reset view</button></p>
         </div>
-        <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
+        </section>
+      </div>
+
+      <div class="tab-panel" id="panel-details" role="tabpanel" aria-labelledby="tab-details">
+        <section class="wrap section" aria-labelledby="details-h">
+          <div class="section-head"><h2 id="details-h">Details</h2><p>The full numbers behind the result: the deal, the five-year plan and how the return changes with price, debt and margin.</p></div>
+          <div class="cols-2" style="align-items: start">
+            <div class="pane"><h3 class="sub-h">Returns to the sponsor</h3><div id="lbo-summary"><Fragment set:html={x.summary} /></div></div>
+          <div class="pane"><h3 class="sub-h">Sources and uses</h3><div id="lbo-su" class="tbl-wrap" role="region" aria-label="Sources and uses, scrolls horizontally on small screens" tabindex="0"><Fragment set:html={x.su} /></div></div>
+          </div>
+          <div style="margin-top: 1.25rem">
+          <div class="pane"><h3 class="sub-h">Debt by year</h3><p class="sub-note">Senior and subordinated debt outstanding. The figure above each column is net debt divided by EBITDA.</p>
+              <div class="legend" aria-hidden="true"><span class="y1">Senior</span><span class="y0">Subordinated</span></div>
+              <div id="lbo-debt"><Fragment set:html={x.debt} /></div></div>
+          </div>
+        <div class="pane" style="margin-top: 1.25rem"><h3 class="sub-h">Projection and debt schedule</h3><div id="lbo-years" class="tbl-wrap" role="region" aria-label="Projection and debt schedule, scrolls horizontally on small screens" tabindex="0"><Fragment set:html={x.years} /></div></div>
+          <div class="cols-2" style="margin-top: 1.25rem; align-items: start">
+          <div class="pane"><div id="sens1" class="tbl-wrap"><Fragment set:html={x.sens1} /></div></div>
+          <div class="pane"><div id="sens2" class="tbl-wrap"><Fragment set:html={x.sens2} /></div></div>
+        </div>
+          <p class="muted" style="margin-top: 0.75rem">The outlined cell marks the current inputs. A cell reads n/a where the inputs are not valid, for example when the debt is larger than the price.</p>
+        </section>
+      </div>
+
+      <div class="tab-panel" id="panel-risk" role="tabpanel" aria-labelledby="tab-risk">
+        <section class="wrap section" aria-labelledby="risk-h">
+          <div class="section-head"><h2 id="risk-h">How sure is it</h2><p>A single return hides how much it depends on things nobody can know. These show the range and the assumption that matters most.</p></div>
+          <div class="cols-2" style="align-items: start">
           <div class="pane"><h3 class="sub-h">How uncertain is the return?</h3><p class="sub-note">3,000 simulated cases (fixed seed, so the numbers repeat). Revenue growth, the year-5 margin, the exit multiple and the senior interest rate vary around your inputs; the price and the debt multiples do not. The spreads are illustrative assumptions, not estimates from data (see Method).</p><div id="lbo-mc"><Fragment set:html={mcHtml} /></div></div>
           <div class="pane"><h3 class="sub-h">Which input matters most?</h3><p class="sub-note">One input at a time, everything else at your values. The longest bar is the input the return depends on most.</p><div id="lbo-tornado"><Fragment set:html={tnHtml} /></div></div>
-        </div>
-        <p class="muted" style="margin-top: 0.75rem">The outlined cell marks the current inputs. A cell reads n/a where the inputs are not valid, for example when the debt is larger than the price.</p>
-      </section>
+          </div>
+        </section>
+      </div>
     </div>
+
+    <div class="tab-panel" id="panel-about" role="tabpanel" aria-labelledby="tab-about">
+      <section class="wrap section" aria-labelledby="about-h">
+        <div class="section-head"><h2 id="about-h">About and method</h2><p>What this is, how it is built and what it cannot tell you. The short version: <a href="/projects/lbo-workbench/method/">the method note</a>.</p></div>
+        <div class="brief">
+          <div><h2>Who it is for</h2><p>An analyst or student who wants to see how a buyout works, not just the result: how much debt, how fast it is repaid and what drives the return.</p></div>
+          <div><h2>The problem</h2><p>Buyout returns depend on a handful of assumptions, and a single IRR hides which one matters. A good model shows the funding, the debt schedule and the sensitivities.</p></div>
+          <div><h2>What it supports</h2><p>Understanding the mechanics of an LBO and testing how fragile a return is. It is not a bid, a valuation or a view on any company.</p></div>
+        </div>
+      </section>
+    <ProjectFlow id="built" heading="How it is built" intro="The same five steps a first-pass LBO follows, each one shown on this page." steps={[
+      { title: "Starting figures", detail: "Revenue, EBITDA, depreciation and net debt for FY2025, from the company's 10-K via SEC XBRL data." },
+      { title: "Deal", detail: "You set the entry multiple and the debt. The equity cheque is whatever is left to fund the price and the fees." },
+      { title: "Five-year plan", detail: "Growth, margin, capex, working capital and tax produce the cash flow that is left after interest." },
+      { title: "Debt schedule", detail: "Mandatory repayment, then a cash sweep. Interest is charged on opening balances." },
+      { title: "Exit and return", detail: "Sell at an exit multiple, repay what is owed, and the rest is the sponsor's equity: MOIC and IRR." },
+    ]} />
 
     <section class="wrap section" id="read" aria-labelledby="read-h">
       <div class="section-head"><h2 id="read-h">How to read it</h2></div>
@@ -196,6 +226,8 @@ const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
       </section>
     </div>
 
+    </div>
+
     <footer class="wrap proj-foot"><p><a href="/projects/">All projects</a> · David Lindgreen · Frankfurt, Germany</p></footer>
   </main>
 
@@ -203,6 +235,38 @@ const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
     import { initLbo } from "../../lib/lbo/ui.ts";
     const el = document.getElementById("lbo-targets");
     if (el) initLbo(JSON.parse(el.textContent ?? "[]"));
+
+    // Tabs: without JavaScript every panel is shown one after another and the tab bar stays hidden.
+    const list = document.querySelector<HTMLElement>('[role="tablist"]');
+    if (list) {
+      const tabs = Array.from(list.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+      const panels = tabs.map((t) => document.getElementById(t.getAttribute("aria-controls")!)!);
+      const select = (i: number, focus = false) => {
+        tabs.forEach((t, k) => {
+          t.setAttribute("aria-selected", String(k === i));
+          t.tabIndex = k === i ? 0 : -1;
+          panels[k].hidden = k !== i;
+        });
+        if (focus) tabs[i].focus();
+        window.dispatchEvent(new Event("resize")); // the 3D view and charts re-measure when their panel appears
+      };
+      list.hidden = false;
+      list.parentElement!.hidden = false;
+      select(0);
+      tabs.forEach((t, i) => {
+        t.addEventListener("click", () => select(i));
+        t.addEventListener("keydown", (e) => {
+          const k = e.key;
+          const next = k === "ArrowRight" ? (i + 1) % tabs.length : k === "ArrowLeft" ? (i + tabs.length - 1) % tabs.length : k === "Home" ? 0 : k === "End" ? tabs.length - 1 : -1;
+          if (next < 0) return;
+          e.preventDefault();
+          select(next, true);
+        });
+      });
+      const hash = location.hash.replace("#", "");
+      const byHash = ["try", "details", "risk", "about"].indexOf(hash.replace("tab-", ""));
+      if (byHash > 0) select(byHash);
+    }
   </script>
   <script type="application/json" id="lbo-targets" set:html={JSON.stringify(targets)}></script>
 </Base>

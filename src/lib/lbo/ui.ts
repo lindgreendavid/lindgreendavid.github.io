@@ -24,6 +24,13 @@ export function renderLbo(i: LboInputs, r: LboResult) {
     <tr><th scope="row">Net debt / EBITDA at close → at exit</th><td class="num">${fmtX((r.senior0 + r.sub0) / i.ebitda0)} → ${exitYear.leverage === null ? "n/a" : fmtX(Math.max(0, exitYear.leverage))}</td></tr>
   </tbody></table>`;
 
+  const big = `<p class="big-line">Buy at ${fmtX(i.entryMultiple)} EBITDA, sell at ${fmtX(i.exitMultiple)}: ${money(r.sponsorEquity)} becomes ${money(r.sponsorProceeds)} in ${HOLD_YEARS} years.</p>
+  <dl class="big">
+    <div><dt>${r.fundingGap ? "Annual return, if the shortfall is funded" : "Annual return (IRR)"}</dt><dd>${fmtPct(r.irr)}</dd></div>
+    <div><dt>Money multiple</dt><dd>${r.moic.toFixed(2)}x</dd></div>
+    <div><dt>Equity cheque</dt><dd>${money(r.sponsorEquity)}</dd></div>
+  </dl>`;
+
   const su = `<table class="tbl"><caption class="sr">Sources and uses of funds at close</caption><thead><tr><th scope="col">Sources</th><th scope="col">$m</th><th scope="col">x EBITDA</th></tr></thead><tbody>
     <tr><th scope="row">Senior debt</th><td class="num">${fmtM(r.senior0)}</td><td class="num">${fmtX(i.seniorX)}</td></tr>
     <tr><th scope="row">Subordinated debt</th><td class="num">${fmtM(r.sub0)}</td><td class="num">${fmtX(i.subX)}</td></tr>
@@ -89,7 +96,7 @@ export function renderLbo(i: LboInputs, r: LboResult) {
  
 
   const flags = r.flags.length ? `<ul class="uses-list">${r.flags.map((f) => `<li><span>${esc(f)}</span></li>`).join("")}</ul>` : `<p class="muted">No warnings for these inputs. That does not mean the deal is realistic.</p>`;
-  return { summary, su, years, bridge, debt, sens1, sens2, flags };
+  return { big, summary, su, years, bridge, debt, sens1, sens2, flags };
 }
 
 
@@ -192,7 +199,7 @@ export function initLbo(targets: Target[]) {
 
   const host = document.getElementById("lbo-3d");
   const view = host ? mountSurface(host) : null;
-  const ids = ["lbo-summary", "lbo-su", "lbo-years", "lbo-bridge", "lbo-debt", "sens1", "sens2", "lbo-flags", "lbo-mc", "lbo-tornado"];
+  const ids = ["lbo-big", "lbo-summary", "lbo-su", "lbo-years", "lbo-bridge", "lbo-debt", "sens1", "sens2", "lbo-flags", "lbo-mc", "lbo-tornado"];
   const renderAll = () => {
     const i = read();
     const err = out("lbo-error");
@@ -204,6 +211,7 @@ export function initLbo(targets: Target[]) {
     }
     err.hidden = true;
     const x = renderLbo(i, runLbo(i));
+    out("lbo-big").innerHTML = x.big;
     out("lbo-summary").innerHTML = x.summary;
     out("lbo-su").innerHTML = x.su;
     out("lbo-years").innerHTML = x.years;

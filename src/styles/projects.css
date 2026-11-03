@@ -1186,3 +1186,109 @@ details.sources + details.sources {
   font-weight: 500;
   cursor: pointer;
 }
+
+/* ---- LBO page: tabs, the big result and the folded-away extra assumptions ---- */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding: 0.3rem;
+  width: fit-content;
+  max-width: 100%;
+  background: var(--paper);
+  border-radius: 999px;
+}
+.tabs[hidden],
+.tab-panel[hidden] {
+  display: none;
+}
+.tabs [role="tab"] {
+  min-height: 44px;
+  padding: 0 1.15rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease, transform 140ms var(--out);
+}
+.tabs [role="tab"][aria-selected="true"] {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+.tabs [role="tab"]:active {
+  transform: scale(0.97);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tabs [role="tab"][aria-selected="false"]:hover {
+    background: var(--tone);
+    color: var(--ink);
+  }
+}
+.big-line {
+  color: var(--ink-2);
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+.big {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem 1.5rem;
+  margin-top: 1.25rem;
+}
+.big dt {
+  color: var(--ink-3);
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+.big dd {
+  margin-top: 0.35rem;
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.big div:first-child dd {
+  color: var(--accent);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+}
+.tab-panel .section {
+  padding-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+@media (max-width: 560px) {
+  .big {
+    grid-template-columns: 1fr;
+  }
+}
+.more-fields {
+  margin-top: 0.5rem;
+}
+.more-fields > summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent);
+  font-weight: 500;
+  cursor: pointer;
+}
+.callout-more {
+  margin-top: 0.5rem;
+}
+.callout-more > summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  color: var(--accent);
+  font-weight: 500;
+  cursor: pointer;
+}
+.actions-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  margin-top: 1.5rem;
+}
