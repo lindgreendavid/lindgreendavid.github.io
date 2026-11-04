@@ -46,3 +46,15 @@ export function maSceneData(ds: Dataset) {
   const ranks = tickers.map((t) => c.results.map((b) => b.top.find((x) => x.ticker === t)?.rank ?? null));
   return { briefs: c.results.map((b) => ({ name: b.brief.name, summary: b.brief.summary })), tickers, names, ranks };
 }
+
+/** Three real example questions from the page and the route each one takes. */
+export function researchSceneData() {
+  return {
+    questions: [
+      { q: "In which jurisdiction is AstraZeneca incorporated?", route: 0, outcome: "Returns the passage from the 20-F, with a link into the filing." },
+      { q: "What was GSK's net debt including leases at the end of 2025?", route: 1, outcome: "Shows the calculation step by step from tagged figures." },
+      { q: "Should I buy GSK shares?", route: 2, outcome: "Refused, and says why: this asks for investment advice." },
+    ],
+    routes: ["Look up the passage", "Calculate", "Refuse"],
+  };
+}

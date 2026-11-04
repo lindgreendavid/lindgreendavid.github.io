@@ -194,7 +194,30 @@ function ma(host: HTMLElement, d: MaData): Apply {
   };
 }
 
-const kinds: Record<string, (host: HTMLElement, data: never) => Apply> = { lbo, credit, pharma, ma } as never;
+// ---------------------------------------------------------------- research: a question takes one of three routes
+type ResearchData = { questions: { q: string; route: number; outcome: string }[]; routes: string[] };
+function research(host: HTMLElement, d: ResearchData): Apply {
+  const card = html("div", "rs-card", host);
+  const q = html("p", "rs-q", card);
+  const chips = html("div", "rs-routes", card);
+  const route = d.routes.map((r) => html("span", "rs-chip", chips, r));
+  const out = html("p", "rs-out", card);
+  html("p", "sv-sum", host, "Three real example questions from the tool below. Nothing is written by a language model.");
+  const n = d.questions.length;
+  return (p) => {
+    const f = clamp(p, 0, 0.9999) * n;
+    const k = Math.floor(f);
+    const t = f - k; // progress within this question
+    const item = d.questions[k];
+    q.textContent = item.q.slice(0, Math.ceil(item.q.length * ease(t / 0.4))) + (t < 0.4 ? "\u258f" : "");
+    const picked = t > 0.45;
+    route.forEach((el, i) => el.classList.toggle("on", picked && i === item.route));
+    out.textContent = t > 0.7 ? item.outcome : "";
+    out.style.opacity = String(ease((t - 0.7) / 0.2));
+  };
+}
+
+const kinds: Record<string, (host: HTMLElement, data: never) => Apply> = { lbo, credit, pharma, ma, research } as never;
 
 document.querySelectorAll<HTMLElement>("[data-scene]").forEach((root) => {
   const host = root.querySelector<HTMLElement>(".scene-visual");

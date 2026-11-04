@@ -1705,3 +1705,59 @@ section[aria-label="Disclosures"] {
     font-size: 14px;
   }
 }
+
+/* ---- projects page: the cards pile up as you scroll, each one landing a little lower than the last ---- */
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .proj-list {
+    gap: 0;
+  }
+  .proj-item {
+    position: sticky;
+    top: 6rem;
+    margin-bottom: 3rem;
+    min-height: 20rem;
+  }
+  .proj-item:nth-child(2) { top: 7rem; }
+  .proj-item:nth-child(3) { top: 8rem; }
+  .proj-item:nth-child(4) { top: 9rem; }
+  .proj-item:nth-child(5) { top: 10rem; }
+}
+
+/* ---- research scene ---- */
+.rs-card {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  background: var(--tone);
+  border-radius: 20px;
+  min-height: 16rem;
+}
+.rs-q {
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-weight: 500;
+  line-height: 1.35;
+  min-height: 3.6em;
+}
+.rs-routes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.rs-chip {
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink-3);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+.rs-chip.on {
+  background: var(--accent);
+  color: var(--on-ink);
+}
+.rs-out {
+  color: var(--ink-2);
+  line-height: 1.45;
+  min-height: 2.9em;
+}

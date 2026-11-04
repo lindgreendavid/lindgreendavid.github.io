@@ -80,6 +80,7 @@ const education = roles.filter((r) => !work.includes(r) && r.role !== "Teaching 
         <h2 id="projects-h">Finance projects on public filings</h2>
         <p>Five connected tools, each drawn from real data and checked against the source. Version 1.0, each with a method note, tests and stated limits. Built with AI assistance; not independently reviewed.</p>
       </div>
+      <div class="rail" data-rail><div class="rail-stage"><div class="rail-track">
       <div class="proj-trio" data-rv data-stagger>
         <div>
           <h3>Pharma Valuation Explorer</h3>
@@ -112,6 +113,7 @@ const education = roles.filter((r) => !work.includes(r) && r.role !== "Teaching 
           <p class="links"><a href="/projects/credit-risk-screen/">Open the screen<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d={arrow} /></svg></a></p>
         </div>
       </div>
+      </div></div></div>
     </section>
 
     <div class="band band-mint">
@@ -286,4 +288,7 @@ const education = roles.filter((r) => !work.includes(r) && r.role !== "Teaching 
       </footer>
     </div>
   </main>
+  <script>
+    import "../lib/railClient";
+  </script>
 </Base>

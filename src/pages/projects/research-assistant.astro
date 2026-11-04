@@ -1,4 +1,6 @@
 ---
+import ScrollScene from "../../components/ScrollScene.astro";
+import { researchSceneData } from "../../lib/scenes.ts";
 import { seoFor } from "../../lib/seo.ts";
 const seo = seoFor("research-assistant");
 import Base from "../../layouts/Base.astro";
@@ -36,6 +38,12 @@ const ci = (r: string) => {
     <section class="wrap" aria-label="Disclosures">
       <div class="callout"><p><strong>Public documents only.</strong> The corpus is three Forms 20-F from the SEC.</p><details class="callout-more"><summary>Full disclosure</summary><p>No Sanofi or other employer material is used. This was built with AI assistance and the author is responsible for checking it. It is an educational tool, not investment advice. There is no language model in this version: it is a keyword search plus a calculator.</p></details></div>
     </section>
+
+    <ScrollScene kind="research" heading="From question to answer" steps={[
+      { title: "A question arrives", text: "Any question about the FY2025 annual reports of Novartis, AstraZeneca and GSK." },
+      { title: "It takes one of three routes", text: "A scope guard comes first: advice, forecasts and live prices are refused. Then numbers go to a calculator and everything else to a search of the filings." },
+      { title: "The answer has a source or a reason", text: "A passage with a link into the filing, a calculation with each step shown, or a refusal that says why." },
+    ]} data={researchSceneData()} skipTo="#ask" caption="Three example questions and the route each takes" />
 
     <TabBar tabs={[{ id: "try", label: "Try it" }, { id: "details", label: "Details" }, { id: "about", label: "About" }]} />
 

@@ -3,7 +3,7 @@
 import { person } from "../data/site";
 
 export const SITE = "https://lindgreendavid.com";
-export const UPDATED = "2026-11-03"; // last substantive change to the site; also the lastmod in sitemap.xml
+export const UPDATED = "2026-11-04"; // last substantive change to the site; also the lastmod in sitemap.xml
 
 const PERSON_ID = `${SITE}/#person`;
 const SITE_ID = `${SITE}/#website`;
