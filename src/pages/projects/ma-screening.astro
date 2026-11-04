@@ -1,4 +1,6 @@
 ---
+import ScrollScene from "../../components/ScrollScene.astro";
+import { maSceneData } from "../../lib/scenes.ts";
 import { seoFor } from "../../lib/seo.ts";
 const seo = seoFor("ma-screening");
 import Base from "../../layouts/Base.astro";
@@ -20,6 +22,12 @@ const n = Object.keys(data.companies).length;
 const initial = defaultOutput(data, n);
 const v = validation;
 const cmp = compareBriefs(data);
+const maScene = maSceneData(data);
+const maSteps = [
+  { title: "One list, one buyer", text: "A screen ranks the companies against what a particular buyer wants. Here, the top five for the default buyer." },
+  { title: "Change the buyer", text: "Give the same companies to a buyer who pays for growth, then to one who wants cash yield, and the order changes." },
+  { title: "What survives", text: `${cmp.inAll.length} ${cmp.inAll.length === 1 ? "company is" : "companies are"} in the top five under all three buyers. The rest of any shortlist depends on whose brief it is.` },
+];
 const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true });
 ---
 <Base {...seo}>
@@ -35,6 +43,8 @@ const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true 
     <section class="wrap" aria-label="Disclosures">
       <div class="callout"><p><strong>The buyer is hypothetical.</strong> "BuyerCo" below is invented for this exercise; it is not a real client, mandate or employer.</p><details class="callout-more"><summary>Full disclosure</summary><p>Data is public (SEC XBRL for Forms 10-K). The author works at Sanofi; no Sanofi or other employer information is used. Built with AI assistance; the author is responsible for checking it. Educational only, not investment advice.</p></details></div>
     </section>
+
+    <ScrollScene kind="ma" heading="Same companies, three buyers" steps={maSteps} data={maScene} skipTo="#screen" caption="Top five companies under three hypothetical buyer briefs" />
 
     <TabBar tabs={[{ id: "try", label: "Try it" }, { id: "details", label: "Details" }, { id: "about", label: "About" }]} />
 

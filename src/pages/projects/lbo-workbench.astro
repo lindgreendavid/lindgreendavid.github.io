@@ -1,4 +1,6 @@
 ---
+import ScrollScene from "../../components/ScrollScene.astro";
+import { lboSceneData } from "../../lib/scenes.ts";
 import { seoFor } from "../../lib/seo.ts";
 const seo = seoFor("lbo-workbench");
 import Base from "../../layouts/Base.astro";
@@ -19,6 +21,16 @@ const targets = buildTargets(data);
 const def = defaultTarget(data, targets);
 const inputs = inputsFor(def);
 const result = runLbo(inputs);
+const m = (n: number) => `$${Math.round(n).toLocaleString("en-US")}m`;
+const bn = (n: number) => `$${(n / 1000).toFixed(1)}bn`;
+const lboScene = lboSceneData(inputs, result);
+const lc0 = lboScene.cols[0];
+const lc5 = lboScene.cols[5];
+const lboSteps = [
+  { title: "Close", text: `You pay ${inputs.entryMultiple.toFixed(1)}x EBITDA. ${m(lc0.senior + lc0.sub)} of the price is borrowed (${lc0.lev.toFixed(1)}x EBITDA) and ${m(lc0.equity)} is your equity.` },
+  { title: "Five years of repayment", text: `The business pays interest and tax, then uses its cash flow to repay senior debt. Net debt falls from ${lc0.lev.toFixed(1)}x to ${Math.max(0, lc5.lev).toFixed(1)}x EBITDA.` },
+  { title: "Exit", text: `With the debt mostly gone, the equity is worth ${m(lc5.equity)} at the same multiple. Part of that is earnings growth and part is debt repaid; the bridge in the tool splits the two.` },
+];
 const x = renderLbo(inputs, result);
 const mcHtml = renderMonteCarlo(inputs);
 const tnHtml = renderTornado(inputs);
@@ -39,6 +51,8 @@ const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
     <section class="wrap" aria-label="Disclosures">
       <div class="callout"><p><strong>Hypothetical, for learning.</strong> No company here is for sale, and nothing is a bid, a price target or advice.</p><details class="callout-more"><summary>Full disclosure</summary><p>The company only supplies real starting figures from its 10-K (the same data as the <a href="/projects/ma-screening/">M&amp;A screening project</a>). The price, debt terms and operating assumptions are your inputs, not market data. The author works at Sanofi; no Sanofi or other employer information is used. Built with AI assistance; the author is responsible for checking it.</p></details></div>
     </section>
+
+    <ScrollScene kind="lbo" heading="Watch the debt come down" steps={lboSteps} data={lboScene} skipTo="#model" caption="Debt and equity at close and after each of five years" />
 
     <div class="band band-mint" id="model">
       <section class="wrap" style="padding-top: clamp(2.5rem, 6vw, 4.5rem)" aria-label="Workbench" hidden>

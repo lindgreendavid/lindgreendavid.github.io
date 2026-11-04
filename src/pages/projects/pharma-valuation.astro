@@ -1,4 +1,6 @@
 ---
+import ScrollScene from "../../components/ScrollScene.astro";
+import { pharmaSceneData } from "../../lib/scenes.ts";
 import { seoFor } from "../../lib/seo.ts";
 const seo = seoFor("pharma-valuation");
 import Base from "../../layouts/Base.astro";
@@ -72,6 +74,14 @@ const az = (y: 2023 | 2024 | 2025) => {
 
 const base = dcfInputsFor(data, SCENARIOS.base);
 const initial = renderDcf(base);
+const m = (n: number) => `$${Math.round(n).toLocaleString("en-US")}m`;
+const bn = (n: number) => `$${(n / 1000).toFixed(1)}bn`;
+const dcfScene = pharmaSceneData(initial.r);
+const dcfSteps = [
+  { title: "Five years of cash flow", text: `The model forecasts free cash flow for five years: ${bn(dcfScene.tiles[0].cash)} in year 1 to ${bn(dcfScene.tiles[4].cash)} in year 5.` },
+  { title: "Discount it", text: "A dollar in five years is worth less than a dollar today, so each year is cut by the discount rate (WACC). The figures shrink." },
+  { title: "Add the tail", text: `The company does not stop after year 5. Its value from then on is worth ${bn(dcfScene.tiles[5].pv)} today: ${Math.round(dcfScene.tvShare * 100)}% of the ${bn(dcfScene.ev)} total. That is why the long-run assumptions matter most.` },
+];
 const metricLabel: Record<string, string> = {
   revenue: "Revenue", operating_profit: "Operating profit", pretax_profit: "Profit before tax", income_tax: "Income tax", profit_continuing: "Profit for the year (continuing operations)", nci_profit: "Profit attributable to non-controlling interests",
   rnd: "Research and development expense", cfo: "Operating cash flow", capex_ppe: "Purchases of property, plant and equipment", capex_intangibles: "Purchases of intangible assets", cash: "Cash and cash equivalents",
@@ -111,6 +121,8 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
       <div class="callout"><p><strong>Public data only.</strong> Figures come from SEC filings and ECB rates. An educational model, not investment advice.</p><details class="callout-more"><summary>Full disclosure</summary><p>Figures come from the SEC's XBRL data for each company's Form 20-F and from ECB reference rates. The author works at Sanofi; Sanofi is deliberately not analysed here and no employer data is used. This was built with AI assistance and the author is responsible for checking it. It is an educational model, not investment advice.</p></details></div>
     </section>
 
+
+    <ScrollScene kind="pharma" heading="How a DCF adds up" steps={dcfSteps} data={dcfScene} skipTo="#valuation" caption="Five forecast years and the value after year 5, as shares of enterprise value" />
 
     <TabBar tabs={[{ id: "try", label: "Try it" }, { id: "details", label: "Details" }, { id: "about", label: "About" }]} />
 
