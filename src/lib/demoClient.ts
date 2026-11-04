@@ -1,6 +1,6 @@
-// Draws and drives the scroll scenes (ScrollScene.astro). Each scene builds its visual from JSON and returns a function that takes the
-// scroll progress (0 to 1) and redraws. Pinning is done with CSS sticky; GSAP's ScrollTrigger only reports the progress.
-import { ScrollTrigger } from "./motion";
+// Draws and drives the demos on the project pages (Demo.astro). Each demo builds its visual from JSON and returns a function that takes a
+// progress value (0 to 1) and redraws. The page never takes over the scroll: a demo plays once when it comes into view, and after that
+// you drive it with its own control (a slider, steps, tabs or clickable examples).
 
 type Apply = (p: number) => void;
 const NS = "http://www.w3.org/2000/svg";
@@ -160,7 +160,7 @@ type MaData = { briefs: { name: string; summary: string }[]; tickers: string[]; 
 function ma(host: HTMLElement, d: MaData): Apply {
   const rowH = 46;
   const list = html("div", "ma-list", host);
-  list.style.height = `${rowH * 8.2}px`;
+  list.style.height = `${rowH * 9.1}px`;
   const rows = d.tickers.map((t) => {
     const el = html("div", "ma-row", list);
     const rank = html("span", "ma-rank", el);
@@ -179,11 +179,13 @@ function ma(host: HTMLElement, d: MaData): Apply {
     rows.forEach(({ el, rank }, k) => {
       const r0 = d.ranks[k][i0];
       const r1 = d.ranks[k][i0 + 1];
-      const s0 = r0 ?? 7 + (k % 3) * 0.22;
-      const s1 = r1 ?? 7 + (k % 3) * 0.22;
+      // companies outside the top five wait in a tidy column below the label, so no two ever sit on top of each other
+      const below = (i: number) => 6.7 + d.ranks.slice(0, k).filter((r) => r[i] === null).length * 0.9;
+      const s0 = r0 ?? below(i0);
+      const s1 = r1 ?? below(i0 + 1);
       const slot = lerp(s0, s1, t);
       el.style.transform = `translateY(${(slot - 1) * rowH}px)`;
-      const inside = lerp(r0 ? 1 : 0.28, r1 ? 1 : 0.28, t);
+      const inside = lerp(r0 ? 1 : 0.4, r1 ? 1 : 0.4, t);
       el.style.opacity = String(inside);
       const cur = t < 0.5 ? r0 : r1;
       rank.textContent = cur ? String(cur) : "";
@@ -218,32 +220,210 @@ function research(host: HTMLElement, d: ResearchData): Apply {
 }
 
 const kinds: Record<string, (host: HTMLElement, data: never) => Apply> = { lbo, credit, pharma, ma, research } as never;
+const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, calm ? 0 : ms));
+const easeInOut = (v: number) => (v < 0.5 ? 4 * v * v * v : 1 - Math.pow(-2 * v + 2, 3) / 2);
+
+/** Moves a value from where it is to a target over a short time; a new move cancels the old one, so dragging and clicking always feel immediate. */
+function runner(onP: (p: number) => void) {
+  let id = 0;
+  let cur = 0;
+  const listeners: ((p: number) => void)[] = [onP];
+  const set = (p: number) => {
+    cur = p;
+    listeners.forEach((f) => f(p));
+  };
+  return {
+    set,
+    listen: (f: (p: number) => void) => listeners.push(f),
+    stop: () => cancelAnimationFrame(id),
+    get cur() {
+      return cur;
+    },
+    to(target: number, ms: number, shape: (v: number) => number = ease) {
+      cancelAnimationFrame(id);
+      if (calm || ms <= 0) {
+        set(target);
+        return Promise.resolve();
+      }
+      const from = cur;
+      const t0 = performance.now();
+      return new Promise<void>((resolve) => {
+        const step = (now: number) => {
+          const t = clamp((now - t0) / ms);
+          set(lerp(from, target, shape(t)));
+          if (t < 1) id = requestAnimationFrame(step);
+          else resolve();
+        };
+        id = requestAnimationFrame(step);
+      });
+    },
+  };
+}
+
+const button = (parent: Element, label: string, cls = "demo-btn") => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = cls;
+  b.textContent = label;
+  parent.appendChild(b);
+  return b;
+};
+const range = (parent: Element, label: string, min: number, max: number, step: number) => {
+  const wrap = html("label", "demo-range", parent);
+  const text = html("span", "demo-range-label", wrap, label);
+  const input = document.createElement("input");
+  input.type = "range";
+  input.min = String(min);
+  input.max = String(max);
+  input.step = String(step);
+  input.value = String(min);
+  wrap.appendChild(input);
+  const out = html("output", "demo-range-out", wrap);
+  return { input, out, text };
+};
+
+type Demo = { apply: Apply; mount: (controls: HTMLElement, run: ReturnType<typeof runner>, touched: () => void) => void; autoplay: (run: ReturnType<typeof runner>, alive: () => boolean) => Promise<void>; end: number };
+
+function demoFor(kind: string, data: never): Omit<Demo, "apply"> {
+  if (kind === "lbo") {
+    const d = data as LboData;
+    const n = d.cols.length - 1;
+    return {
+      end: 1,
+      mount(c, run, touched) {
+        const r = range(c, "Year", 0, n, 1);
+        const replay = button(c, "Replay");
+        const show = (p: number) => {
+          const y = Math.round(p * n);
+          r.input.value = String(y);
+          r.out.textContent = d.cols[y].label;
+        };
+        run.listen(show);
+        r.input.addEventListener("input", () => (touched(), void run.to(r.input.valueAsNumber / n, 380)));
+        replay.addEventListener("click", async () => (touched(), run.set(0), void (await wait(150)), void run.to(1, 4200, easeInOut)));
+        show(0);
+      },
+      async autoplay(run, alive) {
+        await wait(500);
+        if (alive()) await run.to(1, 4200, easeInOut);
+      },
+    };
+  }
+  if (kind === "credit") {
+    const d = data as CreditData;
+    const top = d.shocks[d.shocks.length - 1] * 100;
+    return {
+      end: 0.5,
+      mount(c, run, touched) {
+        const r = range(c, "Fall in EBITDA", 0, top, 5);
+        const play = button(c, "Play");
+        const show = (p: number) => {
+          const v = Math.round((p * top) / 5) * 5;
+          r.input.value = String(v);
+          r.out.textContent = `${v}%`;
+        };
+        run.listen(show);
+        r.input.addEventListener("input", () => (touched(), void run.to(r.input.valueAsNumber / top, 260)));
+        play.addEventListener("click", async () => (touched(), run.set(0), void (await wait(150)), void run.to(1, 3600, easeInOut)));
+        show(0);
+      },
+      async autoplay(run, alive) {
+        await wait(500);
+        if (alive()) await run.to(0.5, 3000, easeInOut);
+      },
+    };
+  }
+  if (kind === "pharma") {
+    const targets = [0.3, 0.62, 1];
+    const labels = ["Cash flow", "Discounted", "Plus the tail"];
+    return {
+      end: 1,
+      mount(c, run, touched) {
+        const group = html("div", "demo-seg", c);
+        const bs = labels.map((l) => button(group, l, "demo-seg-btn"));
+        const mark = (p: number) => bs.forEach((b, i) => b.setAttribute("aria-pressed", String(Math.abs(p - targets[i]) < 0.06)));
+        run.listen(mark);
+        bs.forEach((b, i) => b.addEventListener("click", () => (touched(), void run.to(targets[i], 850))));
+        mark(0);
+      },
+      async autoplay(run, alive) {
+        for (const t of targets) {
+          await wait(450);
+          if (!alive()) return;
+          await run.to(t, t === 1 ? 1500 : 1000);
+        }
+      },
+    };
+  }
+  if (kind === "ma") {
+    const d = data as MaData;
+    const n = d.briefs.length - 1;
+    return {
+      end: 1,
+      mount(c, run, touched) {
+        const group = html("div", "demo-seg", c);
+        const bs = d.briefs.map((b) => button(group, b.name.split(" ")[0], "demo-seg-btn"));
+        const mark = (p: number) => bs.forEach((b, i) => b.setAttribute("aria-pressed", String(Math.abs(p - i / n) < 0.2)));
+        run.listen(mark);
+        bs.forEach((b, i) => b.addEventListener("click", () => (touched(), void run.to(i / n, 800))));
+        mark(0);
+      },
+      async autoplay(run, alive) {
+        for (let i = 1; i <= n; i++) {
+          await wait(1100);
+          if (!alive()) return;
+          await run.to(i / n, 800);
+        }
+      },
+    };
+  }
+  const d = data as ResearchData;
+  const n = d.questions.length;
+  const span = 2600;
+  return {
+    end: 0.31,
+    mount(c, run, touched) {
+      const list = html("div", "demo-picks", c);
+      const bs = d.questions.map((q) => button(list, q.q, "demo-pick"));
+      const mark = (p: number) => bs.forEach((b, i) => b.setAttribute("aria-pressed", String(Math.floor(clamp(p, 0, 0.9999) * n) === i)));
+      run.listen(mark);
+      bs.forEach((b, i) => b.addEventListener("click", async () => (touched(), run.set(i / n), void (await run.to((i + 1) / n - 0.001, span, (v) => v)))));
+      mark(0);
+    },
+    async autoplay(run, alive) {
+      await wait(500);
+      if (alive()) await run.to(1 / n - 0.001, span, (v) => v);
+    },
+  };
+}
 
 document.querySelectorAll<HTMLElement>("[data-scene]").forEach((root) => {
   const host = root.querySelector<HTMLElement>(".scene-visual");
   const json = root.querySelector('script[type="application/json"]');
-  const build = kinds[root.dataset.scene ?? ""];
+  const kind = root.dataset.scene ?? "";
+  const build = kinds[kind];
   if (!host || !json || !build) return;
-  const apply = build(host, JSON.parse(json.textContent ?? "{}") as never);
-  const steps = Array.from(root.querySelectorAll<HTMLElement>(".scene-step"));
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    apply(1);
+  const data = JSON.parse(json.textContent ?? "{}") as never;
+  const apply = build(host, data);
+  const demo = demoFor(kind, data);
+  const controls = html("div", "demo-controls", host);
+  let touched = false;
+  const run = runner((p) => apply(p));
+  demo.mount(controls, run, () => (touched = true, run.stop()));
+  run.set(0);
+  if (calm) {
+    run.set(demo.end);
     return;
   }
-  root.classList.add("scene-live");
-  const n = steps.length;
-  const update = (p: number) => {
-    apply(p);
-    steps.forEach((el, i) => {
-      const d = p * n - i;
-      const enter = i === 0 ? 1 : ease((d + 0.1) / 0.3);
-      const exit = i === n - 1 ? 1 : ease((1 - d) / 0.2);
-      const a = Math.min(enter, exit);
-      el.style.opacity = String(a);
-      el.style.transform = `translate3d(0, ${(1 - enter) * 40 - (1 - exit) * 30}px, 0)`;
-    });
-  };
-  update(0);
-  ScrollTrigger.create({ trigger: root, start: "top top", end: "bottom bottom", onUpdate: (s) => update(s.progress) });
-  document.fonts?.ready.then(() => ScrollTrigger.refresh());
+  // The first time it is on screen it plays by itself once; after that it is yours to drive.
+  const io = new IntersectionObserver(
+    (entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      io.disconnect();
+      void demo.autoplay(run, () => !touched);
+    },
+    { threshold: 0.55 },
+  );
+  io.observe(host);
 });

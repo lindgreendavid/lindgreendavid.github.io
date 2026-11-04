@@ -1272,13 +1272,6 @@ h2.big,
 }
 
 /* ---- scroll story: a pinned 3D scene with four chapters (Story.astro). Plain list without JavaScript, WebGL or with reduced motion. ---- */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-html.lenis {
-  scroll-behavior: auto;
-}
 .story-stage {
   position: relative;
   overflow: hidden;
@@ -1522,27 +1515,4 @@ html:not(.js) .more-foot button {
 /* a section that receives focus from a link (skip link, anchor) needs no ring of its own */
 [tabindex="-1"]:focus {
   outline: none;
-}
-
-/* ---- horizontal rail on the home page (railClient.ts): pinned on wide screens, a normal grid elsewhere ---- */
-.rail-live .rail-stage {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-.rail-live .rail-track {
-  width: max-content;
-  padding-left: max(var(--gutter, 48px), calc((100vw - 1120px) / 2));
-  padding-right: max(var(--gutter, 48px), calc((100vw - 1120px) / 2));
-  will-change: transform;
-}
-.rail-live .proj-trio {
-  display: flex;
-  gap: 4rem;
-}
-.rail-live .proj-trio > div {
-  flex: 0 0 clamp(20rem, 30vw, 27rem);
 }

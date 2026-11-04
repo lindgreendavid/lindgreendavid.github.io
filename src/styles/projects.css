@@ -1445,12 +1445,9 @@ section[aria-label="Disclosures"] {
   }
 }
 
-/* ---- scroll scenes (ScrollScene.astro): a pinned visual that changes with the scroll, next to short steps ---- */
-.scene {
-  position: relative;
-}
+/* ---- demos (Demo.astro): a visual with its own control, and three short steps beside it ---- */
 .scene-stage {
-  padding: clamp(3rem, 8vw, 6rem) 0;
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
 }
 .scene-grid {
   display: grid;
@@ -1468,25 +1465,17 @@ section[aria-label="Disclosures"] {
   margin-top: 1.5rem;
   list-style: none;
   display: grid;
-  gap: 1.25rem;
+  gap: 1.1rem;
 }
 .scene-step h3 {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 600;
 }
 .scene-step p {
-  margin-top: 0.35rem;
-  max-width: 34ch;
+  margin-top: 0.3rem;
+  max-width: 36ch;
   color: var(--ink-2);
   line-height: 1.5;
-}
-.scene-skip {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  margin-top: 1rem;
-  color: var(--accent);
-  font-weight: 500;
 }
 .scene-visual {
   min-width: 0;
@@ -1494,45 +1483,96 @@ section[aria-label="Disclosures"] {
   background: var(--paper);
   border-radius: 28px;
 }
-.scene-live {
-  height: var(--scene-h, 260svh);
-}
-.scene-live .scene-stage {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  padding: 0;
-  display: grid;
-  align-items: center;
-}
-.scene-live .scene-steps {
-  position: relative;
-  display: block;
-  min-height: 11rem;
-}
-.scene-live .scene-step {
-  position: absolute;
-  inset: 0 auto auto 0;
-  opacity: 0;
-  will-change: transform, opacity;
-}
 @media (max-width: 800px) {
   .scene-grid {
     grid-template-columns: 1fr;
   }
-  .scene-live .scene-stage {
-    align-items: start;
-    padding-top: 4.5rem;
-  }
-  .scene-live .scene-visual {
+  .scene-visual {
     order: -1;
   }
-  .scene-live .scene-copy h2 {
-    font-size: 1.6rem;
-  }
-  .scene-live .scene-steps {
-    min-height: 8.5rem;
-    margin-top: 0.75rem;
+}
+.demo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  margin-top: 1rem;
+}
+.demo-range {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1 1 14rem;
+  min-width: 0;
+  color: var(--ink-2);
+  font-size: 0.95rem;
+}
+.demo-range input {
+  flex: 1;
+  min-width: 6rem;
+  accent-color: var(--accent);
+}
+.demo-range-out {
+  min-width: 3.6rem;
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.demo-btn,
+.demo-seg-btn,
+.demo-pick {
+  min-height: 44px;
+  padding: 0 1.1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--tone);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 140ms ease, color 140ms ease, transform 140ms var(--out);
+}
+.demo-btn:active,
+.demo-seg-btn:active,
+.demo-pick:active {
+  transform: scale(0.97);
+}
+.demo-seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.3rem;
+  background: var(--tone);
+  border-radius: 999px;
+}
+.demo-seg-btn {
+  background: transparent;
+}
+.demo-seg-btn[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+.demo-picks {
+  display: grid;
+  gap: 0.4rem;
+  width: 100%;
+}
+.demo-pick {
+  padding: 0.55rem 1rem;
+  text-align: left;
+  background: var(--tone);
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+.demo-pick[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--on-ink);
+}
+@media (hover: hover) and (pointer: fine) {
+  .demo-btn:hover,
+  .demo-pick[aria-pressed="false"]:hover,
+  .demo-seg-btn[aria-pressed="false"]:hover {
+    background: var(--panel);
   }
 }
 /* shared visual parts */
@@ -1692,7 +1732,7 @@ section[aria-label="Disclosures"] {
 .ma-out {
   position: absolute;
   left: 1rem;
-  top: calc(5.4 * 46px);
+  top: calc(5.2 * 46px);
   color: var(--ink-3);
   font-size: 0.8rem;
 }
@@ -1704,23 +1744,6 @@ section[aria-label="Disclosures"] {
   .sv-small {
     font-size: 14px;
   }
-}
-
-/* ---- projects page: the cards pile up as you scroll, each one landing a little lower than the last ---- */
-@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
-  .proj-list {
-    gap: 0;
-  }
-  .proj-item {
-    position: sticky;
-    top: 6rem;
-    margin-bottom: 3rem;
-    min-height: 20rem;
-  }
-  .proj-item:nth-child(2) { top: 7rem; }
-  .proj-item:nth-child(3) { top: 8rem; }
-  .proj-item:nth-child(4) { top: 9rem; }
-  .proj-item:nth-child(5) { top: 10rem; }
 }
 
 /* ---- research scene ---- */

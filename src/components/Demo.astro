@@ -1,19 +1,17 @@
 ---
-// A pinned scroll scene for a project page: the visual on one side changes as you scroll while short steps explain what is happening.
-// The visual is drawn in the browser by sceneClient.ts from the data below; without JavaScript, or with reduced motion, the steps read as plain text
-// and the visual shows its finished state. The numbers come from the same model code as the tool further down the page.
+// A demo for a project page: a visual that plays once when it comes into view and then has its own control (slider, steps, tabs or clickable
+// examples), with three short steps of explanation beside it. The page never takes over the scroll. The visual is drawn in the browser by
+// demoClient.ts from the data below; without JavaScript the steps read as plain text. The numbers come from the same model code as the tool below.
 interface Props {
   kind: "lbo" | "credit" | "pharma" | "ma" | "research";
   heading: string;
   steps: { title: string; text: string }[];
   data: unknown;
-  skipTo: string;
   caption?: string;
-  height?: string;
 }
-const { kind, heading, steps, data, skipTo, caption, height = "260svh" } = Astro.props;
+const { kind, heading, steps, data, caption } = Astro.props;
 ---
-<section class="scene" data-scene={kind} aria-labelledby={`scene-${kind}-h`} style={`--scene-h:${height}`}>
+<section class="scene" data-scene={kind} aria-labelledby={`scene-${kind}-h`}>
   <div class="scene-stage">
     <div class="wrap scene-grid">
       <div class="scene-copy">
@@ -26,13 +24,12 @@ const { kind, heading, steps, data, skipTo, caption, height = "260svh" } = Astro
             </li>
           ))}
         </ol>
-        <a class="scene-skip" href={skipTo}>Skip to the tool</a>
       </div>
       <figure class="scene-visual" role="img" aria-label={caption ?? heading}></figure>
     </div>
   </div>
   <script type="application/json" set:html={JSON.stringify(data)}></script>
   <script>
-    import "../lib/sceneClient";
+    import "../lib/demoClient";
   </script>
 </section>

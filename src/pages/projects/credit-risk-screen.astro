@@ -1,5 +1,5 @@
 ---
-import ScrollScene from "../../components/ScrollScene.astro";
+import Demo from "../../components/Demo.astro";
 import { creditSceneData } from "../../lib/scenes.ts";
 import { seoFor } from "../../lib/seo.ts";
 const seo = seoFor("credit-risk-screen");
@@ -55,7 +55,7 @@ const v = validation.totals;
       <div class="callout"><p><strong>This is not a credit rating and not a view on any company.</strong> The bands describe how reported ratios score under thresholds the author chose. Educational only.</p><details class="callout-more"><summary>Full disclosure</summary><p>A company can land in a high-strain band because of a one-off year, a data gap or a business model the ratios fit badly. Always read the data flags. Data is public (SEC XBRL, Forms 10-K, FY2022 to FY2025). The author works at Sanofi; no Sanofi or other employer information is used. Built with AI assistance; the author is responsible for checking it.</p></details></div>
     </section>
 
-    <ScrollScene kind="credit" heading="Stress the earnings" steps={credSteps} data={credScene} skipTo="#screen" caption="Credit score of each company as EBITDA falls from 0 to 60 percent" />
+    <Demo kind="credit" heading="Stress the earnings" steps={credSteps} data={credScene} caption="Credit score of each company as EBITDA falls from 0 to 60 percent" />
 
     <div class="band band-mint" id="screen">
       <TabBar tabs={[{ id: "try", label: "Try it" }, { id: "details", label: "Companies" }, { id: "risk", label: "How robust is it" }, { id: "about", label: "About" }]} />

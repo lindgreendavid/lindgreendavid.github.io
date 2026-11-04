@@ -1,5 +1,5 @@
 ---
-import ScrollScene from "../../components/ScrollScene.astro";
+import Demo from "../../components/Demo.astro";
 import { maSceneData } from "../../lib/scenes.ts";
 import { seoFor } from "../../lib/seo.ts";
 const seo = seoFor("ma-screening");
@@ -44,7 +44,7 @@ const cmpAdj = compareBriefs(data, { includeRoyalty: true, excludeOneOffs: true 
       <div class="callout"><p><strong>The buyer is hypothetical.</strong> "BuyerCo" below is invented for this exercise; it is not a real client, mandate or employer.</p><details class="callout-more"><summary>Full disclosure</summary><p>Data is public (SEC XBRL for Forms 10-K). The author works at Sanofi; no Sanofi or other employer information is used. Built with AI assistance; the author is responsible for checking it. Educational only, not investment advice.</p></details></div>
     </section>
 
-    <ScrollScene kind="ma" heading="Same companies, three buyers" steps={maSteps} data={maScene} skipTo="#screen" caption="Top five companies under three hypothetical buyer briefs" />
+    <Demo kind="ma" heading="Same companies, three buyers" steps={maSteps} data={maScene} caption="Top five companies under three hypothetical buyer briefs" />
 
     <TabBar tabs={[{ id: "try", label: "Try it" }, { id: "details", label: "Details" }, { id: "about", label: "About" }]} />
 

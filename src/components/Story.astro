@@ -72,7 +72,7 @@ const chapters = [
     surface.show();
 
     // Smoothed follow of the scroll position, so the scene eases rather than snapping with the wheel.
-    const follow = gsap.quickTo(state, "p", { duration: 0.25, ease: "power2.out", onUpdate: () => apply(state.p) }); // Lenis already smooths the scroll, so this only softens it a little
+    const follow = gsap.quickTo(state, "p", { duration: 0.25, ease: "power2.out", onUpdate: () => apply(state.p) }); // softens the scroll a little
     ScrollTrigger.create({ trigger: root, start: "top top", end: "bottom bottom", onUpdate: (self) => follow(self.progress) });
     document.fonts?.ready.then(() => ScrollTrigger.refresh());
   };

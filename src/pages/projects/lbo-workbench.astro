@@ -1,5 +1,5 @@
 ---
-import ScrollScene from "../../components/ScrollScene.astro";
+import Demo from "../../components/Demo.astro";
 import { lboSceneData } from "../../lib/scenes.ts";
 import { seoFor } from "../../lib/seo.ts";
 const seo = seoFor("lbo-workbench");
@@ -52,7 +52,7 @@ const fmtM = (n: number) => Math.round(n).toLocaleString("en-US");
       <div class="callout"><p><strong>Hypothetical, for learning.</strong> No company here is for sale, and nothing is a bid, a price target or advice.</p><details class="callout-more"><summary>Full disclosure</summary><p>The company only supplies real starting figures from its 10-K (the same data as the <a href="/projects/ma-screening/">M&amp;A screening project</a>). The price, debt terms and operating assumptions are your inputs, not market data. The author works at Sanofi; no Sanofi or other employer information is used. Built with AI assistance; the author is responsible for checking it.</p></details></div>
     </section>
 
-    <ScrollScene kind="lbo" heading="Watch the debt come down" steps={lboSteps} data={lboScene} skipTo="#model" caption="Debt and equity at close and after each of five years" />
+    <Demo kind="lbo" heading="Watch the debt come down" steps={lboSteps} data={lboScene} caption="Debt and equity at close and after each of five years" />
 
     <div class="band band-mint" id="model">
       <section class="wrap" style="padding-top: clamp(2.5rem, 6vw, 4.5rem)" aria-label="Workbench" hidden>

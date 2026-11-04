@@ -1,5 +1,5 @@
 ---
-import ScrollScene from "../../components/ScrollScene.astro";
+import Demo from "../../components/Demo.astro";
 import { pharmaSceneData } from "../../lib/scenes.ts";
 import { seoFor } from "../../lib/seo.ts";
 const seo = seoFor("pharma-valuation");
@@ -122,7 +122,7 @@ const pc = (x: number, d = 2) => `${(x * 100).toFixed(d)}%`;
     </section>
 
 
-    <ScrollScene kind="pharma" heading="How a DCF adds up" steps={dcfSteps} data={dcfScene} skipTo="#valuation" caption="Five forecast years and the value after year 5, as shares of enterprise value" />
+    <Demo kind="pharma" heading="How a DCF adds up" steps={dcfSteps} data={dcfScene} caption="Five forecast years and the value after year 5, as shares of enterprise value" />
 
     <TabBar tabs={[{ id: "try", label: "Try it" }, { id: "details", label: "Details" }, { id: "about", label: "About" }]} />
 

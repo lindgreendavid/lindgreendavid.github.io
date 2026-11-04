@@ -1,32 +1,24 @@
-// Site-wide motion built on GSAP: smooth scrolling (Lenis), headline word reveals, number count-ups and the footer name rising into place.
+// Site-wide motion built on GSAP: headline word reveals, number count-ups and the footer name rising into place.
 // Everything is an enhancement: with reduced motion or without JavaScript the page is complete and static.
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
 
 export { gsap, ScrollTrigger };
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 gsap.registerPlugin(ScrollTrigger);
 
-/** One smooth-scroll instance for the page, driven by GSAP's clock so pinned scenes and the scroll never disagree. */
-export const lenis: Lenis | null = reduced ? null : new Lenis({ lerp: 0.1 });
-if (lenis) {
-  lenis.on("scroll", ScrollTrigger.update);
-  gsap.ticker.add((t) => lenis.raf(t * 1000));
-  gsap.ticker.lagSmoothing(0);
-  document.addEventListener("click", (e) => {
-    const a = (e.target as Element | null)?.closest<HTMLAnchorElement>('a[href*="#"]');
-    if (!a || a.origin !== location.origin || a.pathname !== location.pathname || a.hash.length < 2) return;
-    const target = document.querySelector(a.hash);
-    if (!target) return;
-    e.preventDefault();
-    lenis.scrollTo(target as HTMLElement, { offset: -72 });
-    // Move keyboard focus to the target as a normal anchor would, so the next Tab continues from there (skip links depend on it).
-    const el = target as HTMLElement;
-    if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
-    el.focus({ preventScroll: true });
-  });
-}
+// Links to a place on the same page scroll with the browser's own smooth scrolling (set in CSS) and still move focus, so skip links keep working.
+document.addEventListener("click", (e) => {
+  const a = (e.target as Element | null)?.closest<HTMLAnchorElement>('a[href*="#"]');
+  if (!a || a.origin !== location.origin || a.pathname !== location.pathname || a.hash.length < 2) return;
+  const target = document.querySelector<HTMLElement>(a.hash);
+  if (!target) return;
+  e.preventDefault();
+  target.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+  history.replaceState(null, "", a.hash);
+  if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+  target.focus({ preventScroll: true });
+});
 
 /** Splits a plain-text heading into masked words, so each can rise into place. The full text stays available to screen readers. */
 function words(el: HTMLElement): HTMLElement[] {
